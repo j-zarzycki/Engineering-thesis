@@ -10,13 +10,14 @@ CORS(app)
 
 
 @app.route("/noContent", methods=['POST'])
-def noContent():
+def no_content():
     res = request.get_json()
     registered_date = parser.parse(res['registered_date'])
     activity_name = res['activity_name']
 
     svc.create_activity(registered_date, activity_name)
     return jsonify({'res': 'created entry'})
+
 
 app.run(port=5000)
 
