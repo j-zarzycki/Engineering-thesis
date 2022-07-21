@@ -99,9 +99,22 @@ def toggle_favorite(activity_name):
     try:
         favorite = Favorites.objects().filter(activity_name=activity_name).first()
         favorite.delete()
+
         return f'{activity_name} has been removed from favorites'
     except:
         favorite = Favorites()
         favorite.activity_name = activity_name
         favorite.save()
+
         return f'{activity_name} has been added to favorites'
+
+
+def get_favorites():
+    favorites = []
+    for entry in Favorites.objects:
+        favorites.append(entry.activity_name)
+
+    if len(favorites) == 0:
+        return 'You have no favorite activities'
+    else:
+        return favorites

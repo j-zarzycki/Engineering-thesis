@@ -59,6 +59,7 @@ def get_month():
 
 @app.route("/getOne", methods=['GET'])
 def get_one():
+
     month = request.args.get('month')
     year = request.args.get('year')
     day = request.args.get('day')
@@ -71,10 +72,19 @@ def get_one():
 
     if check_content:
         name, date, content = svc.get_one(month, year, day, hour, minute, second, name, check_content)
+
         return jsonify({'name': name, 'date': date, 'content': content})
     else:
         name, date = svc.get_one(month, year, day, hour, minute, second, name, check_content)
+
         return jsonify(({'name': name, 'date': date}))
+
+
+@app.route("/getFavs", methods=['GET'])
+def get_favorites():
+    favs = svc.get_favorites()
+
+    return jsonify({'favorites': favs})
 
 
 app.run(port=5000)
