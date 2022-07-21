@@ -34,18 +34,38 @@ def has_content():
 
 @app.route("/getAll", methods=['GET'])
 def get_all():
-    names, dates = svc.get_all()
+    names, dates, check_content = svc.get_all()
 
-    return jsonify({'names': names, 'dates': dates})
+    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
 
 
 @app.route("/getMonth", methods=['GET'])
 def get_month():
     month = request.args.get('month')
     year = request.args.get('year')
-    names, dates = svc.get_month(month, year)
+    names, dates, check_content = svc.get_month(month, year)
 
-    return jsonify({'names': names, 'dates': dates})
+    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
+
+
+@app.route("/getOne", methods=['GET'])
+def get_one():
+    month = request.args.get('month')
+    year = request.args.get('year')
+    day = request.args.get('day')
+    hour = request.args.get('hour')
+    minute = request.args.get('minute')
+    second = request.args.get('second')
+    name = request.args.get('name')
+
+    check_content = svc.check_content(month,year,day,hour,minute,second,name)
+
+    if check_content:
+        name, date, content = svc.get_one(month, year, day, hour, minute, second, name, check_content)
+        return jsonify({'name': name, 'date': date, 'content': content})
+    else:
+        name, date = svc.get_one(month, year, day, hour, minute, second, name, check_content)
+        return jsonify(({'name': name, 'date': date}))
 
 
 app.run(port=5000)

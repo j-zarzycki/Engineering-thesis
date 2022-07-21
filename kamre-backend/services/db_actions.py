@@ -32,17 +32,23 @@ def create_activity_content(registered_date, activity_name, has_content, activit
 def get_all():
     activity_names = []
     activity_dates = []
+    activity_content = []
 
     for entry in Activity.objects:
         activity_names.append(entry.activity_name)
         activity_dates.append(entry.registered_date)
+        try:
+            activity_content.append(entry.has_content)
+        except:
+            activity_content.append(False)
 
-    return activity_names, activity_dates
+    return activity_names, activity_dates, activity_content
 
 
 def get_month(month,year):
     activity_names = []
     activity_dates = []
+    activity_content = []
 
     start = parser.parse(f'{year}-{month}-1 00:00:00')
     end_of_month = months_dict[int(month)]
@@ -56,7 +62,33 @@ def get_month(month,year):
     for entry in activity:
         activity_names.append(entry.activity_name)
         activity_dates.append(entry.registered_date)
+        try:
+            activity_content.append(entry.has_content)
+        except:
+            activity_content.append(False)
 
-    return activity_names, activity_dates
+    return activity_names, activity_dates, activity_content
 
 
+def check_content(month, year, day, hour, minute, second, name):
+    start = parser.parse(f'{year}-{month}-{day} {hour}:{minute}:{second}')
+    end = parser.parse(f'{year}-{month}-{day} {hour}:{minute}:{second}.999')
+
+    activity = Activity.objects().filter(registered_date__gte=start, registered_date__lte=end, activity_name=name).first()
+    try:
+        has_content = activity.has_content
+    except:
+        has_content = False
+
+    return has_content
+
+
+def get_one(month, year, day, hour, minute, second, name, has_content):
+    start = parser.parse(f'{year}-{month}-{day} {hour}:{minute}:{second}')
+    end = parser.parse(f'{year}-{month}-{day} {hour}:{minute}:{second}.999')
+
+    activity = Activity.objects().filter(registered_date__gte=start, registered_date__lte=end, activity_name=name).first()
+    if has_content:
+        return activity.activity_name, activity.registered_date, activity.activity_content
+    else:
+        return activity.activity_name, activity.registered_date
