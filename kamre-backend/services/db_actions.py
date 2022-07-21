@@ -118,3 +118,24 @@ def get_favorites():
         return 'You have no favorite activities'
     else:
         return favorites
+
+
+def get_day(month, year, day):
+    activity_names = []
+    activity_dates = []
+    has_content = []
+
+    start = parser.parse(f'{year}-{month}-{day} 00:00:00')
+    end = parser.parse(f'{year}-{month}-{day} 23:59:59.999')
+
+    activity = Activity.objects().filter(registered_date__gte=start, registered_date__lte=end)
+
+    for entry in activity:
+        activity_names.append(entry.activity_name)
+        activity_dates.append(entry.registered_date)
+        try:
+            has_content.append(entry.has_content)
+        except:
+            has_content.append(False)
+
+    return activity_names, activity_dates, has_content

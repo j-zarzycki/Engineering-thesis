@@ -87,5 +87,17 @@ def get_favorites():
     return jsonify({'favorites': favs})
 
 
+@app.route("/getDay", methods=['GET'])
+def get_day():
+
+    month = request.args.get('month')
+    year = request.args.get('year')
+    day = request.args.get('day')
+
+    names, dates, check_content = svc.get_day(month, year, day)
+
+    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
+
+
 app.run(port=5000)
 
