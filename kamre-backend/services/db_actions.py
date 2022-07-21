@@ -1,4 +1,5 @@
 from data.Activity import Activity
+from data.Favorites import Favorites
 from dateutil import parser
 from data.months_dict import months_dict
 
@@ -92,3 +93,15 @@ def get_one(month, year, day, hour, minute, second, name, has_content):
         return activity.activity_name, activity.registered_date, activity.activity_content
     else:
         return activity.activity_name, activity.registered_date
+
+
+def toggle_favorite(activity_name):
+    try:
+        favorite = Favorites.objects().filter(activity_name=activity_name).first()
+        favorite.delete()
+        return f'{activity_name} has been removed from favorites'
+    except:
+        favorite = Favorites()
+        favorite.activity_name = activity_name
+        favorite.save()
+        return f'{activity_name} has been added to favorites'

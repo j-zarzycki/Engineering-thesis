@@ -32,6 +32,15 @@ def has_content():
     return jsonify({'res': 'created entry with content'})
 
 
+@app.route("/toggleFavorite", methods=['POST'])
+def toggle_favorite():
+    res = request.get_json()
+    activity_name = res['activity_name']
+    response = svc.toggle_favorite(activity_name)
+
+    return jsonify({'res': response})
+
+
 @app.route("/getAll", methods=['GET'])
 def get_all():
     names, dates, check_content = svc.get_all()
