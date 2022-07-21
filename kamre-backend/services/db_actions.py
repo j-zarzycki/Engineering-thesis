@@ -17,6 +17,18 @@ def create_activity(registered_date, activity_name):
     return activity
 
 
+def create_activity_content(registered_date, activity_name, has_content, activity_content):
+    activity = Activity()
+
+    activity.registered_date = registered_date
+    activity.activity_name = activity_name
+    activity.has_content = has_content
+    activity.activity_content = activity_content
+
+    activity.save()
+    return activity
+
+
 def get_all():
     activity_names = []
     activity_dates = []
@@ -46,3 +58,5 @@ def get_month(month,year):
         activity_dates.append(entry.registered_date)
 
     return activity_names, activity_dates
+
+

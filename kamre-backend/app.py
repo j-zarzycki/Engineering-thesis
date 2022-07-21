@@ -19,6 +19,19 @@ def noContent():
     return jsonify({'res': 'created entry'})
 
 
+@app.route("/hasContent", methods=['POST'])
+def has_content():
+    res = request.get_json()
+    registered_date = parser.parse(res['registered_date'])
+    activity_name = res['activity_name']
+    has_content = True
+    activity_content = res['activity_content']
+
+    svc.create_activity_content(registered_date,activity_name,has_content,activity_content)
+
+    return jsonify({'res': 'created entry with content'})
+
+
 @app.route("/getAll", methods=['GET'])
 def get_all():
     names, dates = svc.get_all()
