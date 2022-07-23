@@ -3,6 +3,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Walking.css';
+import BackButton from "../components/BackButton";
 
 const Walking = () => {
     return (
@@ -13,12 +14,9 @@ const Walking = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <IonHeader collapse="condense">
-            <IonToolbar>
-              <IonTitle size="large">Tab 1</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <ExploreContainer name="Tab 1 page" />
+            <div>
+                <BackButton defaultHref ="/home"/>
+            </div>
         </IonContent>
       </IonPage>
     );
