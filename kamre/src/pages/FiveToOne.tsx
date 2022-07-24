@@ -4,8 +4,20 @@ import './FiveToOne.css';
 import BackButton from "../components/BackButton";
 import Header from "../components/Header";
 import SaveButton from "../components/SaveButton";
+import fiveToOneService from '../services/fiveToOne.service';
 
 const FiveToOne: React.FC = () => {
+
+    const createFiveToOne = () => {
+
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ':' + time;
+
+        fiveToOneService.CreateFiveToOne(dateTime, "FiveToOne").then(res => (console.log("działa ten post"))).catch(err => console.log(err))
+    }
+
     return (
         <IonPage>
             <IonContent fullscreen class={"ion-padding-horizontal"}>
@@ -34,7 +46,7 @@ const FiveToOne: React.FC = () => {
                     </IonList>
                 </div>
                 <div className="ion-text-center" >
-                    <SaveButton text={"Gotowe"} type={"submit"}/>
+                    <SaveButton text={"Gotowe"} type={"submit"} onClick={createFiveToOne} />
                 </div>
             </IonContent>
         </IonPage>
