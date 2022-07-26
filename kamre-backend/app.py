@@ -6,7 +6,7 @@ import services.db_actions as svc
 
 
 app = flask_connection()
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 @app.route("/noContent", methods=['POST'])
