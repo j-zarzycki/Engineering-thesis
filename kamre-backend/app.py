@@ -13,7 +13,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route("/noContent", methods=['POST'])
 def noContent():
     res = request.get_json()
-    registered_date = parser.parse(res['registered_date'])
+    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
 
     svc.create_activity(registered_date, activity_name)
@@ -23,7 +23,7 @@ def noContent():
 @app.route("/hasContent", methods=['POST'])
 def has_content():
     res = request.get_json()
-    registered_date = parser.parse(res['registered_date'])
+    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
     has_content = True
     activity_content = res['activity_content']
