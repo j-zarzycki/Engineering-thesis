@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from services.flask_connection import flask_connection
 from flask_cors import CORS
+import cryptography
 from dateutil import parser
 import services.db_actions as svc
 
@@ -99,5 +100,5 @@ def get_day():
     return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
 
 
-app.run(port=5000)
+app.run(port=5000, ssl_context="adhoc")
 
