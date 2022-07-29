@@ -1,13 +1,15 @@
+/* eslint-disable */
+import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import ExploreContainer from '../../components/ExploreContainer/ExploreContainer';
+import './Gratitude.css';
 
-const Tab1: React.FC = () => {
+const Gratitude: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
+          <IonTitle class="ion-title">Wdzięczność</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -20,6 +22,6 @@ const Tab1: React.FC = () => {
       </IonContent>
     </IonPage>
   );
-};
+}
 
-export default Tab1;
+export default Gratitude;

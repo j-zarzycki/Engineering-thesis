@@ -1,5 +1,4 @@
-/* eslint-disable */
-
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -9,22 +8,10 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  IonContent, 
-  IonHeader, 
-  IonPage, 
-  IonTitle, 
-  IonToolbar, 
-  IonCard, 
-  IonCardHeader, 
-  IonCardSubtitle, 
-  IonCardTitle, 
-  IonCardContent, 
-  IonItem,
-  IonButton,
-  setupIonicReact
+  setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { triangle } from 'ionicons/icons';
 import Breathing from './pages/Breathing';
 import Gratitude from './pages/Gratitude';
 import Walking from './pages/Walking';

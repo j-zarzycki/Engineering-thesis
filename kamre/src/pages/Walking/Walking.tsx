@@ -1,15 +1,13 @@
 /* eslint-disable */
 
-import {IonContent, IonItem, IonLabel, IonList, IonPage} from '@ionic/react';
+import { IonContent, IonItem, IonLabel, IonList, IonPage } from '@ionic/react';
 import './Walking.css';
-import BackButton from "../components/BackButton";
-import SaveButton from "../components/SaveButton";
-import Header from "../components/Header";
-import walkingService from "../services/walking.services"
+import BackButton from "../../components/BackButton";
+import SaveButton from "../../components/SaveButton";
+import Header from "../../components/Header";
+import walkingService from "../../services/walking.service"
 
-
-const Walking = () => {
-
+const Walking: React.FC = () => {
     const createWalking = () => {
 
         let today = new Date();
@@ -25,9 +23,9 @@ const Walking = () => {
         <IonPage>
             <IonContent fullscreen class={"ion-padding-horizontal"}>
                 <div className={"title"}>
-                    <BackButton defaultHref="/home"/>
+                    <BackButton defaultHref="/home" />
                     <Header title={"Świadomy Spacer"}
-                            subtitle={"poniżej znajdziesz instrukcję, krok po kroku jak wykonać zadanie"}/>
+                        subtitle={"poniżej znajdziesz instrukcję, krok po kroku jak wykonać zadanie"} />
                 </div>
                 <div>
                     <IonList class="ion-text-wrap">
@@ -50,13 +48,12 @@ const Walking = () => {
                         </IonItem>
                     </IonList>
                 </div>
-                <div class="ion-text-center">
-                    <SaveButton text={"Gotowe"} type={"submit"} onClick={createWalking}/>
+                <div className="ion-text-center">
+                    <SaveButton text={"Gotowe"} type={"submit"} onClick={createWalking} />
                 </div>
             </IonContent>
         </IonPage>
     );
-};
+}
 
 export default Walking;
-  

@@ -1,7 +1,8 @@
 /* eslint-disable */
 
+
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardContent, IonCardTitle } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import ExploreContainer from '../../components/ExploreContainer/ExploreContainer';
 import './Home.css';
 
 const Home: React.FC = () => {
