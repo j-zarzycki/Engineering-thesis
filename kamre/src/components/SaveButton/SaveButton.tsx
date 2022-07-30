@@ -1,20 +1,18 @@
-import React from 'react';
-import {IonButton} from '@ionic/react';
-
+import React from "react";
+import { IonButton } from "@ionic/react";
 
 interface Props {
-    text: String
-    type: "button" | "reset" | "submit"
-    onClick: any
+  text: String;
+  type: "button" | "reset" | "submit";
+  onClick: any;
 }
 
-export const SaveButton: (props: Props) => JSX.Element = (props: Props) => (
-
-    <IonButton
-        type={props.type}
-        onClick={props.onClick}
-    >
-        {props.text}
+const SaveButton: React.FC<Props> = (props: Props) => {
+  const { type, onClick, text } = props;
+  return (
+    <IonButton type={type} onClick={onClick}>
+      {text}
     </IonButton>
-);
-export default SaveButton
+  );
+};
+export default SaveButton;
