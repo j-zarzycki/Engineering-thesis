@@ -100,5 +100,7 @@ def get_day():
     return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
 
 
-app.run(port=5000, ssl_context="adhoc")
+# app.run(port=5000, ssl_context="adhoc")
+if __name__ == '__main__':
+       app.run()
 
