@@ -115,12 +115,12 @@ git commit -m "<commit_name>"
 
 5. Create branch that represent your task
 ```sh
-git checkout -b <Jira_task>
+git checkout -b <Jira_epic_id>
 ```
 
 6. Push to origin
 ```sh
-git push origin <Jira_task>
+git push origin <Jira_epic_id>
 ```
 
 7. Create pull request. Go to `https://github.com/j-zarzycki/Engineering-thesis/pulls`. Click new pull request. Set base to `test` and compare to `<Jira_task>`. Click `create pull request` in title add your Jira task id, example: `IN-41: Fix header`

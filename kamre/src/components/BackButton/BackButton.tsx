@@ -1,17 +1,16 @@
-import React from 'react';
-import { IonBackButton, IonButtons} from '@ionic/react';
-
+import React from "react";
+import { IonBackButton, IonButtons } from "@ionic/react";
 
 interface Props {
-    defaultHref : string;
+  defaultHref: string;
 }
 
-export const BackButton: (props: Props) => JSX.Element = (props:Props) => (
-
-        <IonButtons slot="start">
-            <IonBackButton defaultHref ={props.defaultHref} />
-        </IonButtons>
-
-
-);
-export default BackButton
+const BackButton: React.FC<Props> = (props) => {
+  const { defaultHref } = props;
+  return (
+    <IonButtons slot="start">
+      <IonBackButton defaultHref={defaultHref} />
+    </IonButtons>
+  );
+};
+export default BackButton;
