@@ -1,2 +1,4 @@
-export const SERVER_URL_NO_CONTENT = "https://localhost:5000/noContent";
-export const SERVER_URL_HAS_CONTENT = "https://localhost:5000/hasContent";
+export const SERVER_URL_NO_CONTENT =
+  "https://kamretest.azurewebsites.net/noContent";
+export const SERVER_URL_HAS_CONTENT =
+  "https://kamretest.azurewebsites.net/hasContent";
