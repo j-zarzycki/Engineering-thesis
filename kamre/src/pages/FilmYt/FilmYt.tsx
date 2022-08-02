@@ -32,7 +32,6 @@ const FilmYt: React.FC = () => {
         </div>
         <iframe
           width="100%"
-          height="315"
           src="https://www.youtube-nocookie.com/embed/ywo34NcYQvY"
           frameBorder="0"
           allow="autoplay; encrypted-media"
