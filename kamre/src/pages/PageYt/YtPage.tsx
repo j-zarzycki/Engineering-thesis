@@ -3,7 +3,7 @@ import { IonContent, IonPage } from "@ionic/react";
 import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import SaveButton from "../../components/SaveButton";
-import filmYtService from "../../services/filmYt.service";
+import pageYtService from "../../services/pageYt.service";
 
 const YtPage: React.FC = () => {
   const createPageYt = () => {
@@ -14,7 +14,7 @@ const YtPage: React.FC = () => {
     const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     const dateTime = `${date}:${time}`;
 
-    filmYtService
+    pageYtService
       .CreateYtPage(dateTime, "YtPage")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
