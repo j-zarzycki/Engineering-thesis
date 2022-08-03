@@ -56,7 +56,7 @@ const Home: React.FC = () => (
         </IonCardContent>
       </IonCard>
 
-      <IonCard href="/filmyt" class="card-styles">
+      <IonCard href="/ytpage" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Film z youtube</IonCardTitle>
         </IonCardHeader>

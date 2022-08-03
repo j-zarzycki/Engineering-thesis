@@ -5,8 +5,8 @@ import Header from "../../components/Header";
 import SaveButton from "../../components/SaveButton";
 import filmYtService from "../../services/filmYt.service";
 
-const FilmYt: React.FC = () => {
-  const createFilmYt = () => {
+const YtPage: React.FC = () => {
+  const createPageYt = () => {
     const today = new Date();
     const date = `${today.getFullYear()}-${
       today.getMonth() + 1
@@ -15,7 +15,7 @@ const FilmYt: React.FC = () => {
     const dateTime = `${date}:${time}`;
 
     filmYtService
-      .CreateFilmYt(dateTime, "FilmYt")
+      .CreateYtPage(dateTime, "YtPage")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -40,11 +40,11 @@ const FilmYt: React.FC = () => {
           title="video"
         />
         <div className="ion-text-center">
-          <SaveButton text="Gotowe" type="submit" onClick={createFilmYt} />
+          <SaveButton text="Gotowe" type="submit" onClick={createPageYt} />
         </div>
       </IonContent>
     </IonPage>
   );
 };
 
-export default FilmYt;
+export default YtPage;

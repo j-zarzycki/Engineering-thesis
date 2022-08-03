@@ -39,7 +39,7 @@ import "./theme/variables.css";
 
 /* Home css */
 import "./pages/App.css";
-import FilmYt from "./pages/FilmYt";
+import YtPage from "./pages/FilmYt";
 
 setupIonicReact();
 
@@ -63,8 +63,8 @@ const App: React.FC = () => (
           <Route path="/gratitude">
             <Gratitude />
           </Route>
-          <Route path="/filmyt">
-            <FilmYt />
+          <Route path="/ytpage">
+            <YtPage />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />

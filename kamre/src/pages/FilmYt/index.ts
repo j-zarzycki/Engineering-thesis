@@ -1,1 +1,1 @@
-export { default } from "./FilmYt";
+export { default } from "./YtPage";
