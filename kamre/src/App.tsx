@@ -17,7 +17,9 @@ import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
-
+import Cook from "./pages/Cook";
+import Emergency from "./pages/Emergency";
+import YtPage from "./pages/PageYt";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -39,8 +41,6 @@ import "./theme/variables.css";
 
 /* Home css */
 import "./pages/App.css";
-import YtPage from "./pages/PageYt";
-import Emergency from "./pages/Emergency";
 
 setupIonicReact();
 
@@ -66,6 +66,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/ytpage">
             <YtPage />
+          </Route>
+          <Route path="/cook">
+            <Cook />
           </Route>
           <Route path="/emergency">
             <Emergency />

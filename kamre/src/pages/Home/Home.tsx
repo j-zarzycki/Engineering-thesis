@@ -65,6 +65,15 @@ const Home: React.FC = () => (
         </IonCardContent>
       </IonCard>
 
+      <IonCard href="/cook" class="card-styles">
+        <IonCardHeader>
+          <IonCardTitle class="card-title">Przygotuj coś pysznego</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent class="card-description">
+          You'll lose all tasks, conversations and documents.
+        </IonCardContent>
+      </IonCard>
+
       <IonCard href="/emergency" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Emergency</IonCardTitle>
