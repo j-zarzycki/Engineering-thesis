@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from services.flask_connection import flask_connection
 from flask_cors import CORS
+import cryptography
 from dateutil import parser
 import services.db_actions as svc
 
@@ -12,7 +13,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route("/noContent", methods=['POST'])
 def noContent():
     res = request.get_json()
-    registered_date = parser.parse(res['registered_date'])
+    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
 
     svc.create_activity(registered_date, activity_name)
@@ -22,7 +23,7 @@ def noContent():
 @app.route("/hasContent", methods=['POST'])
 def has_content():
     res = request.get_json()
-    registered_date = parser.parse(res['registered_date'])
+    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
     has_content = True
     activity_content = res['activity_content']
@@ -99,5 +100,7 @@ def get_day():
     return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
 
 
-app.run(port=5000)
+# app.run(port=5000, ssl_context="adhoc")
+if __name__ == '__main__':
+       app.run()
 
