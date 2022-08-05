@@ -55,6 +55,21 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
+
+      <IonCard href="/ytpage" class="card-styles">
+        <IonCardHeader>
+          <IonCardTitle class="card-title">Film z youtube</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent class="card-description">
+          You'll lose all tasks, conversations and documents.
+        </IonCardContent>
+      </IonCard>
+
+      <IonCard href="/emergency" class="card-styles">
+        <IonCardHeader>
+          <IonCardTitle class="card-title">Emergency</IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
     </IonContent>
   </IonPage>
 );
