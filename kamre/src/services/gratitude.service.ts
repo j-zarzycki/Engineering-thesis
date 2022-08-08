@@ -5,7 +5,7 @@ interface CreateGratitudeResponse {
   res: String;
 }
 
-const createGratitude = (registeredDate: String, activityContent: String) =>
+const createGratitude = (registeredDate: String, activityContent: string) =>
   axios.post<CreateGratitudeResponse>(SERVER_URL_HAS_CONTENT, {
     registered_date: registeredDate,
     activity_content: activityContent,
