@@ -74,6 +74,23 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** kamre **/
+
+  --font-main: 'Inter', sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-big: 500;
+  --font-weight-large: 600;
+
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  --primary-yellow-90: #D49909;
+  --primary-yellow-80: #F1CA4F;
+  --primary-yellow-75: #F3CB59;
+
+  --secondary-gray-90: #96969D;
+  --secondary-gray-30: #E9E9EB;
 }
 
 @media (prefers-color-scheme: dark) {

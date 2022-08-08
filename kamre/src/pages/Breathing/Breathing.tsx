@@ -5,15 +5,11 @@ import BackButton from "../../components/BackButton";
 import Header from "../../components/Header";
 import SaveButton from "../../components/SaveButton";
 import breathingService from "../../services/breathing.service";
+import { getFullDateWithTime } from "../../utils/date";
 
 const Breathing: React.FC = () => {
   const createBreathing = () => {
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    const dateTime = `${date}:${time}`;
+    const dateTime = getFullDateWithTime();
 
     breathingService
       .CreateBreathing(dateTime, "Breath")
