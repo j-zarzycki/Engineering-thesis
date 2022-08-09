@@ -11,7 +11,7 @@ interface CreateConsciousShowerResponse {
 const CreateConsciousShowerWithNoContent = (registeredDate: String) => {
   return axios.post<CreateConsciousShowerResponse>(SERVER_URL_NO_CONTENT, {
     registered_date: registeredDate,
-    activity_name: "Conscious Shower",
+    activity_name: "Swiadomy prysznic",
   });
 };
 
@@ -22,7 +22,7 @@ const CreateConsciousShowerWithContent = async (
   return axios.post<CreateConsciousShowerResponse>(SERVER_URL_HAS_CONTENT, {
     registered_date: registeredDate,
     activity_content: activityContent,
-    activity_name: "Conscious Shower",
+    activity_name: "Swiadomy prysznic",
   });
 };
 
