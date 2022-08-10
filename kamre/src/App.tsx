@@ -18,6 +18,7 @@ import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
 import ConsciousShower from "./pages/ConsciousShower";
+import Calendar from "./pages/Calendar";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -72,6 +73,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
+          </Route>
+          <Route path="/calendar">
+            <Calendar />
           </Route>
         </IonRouterOutlet>
 
