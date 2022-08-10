@@ -24,6 +24,7 @@ module.exports = {
   },
   plugins: ["prettier", "react", "@typescript-eslint"],
   rules: {
+    "import/no-unresolved": "off",
     "prettier/prettier": [
       "error",
       {

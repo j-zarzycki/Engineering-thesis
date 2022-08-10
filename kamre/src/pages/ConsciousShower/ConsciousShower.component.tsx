@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { useState } from "react";
 import { IonContent, IonPage, useIonAlert } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -34,6 +32,10 @@ const ConsciousShower: React.FC<IProps> = (props) => {
     if (swiper?.activeIndex === slideElements - 1) setShowProceedButton(false);
   };
 
+  const onAlertButtonClick = (alertData: String) => {
+    onCreateActivityWithContent(alertData);
+  };
+
   const onProceedButtonClickWithContent = () => {
     presentAlert({
       header: "Dodaj swoje przemyślenia",
@@ -54,10 +56,6 @@ const ConsciousShower: React.FC<IProps> = (props) => {
     });
   };
 
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
-  }
-
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
@@ -75,9 +73,9 @@ const ConsciousShower: React.FC<IProps> = (props) => {
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
-                centeredSlides={true}
+                centeredSlides
                 slidesPerView={1}
-                onSwiper={(swiper) => setSwiper(swiper)}
+                onSwiper={(swiperData) => setSwiper(swiperData)}
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
