@@ -17,6 +17,7 @@ import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
+import Calendar from "./pages/Calendar";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -65,6 +66,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/ytpage">
             <YtPage />
+          </Route>
+          <Route exact path="/calendar">
+            <Calendar />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />

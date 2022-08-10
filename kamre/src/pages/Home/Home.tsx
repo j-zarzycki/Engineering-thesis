@@ -70,6 +70,11 @@ const Home: React.FC = () => (
           <IonCardTitle class="card-title">Emergency</IonCardTitle>
         </IonCardHeader>
       </IonCard>
+      <IonCard href="/calendar" class="card-styles">
+        <IonCardHeader>
+          <IonCardTitle class="card-title">Calendar</IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
     </IonContent>
   </IonPage>
 );
