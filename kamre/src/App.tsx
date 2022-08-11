@@ -18,6 +18,7 @@ import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
 import Anger from "./pages/Anger";
+import ConsciousShower from "./pages/ConsciousShower";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -49,6 +50,9 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route exact path="/shower">
+            <ConsciousShower />
+          </Route>
           <Route exact path="/home">
             <Home />
           </Route>
