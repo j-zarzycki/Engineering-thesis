@@ -25,6 +25,8 @@ module.exports = {
   plugins: ["prettier", "react", "@typescript-eslint"],
   rules: {
     "import/no-unresolved": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "prettier/prettier": [
       "error",
       {

@@ -82,6 +82,9 @@ http://ionicframework.com/docs/theming/ */
   --font-weight-big: 500;
   --font-weight-large: 600;
 
+  --font-size-large: 32px;
+
+
   --color-black: #000000;
   --color-white: #ffffff;
 
@@ -91,6 +94,10 @@ http://ionicframework.com/docs/theming/ */
 
   --secondary-gray-90: #96969D;
   --secondary-gray-30: #E9E9EB;
+
+  --button-border-radius-normal: 23px;
+
+  --transition-default: all .3s ease-in-out;
 }
 
 @media (prefers-color-scheme: dark) {
