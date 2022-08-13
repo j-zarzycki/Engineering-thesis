@@ -42,7 +42,7 @@ import "./theme/variables.css";
 
 /* Home css */
 import "./pages/App.css";
-import YtPage from "./pages/PageYt";
+import YtPage from "./pages/YtPage";
 
 setupIonicReact();
 

@@ -1,15 +1,16 @@
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
 
-import "./ProceedButton.css";
+import "./ProceedButton.style.css";
 
 interface IProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
 }
 
-const ProceedButton: React.FC<IProps> = (props) => {
+const ProceedButton: React.FC<IProps> = (props: IProps) => {
   const { onClick, title } = props;
+
   return (
     <button className="proceed-button" type="button" onClick={onClick}>
       {title}

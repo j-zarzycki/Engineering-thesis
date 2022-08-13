@@ -6,19 +6,19 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./ConsciousShower.css";
-import SWIPE_ELEMENTS from "../../constants/consciousShower.constants";
-import HorizontalProgressBar from "../../components/HorizontalProgressBar";
-import Pet from "../../assets/image-12.png";
-import BackButton from "../../components/BackButton";
-import ProceedButton from "../../components/ProceedButton";
+import "./ConsciousShower.style.css";
+import SWIPE_ELEMENTS from "@Constants/consciousShower.constants";
+import HorizontalProgressBar from "@Components/HorizontalProgressBar";
+import Pet from "@Assets/image-12.png";
+import BackButton from "@Components/BackButton";
+import ProceedButton from "@Components/ProceedButton";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
-const ConsciousShower: React.FC<IProps> = (props) => {
+const ConsciousShower: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);

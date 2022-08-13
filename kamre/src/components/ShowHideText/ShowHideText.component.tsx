@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { HiChevronUp, HiChevronDown } from "react-icons/hi";
 
-import { CalendarResponseType } from "../../types/calendar.type";
+import { CalendarResponseType } from "@Types/calendar.type";
 
-import "./ShowHideText.css";
+import "./ShowHideText.style.css";
 
 interface IProps {
   dayContent: CalendarResponseType;
 }
 
-const ShowHideText: React.FC<IProps> = (props) => {
+const ShowHideText: React.FC<IProps> = (props: IProps) => {
   const {
     dayContent: {
       activity_content: activityContent,

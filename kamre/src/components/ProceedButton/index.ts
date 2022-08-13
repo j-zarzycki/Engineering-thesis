@@ -1,1 +1,1 @@
-export { default } from "./ProceedButton";
+export { default } from "./ProceedButton.component";

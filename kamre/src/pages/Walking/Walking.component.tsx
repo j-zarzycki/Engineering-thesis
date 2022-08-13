@@ -1,25 +1,16 @@
 import React from "react";
 import { IonContent, IonItem, IonLabel, IonList, IonPage } from "@ionic/react";
-import "./Walking.css";
-import BackButton from "../../components/BackButton";
-import SaveButton from "../../components/SaveButton";
-import Header from "../../components/Header";
-import walkingService from "../../services/walking.service";
 
-const Walking: React.FC = () => {
-  const createWalking = () => {
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    const dateTime = `${date}:${time}`;
+import BackButton from "@Components/BackButton";
+import SaveButton from "@Components/SaveButton";
+import Header from "@Components/Header";
 
-    walkingService
-      .CreateWalking(dateTime, "Spacer")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+interface IProps {
+  createWalking(): Promise<void>;
+}
+
+const Walking: React.FC<IProps> = (props: IProps) => {
+  const { createWalking } = props;
 
   return (
     <IonPage>

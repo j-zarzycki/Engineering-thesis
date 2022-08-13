@@ -23,7 +23,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   plugins: ["prettier", "react", "@typescript-eslint"],
+  ignorePatterns: ["craco.config.js"],
   rules: {
+    "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1 }],
     "import/no-unresolved": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",

@@ -1,24 +1,16 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
-import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import SaveButton from "../../components/SaveButton";
-import pageYtService from "../../services/pageYt.service";
 
-const YtPage: React.FC = () => {
-  const createPageYt = () => {
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    const dateTime = `${date}:${time}`;
+import BackButton from "@Components/BackButton";
+import Header from "@Components/Header";
+import SaveButton from "@Components/SaveButton";
 
-    pageYtService
-      .CreateYtPage(dateTime, "YtPage")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+interface IProps {
+  createPageYt(): Promise<void>;
+}
+
+const YtPage: React.FC<IProps> = (props: IProps) => {
+  const { createPageYt } = props;
 
   return (
     <IonPage>

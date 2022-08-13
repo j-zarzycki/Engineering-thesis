@@ -23,6 +23,7 @@
   "include": [
     "src",
     ".eslintrc.js",
-    "capacitor.config.ts"
-  ]
+    "capacitor.config.ts",
+  ],
+  "extends": "./tsconfig.paths.json"
 }

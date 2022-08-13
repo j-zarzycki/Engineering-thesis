@@ -2,9 +2,9 @@ import axios from "axios";
 import {
   SERVER_URL_ALL_DAYS,
   SERVER_URL_ONE_DAY,
-} from "../constants/server.constants";
+} from "@Constants/server.constants";
 
-import { ICalendarResponse } from "../types/calendar.type";
+import { ICalendarResponse } from "@Types/calendar.type";
 
 const GetAllDays = (userId: String | Number) => {
   return axios.get<ICalendarResponse>(

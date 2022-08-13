@@ -1,1 +1,1 @@
-export { default } from "./Walking";
+export { default } from "./Walking.container";

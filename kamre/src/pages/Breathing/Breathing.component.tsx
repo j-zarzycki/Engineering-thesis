@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonPage, IonCard } from "@ionic/react";
 import "./Breathing.css";
-import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import SaveButton from "../../components/SaveButton";
-import breathingService from "../../services/breathing.service";
-import { getFullDateWithTime } from "../../utils/date";
+import BackButton from "@Components/BackButton";
+import Header from "@Components/Header";
+import SaveButton from "@Components/SaveButton";
+import breathingService from "@Services/breathing.service";
+import { getFullDateWithTime } from "@Utils/date";
 
 const Breathing: React.FC = () => {
   const createBreathing = () => {
     const dateTime = getFullDateWithTime();
 
     breathingService
-      .CreateBreathing(dateTime, "Breath")
+      .CreateBreathing(dateTime, "Oddychanie")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };

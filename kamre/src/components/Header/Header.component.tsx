@@ -1,13 +1,13 @@
 import React from "react";
-import "./Header.css";
 
-interface Props {
+interface IProps {
   title: String;
   subtitle: String;
 }
 
-const Header: React.FC<Props> = (props: Props) => {
+const Header: React.FC<IProps> = (props: IProps) => {
   const { title, subtitle } = props;
+
   return (
     <div className="ion-text-center">
       <h3>{title}</h3>
@@ -15,4 +15,5 @@ const Header: React.FC<Props> = (props: Props) => {
     </div>
   );
 };
+
 export default Header;

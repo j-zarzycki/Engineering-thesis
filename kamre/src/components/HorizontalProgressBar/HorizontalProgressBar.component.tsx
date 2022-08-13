@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import "./HorizontalProgressBar.css";
+import "./HorizontalProgressBar.style.css";
 
 interface IProps {
   elements: Number;
   currentElement: Number;
 }
 
-const HorizontalProgressBar: React.FC<IProps> = (props) => {
+const HorizontalProgressBar: React.FC<IProps> = (props: IProps) => {
   const { currentElement, elements } = props;
   const [prevCurrentElementValue, setPrevCurrentElementValue] =
     useState(currentElement);
@@ -21,7 +21,7 @@ const HorizontalProgressBar: React.FC<IProps> = (props) => {
           <div
             element-index={i}
             key={i}
-            className="HorizontalProgressBar__Element Active"
+            className="horizontal-progress-bar__element horizontal-progress-bar__element--active"
           />,
         );
       } else {
@@ -29,7 +29,7 @@ const HorizontalProgressBar: React.FC<IProps> = (props) => {
           <div
             element-index={i}
             key={i}
-            className="HorizontalProgressBar__Element"
+            className="horizontal-progress-bar__element"
           />,
         );
       }
@@ -46,8 +46,8 @@ const HorizontalProgressBar: React.FC<IProps> = (props) => {
       const prevElement = document.querySelector(
         `[element-index="${Number(currentElement) - 1}"]`,
       );
-      element?.classList.add("Active");
-      prevElement?.classList.remove("Active");
+      element?.classList.add("horizontal-progress-bar__element--active");
+      prevElement?.classList.remove("horizontal-progress-bar__element--active");
     } else if (currentElement < prevCurrentElementValue) {
       const element = document.querySelector(
         `[element-index="${currentElement}"]`,
@@ -55,8 +55,8 @@ const HorizontalProgressBar: React.FC<IProps> = (props) => {
       const prevElement = document.querySelector(
         `[element-index="${Number(currentElement) + 1}"]`,
       );
-      element?.classList.add("Active");
-      prevElement?.classList.remove("Active");
+      element?.classList.add("horizontal-progress-bar__element--active");
+      prevElement?.classList.remove("horizontal-progress-bar__element--active");
     }
     setPrevCurrentElementValue(currentElement);
   };
@@ -66,7 +66,7 @@ const HorizontalProgressBar: React.FC<IProps> = (props) => {
   }, [currentElement]);
 
   return (
-    <div className="HorizontalProgressBar">{renderNumberOfElements()}</div>
+    <div className="horizontal-progress-bar">{renderNumberOfElements()}</div>
   );
 };
 

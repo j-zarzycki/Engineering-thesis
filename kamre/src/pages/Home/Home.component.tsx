@@ -10,7 +10,6 @@ import {
   IonCardContent,
   IonCardTitle,
 } from "@ionic/react";
-import "./Home.css";
 
 const Home: React.FC = () => (
   <IonPage>
@@ -28,7 +27,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/breathing" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Oddychanie</IonCardTitle>
@@ -37,7 +35,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/fivetoone" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">5-4-3-2-1</IonCardTitle>
@@ -46,7 +43,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/gratitude" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Wdzięczność</IonCardTitle>
@@ -55,7 +51,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/ytpage" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Film z youtube</IonCardTitle>
@@ -64,7 +59,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/anger" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Złość</IonCardTitle>
@@ -73,7 +67,6 @@ const Home: React.FC = () => (
           You'll lose all tasks, conversations and documents.
         </IonCardContent>
       </IonCard>
-
       <IonCard href="/emergency" class="card-styles">
         <IonCardHeader>
           <IonCardTitle class="card-title">Emergency</IonCardTitle>

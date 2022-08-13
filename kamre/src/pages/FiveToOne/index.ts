@@ -1,1 +1,1 @@
-export { default } from "./FiveToOne";
+export { default } from "./FiveToOne.container";

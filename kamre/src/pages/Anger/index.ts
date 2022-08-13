@@ -1,1 +1,1 @@
-export { default } from "./Anger";
+export { default } from "./Anger.container";

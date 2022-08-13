@@ -1,25 +1,17 @@
+/* eslint-disable */
 import React from "react";
 import { IonContent, IonItem, IonLabel, IonList, IonPage } from "@ionic/react";
-import "./FiveToOne.css";
-import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import SaveButton from "../../components/SaveButton";
-import fiveToOneService from "../../services/fiveToOne.service";
 
-const FiveToOne: React.FC = () => {
-  const createFiveToOne = () => {
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    const dateTime = `${date}:${time}`;
+import BackButton from "@Components/BackButton";
+import Header from "@Components/Header";
+import SaveButton from "@Components/SaveButton";
 
-    fiveToOneService
-      .CreateFiveToOne(dateTime, "FiveToOne")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+interface IProps {
+  createFiveToOne(): Promise<void>;
+}
+
+const FiveToOne: React.FC<IProps> = (props: IProps) => {
+  const { createFiveToOne } = props;
 
   return (
     <IonPage>
