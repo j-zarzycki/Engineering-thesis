@@ -1,0 +1,21 @@
+.horizontal-progress-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: auto;
+    height: 5px;
+    transition: all .3s ease-in-out;
+}
+
+.horizontal-progress-bar__element {
+    border-radius: 10px;
+    width: 40px;
+    background-color: gray;
+    transition: all .3s ease-in-out;
+}
+
+.horizontal-progress-bar__element--active {
+    background-color: yellow;
+    width: 60px;
+    transition: all .3s ease-in-out;
+}

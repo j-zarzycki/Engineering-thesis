@@ -1,0 +1,73 @@
+.conscious-shower {
+    height: 100%;
+}
+
+.conscious-shower__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 57px);
+}
+
+.conscious-shower__swiper {
+    width: 100%;
+    margin-top: 43px;
+}
+
+.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide.swiper-slide-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+    font-family: 'Inter', sans-serif;
+    font-weight: var(--font-weight-large);
+    font-size: 36px;
+    color: var(--color-black);
+    max-width: 310px;
+    max-height: 144px;
+    text-align: center;
+}
+
+.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+    font-family: 'Inter', sans-serif;
+    font-weight: var(--font-weight-normal);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--secondary-gray-90);
+    max-width: 277px;
+    max-height: 72px;
+    text-align: center;
+}
+
+.conscious-shower .conscious-shower__wrapper .proceed-button {
+    margin-top: auto;
+    margin-bottom: 50px;
+}
+
+.swiper__proceed-buttons-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .swiper__proceed-buttons-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .swiper__proceed-buttons-exit {
+    opacity: 1;
+  }
+  .swiper__proceed-buttons-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }

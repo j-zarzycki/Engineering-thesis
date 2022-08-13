@@ -1,1 +1,1 @@
-export { default } from "./Gratitude";
+export { default } from "./Gratitude.container";

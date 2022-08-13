@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, json
 from services.flask_connection import flask_connection
 from flask_cors import CORS
 import cryptography
@@ -10,13 +10,22 @@ app = flask_connection()
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 
+@app.route("/newUser", methods=['POST'])
+def newUser():
+    res = request.get_json()
+    user_id = res['user_id']
+    svc.create_user(user_id)
+    return jsonify({'res': 'created new user'})
+
+
 @app.route("/noContent", methods=['POST'])
 def noContent():
     res = request.get_json()
+    user_id = res['user_id']
     registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
 
-    svc.create_activity(registered_date, activity_name)
+    svc.create_activity(user_id, registered_date, activity_name)
     return jsonify({'res': 'created entry'})
 
 
@@ -27,8 +36,9 @@ def has_content():
     activity_name = res['activity_name']
     has_content = True
     activity_content = res['activity_content']
+    user_id = res['user_id']
 
-    svc.create_activity_content(registered_date,activity_name,has_content,activity_content)
+    svc.create_activity_content(user_id, registered_date,activity_name,has_content,activity_content)
 
     return jsonify({'res': 'created entry with content'})
 
@@ -36,26 +46,31 @@ def has_content():
 @app.route("/toggleFavorite", methods=['POST'])
 def toggle_favorite():
     res = request.get_json()
+    user_id = res['user_id']
     activity_name = res['activity_name']
-    response = svc.toggle_favorite(activity_name)
+    response = svc.toggle_favorite(user_id, activity_name)
 
     return jsonify({'res': response})
 
 
 @app.route("/getAll", methods=['GET'])
 def get_all():
-    names, dates, check_content = svc.get_all()
+    user_id = request.args.get('user_id')
+    res = svc.get_all(user_id)
+    res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
 
-    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
+    return jsonify({'res': res})
 
 
 @app.route("/getMonth", methods=['GET'])
 def get_month():
     month = request.args.get('month')
     year = request.args.get('year')
-    names, dates, check_content = svc.get_month(month, year)
+    user_id = request.args.get('user_id')
+    res = svc.get_month(user_id, month, year)
+    res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
 
-    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
+    return jsonify({'res': res})
 
 
 @app.route("/getOne", methods=['GET'])
@@ -68,17 +83,12 @@ def get_one():
     minute = request.args.get('minute')
     second = request.args.get('second')
     name = request.args.get('name')
+    user_id = request.args.get('user_id')
 
-    check_content = svc.check_content(month,year,day,hour,minute,second,name)
+    res = svc.get_one(user_id, month, year, day, hour, minute, second, name)
+    res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
 
-    if check_content:
-        name, date, content = svc.get_one(month, year, day, hour, minute, second, name, check_content)
-
-        return jsonify({'name': name, 'date': date, 'content': content})
-    else:
-        name, date = svc.get_one(month, year, day, hour, minute, second, name, check_content)
-
-        return jsonify(({'name': name, 'date': date}))
+    return jsonify(({'res': res}))
 
 
 @app.route("/getFavs", methods=['GET'])
@@ -94,11 +104,56 @@ def get_day():
     month = request.args.get('month')
     year = request.args.get('year')
     day = request.args.get('day')
+    user_id = request.args.get('user_id')
 
-    names, dates, check_content = svc.get_day(month, year, day)
+    res = svc.get_day(user_id, month, year, day)
+    res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
 
-    return jsonify({'names': names, 'dates': dates, 'has_content': check_content})
+    return jsonify(({'res': res}))
 
+
+@app.route("/setCategory", methods=['POST'])
+def set_category():
+    res = request.get_json()
+    category_name = res['category_name']
+    activities = res['activities']
+
+    svc.set_categories(category_name, activities)
+
+    return jsonify({'res': f'created category:{category_name}, with activities: {activities}'})
+
+
+@app.route("/getRecommended", methods=['GET'])
+def get_recommended():
+    user_id = request.args.get('user_id')
+    res = svc.get_reccomended(user_id)
+
+    return jsonify({'res': res})
+
+
+@app.route("/setEmergency", methods=['POST'])
+def set_emergency():
+    res = request.get_json()
+    tip_id = res['tip_id']
+    tip = res['tip']
+    svc.set_emergency(tip_id, tip)
+
+    return jsonify({'res': f'Created tip {tip} with id {tip_id}'})
+
+
+@app.route("/getEmergency", methods=['GET'])
+def get_emergency():
+    user_id = request.args.get('user_id')
+    emergency = svc.get_emergency(user_id)
+
+    return jsonify({'res': emergency})
+
+
+@app.route("/getAllActivities", methods=['GET'])
+def get_all_activities():
+    res = svc.get_all_activities()
+
+    return jsonify({'res': res})
 
 # app.run(port=5000, ssl_context="adhoc")
 if __name__ == '__main__':

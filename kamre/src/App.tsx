@@ -17,6 +17,9 @@ import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
+import Anger from "./pages/Anger";
+import ConsciousShower from "./pages/ConsciousShower";
+import Calendar from "./pages/Calendar";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -39,7 +42,7 @@ import "./theme/variables.css";
 
 /* Home css */
 import "./pages/App.css";
-import YtPage from "./pages/PageYt";
+import YtPage from "./pages/YtPage";
 
 setupIonicReact();
 
@@ -48,6 +51,9 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route exact path="/shower">
+            <ConsciousShower />
+          </Route>
           <Route exact path="/home">
             <Home />
           </Route>
@@ -65,6 +71,12 @@ const App: React.FC = () => (
           </Route>
           <Route path="/ytpage">
             <YtPage />
+          </Route>
+          <Route exact path="/calendar">
+            <Calendar />
+          </Route>
+          <Route exact path="/anger">
+            <Anger />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
