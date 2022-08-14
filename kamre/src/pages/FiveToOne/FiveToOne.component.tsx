@@ -74,9 +74,9 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">4</h4>
                     <p className="swiper-slide__paragraph">
-                      Teraz dotknij cztery rzeczy, poczuj ich fakturę, czy są
-                      przyjemne w dotyku, zimne, szorstkie. Skup na tym uwagę,
-                      nie śpiesz się.
+                      Teraz dotknij <strong>cztery</strong> rzeczy, poczuj ich
+                      fakturę, czy są przyjemne w dotyku, zimne, szorstkie. Skup
+                      na tym uwagę, nie śpiesz się.
                     </p>
                   </div>
                 </SwiperSlide>
@@ -84,8 +84,9 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">3</h4>
                     <p className="swiper-slide__paragraph">
-                      Wytęż słuch i nazwij trzy rzeczy, które słyszysz. Czy te
-                      dźwięki są przyjemne? Co czujesz, gdy je słyszysz?
+                      Wytęż słuch i nazwij <strong>trzy</strong> rzeczy, które
+                      słyszysz. Czy te dźwięki są przyjemne? Co czujesz, gdy je
+                      słyszysz?
                     </p>
                   </div>
                 </SwiperSlide>
@@ -93,8 +94,9 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">2</h4>
                     <p className="swiper-slide__paragraph">
-                      Daj się ponieść zapachom i poczuj dwa różne zapachy. Co to
-                      takiego? Co Ci przypominają te zapachy?
+                      Daj się ponieść zapachom i poczuj <strong>dwa</strong>{" "}
+                      różne zapachy. Co to takiego? Co Ci przypominają te
+                      zapachy?
                     </p>
                   </div>
                 </SwiperSlide>
@@ -102,7 +104,8 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">1</h4>
                     <p className="swiper-slide__paragraph">
-                      Na koniec, opisz smak, jaki aktualnie czujesz na języku
+                      Na koniec, opisz <strong>jeden</strong> smak, jaki
+                      aktualnie czujesz na języku
                     </p>
                   </div>
                 </SwiperSlide>
