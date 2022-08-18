@@ -15,7 +15,10 @@ months_dict = months_dict()
 
 def create_user(user_id) -> User:
     user = User()
+    recent = Recent()
+
     user.user_id = user_id
+    user.recent.append(recent)
 
     user.save()
 
@@ -45,7 +48,10 @@ def create_activity(user_id, registered_date, activity_name):
             user.activities_years[x].activities.append(activity)
         x += 1
     user.save()
-    count_activities(user_id)
+    if user.recent[0]['quiz_valid']:
+        quiz_validity_check(user)
+    else:
+        count_activities(user_id)
     return user
 
 
@@ -75,7 +81,10 @@ def create_activity_content(user_id, registered_date, activity_name, has_content
             user.activities_years[x].activities.append(activity)
         x += 1
     user.save()
-    count_activities(user_id)
+    if user.recent[0]['quiz_valid']:
+        quiz_validity_check(user)
+    else:
+        count_activities(user_id)
     return user
 
 
@@ -93,6 +102,7 @@ def get_all(user_id):
             activities.append(ac)
     return activities
 
+
 def get_month(user_id, month,year):
     activities = []
 
@@ -106,7 +116,7 @@ def get_month(user_id, month,year):
 
     for yr in user.activities_years:
         for el in reversed(yr['activities']):
-            if el['registered_date'] >= start and el['registered_date'] <= end:
+            if start <= el['registered_date'] <= end:
                 ac = {
                     'registered_date': str(el['registered_date']),
                     'activity_name': el['activity_name'],
@@ -127,7 +137,7 @@ def get_one(user_id, month, year, day, hour, minute, second, name):
 
     for yr in user.activities_years:
         for el in reversed(yr['activities']):
-            if el['registered_date'] >= start and el['registered_date'] <= end and el['activity_name'] == name:
+            if start <= el['registered_date'] <= end and el['activity_name'] == name:
                 ac = {
                     'registered_date': str(el['registered_date']),
                     'activity_name': el['activity_name'],
@@ -140,24 +150,34 @@ def get_one(user_id, month, year, day, hour, minute, second, name):
 
 
 def toggle_favorite(user_id, activity_name):
-    user = User.objects(user_id = user_id).first().favorites
-    try:
-        favorite = user.favorites.filter(activity_name=activity_name).first()
-        favorite.delete()
+    user = User.objects(user_id = user_id).first()
+    fav = Favorites()
+    usr_favs = []
 
-        return f'{activity_name} has been removed from favorites'
-    except:
+    for el in user.favorites:
+        usr_favs.append(el['activity_name'])
 
-        user.activity_name = activity_name
+    if activity_name in usr_favs:
+        user.favorites.pop(usr_favs.index(activity_name))
         user.save()
 
-        return f'{activity_name} has been added to favorites'
+        return f'Activity {activity_name} removed from favorites'
+
+    else:
+        fav.activity_name = activity_name
+        user.favorites.append(fav)
+
+    user.save()
+
+    return f'Activity {activity_name} added to favorites'
 
 
-def get_favorites():
+def get_favorites(user_id):
+    user = User.objects(user_id=user_id).first()
     favorites = []
-    for entry in Favorites.objects:
-        favorites.append(entry.activity_name)
+
+    for entry in user.favorites:
+        favorites.append(entry['activity_name'])
 
     if len(favorites) == 0:
         return 'You have no favorite activities'
@@ -201,6 +221,10 @@ def set_categories(category_name, activities) -> Categories:
 def count_activities(user_id) -> Recent:
     recent = Recent()
     user = User.objects(user_id=user_id).first()
+    usr_favs = []
+
+    for el in user.favorites:
+        usr_favs.append(el['activity_name'])
 
     recent.Aktywne_count = 0
     recent.Bierne_count = 0
@@ -212,6 +236,7 @@ def count_activities(user_id) -> Recent:
 
     for yr in reversed(user.activities_years):
         for el in reversed(yr['activities']):
+            value_added = 1
             date = el['registered_date'].date()
             if last_day != date:
                 days += 1
@@ -220,15 +245,20 @@ def count_activities(user_id) -> Recent:
             if days == 28:
                 break
 
+            if el['activity_name'] in usr_favs:
+                value_added = 2
+
             if el['activity_category'] == "Aktywne":
-                recent.Aktywne_count += 1
+                recent.Aktywne_count += value_added
             elif el['activity_category'] == "Bierne":
-                recent.Bierne_count += 1
-            elif el['activity_category'] == "Zmiana myslenia":
-                recent.ZmianaMyslenia_count += 1
+                recent.Bierne_count += value_added
+            elif el['activity_category'] == "Zmiana myślenia":
+                recent.ZmianaMyslenia_count += value_added
             elif el['activity_category'] == "Pozytywne emocje":
-                recent.PozytywneEmocje_count += 1
-            recent.total += 1
+                recent.PozytywneEmocje_count += value_added
+            recent.total += value_added
+
+    recent.quiz_valid = False
 
     if len(user.recent) > 0:
         user.recent[0] = recent
@@ -238,13 +268,46 @@ def count_activities(user_id) -> Recent:
 
     return recent
 
+def quiz_validity_check(user: User):
+    days = 0
+    last_day = ""
+    recent = Recent()
+    for yr in reversed(user.activities_years):
+        for el in reversed(yr['activities']):
+            date = el['registered_date'].date()
+            if last_day != date:
+                days += 1
+            last_day = el['registered_date'].date()
+            if days == 14:
+                recent.quiz_valid = False
+                user.recent[0] = recent
+                user.save()
+
+
+def set_recent(user_id, b_count, a_count, z_count, p_count):
+    user = User.objects(user_id=user_id).first()
+    recent = Recent()
+
+    recent.Aktywne_count= a_count
+    recent.Bierne_count = b_count
+    recent.ZmianaMyslenia_count = z_count
+    recent.PozytywneEmocje_count = p_count
+    recent.quiz_valid = True
+
+    recent.total = a_count + b_count + z_count + p_count
+
+    user.recent[0] = recent
+    user.save()
+
+    return user
+
 
 def get_reccomended(user_id):
     user = User.objects(user_id=user_id).first()
     recent = user.recent[0]
     bierne = Categories.objects(category="Bierne").first().activities
     aktywne = Categories.objects(category="Aktywne").first().activities
-    zmyslenia = Categories.objects(category="Zmiana myslenia").first().activities
+    zmyslenia = Categories.objects(category="Zmiana myślenia").first().activities
     pemocje = Categories.objects(category="Pozytywne emocje").first().activities
     recommended = []
 
@@ -324,3 +387,21 @@ def get_all_activities():
         activities[obj['category']] = obj['activities']
 
     return activities
+
+
+def stress():
+    #############################
+
+    # stress test#
+
+    months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+    year = 2020
+    hours = [6, 12, 18]
+    for month in months:
+        for day in days:
+            for hour in hours:
+                reg_dat = parser.parse(f'{year}-{month}-{day} {hour}:00:00')
+                create_activity_content(1,reg_dat, "Wdzięczność", True, "Test")
+
+    #############################
