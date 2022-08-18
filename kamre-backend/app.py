@@ -4,7 +4,7 @@ from flask_cors import CORS
 import cryptography
 from dateutil import parser
 import services.db_actions as svc
-
+import services.menu as menu
 
 app = flask_connection()
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -93,7 +93,8 @@ def get_one():
 
 @app.route("/getFavs", methods=['GET'])
 def get_favorites():
-    favs = svc.get_favorites()
+    user_id = request.args.get('user_id')
+    favs = svc.get_favorites(user_id)
 
     return jsonify({'favorites': favs})
 
@@ -154,6 +155,38 @@ def get_all_activities():
     res = svc.get_all_activities()
 
     return jsonify({'res': res})
+
+
+@app.route("/setRecent", methods=['POST'])
+def set_recent():
+    res = request.get_json()
+
+    user_id = res['user_id']
+    z_count = res['z_count']
+    p_count = res['p_count']
+    a_count = res['a_count']
+    b_count = res['b_count']
+
+    svc.set_recent(user_id, b_count, a_count, z_count, p_count)
+
+    return jsonify({'res':'Set recent'})
+
+
+@app.route("/getOpener", methods=['GET'])
+def get_opener():
+    question, question_id, answers = menu.opener()
+    return jsonify({'question': question,'question_id': question_id, 'answers': answers})
+
+
+@app.route("/chat", methods=['POST'])
+def chat():
+    res = request.get_json()
+    question_id = res['question_id']
+    answer = res['answer']
+
+    response = menu.chat(question_id, answer)
+
+    return jsonify({'res': response})
 
 # app.run(port=5000, ssl_context="adhoc")
 if __name__ == '__main__':
