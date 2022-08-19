@@ -3,11 +3,113 @@
     font-weight: 600;
 }
 
+.homepage-toolbar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.homepage-toolbar__image {
+    max-width: 40px;
+    border-radius: 25px;
+}
+
+.homepage-toolbar__image:hover {
+    opacity: .8;
+    transition: all .3s;
+}
+
+.homepage-header-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.homepage__image {
+    /* max-width: 100px; */
+}
+
+.chat-styles {
+    border-radius: 25px;
+    margin: 4px;
+}
+
+.chat-description {
+    font-size: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1;
+}
+
+.chat {
+    display: flex;
+    flex-flow: column;
+}
+
+ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-row {
+    width: auto;
+}
+
+ion-col {
+    display: flex;
+    justify-content: center;
+}
+
+ion-tab-button, ion-icon {
+    color: var(--secondary-gray-90);
+}
+
+ion-tab-button, ion-label {
+    color: var(--secondary-gray-90);
+}
+
+#tab-button-home:hover ion-icon {
+    color: var(--primary-yellow-90);
+    transition: all .3s;
+}
+
+#tab-button-home:hover ion-label {
+    color: var(--primary-yellow-90);
+    transition: all .3s;
+}
+
 .card-styles {
-    /*box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;*/
+    text-align: center;
+    background-color: var(--primary-yellow-80);
+    /*box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
     box-shadow: none;
-    border: 2px solid black;
+    border: 2px solid var(--primary-yellow-75);*/
     border-radius: 12px;
+    max-height: 250px;
+    max-width: 250px;
+}
+
+@media (min-width: 1px) and (max-width: 375px) {
+    .card-styles {
+        max-height: 125px;
+        max-width: 125px;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 550px) {
+    .card-styles {
+        max-height: 150px;
+        max-width: 150px;
+    }
+}
+
+.card-styles:hover {
+    background-color: var(--primary-yellow-90);
+    transition: all .3s;
 }
 
 .card-title {
@@ -15,7 +117,31 @@
     font-weight: 600;
 }
 
+@media (min-width: 1px) and (max-width: 375px) {
+    .card-title {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 550px) {
+    .card-title {
+        font-size: 16px;
+    }
+}
+
 .card-description {
     color: black;
     font-size: 14px;
+}
+
+@media (min-width: 1px) and (max-width: 375px) {
+    .card-description {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 550px) {
+    .card-description {
+        font-size: 12px;
+    }
 }
