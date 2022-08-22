@@ -405,3 +405,11 @@ def stress():
                 create_activity_content(1,reg_dat, "Wdzięczność", True, "Test")
 
     #############################
+
+
+def user_check(user_id):
+    user = User.objects(user_id=user_id).first()
+    if user is None:
+        create_user(user_id)
+
+    return user

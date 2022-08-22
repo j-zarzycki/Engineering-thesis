@@ -8,7 +8,7 @@ db = db_connection()
 
 
 class User(db.Document):
-    user_id = db.IntField(required=True, unique=True)
+    user_id = db.StringField(required=True, unique=True)
 
     activities_years = db.SortedListField(db.EmbeddedDocumentField(Activity_year), ordering="year")
     favorites = db.EmbeddedDocumentListField(Favorites)

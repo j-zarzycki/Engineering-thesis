@@ -5,9 +5,11 @@ import cryptography
 from dateutil import parser
 import services.db_actions as svc
 import services.menu as menu
+from flask_pyjwt import AuthManager, current_token, require_token
 
 app = flask_connection()
 CORS(app, resources={r"/*": {"origins": "*"}})
+auth_manager = AuthManager(app)
 
 
 @app.route("/newUser", methods=['POST'])
@@ -19,9 +21,10 @@ def newUser():
 
 
 @app.route("/noContent", methods=['POST'])
+@require_token()
 def noContent():
     res = request.get_json()
-    user_id = res['user_id']
+    user_id = str(current_token.sub)
     registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
 
@@ -30,13 +33,14 @@ def noContent():
 
 
 @app.route("/hasContent", methods=['POST'])
+@require_token()
 def has_content():
     res = request.get_json()
     registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
     activity_name = res['activity_name']
     has_content = True
     activity_content = res['activity_content']
-    user_id = res['user_id']
+    user_id = str(current_token.sub)
 
     svc.create_activity_content(user_id, registered_date,activity_name,has_content,activity_content)
 
@@ -44,9 +48,10 @@ def has_content():
 
 
 @app.route("/toggleFavorite", methods=['POST'])
+@require_token()
 def toggle_favorite():
     res = request.get_json()
-    user_id = res['user_id']
+    user_id = str(current_token.sub)
     activity_name = res['activity_name']
     response = svc.toggle_favorite(user_id, activity_name)
 
@@ -54,8 +59,9 @@ def toggle_favorite():
 
 
 @app.route("/getAll", methods=['GET'])
+@require_token()
 def get_all():
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
     res = svc.get_all(user_id)
     res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
 
@@ -63,10 +69,11 @@ def get_all():
 
 
 @app.route("/getMonth", methods=['GET'])
+@require_token()
 def get_month():
     month = request.args.get('month')
     year = request.args.get('year')
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
     res = svc.get_month(user_id, month, year)
     res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
 
@@ -74,6 +81,7 @@ def get_month():
 
 
 @app.route("/getOne", methods=['GET'])
+@require_token()
 def get_one():
 
     month = request.args.get('month')
@@ -83,7 +91,7 @@ def get_one():
     minute = request.args.get('minute')
     second = request.args.get('second')
     name = request.args.get('name')
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
 
     res = svc.get_one(user_id, month, year, day, hour, minute, second, name)
     res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
@@ -92,20 +100,22 @@ def get_one():
 
 
 @app.route("/getFavs", methods=['GET'])
+@require_token()
 def get_favorites():
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
     favs = svc.get_favorites(user_id)
 
     return jsonify({'favorites': favs})
 
 
 @app.route("/getDay", methods=['GET'])
+@require_token()
 def get_day():
 
     month = request.args.get('month')
     year = request.args.get('year')
     day = request.args.get('day')
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
 
     res = svc.get_day(user_id, month, year, day)
     res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
@@ -125,8 +135,9 @@ def set_category():
 
 
 @app.route("/getRecommended", methods=['GET'])
+@require_token()
 def get_recommended():
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
     res = svc.get_reccomended(user_id)
 
     return jsonify({'res': res})
@@ -143,8 +154,9 @@ def set_emergency():
 
 
 @app.route("/getEmergency", methods=['GET'])
+@require_token()
 def get_emergency():
-    user_id = request.args.get('user_id')
+    user_id = str(current_token.sub)
     emergency = svc.get_emergency(user_id)
 
     return jsonify({'res': emergency})
@@ -158,10 +170,11 @@ def get_all_activities():
 
 
 @app.route("/setRecent", methods=['POST'])
+@require_token()
 def set_recent():
     res = request.get_json()
 
-    user_id = res['user_id']
+    user_id = str(current_token.sub)
     z_count = res['z_count']
     p_count = res['p_count']
     a_count = res['a_count']
@@ -188,7 +201,17 @@ def chat():
 
     return jsonify({'res': response})
 
-# app.run(port=5000, ssl_context="adhoc")
-if __name__ == '__main__':
-       app.run()
+
+@app.route("/login", methods=['POST'])
+def login():
+    res = request.get_json()
+    device_id = str(res['user_id'])
+    svc.user_check(device_id)
+    auth_token = auth_manager.auth_token(device_id)
+    return jsonify({"auth_token": auth_token.signed})
+
+
+app.run(port=5000, ssl_context="adhoc")
+# if __name__ == '__main__':
+#        app.run()
 
