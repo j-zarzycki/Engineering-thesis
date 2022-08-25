@@ -9,12 +9,14 @@ import "swiper/css";
 import "./ConsciousShower.style.css";
 import SWIPE_ELEMENTS from "@Constants/consciousShower.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import Pet from "@Assets/image-12.png";
+import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
+import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
+
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
@@ -62,9 +64,13 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
         <div className="conscious-shower">
           <BackButton defaultHref="/home" />
           <div className="conscious-shower__wrapper">
-            <div className="conscious-shower__image">
-              <img src={Pet} alt="pet" />
-            </div>
+            <Pet
+              src={MainImg}
+              alt="Uśmiechnięta ośmiorniczka jpg"
+              height="200px"
+              paddingTop="20px"
+              paddingBottom="20px"
+            />
             <HorizontalProgressBar
               currentElement={currentSlide}
               elements={slideElements}
