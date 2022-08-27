@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonContent, IonPage, useIonAlert } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
@@ -10,6 +10,7 @@ import "./ConsciousShower.style.css";
 import SWIPE_ELEMENTS from "@Constants/consciousShower.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import MainImg from "@Assets/main.png";
+import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import Pet from "@Components/Pet";
@@ -24,16 +25,25 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
+  const [img, setImg] = useState("");
   const [presentAlert] = useIonAlert();
   const [showProceedButton, setShowProceedButton] = useState(true);
   const slideElements = SWIPE_ELEMENTS;
 
+  useEffect(() => {
+    setImg(MainImg);
+  }, []);
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 1) setShowProceedButton(false);
+    if (swiper?.activeIndex === slideElements - 4) {
+      setImg(quote);
+    }
+    if (swiper?.activeIndex === slideElements - 1) {
+      setShowProceedButton(false);
+      setImg(MainImg);
+    }
   };
-
   const onAlertButtonClick = (alertData: String) => {
     onCreateActivityWithContent(alertData);
   };
@@ -65,7 +75,7 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
           <BackButton defaultHref="/home" />
           <div className="conscious-shower__wrapper">
             <Pet
-              src={MainImg}
+              src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
               height="200px"
               paddingTop="20px"
