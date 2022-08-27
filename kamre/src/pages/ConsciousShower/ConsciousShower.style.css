@@ -33,8 +33,8 @@
     font-weight: var(--font-weight-large);
     font-size: 36px;
     color: var(--color-black);
-    max-width: 310px;
-    max-height: 144px;
+    /*max-width: 310px;*/
+    /*max-height: 144px;*/
     text-align: center;
 }
 
@@ -44,8 +44,8 @@
     font-size: 16px;
     line-height: 24px;
     color: var(--secondary-gray-90);
-    max-width: 277px;
-    max-height: 72px;
+    /*max-width: 277px;*/
+    /*max-height: 72px;*/
     text-align: center;
 }
 

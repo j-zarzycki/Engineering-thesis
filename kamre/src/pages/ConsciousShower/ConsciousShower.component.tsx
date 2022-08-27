@@ -85,46 +85,54 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      3 kroki do świadomego prysznicu
-                    </h4>
+                    <h4 className="swiper-slide__header">Świadomy prysznic</h4>
                     <p className="swiper-slide__paragraph">
-                      Pokażę Ci jak krok po kroku zwiększyć świadomość swoich
-                      działań w codziennym życiu.
+                      Kąpiel to czas, odprężenia i skupienia się na sobie.
+                      Oderwij się na chwilę od rzeczywistości i oczyść swój
+                      umysł.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      3 kroki do świadomego prysznicu
+                      O co chodzi w ćwiczeniu?
                     </h4>
                     <p className="swiper-slide__paragraph">
-                      Pokażę Ci jak krok po kroku zwiększyć świadomość swoich
-                      działań w codziennym życiu.
+                      Weź kąpiel z pełną świadomością tego co widzisz, słyszysz
+                      i czujesz. W tym czasie oderwij się na moment od
+                      rzeczywistości.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      3 kroki do świadomego prysznicu
+                      O co chodzi w ćwiczeniu?
                     </h4>
                     <p className="swiper-slide__paragraph">
-                      Pokażę Ci jak krok po kroku zwiększyć świadomość swoich
-                      działań w codziennym życiu.
+                      Niech myśli spływają z Ciebie niczym krople wody. Poczuj
+                      zapach kosmetyków i tego jaki mają wpływ na Twoją skórę i
+                      ciało. Wsłuchaj się w szum wody.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      3 kroki do świadomego prysznicu
+                      O co chodzi w ćwiczeniu?
                     </h4>
                     <p className="swiper-slide__paragraph">
-                      Pokażę Ci jak krok po kroku zwiększyć świadomość swoich
-                      działań w codziennym życiu.
+                      Po prysznicu przemyśl, co czułeś_aś_oś? Co dało Ci to
+                      ćwiczenie? Czy udało Ci się wyciszyć i oczyścić umysł?
                     </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">
+                      Gratulacje, udało Ci się!
+                    </h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
