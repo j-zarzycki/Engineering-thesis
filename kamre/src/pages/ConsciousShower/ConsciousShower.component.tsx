@@ -154,12 +154,12 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
             >
               <div>
                 <ProceedButton
-                  title="Zakończ"
-                  onClick={onCreateActivityWithNoContent}
-                />
-                <ProceedButton
                   title="Dodaj przemyślenia"
                   onClick={onProceedButtonClickWithContent}
+                />
+                <ProceedButton
+                  title="Zakończ"
+                  onClick={onCreateActivityWithNoContent}
                 />
               </div>
             </CSSTransition>
