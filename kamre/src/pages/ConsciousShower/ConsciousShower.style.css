@@ -15,6 +15,11 @@
     margin-top: 43px;
 }
 
+.proceed-button:hover {
+    opacity: .8;
+    transition: all .3s;
+}
+
 .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide.swiper-slide-active {
     display: flex;
     justify-content: center;
@@ -57,17 +62,83 @@
 .swiper__proceed-buttons-enter {
     opacity: 0;
     transform: scale(0.9);
-  }
-  .swiper__proceed-buttons-enter-active {
+}
+
+.proceed-button {
+    text-align: left;
+}
+
+.swiper__proceed-buttons-enter-active {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
-  }
-  .swiper__proceed-buttons-exit {
+}
+
+.swiper__proceed-buttons-exit {
     opacity: 1;
-  }
-  .swiper__proceed-buttons-exit-active {
+}
+
+.swiper__proceed-buttons-exit-active {
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
-  }
+}
+
+@media (min-width: 1px) and (max-width: 375px) {
+    .conscious-shower .conscious-shower__wrapper .proceed-button {
+        font-size: 20px;
+        width: 255px;
+        height: 60px;
+        transition: all .3s;
+    }
+
+    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+        font-size: 32px;
+    }
+
+    .conscious-shower__wrapper {
+        height: calc(100%);
+    }
+}
+
+@media (min-width: 375px) and (max-width: 500px) {
+    .conscious-shower .conscious-shower__wrapper .proceed-button {
+        font-size: 22px;
+        width: 260px;
+        height: 65px;
+        transition: all .3s;
+    }
+
+    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+        font-size: 34px;
+    }
+
+    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+        font-size: 18px;
+    }
+
+    .conscious-shower__wrapper {
+        height: calc(100%);
+    }
+}
+
+@media (min-width: 500px) and (max-width: 2560px) {
+    .conscious-shower .conscious-shower__wrapper .proceed-button {
+        font-size: 24px;
+        width: 270px;
+        height: 75px;
+        transition: all .3s;
+    }
+
+    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+        font-size: 38px;
+    }
+
+    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+        font-size: 20px;
+    }
+
+    .conscious-shower__wrapper {
+        height: calc(100%);
+    }
+}

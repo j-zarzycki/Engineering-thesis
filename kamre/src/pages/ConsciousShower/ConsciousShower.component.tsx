@@ -141,7 +141,7 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      Gratulacje, udało Ci się!
+                      Gratulacje, udało&nbsp;Ci&nbsp;się!
                     </h4>
                   </div>
                 </SwiperSlide>
