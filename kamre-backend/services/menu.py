@@ -1,157 +1,75 @@
-questions = {
-    1: "Question 1",
-    2: "Question 2",
-    3: "Question 3",
-    4: "Question 4",
-    5: "Question 5",
-    6: "Question 6"
+import services.db_actions as svc
+import random
+
+questions = ['Jak się czujesz?', 'Gdzie jesteś?','Ile masz czasu?']
+av_answers = [['Dobrze', 'Średnio', 'Źle'],
+              ['W domu', 'Na świeżym powietrzu', 'W drodze', 'W miejscu publicznym'],
+              ['Dużo', 'Mało']]
+
+ans = {
+    'Dobrze': 1,
+    'W domu': 1,
+    'Dużo': 1,
+    'Średnio': 2,
+    'Na świeżym powietrzu': 2,
+    'Mało': 2,
+    'Źle': 3,
+    'W drodze': 3,
+    'W miejscu publicznym': 4
+}
+
+results = {
+    (1, 1, 1): ["Świadomy prysznic", "Przugotuj coś pysznego", "Spacer", "Jazda na rowerze",
+                "Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Medytacja", "Podcast", "Dźwięki ambientowe",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 1, 2): ["Oddychanie", "Piosenka", "Muzyka klasyczna",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 2, 1): ["Spacer", "Jazda na rowerze",
+                "Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Medytacja", "Podcast", "Dźwięki ambientowe",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 2, 2): ["Oddychanie", "Piosenka", "Muzyka klasyczna",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 3, 1): ["Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Podcast", "Dźwięki ambientowe",
+                "Mięsień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 3, 2): ["Oddychanie", "Piosenka", "Muzyka klasyczna",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
+    (1, 4, 1): ["Spacer",
+                "Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Medytacja", "Podcast", "Dźwięki ambientowe",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień",
+                "Dobre słowo"],
+    (1, 4, 2): ["Oddychanie", "Piosenka", "Muzyka klasyczna",
+                "Mięśień kreatywności",
+                "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"]
 }
 
 
-def chat(question_id, answer):
-    switch = {
-        1: question_1(answer),
-        2: question_2(answer),
-        3: question_3(answer),
-        4: question_4(answer),
-        5: question_5(answer),
-        6: question_6(answer)
-    }
-    res = switch.get(question_id)
-    print(res)
-    return res
-
-
 def opener():
-    question = questions[1]
-    question_id = 1
-    answers = {
-        1: "Answer 1 leading to q 2",
-        2: "Answer 2 leading to q 3",
-        3: "Answer 3 leading to q 4"
-    }
-
-    return question, question_id, answers
+    return questions[0], av_answers[0]
 
 
-def question_1(answer):
-    switch = {
-        1: {
-            "question": questions[2],
-            "question_id": 2,
-            "answers": {
-                1: "Answer 1 ending q 2",
-                2: "Answer 2 leading to q 5"
-            }
-        },
-        2: {
-            "question": questions[3],
-            "question_id": 3,
-            "answers": {
-                1: "Answer 1 ending q 3",
-                2: "Answer 2 ending q 3",
-                3: "Answer 3 leading to q 6"
-            }
-        },
-        3: {
-            "question": questions[4],
-            "question_id": 4,
-            "answers": {
-                1: "Answer 1 ending q4",
-                2: "Answer 2 ending q4"
-            }
-        }
-    }
-    return switch.get(answer, "Invalid input")
+def chat(user_id, msg):
+    if msg != 'Tak' and msg != 'Nie':
+        svc.user_update_answers(user_id, ans.get(msg))
+        if len(svc.user_check_answers(user_id)) < 3:
+            return questions[len(svc.user_check_answers(user_id))], av_answers[len(svc.user_check_answers(user_id))]
+        else:
+            return get_results(user_id)
+    else:
+        if msg == 'Tak':
+            svc.user_clear_chat_answers(user_id)
+            return 'Good shit', 'Nice'
+        else:
+            return get_results(user_id)
 
 
-def question_2(answer):
-    switch = {
-        1: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 2"}
-        },
-        2: {
-            "question": questions[5],
-            "question_id": 5,
-            "answers":{
-                1: "Answer 1 to q 5 ends",
-                2: "Answer 2 to q 5 ends"
-            }
-        }
-    }
-    return switch.get(answer, "Invalid input")
-
-
-def question_3(answer):
-    switch = {
-        1: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 3 ending 1"}
-        },
-        2: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 3 ending 2"}
-        },
-        3: {
-            "question": questions[6],
-            "question_id": 6,
-            "answers": {
-                1: "Answer 1 to q 6 ends",
-                2: "Answer 2 to q 6 ends"
-            }
-        },
-    }
-    return switch.get(answer, "Invalid input")
-
-
-def question_4(answer):
-    switch = {
-        1: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 4 ending 1"}
-        },
-        2: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 4 ending 2"}
-        }
-    }
-    return switch.get(answer, "Invalid input")
-
-
-def question_5(answer):
-    switch = {
-        1: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 5 ending 1"}
-        },
-        2: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 5 ending 2"}
-        }
-    }
-    return switch.get(answer, "Invalid input")
-
-
-def question_6(answer):
-    switch = {
-        1: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 6 ending 1"}
-        },
-        2: {
-            "question": None,
-            "question_id": None,
-            "answers": {1: "Thank you for ending q 6 ending 2"}
-        }
-    }
-    return switch.get(answer, "Invalid input")
-
+def get_results(user_id):
+    res = svc.user_check_answers(user_id)
+    activities = results.get(tuple(res))
+    return random.sample(activities, 1), "Czy pomogło? Tak, Nie"

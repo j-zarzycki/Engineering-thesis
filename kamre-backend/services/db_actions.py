@@ -332,7 +332,7 @@ def get_reccomended(user_id):
     for key in percentages:
         if ind < 2:
             recommended += random.sample(activities[key], 2)
-            ind +=  1
+            ind += 1
         else:
             recommended += random.sample(activities[key], 1)
 
@@ -413,3 +413,21 @@ def user_check(user_id):
         create_user(user_id)
 
     return user
+
+
+def user_clear_chat_answers(user_id):
+    user = User.objects(user_id=user_id).first()
+    user.chat_answers = []
+    user.save()
+
+
+def user_check_answers(user_id):
+    user = User.objects(user_id=user_id).first()
+    return user.chat_answers
+
+
+def user_update_answers(user_id, answer):
+    user = User.objects(user_id=user_id).first()
+    user.chat_answers.append(answer)
+    user.save()
+
