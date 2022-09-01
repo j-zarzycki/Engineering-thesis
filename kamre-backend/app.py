@@ -6,10 +6,16 @@ from dateutil import parser
 import services.db_actions as svc
 import services.menu as menu
 from flask_pyjwt import AuthManager, current_token, require_token
+import jwt
+from flask_socketio import SocketIO, send
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 app = flask_connection()
-CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['SECRET_KEY'] = 'mysecret'
 auth_manager = AuthManager(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 @app.route("/newUser", methods=['POST'])
@@ -185,33 +191,38 @@ def set_recent():
     return jsonify({'res':'Set recent'})
 
 
-@app.route("/getOpener", methods=['GET'])
-def get_opener():
-    question, question_id, answers = menu.opener()
-    return jsonify({'question': question,'question_id': question_id, 'answers': answers})
-
-
-@app.route("/chat", methods=['POST'])
-def chat():
-    res = request.get_json()
-    question_id = res['question_id']
-    answer = res['answer']
-
-    response = menu.chat(question_id, answer)
-
-    return jsonify({'res': response})
-
-
 @app.route("/login", methods=['POST'])
 def login():
     res = request.get_json()
-    device_id = str(res['user_id'])
+    device_id = str(res['device_id'])
     svc.user_check(device_id)
     auth_token = auth_manager.auth_token(device_id)
     return jsonify({"auth_token": auth_token.signed})
 
 
-app.run(port=5000, ssl_context="adhoc")
+@socketio.event(namespace='/chat')
+def connect():
+    try:
+        token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), os.getenv('JWT_AUTHTYPE'))
+        svc.user_clear_chat_answers(token['sub'])
+        return True
+    except:
+        return False
+
+
+@socketio.on('message', namespace='/chat')
+def handleMessage(msg):
+    token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), os.getenv('JWT_AUTHTYPE'))
+    if msg == 'User has connected!':
+        response, av_answers = menu.opener()
+    else:
+        response, av_answers = menu.chat(token['sub'], msg)
+    res = {'Question': response, 'Answers': av_answers}
+    send(res)
+
+
+# app.run(port=5000, ssl_context="adhoc")
+socketio.run(app, allow_unsafe_werkzeug=True)
 # if __name__ == '__main__':
 #        app.run()
 
