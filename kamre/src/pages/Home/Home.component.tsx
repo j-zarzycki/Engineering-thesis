@@ -58,7 +58,7 @@ const Home: React.FC = () => (
             </IonRow>
 
             <IonRow>
-              <IonCol>
+              <IonCol className="box-left">
                 <IonCard href="/walking" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Spacer</IonCardTitle>
@@ -69,7 +69,7 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
 
-              <IonCol>
+              <IonCol className="box-right">
                 <IonCard href="/breathing" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Oddychanie</IonCardTitle>
@@ -82,7 +82,7 @@ const Home: React.FC = () => (
             </IonRow>
 
             <IonRow>
-              <IonCol>
+              <IonCol className="box-left">
                 <IonCard href="/fivetoone" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">5-4-3-2-1</IonCardTitle>
@@ -92,7 +92,7 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-              <IonCol>
+              <IonCol className="box-right">
                 <IonCard href="/gratitude" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Wdzięczność</IonCardTitle>
@@ -105,7 +105,7 @@ const Home: React.FC = () => (
             </IonRow>
 
             <IonRow>
-              <IonCol>
+              <IonCol className="box-left">
                 <IonCard href="/ytpage" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">
@@ -117,7 +117,7 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-              <IonCol>
+              <IonCol className="box-right">
                 <IonCard href="/anger" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Złość</IonCardTitle>
@@ -130,7 +130,7 @@ const Home: React.FC = () => (
             </IonRow>
 
             <IonRow>
-              <IonCol>
+              <IonCol className="box-left">
                 <IonCard href="/emergency" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Emergency</IonCardTitle>
@@ -140,7 +140,7 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-              <IonCol>
+              <IonCol className="box-right">
                 <IonCard href="/calendar" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Calendar</IonCardTitle>
@@ -153,7 +153,7 @@ const Home: React.FC = () => (
             </IonRow>
 
             <IonRow>
-              <IonCol>
+              <IonCol className="box-left">
                 <IonCard href="/shower" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Shower</IonCardTitle>
@@ -163,7 +163,7 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-              <IonCol>
+              <IonCol className="box-right">
                 <IonCard href="/" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">-</IonCardTitle>
