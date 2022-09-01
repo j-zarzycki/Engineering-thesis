@@ -17,5 +17,5 @@ class User(db.Document):
     recent = db.ListField(db.EmbeddedDocumentField(Recent))
 
     meta = {
-        'collection': 'users_test'
+        'collection': 'users'
     }
