@@ -1,0 +1,22 @@
+.vertical-progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  width: 5px;
+  height: 100%;
+}
+
+.vertical-progress-bar__element {
+  border-radius: 10px;
+  background-color: gray;
+  transition: all 0.3s ease-in-out;
+  flex: 90px 0 0;
+}
+
+.vertical-progress-bar__element--active {
+  background-color: yellow;
+  transition: all 0.3s ease-in-out;
+  flex: 150px 1 0;
+}
