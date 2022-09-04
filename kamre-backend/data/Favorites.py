@@ -5,5 +5,5 @@ db = db_connection()
 
 
 class Favorites(db.EmbeddedDocument):
-    activity_name = db.ListField(db.StringField)
+    activity_name = db.StringField()
 

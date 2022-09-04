@@ -8,9 +8,10 @@ db = db_connection()
 
 
 class User(db.Document):
-    user_id = db.IntField(required=True, unique=True)
+    user_id = db.StringField(required=True, unique=True)
 
     activities_years = db.SortedListField(db.EmbeddedDocumentField(Activity_year), ordering="year")
+    chat_answers = db.ListField(db.IntField())
     favorites = db.EmbeddedDocumentListField(Favorites)
     emergency_seen = db.EmbeddedDocumentListField(Emergency_seen)
     recent = db.ListField(db.EmbeddedDocumentField(Recent))
