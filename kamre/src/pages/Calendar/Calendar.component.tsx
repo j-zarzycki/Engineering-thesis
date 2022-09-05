@@ -6,7 +6,7 @@ import ErrorType from "@Types/error.type";
 import Header from "@Components/Header";
 import ShowHideText from "@Components/ShowHideText";
 
-import "./Calendar.style.css";
+import "./Calendar.style.scss";
 
 interface IProps {
   error: ErrorType;

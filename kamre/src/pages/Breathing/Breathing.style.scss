@@ -1,0 +1,24 @@
+@import '@Theme/variables';
+
+.stopwatch {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.numbers {
+  color: $color-black;
+}
+
+.buttons {
+  button {
+    padding: 6px 8px 6px 8px;
+    border-radius: 10px;
+    border: 2px solid $color-black;
+  }
+}
+
+.message-container {
+  .message {
+    color: $color-black;
+  }
+}
