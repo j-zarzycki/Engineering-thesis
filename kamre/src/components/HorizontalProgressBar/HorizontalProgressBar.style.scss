@@ -1,0 +1,23 @@
+@import '@Theme/variables';
+
+.horizontal-progress-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: auto;
+    height: 5px;
+    transition: $transition-default;
+
+    &__element {
+        border-radius: 10px;
+        width: 40px;
+        background-color: $secondary-gray-90;
+        transition: all .3s ease-in-out;
+
+        &--active {
+            background-color: $primary-color-75;
+            width: 60px;
+            transition: $transition-default;
+        }
+    }
+}

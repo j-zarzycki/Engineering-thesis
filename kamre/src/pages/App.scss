@@ -1,0 +1,210 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.ion-title {
+  color: $color-black;
+  font-weight: $font-weight-xl;
+}
+
+.homepage {
+  &-toolbar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &__image {
+      max-width: 40px;
+      border-radius: $border-radius-m;
+
+      &:hover {
+        opacity: 0.8;
+        transition: $transition-default;
+      }
+    }
+  }
+
+  &-header {
+    &-wrapper {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+
+.chat {
+  display: flex;
+  flex-flow: column;
+
+  &-styles {
+    border-radius: $border-radius-m;
+    margin: 4px;
+  }
+
+  &-description {
+    font-size: $font-size-xxs;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1;
+  }
+}
+
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-row {
+  width: auto;
+}
+
+ion-col {
+  display: flex;
+  justify-content: center;
+}
+
+ion-tab-button,
+ion-icon {
+  color: $secondary-gray-90;
+}
+
+ion-tab-button,
+ion-label {
+  color: $secondary-gray-90;
+}
+
+#tab {
+  &-button {
+    &-home {
+      &:hover {
+        ion-icon {
+          color: $primary-color-90;
+          transition: $transition-default;
+        }
+
+        ion-label {
+          color: $primary-color-90;
+          transition: $transition-default;
+        }
+      }
+    }
+  }
+}
+
+.card {
+  &-styles {
+    text-align: center;
+    background-color: $primary-color-80;
+    border-radius: $border-radius-xs;
+    max-height: 250px;
+    max-width: 250px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: var(--primary-yellow-90);
+      transition: $transition-default;
+    }
+  }
+
+  &-title {
+    color: $color-black;
+    font-weight: $font-weight-xl;
+  }
+
+  &-description {
+    color: $color-black;
+    font-size: $font-size-s;
+  }
+}
+
+@include mobile-m {
+  .card {
+    &-description {
+      font-size: $font-size-xxs;
+    }
+
+    &-title {
+      font-size: $font-size-s;
+    }
+
+    &-styles {
+      max-height: 125px;
+      max-width: 125px;
+      min-height: 125px;
+      min-width: 125px;
+    }
+  }
+}
+
+@media (min-width: 375px) and (max-width: 550px) {
+  .box {
+    &-left {
+      display: flex;
+      justify-content: right;
+    }
+
+    &-right {
+      display: flex;
+      justify-content: left;
+    }
+  }
+
+  .card {
+    &-description {
+      font-size: $font-size-xs;
+    }
+
+    &-styles {
+      max-height: 150px;
+      max-width: 150px;
+    }
+
+    &-title {
+      font-size: $font-size-m;
+    }
+  }
+}
+
+@media (min-width: 550px) and (max-width: 2560px) {
+  .box {
+    &-left {
+      display: flex;
+      justify-content: right;
+    }
+
+    &-right {
+      display: flex;
+      justify-content: left;
+    }
+
+    .homepage {
+      &-header {
+        &-wrapper {
+          justify-content: center;
+        }
+      }
+    }
+
+    .card {
+      &-description {
+        font-size: $font-size-xs;
+      }
+
+      &-styles {
+        max-height: 150px;
+        max-width: 150px;
+        min-height: 150px;
+        max-height: 150px;
+      }
+
+      &-title {
+        font-size: $font-size-m;
+      }
+    }
+  }
+}

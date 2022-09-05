@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonPage, IonCard } from "@ionic/react";
-import "./Breathing.css";
+import "./Breathing.style.scss";
 import BackButton from "@Components/BackButton";
 import Header from "@Components/Header";
 import SaveButton from "@Components/SaveButton";

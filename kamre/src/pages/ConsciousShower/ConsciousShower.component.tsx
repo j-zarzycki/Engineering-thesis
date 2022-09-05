@@ -6,7 +6,7 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./ConsciousShower.style.css";
+import "./ConsciousShower.style.scss";
 import SWIPE_ELEMENTS from "@Constants/consciousShower.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import MainImg from "@Assets/main.png";
@@ -17,7 +17,6 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 

@@ -1,0 +1,33 @@
+@import '@Theme/variables';
+
+.show-hide {
+  font-family: $font-main;
+  font-weight: $font-weight-xl;
+  color: $color-white;
+  width: 100%;
+  filter: $default-drop-shadow;
+  text-align: left;
+  padding: 23px 33px;
+  background-color: $primary-color-80;
+  border-radius: $border-radius-m;
+  transition: $transition-default;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__hidden-block {
+    max-height: 0;
+    opacity: 0;
+    transition: $transition-default;
+
+    &--isVisible {
+      white-space: wrap;
+      opacity: 1;
+      max-height: 250px;
+      transition: $transition-default;
+    }
+  }
+}

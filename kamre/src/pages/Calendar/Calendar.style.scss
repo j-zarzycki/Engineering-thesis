@@ -1,0 +1,29 @@
+.calendar-page {
+  &__calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 30px;
+
+    h3 {
+      margin-top: 64px;
+    }
+  }
+
+  &__no-content {
+    font-family: var(--font-main);
+    font-size: var(--font-size-large);
+    color: var(--secondary-gray-90);
+    margin-top: 50px;
+    font-weight: var(--font-weight-large);
+  }
+}
+
+ion-datetime {
+  &.month-year-picker-open {
+    ~ .calendar-page__no-content {
+      display: none;
+    }
+  }
+}

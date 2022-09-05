@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "./HorizontalProgressBar.style.css";
+import "./HorizontalProgressBar.style.scss";
 
 interface IProps {
   elements: Number;

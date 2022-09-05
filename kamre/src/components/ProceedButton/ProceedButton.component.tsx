@@ -1,7 +1,7 @@
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
 
-import "./ProceedButton.style.css";
+import "./ProceedButton.style.scss";
 
 interface IProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;

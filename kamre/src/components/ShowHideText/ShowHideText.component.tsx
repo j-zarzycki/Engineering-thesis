@@ -3,7 +3,7 @@ import { HiChevronUp, HiChevronDown } from "react-icons/hi";
 
 import { CalendarResponseType } from "@Types/calendar.type";
 
-import "./ShowHideText.style.css";
+import "./ShowHideText.style.scss";
 
 interface IProps {
   dayContent: CalendarResponseType;

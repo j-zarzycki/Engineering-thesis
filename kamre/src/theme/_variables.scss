@@ -1,0 +1,49 @@
+//colors
+$color-black: #000000;
+$color-white: #ffffff;
+
+$primary-color-90: #d49909;
+$primary-color-80: #f1ca4f;
+$primary-color-75: #f3cb59;
+
+$secondary-gray-90: #96969d;
+$secondary-gray-30: #e9e9eb;
+
+//font
+$font-main: "Inter", sans-serif;
+
+$font-weight-xxs: 100;
+$font-weight-xs: 200;
+$font-weight-s: 300;
+$font-weight-m: 400;
+$font-weight-l: 500;
+$font-weight-xl: 600;
+$font-weight-xxl: 800;
+
+$font-size-xxs: 9px;
+$font-size-xs: 11px;
+$font-size-s: 13px;
+$font-size-m: 16px;
+$font-size-l: 18px;
+$font-size-xl: 24px;
+$font-size-xxl: 32px;
+$font-size-xxxl: 64px;
+
+$font-size-10: 128px;
+
+//transition
+$transition-default: all .3s ease-in-out;
+
+
+//shadow
+$default-drop-shadow: drop-shadow(0px 100px 80px rgba(94, 80, 31, 0.07))
+drop-shadow(0px 41.7776px 33.4221px rgba(94, 80, 31, 0.0503198))
+drop-shadow(0px 22.3363px 17.869px rgba(94, 80, 31, 0.0417275))
+drop-shadow(0px 12.5216px 10.0172px rgba(94, 80, 31, 0.035))
+drop-shadow(0px 6.6501px 5.32008px rgba(94, 80, 31, 0.0282725))
+drop-shadow(0px 2.76726px 2.21381px rgba(94, 80, 31, 0.0196802));
+
+//radius
+$border-radius-m: 23px;
+$border-radius-s: 16px;
+$border-radius-xs: 12px;
