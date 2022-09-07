@@ -1,7 +1,4 @@
-/* eslint-disable */
-
 import React from "react";
-import { CSSTransition } from "react-transition-group";
 import { IonContent, IonPage, IonImg } from "@ionic/react";
 
 import ProceedButton from "@Components/ProceedButton";
@@ -13,12 +10,18 @@ import "./Breathing.style.scss";
 interface IProps {
   isPlaying: boolean;
   counter: number;
+  renderType: string;
   handleButtonClick(): void;
-  createBreathing(): Promise<void>;
+}
+
+enum RenderTypeTranslation {
+  Wydech = "EXHAUST",
+  Wdech = "INHALE",
+  Pauza = "PAUSE",
 }
 
 const Breathing: React.FC<IProps> = (props: IProps) => {
-  const { counter, isPlaying, createBreathing, handleButtonClick } = props;
+  const { counter, isPlaying, renderType, handleButtonClick } = props;
 
   const renderDescription = () => {
     return (
@@ -40,24 +43,34 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderTimer = () => {
+    const indexOfEnumValue = Object.values(RenderTypeTranslation).indexOf(
+      renderType as unknown as RenderTypeTranslation,
+    );
+    const translatedKey = Object.keys(RenderTypeTranslation)[indexOfEnumValue];
+
     return (
       <div className="breathing__timer">
-        <h4>{counter}</h4>
+        <h4>{renderType !== "PAUSE" && counter}</h4>
+        <h5>{translatedKey}</h5>
       </div>
     );
   };
 
   const renderImage = () => {
     return (
-      <div className={`breathing__image ${isPlaying && "breathing__image--active"}`}>
+      <div
+        className={`breathing__image ${
+          isPlaying && "breathing__image--active"
+        }`}
+      >
         <IonImg
           className={`${isPlaying && "breathing__image--active"}`}
           src={Pet}
           alt="pet"
         />
-        <div className="ring"></div>
-        <div className="ring"></div>
-        <div className="ring"></div>
+        <div className="ring" />
+        <div className="ring" />
+        <div className="ring" />
       </div>
     );
   };
