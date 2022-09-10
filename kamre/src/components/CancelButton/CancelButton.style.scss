@@ -1,6 +1,6 @@
 @import '@Theme/variables';
 
-.proceed-button {
+.cancel-button {
   box-sizing: border-box;
   font-family: $font-main;
   font-weight: $font-weight-xl;
@@ -12,9 +12,9 @@
   width: 90%;//333px;
   height: 75px;
   border-radius: 12px;
-  background-color: $primary-color-80;
+  background-color: #fefefe;
   padding: 33px 23px;
-  color: $color-white;
+  color: $color-black;
   filter: $default-drop-shadow;
   transition: $transition-default;
 
