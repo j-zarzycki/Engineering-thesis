@@ -9,14 +9,14 @@ const PrepareMealContainer: React.FC = () => {
 
   const createPrepareMealWithNoContent = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Spacer")
+      .CreateActivityWithNoContent(currentDateWithTime, "Przygotuj cos pysznego")
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
 
   const createPrepareMealWithContent = async (activityContent: String) => {
     await apiService
-      .CreateActivityWithContent(currentDateWithTime, activityContent, "Spacer")
+      .CreateActivityWithContent(currentDateWithTime, activityContent, "Przygotuj cos pysznego")
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
