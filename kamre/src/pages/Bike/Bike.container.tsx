@@ -9,14 +9,14 @@ const BikeContainer: React.FC = () => {
 
   const createBikeWithNoContent = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Spacer")
+      .CreateActivityWithNoContent(currentDateWithTime, "Rower")
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
 
   const createBikeWithContent = async (activityContent: String) => {
     await apiService
-      .CreateActivityWithContent(currentDateWithTime, activityContent, "Spacer")
+      .CreateActivityWithContent(currentDateWithTime, activityContent, "Rower")
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
