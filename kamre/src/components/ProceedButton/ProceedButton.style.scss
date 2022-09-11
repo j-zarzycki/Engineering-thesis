@@ -1,0 +1,25 @@
+@import '@Theme/variables';
+
+.proceed-button {
+  box-sizing: border-box;
+  font-family: $font-main;
+  font-weight: $font-weight-xl;
+  font-size: $font-size-xl;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%;//333px;
+  height: 75px;
+  border-radius: 12px;
+  background-color: $primary-color-80;
+  padding: 33px 23px;
+  color: $color-white;
+  filter: $default-drop-shadow;
+  transition: $transition-default;
+
+  &:hover {
+    opacity: .8;
+    transition: all .3s;
+  }
+}

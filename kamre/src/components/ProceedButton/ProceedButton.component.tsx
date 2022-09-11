@@ -1,7 +1,7 @@
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
 
-import "./ProceedButton.style.css";
+import "./ProceedButton.style.scss";
 
 interface IProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -13,8 +13,10 @@ const ProceedButton: React.FC<IProps> = (props: IProps) => {
 
   return (
     <button className="proceed-button" type="button" onClick={onClick}>
-      {title}
-      <BiChevronRight size={40} />
+      <div className="proceed-button-text">{title}</div>
+      <div className="proceed-button-svg">
+        <BiChevronRight size={40} />
+      </div>
     </button>
   );
 };

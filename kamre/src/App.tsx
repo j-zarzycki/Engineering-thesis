@@ -41,7 +41,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 /* Home css */
-import "./pages/App.css";
+import "./pages/App.scss";
 import YtPage from "./pages/YtPage";
 
 setupIonicReact();
