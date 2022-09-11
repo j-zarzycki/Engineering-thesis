@@ -164,9 +164,11 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
               <IonCol className="box-right">
-                <IonCard href="/" class="card-styles">
+                <IonCard href="/bike" class="card-styles">
                   <IonCardHeader>
-                    <IonCardTitle class="card-title">-</IonCardTitle>
+                    <IonCardTitle class="card-title">
+                      Jazda na rowerze
+                    </IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
                     You'll lose all tasks, conversations and documents.
