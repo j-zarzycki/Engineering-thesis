@@ -13,8 +13,10 @@ const ProceedButton: React.FC<IProps> = (props: IProps) => {
 
   return (
     <button className="proceed-button" type="button" onClick={onClick}>
-      {title}
-      <BiChevronRight size={40} />
+      <div className="proceed-button-text">{title}</div>
+      <div className="proceed-button-svg">
+        <BiChevronRight size={40} />
+      </div>
     </button>
   );
 };

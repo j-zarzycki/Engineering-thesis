@@ -1,11 +1,10 @@
 from flask import request, jsonify, json
 from services.flask_connection import flask_connection
-from flask_cors import CORS
 import cryptography
 from dateutil import parser
 import services.db_actions as svc
 import services.menu as menu
-from flask_pyjwt import AuthManager, current_token, require_token
+import services.jwt_svc as jwt_svc
 import jwt
 from flask_socketio import SocketIO, send
 from dotenv import load_dotenv
@@ -13,8 +12,7 @@ load_dotenv()
 import os
 
 app = flask_connection()
-app.config['SECRET_KEY'] = 'mysecret'
-auth_manager = AuthManager(app)
+app.config['SECRET_KEY'] = os.getenv('JWT_SECRET')
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 
@@ -26,107 +24,138 @@ def newUser():
     return jsonify({'res': 'created new user'})
 
 
-@app.route("/noContent", methods=['POST'])
-@require_token()
-def noContent():
+@app.route("/login", methods=['POST'])
+def login():
     res = request.get_json()
-    user_id = str(current_token.sub)
-    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
-    activity_name = res['activity_name']
+    device_id = str(res['device_id'])
+    svc.user_check(device_id)
+    token = jwt_svc.create_token(device_id)
+    return jsonify({"auth_token": token})
 
-    svc.create_activity(user_id, registered_date, activity_name)
-    return jsonify({'res': 'created entry'})
+
+def check():
+    token = request.headers.get('token')
+    status, token = jwt_svc.check_token(token)
+    if status:
+        return status, token['device_id']
+    else:
+        return status, "Token ivalid"
+
+
+@app.route("/noContent", methods=['POST'])
+def noContent():
+    status, user_id = check()
+    if status:
+        res = request.get_json()
+        registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
+        activity_name = res['activity_name']
+
+        svc.create_activity(user_id, registered_date, activity_name)
+        return jsonify({'res': 'created entry'})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/hasContent", methods=['POST'])
-@require_token()
 def has_content():
-    res = request.get_json()
-    registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
-    activity_name = res['activity_name']
-    has_content = True
-    activity_content = res['activity_content']
-    user_id = str(current_token.sub)
+    status, user_id = check()
+    if status:
+        res = request.get_json()
+        registered_date = parser.parse(res['registered_date'].replace(':', 'T', 1))
+        activity_name = res['activity_name']
+        has_content = True
+        activity_content = res['activity_content']
 
-    svc.create_activity_content(user_id, registered_date,activity_name,has_content,activity_content)
+        svc.create_activity_content(user_id, registered_date,activity_name,has_content,activity_content)
 
-    return jsonify({'res': 'created entry with content'})
+        return jsonify({'res': 'created entry with content'})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/toggleFavorite", methods=['POST'])
-@require_token()
 def toggle_favorite():
-    res = request.get_json()
-    user_id = str(current_token.sub)
-    activity_name = res['activity_name']
-    response = svc.toggle_favorite(user_id, activity_name)
+    status, user_id = check()
+    if status:
+        res = request.get_json()
+        activity_name = res['activity_name']
+        response = svc.toggle_favorite(user_id, activity_name)
 
-    return jsonify({'res': response})
+        return jsonify({'res': response})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getAll", methods=['GET'])
-@require_token()
 def get_all():
-    user_id = str(current_token.sub)
-    res = svc.get_all(user_id)
-    res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
-
-    return jsonify({'res': res})
+    status, user_id = check()
+    if status:
+        res = svc.get_all(user_id)
+        res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
+        return jsonify({'res': res})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getMonth", methods=['GET'])
-@require_token()
 def get_month():
-    month = request.args.get('month')
-    year = request.args.get('year')
-    user_id = str(current_token.sub)
-    res = svc.get_month(user_id, month, year)
-    res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
+    status, user_id = check()
+    if status:
+        month = request.args.get('month')
+        year = request.args.get('year')
+        res = svc.get_month(user_id, month, year)
+        res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
 
-    return jsonify({'res': res})
+        return jsonify({'res': res})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getOne", methods=['GET'])
-@require_token()
 def get_one():
+    status, user_id = check()
+    if status:
+        month = request.args.get('month')
+        year = request.args.get('year')
+        day = request.args.get('day')
+        hour = request.args.get('hour')
+        minute = request.args.get('minute')
+        second = request.args.get('second')
+        name = request.args.get('name')
 
-    month = request.args.get('month')
-    year = request.args.get('year')
-    day = request.args.get('day')
-    hour = request.args.get('hour')
-    minute = request.args.get('minute')
-    second = request.args.get('second')
-    name = request.args.get('name')
-    user_id = str(current_token.sub)
+        res = svc.get_one(user_id, month, year, day, hour, minute, second, name)
+        res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
 
-    res = svc.get_one(user_id, month, year, day, hour, minute, second, name)
-    res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
-
-    return jsonify(({'res': res}))
+        return jsonify({'res': res})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getFavs", methods=['GET'])
-@require_token()
 def get_favorites():
-    user_id = str(current_token.sub)
-    favs = svc.get_favorites(user_id)
+    status, user_id = check()
+    if status:
+        favs = svc.get_favorites(user_id)
 
-    return jsonify({'favorites': favs})
+        return jsonify({'favorites': favs})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getDay", methods=['GET'])
-@require_token()
 def get_day():
+    status, user_id = check()
+    if status:
+        month = request.args.get('month')
+        year = request.args.get('year')
+        day = request.args.get('day')
 
-    month = request.args.get('month')
-    year = request.args.get('year')
-    day = request.args.get('day')
-    user_id = str(current_token.sub)
+        res = svc.get_day(user_id, month, year, day)
+        res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
 
-    res = svc.get_day(user_id, month, year, day)
-    res = json.loads(json.dumps(res, default=lambda x: x.__dict__))
-
-    return jsonify(({'res': res}))
+        return jsonify(({'res': res}))
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/setCategory", methods=['POST'])
@@ -141,12 +170,14 @@ def set_category():
 
 
 @app.route("/getRecommended", methods=['GET'])
-@require_token()
 def get_recommended():
-    user_id = str(current_token.sub)
-    res = svc.get_reccomended(user_id)
+    status, user_id = check()
+    if status:
+        res = svc.get_reccomended(user_id)
 
-    return jsonify({'res': res})
+        return jsonify({'res': res})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/setEmergency", methods=['POST'])
@@ -160,12 +191,14 @@ def set_emergency():
 
 
 @app.route("/getEmergency", methods=['GET'])
-@require_token()
 def get_emergency():
-    user_id = str(current_token.sub)
-    emergency = svc.get_emergency(user_id)
+    status, user_id = check()
+    if status:
+        emergency = svc.get_emergency(user_id)
 
-    return jsonify({'res': emergency})
+        return jsonify({'res': emergency})
+    else:
+        return jsonify({'res': user_id})
 
 
 @app.route("/getAllActivities", methods=['GET'])
@@ -176,28 +209,22 @@ def get_all_activities():
 
 
 @app.route("/setRecent", methods=['POST'])
-@require_token()
 def set_recent():
-    res = request.get_json()
+    status, user_id = check()
+    if status:
+        res = request.get_json()
 
-    user_id = str(current_token.sub)
-    z_count = res['z_count']
-    p_count = res['p_count']
-    a_count = res['a_count']
-    b_count = res['b_count']
+        z_count = res['z_count']
+        p_count = res['p_count']
+        a_count = res['a_count']
+        b_count = res['b_count']
 
-    svc.set_recent(user_id, b_count, a_count, z_count, p_count)
+        svc.set_recent(user_id, b_count, a_count, z_count, p_count)
 
-    return jsonify({'res':'Set recent'})
+        return jsonify({'res':'Set recent'})
+    else:
+        return jsonify({'res': user_id})
 
-
-@app.route("/login", methods=['POST'])
-def login():
-    res = request.get_json()
-    device_id = str(res['device_id'])
-    svc.user_check(device_id)
-    auth_token = auth_manager.auth_token(device_id)
-    return jsonify({"auth_token": auth_token.signed})
 
 
 @socketio.event(namespace='/chat')
@@ -222,7 +249,8 @@ def handleMessage(msg):
 
 
 # app.run(port=5000, ssl_context="adhoc")
-socketio.run(app, allow_unsafe_werkzeug=True)
-# if __name__ == '__main__':
-#        app.run()
+# socketio.run(app, allow_unsafe_werkzeug=True)
+if __name__ == '__main__':
+    socketio.run(app, allow_unsafe_werkzeug=True)
+
 
