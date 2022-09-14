@@ -165,11 +165,30 @@ const Home: React.FC = () => (
               </IonCol>
               <IonCol className="box-right">
                 <IonCard href="/feet" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Stopy</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
                 <IonCard href="/bike" class="card-styles">
                   <IonCardHeader>
-                    <IonCardTitle class="card-title">
-                      Jazda na rowerze
-                    </IonCardTitle>
+                    <IonCardTitle class="card-title">bike</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-right">
+                <IonCard href="/calendar" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Calendar</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
                     You'll lose all tasks, conversations and documents.
