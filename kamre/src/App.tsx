@@ -106,7 +106,6 @@ const App: React.FC = () => (
           <Route exact path="/preparemeal">
             <PrepareMeal />
           </Route>
-          </Route>
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
