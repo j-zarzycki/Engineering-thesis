@@ -12,6 +12,7 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
+import Sufficient from "@Pages/Sufficient";
 import GoodWord from "@Pages/GoodWord";
 import Feet from "@Pages/Feet";
 import Note from "@Pages/Note";
@@ -84,6 +85,9 @@ const App: React.FC = () => (
           <Route exact path="/anger">
             <Anger />
           </Route>
+          <Route exact path="/sufficient">
+            <Sufficient />
+          </Route>
           <Route exact path="/goodword">
             <GoodWord />
           </Route>
@@ -101,6 +105,7 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/preparemeal">
             <PrepareMeal />
+          </Route>
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />

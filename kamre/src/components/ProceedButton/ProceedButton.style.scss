@@ -1,4 +1,4 @@
-@import '@Theme/variables';
+@import "@Theme/variables";
 
 .proceed-button {
   box-sizing: border-box;
@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  max-width: 333px;
   justify-content: center;
   width: 90%;//333px;
   height: 75px;
@@ -18,8 +20,17 @@
   filter: $default-drop-shadow;
   transition: $transition-default;
 
+
+  &:disabled {
+    background-color: $secondary-gray-90;
+    transition: $transition-default;
+    cursor: not-allowed;
+  }
+}
+
   &:hover {
     opacity: .8;
     transition: all .3s;
   }
 }
+
