@@ -85,6 +85,7 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/feet">
             <Feet />
+          </Route>
           <Route exact path="/previousday">
             <PreviousDay />
           </Route>
