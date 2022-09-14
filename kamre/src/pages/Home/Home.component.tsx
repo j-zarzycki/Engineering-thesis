@@ -164,6 +164,7 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
               <IonCol className="box-right">
+                <IonCard href="/feet" class="card-styles">
                 <IonCard href="/bike" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">
@@ -176,7 +177,6 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
             </IonRow>
-
             <IonRow>
               <IonCol className="box-left">
                 <IonCard href="/preparemeal" class="card-styles">
@@ -193,7 +193,7 @@ const Home: React.FC = () => (
               <IonCol className="box-right">
                 <IonCard href="/" class="card-styles">
                   <IonCardHeader>
-                    <IonCardTitle class="card-title">-</IonCardTitle>
+                    <IonCardTitle class="card-title">Feet</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
                     You'll lose all tasks, conversations and documents.
