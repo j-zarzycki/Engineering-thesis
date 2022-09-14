@@ -1,0 +1,165 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.good-word {
+  &__wrapper {
+    height: 90%;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px; 
+
+    .buttons-good-word {
+      &__end {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-xl;
+        color: $color-black;
+        text-decoration: none;
+        background: none;
+      }
+
+      &__add {
+        padding: 23px 30px;
+        color: $color-white;
+        background-color: $primary-color-80;
+        font-weight: $font-weight-xl;
+        font-size: $font-size-xl;
+        filter: $default-drop-shadow;
+        border-radius: $border-radius-m;
+        transition: $transition-default;
+
+        &:disabled {
+          background-color: $secondary-gray-90;
+          cursor: not-allowed;
+          transition: $transition-default;
+        }
+      }
+    }
+  }
+
+  &__context {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-main;
+    height: 100%;
+
+    ion-img {
+      width: 160px;
+      height: 210px;
+      margin-bottom: 38px;
+    }
+
+    .proceed-button {
+      margin-top: auto;
+      max-width: 230px;
+    }
+  }
+
+  &__swiper {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.swiper {
+  &-slide {
+    &-active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 45px;
+      margin-top: 45px;
+    }
+
+    &__header {
+      text-align: center;
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+    }
+
+    &__paragraph {
+      text-align: center;
+      font-size: $font-size-m;
+      font-weight: $font-weight-m;
+      color: $secondary-gray-90;
+      max-width: 320px;
+      width: 100%;
+      margin: 0;
+    }
+
+    &__input {
+      width: 100%;
+      border-radius: $border-radius-s;
+      border: 1px solid $secondary-gray-90;
+      height: 50px;
+      padding: 23px;
+      outline: none;
+      box-shadow: $default-drop-shadow;
+      font-size: $font-size-s;
+    }
+  }
+}
+
+@include mobile-s {
+  .swiper {
+    &-slide {
+      &__wrapper {
+        margin: 0;
+        gap: 0;
+      }
+
+      &__header {
+        margin-top: 25px;
+      }
+
+      &__paragraph {
+        margin-top: 40px;
+      }
+    }
+  }
+
+  .good-word {
+    &__wrapper {
+      height: 95%;
+    }
+
+    &__context {
+      ion-img {
+        margin-bottom: 24px;
+        height: 150px;
+        width: 150px;
+      }
+    }
+  }
+}
+
+@include mobile-s-long {
+  .good-word {
+    &__context {
+      ion-img {
+        height: 150px;
+        width: 130px;
+      }
+    }
+  }
+
+  .swiper {
+    &-slide {
+      &__wrapper {
+        margin-top: 30px;
+      }
+    }
+  }
+}
