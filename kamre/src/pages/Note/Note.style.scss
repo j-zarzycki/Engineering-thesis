@@ -1,0 +1,115 @@
+@import "@Theme/variables";
+
+.note {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-row-gap: 50px;
+    font-family: $font-main;
+    height: 100%;
+  }
+
+  &__header {
+    position: relative;
+    padding-left: 28px;
+
+    h4 {
+      font-weight: $font-weight-xl;
+      font-size: $font-size-xl;
+      text-align: left;
+      margin-top: 0;
+    }
+
+    p {
+      font-size: $font-size-m;
+    }
+
+    &::before {
+      content: "";
+      height: 100%;
+      width: 5px;
+      background-color: $primary-color-75;
+      position: absolute;
+      left: 0;
+      border-radius: $border-radius-m;
+    }
+
+    .header-note {
+      &__icon-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &__hidden-description {
+        opacity: 1;
+        max-height: 250px;
+        transition: $transition-default;
+
+        &--isHidden {
+          opacity: 0;
+          height: 0;
+          margin: 0;
+          transition: $transition-default;
+        }
+      }
+    }
+  }
+
+  &__context {
+    position: relative;
+    padding-left: 28px;
+
+    &::before {
+      content: "";
+      height: 100%;
+      width: 5px;
+      background-color: $secondary-gray-90;
+      position: absolute;
+      left: 0;
+      border-radius: $border-radius-m;
+    }
+
+    textarea {
+      border: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    .buttons-note {
+      &__cancel {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-xl;
+        color: $color-black;
+        text-decoration: none;
+        background: none;
+      }
+
+      &__save {
+        padding: 23px 30px;
+        color: $color-white;
+        background-color: $primary-color-80;
+        font-weight: $font-weight-xl;
+        font-size: $font-size-xl;
+        filter: $default-drop-shadow;
+        border-radius: $border-radius-m;
+        transition: $transition-default;
+
+        &:disabled {
+          background-color: $secondary-gray-90;
+          cursor: not-allowed;
+          transition: $transition-default;
+        }
+      }
+    }
+  }
+}

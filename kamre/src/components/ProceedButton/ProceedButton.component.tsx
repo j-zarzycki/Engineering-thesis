@@ -22,6 +22,12 @@ const ProceedButton: React.FC<IProps> = (props: IProps) => {
       {title}
       <BiChevronRight size={40} />
     </button>
+    <button className="proceed-button" type="button" onClick={onClick}>
+      <div className="proceed-button-text">{title}</div>
+      <div className="proceed-button-svg">
+        <BiChevronRight size={40} />
+      </div>
+    </button>
   );
 };
 

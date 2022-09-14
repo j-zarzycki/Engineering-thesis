@@ -1,0 +1,119 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.gratitude {
+  &__wrapper {
+    height: 90%;
+  }
+
+  &__context {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-main;
+    height: 100%;
+
+    ion-img {
+      width: 160px;
+      height: 210px;
+      margin-bottom: 38px;
+    }
+
+    .proceed-button {
+      margin-top: auto;
+    }
+  }
+
+  &__swiper {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.swiper {
+  &-slide {
+    &-active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 45px;
+      margin-top: 45px;
+    }
+
+    &__header {
+      text-align: center;
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+    }
+
+    &__paragraph {
+      text-align: center;
+      font-size: $font-size-m;
+      font-weight: $font-weight-m;
+      color: $secondary-gray-90;
+      max-width: 300px;
+      margin: 0;
+    }
+  }
+}
+
+@include mobile-s {
+  .swiper {
+    &-slide {
+      &__wrapper {
+        margin: 0;
+        gap: 0;
+      }
+
+      &__header {
+        margin-top: 25px;
+      }
+
+      &__paragraph {
+        margin-top: 40px;
+      }
+    }
+  }
+
+  .gratitude {
+    &__wrapper {
+      height: 95%;
+    }
+
+    &__context {
+      ion-img {
+        margin-bottom: 24px;
+        height: 150px;
+        width: 150px;
+      }
+    }
+  }
+}
+
+
+@include mobile-s-long {
+  .gratitude {
+    &__context {
+      ion-img {
+        height: 150px;
+        width: 130px;
+      }
+    }
+  }
+
+  .swiper {
+    &-slide {
+      &__wrapper {
+        margin-top: 30px;
+      }
+    }
+  }
+}

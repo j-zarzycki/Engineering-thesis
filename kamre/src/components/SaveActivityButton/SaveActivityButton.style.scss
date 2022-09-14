@@ -1,0 +1,43 @@
+@import '@Theme/variables';
+
+.save-activity-button {
+  box-sizing: border-box;
+  font-family: $font-main;
+  font-weight: $font-weight-xl;
+  font-size: $font-size-xl;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%; //333px;
+  height: 75px;
+  border-radius: 12px;
+  background-color: $primary-color-80;
+  padding: 33px 23px;
+  color: $color-white;
+  filter: $default-drop-shadow;
+  transition: $transition-default;
+
+  &:hover {
+    opacity: .8;
+    transition: all .3s;
+  }
+
+  @media (min-width: 1px) and (max-width: 375px) {
+    font-size: 20px;
+    height: 60px;
+    transition: all .3s;
+  }
+
+  @media (min-width: 375px) and (max-width: 500px) {
+    font-size: 22px;
+    height: 65px;
+    transition: all .3s;
+  }
+
+  @media (min-width: 500px) and (max-width: 2560px) {
+    font-size: 24px;
+    height: 75px;
+    transition: all .3s;
+  }
+}
