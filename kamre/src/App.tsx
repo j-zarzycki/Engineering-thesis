@@ -12,6 +12,7 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
+import GoodWord from "@Pages/GoodWord";
 import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
@@ -77,6 +78,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/anger">
             <Anger />
+          </Route>
+          <Route exact path="/goodword">
+            <GoodWord />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
