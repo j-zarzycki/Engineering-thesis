@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 
-import apiService from "@Services/api.service";
-import { getFullDateWithTime } from "@Utils/date";
+import MainImg from "@Assets/main.png";
+import quote from "@Assets/what.png";
 import Gratitude from "./Gratitude.component";
 
 const GratitudeContainer: React.FC = () => {
-  const [inputField, setInputField] = useState("");
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<any>(null);
+  const [img, setImg] = useState(MainImg);
+  const slideElements = 2;
 
-  const onInputChange = (e: any) => setInputField(e.detail.value);
+  const onProceedButtonClick = () => {
+    swiper?.slideNext();
+    setCurrentSlide(swiper?.activeIndex);
+    setImg(MainImg);
 
-  const onSaveButtonClick = async () => {
-    const currentDateWithTime = getFullDateWithTime();
-
-    await apiService
-      .CreateActivityWithContent(currentDateWithTime, inputField, "Wdziecznosc")
-      .then((data) => console.log("data = ", data))
-      .catch((err) => console.log("err = ", err));
+    if (swiper?.activeIndex === 1) setImg(quote);
   };
+
   return (
     <Gratitude
-      onInputChange={onInputChange}
-      onSaveButtonClick={onSaveButtonClick}
+      setSwiper={setSwiper}
+      currentSlide={currentSlide}
+      slideElements={slideElements}
+      img={img}
+      onProceedButtonClick={onProceedButtonClick}
     />
   );
 };
