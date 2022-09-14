@@ -9,6 +9,7 @@ import "./Breathing.style.scss";
 
 interface IProps {
   isPlaying: boolean;
+  isAnimationPaused: boolean;
   counter: number;
   renderType: string;
   handleButtonClick(): void;
@@ -17,11 +18,17 @@ interface IProps {
 enum RenderTypeTranslation {
   Wydech = "EXHAUST",
   Wdech = "INHALE",
-  Pauza = "PAUSE",
+  Wstrzymaj = "PAUSE",
 }
 
 const Breathing: React.FC<IProps> = (props: IProps) => {
-  const { counter, isPlaying, renderType, handleButtonClick } = props;
+  const {
+    counter,
+    isPlaying,
+    isAnimationPaused,
+    renderType,
+    handleButtonClick,
+  } = props;
 
   const renderDescription = () => {
     return (
@@ -60,7 +67,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     return (
       <div
         className={`breathing__image ${
-          isPlaying && "breathing__image--active"
+          isPlaying && !isAnimationPaused && "breathing__image--active"
         }`}
       >
         <IonImg
