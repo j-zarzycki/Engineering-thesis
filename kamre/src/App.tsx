@@ -87,6 +87,7 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/note">
             <Note />
+          </Route>
           <Route exact path="/bike">
             <Bike />
           </Route>
