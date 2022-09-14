@@ -22,6 +22,8 @@ import Home from "./pages/Home";
 import Anger from "./pages/Anger";
 import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
+import Bike from "./pages/Bike";
+import PrepareMeal from "./pages/PrepareMeal";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -85,6 +87,11 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/note">
             <Note />
+          <Route exact path="/bike">
+            <Bike />
+          </Route>
+          <Route exact path="/preparemeal">
+            <PrepareMeal />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
