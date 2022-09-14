@@ -15,6 +15,7 @@ enum RenderType {
 
 const BreathingContainer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   const [counter, setCounter] = useState(0);
   const [renderType, setRenderType] = useState(RenderType.EXHAUST);
   let intervalId: any;
@@ -27,6 +28,7 @@ const BreathingContainer: React.FC = () => {
         if (counter === MAX_EXHAUST) {
           clearInterval(intervalId);
           setRenderType(RenderType.PAUSE);
+          setIsAnimationPaused(true);
           setCounter(0);
         }
 
@@ -36,6 +38,7 @@ const BreathingContainer: React.FC = () => {
         if (counter === MAX_PAUSE) {
           clearInterval(intervalId);
           setRenderType(RenderType.INHALE);
+          setIsAnimationPaused(false);
           setCounter(0);
         }
 
@@ -69,6 +72,7 @@ const BreathingContainer: React.FC = () => {
       counter={counter}
       handleButtonClick={handleInterval}
       isPlaying={isPlaying}
+      isAnimationPaused={isAnimationPaused}
     />
   );
 };
