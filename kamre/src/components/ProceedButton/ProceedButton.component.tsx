@@ -13,21 +13,23 @@ const ProceedButton: React.FC<IProps> = (props: IProps) => {
   const { onClick, title, disabled } = props;
 
   return (
-    <button
-      className="proceed-button"
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {title}
-      <BiChevronRight size={40} />
-    </button>
-    <button className="proceed-button" type="button" onClick={onClick}>
-      <div className="proceed-button-text">{title}</div>
-      <div className="proceed-button-svg">
+    <>
+      <button
+        className="proceed-button"
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {title}
         <BiChevronRight size={40} />
-      </div>
-    </button>
+      </button>
+      <button className="proceed-button" type="button" onClick={onClick}>
+        <div className="proceed-button-text">{title}</div>
+        <div className="proceed-button-svg">
+          <BiChevronRight size={40} />
+        </div>
+      </button>
+    </>
   );
 };
 
