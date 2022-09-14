@@ -201,6 +201,18 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
             </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/previousday" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Previous Day</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
           </IonGrid>
         </div>
       </div>
