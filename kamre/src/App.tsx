@@ -13,6 +13,7 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
 import Note from "@Pages/Note";
+import PreviousDay from "@Pages/PreviousDay";
 import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
@@ -78,6 +79,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/anger">
             <Anger />
+          </Route>
+          <Route exact path="/previousday">
+            <PreviousDay />
           </Route>
           <Route exact path="/note">
             <Note />
