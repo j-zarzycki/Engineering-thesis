@@ -1,4 +1,4 @@
-@import '@Theme/variables';
+@import "@Theme/variables";
 
 .proceed-button {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 333px;
+  max-width: 333px;
   height: 75px;
   border-radius: 12px;
   background-color: $primary-color-80;
@@ -17,4 +17,10 @@
   color: $color-white;
   filter: $default-drop-shadow;
   transition: $transition-default;
+
+  &:disabled {
+    background-color: $secondary-gray-90;
+    transition: $transition-default;
+    cursor: not-allowed;
+  }
 }
