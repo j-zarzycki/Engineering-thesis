@@ -172,10 +172,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
         <div className="good-word__wrapper">{renderContext()}</div>
       </IonContent>

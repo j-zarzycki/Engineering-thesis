@@ -2,15 +2,12 @@
 @import "@Theme/media";
 
 .good-word {
-  &__wrapper {
-    height: 90%;
-  }
-
   &__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px; 
+    gap: 30px;
+    margin-top: 20px;
 
     .buttons-good-word {
       &__end {
@@ -44,7 +41,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-family: $font-main;
     height: 100%;
 
@@ -55,86 +51,86 @@
     }
 
     .proceed-button {
-      margin-top: auto;
+      margin-top: 20px;
       max-width: 230px;
     }
   }
 
   &__swiper {
     width: 100%;
-    height: auto;
-  }
-}
 
-.swiper {
-  &-slide {
-    &-active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    .swiper {
+      max-height: 250px;
 
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 45px;
-      margin-top: 45px;
-    }
+      &-slide {
+        &-active {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-    &__header {
-      text-align: center;
-      font-size: $font-size-xxl;
-      font-weight: $font-weight-xl;
-    }
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
 
-    &__paragraph {
-      text-align: center;
-      font-size: $font-size-m;
-      font-weight: $font-weight-m;
-      color: $secondary-gray-90;
-      max-width: 320px;
-      width: 100%;
-      margin: 0;
-    }
+        &__header {
+          text-align: center;
+          font-size: $font-size-xxl;
+          font-weight: $font-weight-xl;
+          margin-top: 20px;
+        }
 
-    &__input {
-      width: 100%;
-      border-radius: $border-radius-s;
-      border: 1px solid $secondary-gray-90;
-      height: 50px;
-      padding: 23px;
-      outline: none;
-      box-shadow: $default-drop-shadow;
-      font-size: $font-size-s;
+        &__paragraph {
+          text-align: center;
+          font-size: $font-size-m;
+          font-weight: $font-weight-m;
+          color: $secondary-gray-90;
+          max-width: 320px;
+          width: 100%;
+        }
+
+        &__input {
+          width: 100%;
+          border-radius: $border-radius-s;
+          border: 1px solid $secondary-gray-90;
+          height: 50px;
+          padding: 23px;
+          outline: none;
+          box-shadow: $default-drop-shadow;
+          font-size: $font-size-s;
+          margin-top: 5px;
+        }
+      }
     }
   }
 }
 
 @include mobile-s {
-  .swiper {
-    &-slide {
-      &__wrapper {
-        margin: 0;
-        gap: 0;
-      }
+  .good-word {
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__wrapper {
+            margin: 0;
+            gap: 0;
+          }
 
-      &__header {
-        margin-top: 25px;
-      }
+          &__header {
+            margin-top: 25px;
+          }
 
-      &__paragraph {
-        margin-top: 40px;
+          &__paragraph {
+            margin-bottom: 20px;
+          }
+        }
       }
     }
   }
 
   .good-word {
-    &__wrapper {
-      height: 95%;
-    }
-
     &__context {
       ion-img {
         margin-bottom: 24px;
@@ -151,14 +147,6 @@
       ion-img {
         height: 150px;
         width: 130px;
-      }
-    }
-  }
-
-  .swiper {
-    &-slide {
-      &__wrapper {
-        margin-top: 30px;
       }
     }
   }

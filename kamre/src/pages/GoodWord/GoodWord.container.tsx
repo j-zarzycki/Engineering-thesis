@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import apiService from "@Services/api.service";
+import { getFullDateWithTime } from "@Utils/date";
 import GoodWord from "./GoodWord.component";
 
 const GoodWordContainer: React.FC = () => {
@@ -52,15 +54,21 @@ const GoodWordContainer: React.FC = () => {
   };
 
   const onAddSlide = () => {
-    // tylko po to żeby eslinta nie wywalało, później to będzie wysyłane w api
-    console.log("slides input = ", slidesInputsValue);
     swiper?.slideNext();
     setIsAddingDisabled(true);
     setSlidesInputsValue((prevState) => [...prevState, slideInputValue]);
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = () => history.push("/home");
+  const onEndButtonClick = async () => {
+    const dateTime = getFullDateWithTime();
+    await apiService.CreateActivityWithContent(
+      dateTime,
+      slidesInputsValue,
+      "Dobre słowo",
+    );
+    history.push("/home");
+  };
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
