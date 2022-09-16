@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
-import FiveToOne from "./FiveToOne.component";
+import Feet from "./Feet.component";
 
-const FiveToOneContainer: React.FC = () => {
+const FeetContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
-  const slideElements = 5;
+  const slideElements = 23;
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
@@ -19,7 +19,7 @@ const FiveToOneContainer: React.FC = () => {
   };
 
   return (
-    <FiveToOne
+    <Feet
       setSwiper={setSwiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
@@ -29,4 +29,4 @@ const FiveToOneContainer: React.FC = () => {
   );
 };
 
-export default FiveToOneContainer;
+export default FeetContainer;
