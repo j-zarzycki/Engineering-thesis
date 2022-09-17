@@ -104,7 +104,6 @@ const App: React.FC = () => {
             <Route exact path="/previousday">
               <PreviousDay />
             </Route>
-
             <Route exact path="/note">
               <Note />
             </Route>
@@ -118,7 +117,6 @@ const App: React.FC = () => {
               <Redirect to="/home" />
             </Route>
           </IonRouterOutlet>
-
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
