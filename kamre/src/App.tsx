@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -14,6 +14,8 @@ import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
+import { authLogin } from "@Actions/auth";
+import useAppDispatch from "@Hooks/useAppDispatch";
 import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
@@ -48,58 +50,63 @@ import YtPage from "./pages/YtPage";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/shower">
-            <ConsciousShower />
-          </Route>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/walking">
-            <Walking />
-          </Route>
-          <Route exact path="/breathing">
-            <Breathing />
-          </Route>
-          <Route path="/fivetoone">
-            <FiveToOne />
-          </Route>
-          <Route path="/gratitude">
-            <Gratitude />
-          </Route>
-          <Route path="/ytpage">
-            <YtPage />
-          </Route>
-          <Route exact path="/calendar">
-            <Calendar />
-          </Route>
-          <Route exact path="/anger">
-            <Anger />
-          </Route>
-          <Route exact path="/previousday">
-            <PreviousDay />
-          </Route>
-          <Route exact path="/note">
-            <Note />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
-
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={triangle} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(authLogin("A21KS"));
+  }, []);
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/shower">
+              <ConsciousShower />
+            </Route>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/walking">
+              <Walking />
+            </Route>
+            <Route exact path="/breathing">
+              <Breathing />
+            </Route>
+            <Route path="/fivetoone">
+              <FiveToOne />
+            </Route>
+            <Route path="/gratitude">
+              <Gratitude />
+            </Route>
+            <Route path="/ytpage">
+              <YtPage />
+            </Route>
+            <Route exact path="/calendar">
+              <Calendar />
+            </Route>
+            <Route exact path="/anger">
+              <Anger />
+            </Route>
+            <Route exact path="/previousday">
+              <PreviousDay />
+            </Route>
+            <Route exact path="/note">
+              <Note />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={triangle} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

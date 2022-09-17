@@ -80,10 +80,7 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
         <div className="previous-day__wrapper">{renderContext()}</div>
       </IonContent>
