@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  useIonAlert,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -20,10 +26,19 @@ import Pet from "@Components/Pet";
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
 }
 
 const PrepareMeal: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
@@ -69,11 +84,47 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
     });
   };
 
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 3)
+      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+
+    return (
+      <div>
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="spacer">
-          <BackButton defaultHref="/home" />
+          {renderHeader()}
+          {renderToast()}
+          {renderLoader()}
           <div className="spacer__wrapper">
             <Pet
               src={img}
@@ -117,7 +168,9 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Skupienie</h4>
+                    <h4 className="swiper-slide__header">
+                      O co chodzi w ćwiczeniu?
+                    </h4>
                     <p className="swiper-slide__paragraph">
                       Poświęć całą swoją uwagę na przygotowaniu swojego
                       kulinarnego dzieła. Zainspiruj się przepisem, bądź użyj
@@ -128,16 +181,11 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Daj sobie czas</h4>
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                     <p className="swiper-slide__paragraph">
                       Pomyśl, jak czułeś/aś się podczas gotowania? Czy miałeś/aś
                       jakieś problemy, opory?
                     </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
