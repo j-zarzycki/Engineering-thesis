@@ -13,12 +13,12 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
 import Sufficient from "@Pages/Sufficient";
-import GoodWord from "@Pages/GoodWord";
-import Feet from "@Pages/Feet";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
 import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
+import GoodWord from "@Pages/GoodWord";
+import Feet from "@Pages/Feet";
 import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
