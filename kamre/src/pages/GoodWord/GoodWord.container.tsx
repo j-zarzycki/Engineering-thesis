@@ -9,6 +9,8 @@ import { getFullDateWithTime } from "@Utils/date";
 import GoodWord from "./GoodWord.component";
 
 const GoodWordContainer: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
@@ -61,13 +63,21 @@ const GoodWordContainer: React.FC = () => {
   };
 
   const onEndButtonClick = async () => {
+    setIsLoading(true);
     const dateTime = getFullDateWithTime();
-    await apiService.CreateActivityWithContent(
-      dateTime,
-      slidesInputsValue,
-      "Dobre słowo",
-    );
-    history.push("/home");
+    await apiService
+      .CreateActivityWithContent(dateTime, slidesInputsValue, "Dobre słowo")
+      .then(() => {
+        setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
+        history.push("/home");
+      })
+      .finally(() => setIsLoading(false))
+      .catch(() =>
+        setToast({
+          isOpen: true,
+          message: "Wystąpił błąd podczas zapisywania.",
+        }),
+      );
   };
 
   const onProceedButtonClick = () => {
@@ -88,8 +98,11 @@ const GoodWordContainer: React.FC = () => {
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
+      isLoading={isLoading}
       slides={slides}
       swiper={swiper}
+      toast={toast}
+      setToast={setToast}
       isAddingDisabled={isAddingDisabled}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
