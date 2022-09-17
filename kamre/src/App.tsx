@@ -104,6 +104,7 @@ const App: React.FC = () => {
             <Route exact path="/previousday">
               <PreviousDay />
             </Route>
+
             <Route exact path="/note">
               <Note />
             </Route>
