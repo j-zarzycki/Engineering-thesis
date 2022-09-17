@@ -16,6 +16,9 @@ import Sufficient from "@Pages/Sufficient";
 import Note from "@Pages/Note";
 import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
+import GoodWord from "@Pages/GoodWord";
+import Feet from "@Pages/Feet";
+import PreviousDay from "@Pages/PreviousDay";
 import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
@@ -24,6 +27,8 @@ import Home from "./pages/Home";
 import Anger from "./pages/Anger";
 import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
+import Bike from "./pages/Bike";
+import PrepareMeal from "./pages/PrepareMeal";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -90,8 +95,23 @@ const App: React.FC = () => {
             <Route exact path="/sufficient">
               <Sufficient />
             </Route>
+            <Route exact path="/goodword">
+              <GoodWord />
+            </Route>
+            <Route exact path="/feet">
+              <Feet />
+            </Route>
+            <Route exact path="/previousday">
+              <PreviousDay />
+            </Route>
             <Route exact path="/note">
               <Note />
+            </Route>
+            <Route exact path="/bike">
+              <Bike />
+            </Route>
+            <Route exact path="/preparemeal">
+              <PrepareMeal />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />

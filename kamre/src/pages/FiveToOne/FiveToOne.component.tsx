@@ -1,58 +1,146 @@
-/* eslint-disable */
 import React from "react";
-import { IonContent, IonItem, IonLabel, IonList, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonImg } from "@ionic/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
 
 import BackButton from "@Components/BackButton";
-import Header from "@Components/Header";
-import SaveButton from "@Components/SaveButton";
+import VerticalProgressBar from "@Components/VerticalProgressBar";
+
+import ProceedButton from "@Components/ProceedButton";
+
+import "./FiveToOne.style.scss";
 
 interface IProps {
-  createFiveToOne(): Promise<void>;
+  setSwiper(value: any): void;
+  onProceedButtonClick(): void;
+  currentSlide: number;
+  slideElements: number;
+  img: string;
 }
 
 const FiveToOne: React.FC<IProps> = (props: IProps) => {
-  const { createFiveToOne } = props;
+  const { setSwiper, currentSlide, slideElements, onProceedButtonClick, img } =
+    props;
+
+  const renderHeader = () => {
+    return (
+      <div className="fiveToOne__header">
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
+  const renderSwiper = () => {
+    return (
+      <div className="fiveToOne__swiper">
+        <Swiper
+          allowTouchMove={false}
+          effect="fade"
+          slidesPerView={1}
+          height={190}
+          onSwiper={(swiperData) => setSwiper(swiperData)}
+        >
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">TEXT</h4>
+              <p className="swiper-slide__paragraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <p className="swiper-slide__paragraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Text</h4>
+              <p className="swiper-slide__paragraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Text</h4>
+              <p className="swiper-slide__paragraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Text</h4>
+              <p className="swiper-slide__paragraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book
+              </p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    );
+  };
+
+  const renderProgressBar = () => {
+    return (
+      <div className="vertical-progress-bar__wrapper">
+        <VerticalProgressBar
+          currentElement={currentSlide}
+          elements={slideElements}
+        />
+      </div>
+    );
+  };
+
+  const renderProceedButton = () => {
+    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+  };
+
+  const renderImage = () => {
+    return <IonImg className="fiveToOne__image" alt="pet" src={img} />;
+  };
+
+  const renderContext = () => {
+    return (
+      <div className="fiveToOne__context">
+        {renderImage()}
+        {renderSwiper()}
+        {renderProceedButton()}
+      </div>
+    );
+  };
 
   return (
     <IonPage>
-      <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="title">
-          <BackButton defaultHref="/home" />
-          <Header title="Technika 5-4-3-2-1" subtitle="ćwiczenie uważności" />
-        </div>
-        <div>
-          <IonList class="ion-text-wrap">
-            <IonItem>
-              <IonLabel className="ion-text-wrap">
-                5. Rozejrzyj się i spróbuj nazwać pięć rzeczy, które widzisz
-                wokół siebie
-              </IonLabel>
-            </IonItem>
-            <IonItem>
-              <IonLabel className="ion-text-wrap">
-                4. Teraz dotknij 4 rzeczy, poczuj ich fakturę, czy są przyjemne
-                w dotyku, zimne, szorstkie ...
-              </IonLabel>
-            </IonItem>
-            <IonItem>
-              <IonLabel className="ion-text-wrap">
-                3. Wytęż słuch i nazwij trzy rzeczy, które słyszysz.
-              </IonLabel>
-            </IonItem>
-            <IonItem>
-              <IonLabel className="ion-text-wrap">
-                2. Daj się ponieść zapachom i poczuj dwa różne zapachy.
-              </IonLabel>
-            </IonItem>
-            <IonItem>
-              <IonLabel className="ion-text-wrap">
-                1. Na koniec, opisz smak, jaki aktualnie czujesz na języku.
-              </IonLabel>
-            </IonItem>
-          </IonList>
-        </div>
-        <div className="ion-text-center">
-          <SaveButton text="Gotowe" type="submit" onClick={createFiveToOne} />
+      <IonContent
+        fullscreen
+        class="ion-padding-horizontal ion-padding-vertical"
+      >
+        {renderHeader()}
+        <div className="fiveToOne__wrapper">
+          {renderProgressBar()}
+          {renderContext()}
         </div>
       </IonContent>
     </IonPage>

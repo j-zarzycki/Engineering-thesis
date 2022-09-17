@@ -13,6 +13,8 @@ import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
+import SaveActivityButton from "@Components/SaveActivityButton";
+import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 
 interface IProps {
@@ -96,52 +98,43 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">Świadomy prysznic</h4>
                     <p className="swiper-slide__paragraph">
-                      Kąpiel to czas, odprężenia i skupienia się na sobie.
-                      Oderwij się na chwilę od rzeczywistości i oczyść swój
-                      umysł.
+                      Kąpiel to czas odprężenia i skupienia na sobie. Oderwij
+                      się na chwilę od rzeczywistości i oczyść umysł.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
+                    <h4 className="swiper-slide__header">Świadomość</h4>
                     <p className="swiper-slide__paragraph">
                       Weź kąpiel z pełną świadomością tego co widzisz, słyszysz
-                      i czujesz. W tym czasie oderwij się na moment od
-                      rzeczywistości.
+                      i czujesz. W tym czasie spróbuj oderwać się od spraw
+                      bieżących.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
+                    <h4 className="swiper-slide__header">Oczyszczenie</h4>
                     <p className="swiper-slide__paragraph">
                       Niech myśli spływają z Ciebie niczym krople wody. Poczuj
-                      zapach kosmetyków i tego jaki mają wpływ na Twoją skórę i
-                      ciało. Wsłuchaj się w szum wody.
+                      zapach kosmetyków, zwróć uwagę jakie wrażenie pozostawiają
+                      na skórze. Wsłuchaj się w szum wody.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                     <p className="swiper-slide__paragraph">
-                      Po prysznicu przemyśl, co czułeś_aś_oś? Co dało Ci to
-                      ćwiczenie? Czy udało Ci się wyciszyć i oczyścić umysł?
+                      Po prysznicu przemyśl, co czułeś/aś? Co dało Ci to
+                      ćwiczenie? Czy udało Ci się oczyścić umysł z myśli?
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      Gratulacje, udało&nbsp;Ci&nbsp;się!
-                    </h4>
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
@@ -161,14 +154,14 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
               onEnter={() => setShowProceedButton(false)}
               onExited={() => setShowProceedButton(true)}
             >
-              <div>
-                <ProceedButton
-                  title="Dodaj przemyślenia"
-                  onClick={onProceedButtonClickWithContent}
-                />
-                <ProceedButton
-                  title="Zakończ"
+              <div className="final-buttons">
+                <CancelButton
+                  title="Anuluj"
                   onClick={onCreateActivityWithNoContent}
+                />
+                <SaveActivityButton
+                  title="Zapisz"
+                  onClick={onProceedButtonClickWithContent}
                 />
               </div>
             </CSSTransition>

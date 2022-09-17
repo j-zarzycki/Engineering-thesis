@@ -10,6 +10,8 @@
   align-items: center;
   justify-content: space-between;
   max-width: 333px;
+  justify-content: center;
+  width: 90%; //333px;
   height: 75px;
   border-radius: 12px;
   background-color: $primary-color-80;
@@ -22,5 +24,10 @@
     background-color: $secondary-gray-90;
     transition: $transition-default;
     cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.3s;
   }
 }

@@ -141,7 +141,19 @@ ion-label {
   }
 }
 
+@media (min-width: 1px) and (max-width: 375px) {
+  .card-styles {
+    max-height: 125px;
+    max-width: 125px;
+  }
+}
+
 @media (min-width: 375px) and (max-width: 550px) {
+  .card-styles {
+    max-height: 150px;
+    max-width: 150px;
+  }
+
   .box {
     &-left {
       display: flex;
