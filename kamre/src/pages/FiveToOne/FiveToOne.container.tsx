@@ -1,21 +1,32 @@
-/* eslint-disable */
-import React from "react";
+import React, { useState } from "react";
 
-import apiService from "@Services/api.service";
-import { getFullDateWithTime } from "@Utils/date";
+import MainImg from "@Assets/main.png";
+import quote from "@Assets/what.png";
 import FiveToOne from "./FiveToOne.component";
 
 const FiveToOneContainer: React.FC = () => {
-  const createFiveToOne = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<any>(null);
+  const [img, setImg] = useState(MainImg);
+  const slideElements = 5;
 
-    await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "5-4-3-2-1")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  const onProceedButtonClick = () => {
+    swiper?.slideNext();
+    setCurrentSlide(swiper?.activeIndex);
+    setImg(MainImg);
+
+    if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  return <FiveToOne createFiveToOne={createFiveToOne} />;
+  return (
+    <FiveToOne
+      setSwiper={setSwiper}
+      currentSlide={currentSlide}
+      slideElements={slideElements}
+      img={img}
+      onProceedButtonClick={onProceedButtonClick}
+    />
+  );
 };
 
 export default FiveToOneContainer;

@@ -1,54 +1,13 @@
-/*
-import React from "react";
-import { IonContent, IonPage, IonInput } from "@ionic/react";
-
-import BackButton from "@Components/BackButton";
-import SaveButton from "@Components/SaveButton";
-import Header from "@Components/Header";
-
-interface IProps {
-  onInputChange: (e: any) => void;
-  onSaveButtonClick(): Promise<void>;
-}
-
-const Anger: React.FC<IProps> = (props: IProps) => {
-  const { onInputChange, onSaveButtonClick } = props;
-
-  return (
-    <IonPage>
-      <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="title">
-          <BackButton defaultHref="/home" />
-          <Header title="Dlaczego jesteś zły / zła?" subtitle="" />
-        </div>
-        <div>
-          <IonInput
-            type="text"
-            placeholder="Type here"
-            onIonChange={onInputChange}
-          />
-        </div>
-        <div className="ion-text-center">
-          <SaveButton text="Zapisz" type="submit" onClick={onSaveButtonClick} />
-        </div>
-      </IonContent>
-    </IonPage>
-  );
-};
-
-export default Anger;
-*/
-
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert, IonInput } from "@ionic/react";
+import { IonContent, IonPage, useIonAlert } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
 // Import Swiper styles
 import "swiper/css";
 
-import "./Anger.style.scss";
-import SWIPE_ELEMENTS from "@Constants/anger.constants";
+import "./Bike.style.scss";
+import SWIPE_ELEMENTS from "@Constants/bike.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
@@ -63,7 +22,7 @@ interface IProps {
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
-const Anger: React.FC<IProps> = (props: IProps) => {
+const Bike: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
@@ -137,45 +96,44 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Złość</h4>
+                    <h4 className="swiper-slide__header">Jazda na rowerze</h4>
                     <p className="swiper-slide__paragraph">
-                      To ćwiczenie pozwoli Ci świadomie zarządzać swoją złością.
-                      Poprzez złość możemy uświadomić sobie swoje granice,
-                      pokazać na co się zgadzamy, a na co nie.
+                      Środek na zwalczenie stresu bez recepty!
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
+                    <h4 className="swiper-slide__header">Endorfiny</h4>
                     <p className="swiper-slide__paragraph">
-                      Grrr! Rozładuj swoją złość! Ale nie tak jak myślisz, tylko
-                      nie rzucaj telefonem! Wypisz tutaj wszystko co powoduje u
-                      Ciebie frustrację, nerwowość lub po prostu co Cię wkurza!
-                      To czas, żeby dokonać analizy, a następnie wyrzucić złość
-                      za siebie.
+                      Endorfiny są „antagonistą” stresu, uczucia napięcia
+                      nerwowego, niepokoju a nawet bólu głowy.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
+                    <h4 className="swiper-slide__header">Dlaczego?</h4>
                     <p className="swiper-slide__paragraph">
-                      Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
-                      powinna być rozwiązana?
+                      Wsiadaj na rumaka i jazda! Aktywność fizyczna jest jedną z
+                      najlepszych form walki ze stresem, ponieważ produkowane są
+                      wtedy endorfiny - antagoniści stresu, obniżają napięcię
+                      nerwowe, niepokój a nawet ból głowy.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
-                    <IonInput
-                      className="anger-input"
-                      type="text"
-                      placeholder="Napisz tutaj"
-                    />
+                    <h4 className="swiper-slide__header">Daj sobie czas</h4>
+                    <p className="swiper-slide__paragraph">
+                      Jeżeli nie masz roweru - możesz spróbować innej aktywności
+                      sportowej, która sprawi Ci przyjemność!
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
@@ -213,4 +171,4 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Anger;
+export default Bike;

@@ -1,6 +1,6 @@
 @import '@Theme/variables';
 
-.conscious-shower {
+.bike {
     height: 100%;
 
     &__wrapper {
@@ -23,20 +23,20 @@
     justify-content: center;
 }
 
-.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide.swiper-slide-active {
+.bike__wrapper .bike__swiper .swiper-slide.swiper-slide-active {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper {
+.bike__wrapper .bike__swiper .swiper-slide__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+.bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__header {
     font-family: 'Inter', sans-serif;
     font-weight: var(--font-weight-large);
     font-size: 36px;
@@ -46,7 +46,7 @@
     text-align: center;
 }
 
-.conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+.bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
     font-family: 'Inter', sans-serif;
     font-weight: var(--font-weight-normal);
     font-size: 16px;
@@ -59,7 +59,7 @@
     padding-right: 1.5rem;
 }
 
-.conscious-shower .conscious-shower__wrapper .proceed-button {
+.bike .bike__wrapper .proceed-button {
     margin-top: auto;
     margin-bottom: 50px;
 }
@@ -87,60 +87,60 @@
 }
 
 @media (min-width: 1px) and (max-width: 375px) {
-    .conscious-shower .conscious-shower__wrapper .proceed-button {
+    .bike .bike__wrapper .proceed-button {
         font-size: 20px;
     //    width: 255px;
         height: 60px;
         transition: all .3s;
     }
 
-    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+    .bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__header {
         font-size: 32px;
     }
 
-    .conscious-shower__wrapper {
+    .bike__wrapper {
         height: calc(100%);
     }
 }
 
 @media (min-width: 375px) and (max-width: 500px) {
-    .conscious-shower .conscious-shower__wrapper .proceed-button {
+    .bike .bike__wrapper .proceed-button {
         font-size: 22px;
     //    width: 260px;
         height: 65px;
         transition: all .3s;
     }
 
-    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+    .bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__header {
         font-size: 34px;
     }
 
-    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+    .bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
         font-size: 18px;
     }
 
-    .conscious-shower__wrapper {
+    .bike__wrapper {
         height: calc(100%);
     }
 }
 
 @media (min-width: 500px) and (max-width: 2560px) {
-    .conscious-shower .conscious-shower__wrapper .proceed-button {
+    .bike .bike__wrapper .proceed-button {
         font-size: 24px;
     //    width: 270px;
         height: 75px;
         transition: all .3s;
     }
 
-    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__header {
+    .bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__header {
         font-size: 38px;
     }
 
-    .conscious-shower__wrapper .conscious-shower__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
+    .bike__wrapper .bike__swiper .swiper-slide__wrapper .swiper-slide__paragraph {
         font-size: 20px;
     }
 
-    .conscious-shower__wrapper {
+    .bike__wrapper {
         height: calc(100%);
     }
 }
