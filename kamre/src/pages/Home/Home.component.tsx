@@ -165,6 +165,10 @@ const Home: React.FC = () => (
               </IonCol>
               <IonCol className="box-right">
                 <IonCard href="/feet" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Stopy</IonCardTitle>
+                  </IonCardHeader>
+                </IonCard>
                 <IonCard href="/bike" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">

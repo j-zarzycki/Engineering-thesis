@@ -1,30 +1,57 @@
 import React from "react";
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { BsArrowRepeat } from "react-icons/bs";
 // Import Swiper styles
 import "swiper/css";
 
 import BackButton from "@Components/BackButton";
 import VerticalProgressBar from "@Components/VerticalProgressBar";
+import FinishButton from "@Components/FinishButton";
 
 import ProceedButton from "@Components/ProceedButton";
 
 import "./Feet.style.scss";
 
 interface IProps {
+  handleRepeatButtonClick(): void;
+  handleFinishButtonClick(): void;
+  setToast(value: {}): void;
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
   currentSlide: number;
   slideElements: number;
   img: string;
+  toast: { isOpen: boolean; message: string };
+  isLoading: boolean;
+  swiper: any;
 }
 
 const Feet: React.FC<IProps> = (props: IProps) => {
-  const { setSwiper, currentSlide, slideElements, onProceedButtonClick, img } =
-    props;
+  const {
+    setSwiper,
+    currentSlide,
+    slideElements,
+    onProceedButtonClick,
+    img,
+    setToast,
+    toast,
+    isLoading,
+    swiper,
+    handleFinishButtonClick,
+    handleRepeatButtonClick,
+  } = props;
 
   const renderHeader = () => {
+    if (swiper?.activeIndex === 22)
+      return <div style={{ paddingTop: "32px" }} className="feet__header" />;
+
     return (
       <div className="feet__header">
         <BackButton defaultHref="/home" />
@@ -54,10 +81,11 @@ const Feet: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                Zadanie ma na celu odciągnąć twoją uwagę w stresowej sytuacji,
+                wykonuj zadania krok po kroku.
+                <br />
+                Ćwiczenie to jest dobre w każdej sytuacji - nikt nie zauważy, że
+                je wykoujesz.
               </p>
             </div>
           </SwiperSlide>
@@ -242,16 +270,58 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    if (swiper?.activeIndex === 22) {
+      return (
+        <div className="feet__buttons">
+          <ProceedButton
+            title="Powtórz"
+            onClick={handleRepeatButtonClick}
+            icon={<BsArrowRepeat size={25} />}
+          />
+          <FinishButton title="Zakończ" onClick={handleFinishButtonClick} />
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderImage = () => {
     return <IonImg className="feet__image" alt="pet" src={img} />;
   };
 
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   const renderContext = () => {
     return (
       <div className="feet__context">
+        {renderToast()}
+        {renderLoader()}
         {renderImage()}
         {renderSwiper()}
         {renderProceedButton()}
@@ -261,10 +331,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
         <div className="feet__wrapper">
           {renderProgressBar()}
