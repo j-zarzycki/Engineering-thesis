@@ -1,10 +1,17 @@
 import React from "react";
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { BsArrowRepeat } from "react-icons/bs";
 // Import Swiper styles
 import "swiper/css";
 
+import FinishButton from "@Components/FinishButton";
 import BackButton from "@Components/BackButton";
 import VerticalProgressBar from "@Components/VerticalProgressBar";
 
@@ -15,14 +22,31 @@ import "./FiveToOne.style.scss";
 interface IProps {
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
+  handleRepeatButtonClick(): void;
+  handleFinishButtonClick(): void;
+  setToast(value: {}): void;
   currentSlide: number;
   slideElements: number;
   img: string;
+  swiper: any;
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
 }
 
 const FiveToOne: React.FC<IProps> = (props: IProps) => {
-  const { setSwiper, currentSlide, slideElements, onProceedButtonClick, img } =
-    props;
+  const {
+    setSwiper,
+    currentSlide,
+    slideElements,
+    onProceedButtonClick,
+    img,
+    swiper,
+    handleRepeatButtonClick,
+    handleFinishButtonClick,
+    setToast,
+    toast,
+    isLoading,
+  } = props;
 
   const renderHeader = () => {
     return (
@@ -44,12 +68,10 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">TEXT</h4>
+              <h4 className="swiper-slide__header">5-4-3-2-1</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Ta metoda pomaga zmniejszyć stres i napięcie, również w atakach
+                paniki.
               </p>
             </div>
           </SwiperSlide>
@@ -57,43 +79,56 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                Skupiaj się na wypisanych kolejno rzeczach. Daj sobie tyle czasu
+                ile chcesz. Oddychaj przy tym powoli.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Text</h4>
+              <h4 className="swiper-slide__header">5</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Rozejrzyj się i spróbuj nazwać pięć
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Text</h4>
+              <h4 className="swiper-slide__header">4</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Teraz dotknij 4 rzeczy, poczuj ich
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Text</h4>
+              <h4 className="swiper-slide__header">3</h4>
               <p className="swiper-slide__paragraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Wytęż słuch i nazwij trzy rzeczy, które
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">2</h4>
+              <p className="swiper-slide__paragraph">
+                Daj się ponieść zapachom i poczuj dwa
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">1</h4>
+              <p className="swiper-slide__paragraph">
+                Na koniec, opisz smak, jaki aktualnie czujesz na języku.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Udało się!</h4>
+              <p className="swiper-slide__paragraph">
+                Jeżeli czujesz potrzebę, powtórz schemat ćwiczenia jeszcze raz.
               </p>
             </div>
           </SwiperSlide>
@@ -114,11 +149,51 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    if (swiper?.activeIndex === 7) {
+      return (
+        <div className="fiveToOne__buttons">
+          <ProceedButton
+            title="Powtórz"
+            onClick={handleRepeatButtonClick}
+            icon={<BsArrowRepeat size={25} />}
+          />
+          <FinishButton title="Zakończ" onClick={handleFinishButtonClick} />
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderImage = () => {
     return <IonImg className="fiveToOne__image" alt="pet" src={img} />;
+  };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
   };
 
   const renderContext = () => {
@@ -133,10 +208,9 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
+        {renderToast()}
+        {renderLoader()}
         {renderHeader()}
         <div className="fiveToOne__wrapper">
           {renderProgressBar()}

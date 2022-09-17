@@ -6,17 +6,22 @@ import "./ProceedButton.style.scss";
 interface IProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
+  icon?: React.ReactElement;
 }
 
 const ProceedButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title } = props;
+  const { onClick, title, icon } = props;
 
   return (
     <button className="proceed-button" type="button" onClick={onClick}>
       {title}
-      <BiChevronRight size={40} />
+      {icon}
     </button>
   );
+};
+
+ProceedButton.defaultProps = {
+  icon: <BiChevronRight size={40} />,
 };
 
 export default ProceedButton;
