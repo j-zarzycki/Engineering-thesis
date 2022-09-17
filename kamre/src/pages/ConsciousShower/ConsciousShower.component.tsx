@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert } from "@ionic/react";
+
+import {
+  IonContent,
+  IonPage,
+  useIonAlert,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -20,10 +27,19 @@ import Pet from "@Components/Pet";
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
 }
 
 const ConsciousShower: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
@@ -69,11 +85,47 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
     });
   };
 
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 4)
+      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+
+    return (
+      <div>
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="conscious-shower">
-          <BackButton defaultHref="/home" />
+          {renderToast()}
+          {renderLoader()}
+          {renderHeader()}
           <div className="conscious-shower__wrapper">
             <Pet
               src={img}
