@@ -6,35 +6,29 @@ import "./ProceedButton.style.scss";
 interface IProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
+  icon?: React.ReactElement;
   disabled?: boolean;
 }
 
 const ProceedButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title, disabled } = props;
+  const { onClick, title, icon, disabled } = props;
 
   return (
-    <>
-      <button
-        className="proceed-button"
-        type="button"
-        onClick={onClick}
-        disabled={disabled}
-      >
-        {title}
-        <BiChevronRight size={40} />
-      </button>
-      <button className="proceed-button" type="button" onClick={onClick}>
-        <div className="proceed-button-text">{title}</div>
-        <div className="proceed-button-svg">
-          <BiChevronRight size={40} />
-        </div>
-      </button>
-    </>
+    <button
+      className="proceed-button"
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {title}
+      {icon}
+    </button>
   );
 };
 
 ProceedButton.defaultProps = {
   disabled: false,
+  icon: <BiChevronRight size={40} />,
 };
 
 export default ProceedButton;

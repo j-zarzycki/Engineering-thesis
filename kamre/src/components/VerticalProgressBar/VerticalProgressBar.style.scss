@@ -1,27 +1,24 @@
-@import '@Theme/variables';
+@import "@Theme/variables";
 
 .vertical-progress-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 5px;
-    transition: $transition-default;
-    height: 100%;
-    position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 5px;
+  transition: $transition-default;
+  height: 100%;
+  position: absolute;
 
-    &__element {
-        border-radius: 10px;
-        background-color: $secondary-gray-90;
-        transition: all .3s ease-in-out;
-        flex-grow: 1;
+  &__element {
+    border-radius: 10px;
+    background-color: $secondary-gray-90;
+    transition: all 0.3s ease-in-out;
+    flex-grow: 1;
 
-        &--active {
-            background-color: $primary-color-75;
-            transition: $transition-default;
-            flex-grow: 4;
-        }
+    &--active {
+      background-color: $primary-color-75;
+      transition: $transition-default;
+      flex-grow: 4;
     }
-
+  }
 }
-
-

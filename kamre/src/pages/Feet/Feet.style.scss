@@ -4,10 +4,9 @@
 .feet {
   &__wrapper {
     display: flex;
-    align-items: center;
     justify-content: center;
-    height: 90%;
     position: relative;
+    height: 95%;
 
     .vertical-progress-bar {
       &__wrapper {
@@ -19,7 +18,19 @@
         left: -30px;
         z-index: 100;
       }
+
+      &__element {
+        &--active {
+          flex-grow: 3;
+        }
+      }
     }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
 
   &__context {
@@ -36,51 +47,44 @@
     }
 
     .proceed-button {
-      margin-top: auto;
+      margin-top: 15px;
       width: 100%;
     }
   }
 
   &__swiper {
     width: 100%;
-    max-height: 150px;
-  }
-}
 
-.swiper {
-  &-wrapper {
-    max-height: 250px;
-  }
+    .swiper {
+      &-slide {
+        &-active {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-  &-slide {
-    &-active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
 
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 45px;
-      margin-top: 45px;
-    }
+        &__header {
+          text-align: center;
+          font-size: $font-size-xxl;
+          font-weight: $font-weight-xl;
+        }
 
-    &__header {
-      text-align: center;
-      font-size: $font-size-xxl;
-      font-weight: $font-weight-xl;
-    }
-
-    &__paragraph {
-      text-align: center;
-      font-size: $font-size-m;
-      font-weight: $font-weight-m;
-      color: $secondary-gray-90;
-      max-width: 300px;
-      margin: 0;
+        &__paragraph {
+          text-align: center;
+          font-size: $font-size-m;
+          font-weight: $font-weight-m;
+          color: $secondary-gray-90;
+          max-width: 300px;
+          margin: 0;
+        }
+      }
     }
   }
 }
@@ -88,17 +92,11 @@
 @include mobile-s {
   .feet {
     &__wrapper {
-      height: 95%;
-
       .vertical-progress-bar {
         &__wrapper {
           margin-top: 0;
         }
       }
-    }
-
-    &__swiper {
-      max-height: 150px;
     }
 
     &__context {
@@ -119,13 +117,9 @@
             margin: 0;
             gap: 0;
           }
-    
+
           &__header {
             margin-top: 25px;
-          }
-    
-          &__paragraph {
-            margin-top: 40px;
           }
         }
       }
@@ -133,21 +127,12 @@
   }
 }
 
-
 @include mobile-s-long {
   .feet {
     &__context {
       ion-img {
         height: 150px;
         width: 130px;
-      }
-
-      .swiper {
-        &-slide {
-          &__wrapper {
-            margin-top: 30px;
-          }
-        }
       }
     }
   }
