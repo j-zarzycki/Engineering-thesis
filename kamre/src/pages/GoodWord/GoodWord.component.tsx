@@ -1,4 +1,10 @@
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,11 +23,14 @@ interface IProps {
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onEndButtonClick(): void;
+  setToast(value: {}): void;
   currentSlide: number;
   slideElements: number;
   img: string;
   isAddingDisabled: boolean;
+  isLoading: boolean;
   swiper: any;
+  toast: { isOpen: boolean; message: string };
   slides: React.ReactElement[];
 }
 
@@ -38,6 +47,9 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     onEndButtonClick,
     onInputChange,
     swiper,
+    setToast,
+    toast,
+    isLoading,
   } = props;
 
   const renderHeader = () => {
@@ -159,9 +171,34 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     return <IonImg className="good-word__image" alt="pet" src={img} />;
   };
 
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   const renderContext = () => {
     return (
       <div className="good-word__context">
+        {renderToast()}
+        {renderLoader()}
         {renderImage()}
         {renderProgressBar()}
         {renderSwiper()}
@@ -172,10 +209,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
         <div className="good-word__wrapper">{renderContext()}</div>
       </IonContent>
