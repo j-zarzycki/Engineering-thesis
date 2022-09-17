@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  useIonAlert,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -20,10 +26,19 @@ import Pet from "@Components/Pet";
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: any;
 }
 
 const Walking: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
@@ -69,11 +84,47 @@ const Walking: React.FC<IProps> = (props: IProps) => {
     });
   };
 
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 3)
+      return <div style={{ paddingTop: "32px" }} className="walking__header" />;
+
+    return (
+      <div>
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="spacer">
-          <BackButton defaultHref="/home" />
+          {renderToast()}
+          {renderLoader()}
+          {renderHeader()}
           <div className="spacer__wrapper">
             <Pet
               src={img}
@@ -82,10 +133,13 @@ const Walking: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <HorizontalProgressBar
-              currentElement={currentSlide}
-              elements={slideElements}
-            />
+            <div className="spacer__horizontal-progress-bar">
+              <HorizontalProgressBar
+                currentElement={currentSlide}
+                elements={slideElements}
+              />
+            </div>
+
             <div className="spacer__swiper">
               <Swiper
                 allowTouchMove={false}
@@ -105,7 +159,9 @@ const Walking: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Jak?</h4>
+                    <h4 className="swiper-slide__header">
+                      O co chodzi w ćwiczeniu?
+                    </h4>
                     <p className="swiper-slide__paragraph">
                       Przejdź się na 15 min. spacer. Zaplanuj wycieczkę lub
                       spontanicznie idź przed siebie. Obserwuj świat dookoła -
@@ -126,16 +182,11 @@ const Walking: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Daj sobie czas</h4>
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                     <p className="swiper-slide__paragraph">
                       Co zaobserwowałeś/aś po spacerze? Jak się czułeś/aś? Co
                       dało Ci to ćwiczenie?
                     </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Przemyślenia</h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
