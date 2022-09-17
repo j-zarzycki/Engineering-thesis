@@ -1,4 +1,10 @@
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -15,14 +21,52 @@ import "./Gratitude.style.scss";
 interface IProps {
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
+  onHandleFinishClick(): void;
   currentSlide: number;
   slideElements: number;
   img: string;
+  swiper: any;
+  isLoading: boolean;
+  toast: any;
+  setToast(value: { isOpen: boolean; message: string }): void;
 }
 
 const Gratitude: React.FC<IProps> = (props: IProps) => {
-  const { setSwiper, currentSlide, slideElements, onProceedButtonClick, img } =
-    props;
+  const {
+    setSwiper,
+    currentSlide,
+    slideElements,
+    onProceedButtonClick,
+    img,
+    onHandleFinishClick,
+    swiper,
+    isLoading,
+    toast,
+    setToast,
+  } = props;
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
 
   const renderHeader = () => {
     return (
@@ -79,6 +123,8 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
+    if (swiper?.activeIndex === 1)
+      return <ProceedButton title="Zakończ!" onClick={onHandleFinishClick} />;
     return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
   };
 
@@ -103,6 +149,8 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
         fullscreen
         class="ion-padding-horizontal ion-padding-vertical"
       >
+        {renderLoader()}
+        {renderToast()}
         {renderHeader()}
         <div className="gratitude__wrapper">{renderContext()}</div>
       </IonContent>

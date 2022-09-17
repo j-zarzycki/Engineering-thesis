@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  IonContent,
-  IonPage,
-  useIonAlert,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -25,7 +19,7 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onCreateActivityWithContent(): void;
   setToast(value: {}): void;
   isLoading: boolean;
   toast: any;
@@ -42,7 +36,6 @@ const Walking: React.FC<IProps> = (props: IProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
   const [showProceedButton, setShowProceedButton] = useState(true);
   const slideElements = SWIPE_ELEMENTS;
 
@@ -59,29 +52,6 @@ const Walking: React.FC<IProps> = (props: IProps) => {
       setShowProceedButton(false);
       setImg(MainImg);
     }
-  };
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
-  };
-
-  const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
   };
 
   const renderLoader = () => {
@@ -213,7 +183,7 @@ const Walking: React.FC<IProps> = (props: IProps) => {
                 />
                 <SaveActivityButton
                   title="Zapisz"
-                  onClick={onProceedButtonClickWithContent}
+                  onClick={onCreateActivityWithContent}
                 />
               </div>
             </CSSTransition>
