@@ -15,10 +15,15 @@ import "./FiveToOne.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
+
   onProceedButtonClick(): void;
+
   handleRepeatButtonClick(): void;
+
   handleFinishButtonClick(): void;
+
   setToast(value: {}): void;
+
   currentSlide: number;
   slideElements: number;
   img: string;
@@ -84,7 +89,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">5</h4>
               <p className="swiper-slide__paragraph">
-                Rozejrzyj się i spróbuj nazwać pięć
+                Rozejrzyj się i spróbuj nazwać pięć przedmiotów wokół siebie.
               </p>
             </div>
           </SwiperSlide>
@@ -92,7 +97,8 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">4</h4>
               <p className="swiper-slide__paragraph">
-                Teraz dotknij 4 rzeczy, poczuj ich
+                Teraz dotknij 4 rzeczy, poczuj ich fakturę, czy są przyjemne w
+                dotyku, zimne, szorstkie ...
               </p>
             </div>
           </SwiperSlide>
@@ -100,7 +106,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">3</h4>
               <p className="swiper-slide__paragraph">
-                Wytęż słuch i nazwij trzy rzeczy, które
+                Wytęż słuch i nazwij trzy rzeczy, które słyszysz.
               </p>
             </div>
           </SwiperSlide>
@@ -108,7 +114,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">2</h4>
               <p className="swiper-slide__paragraph">
-                Daj się ponieść zapachom i poczuj dwa
+                Daj się ponieść zapachom i poczuj dwa różne zapachy.
               </p>
             </div>
           </SwiperSlide>
