@@ -2,19 +2,19 @@ import React from "react";
 
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
-import SchulzTraining from "./SchulzTraining.component";
+import SoundMix from "./SoundMix.component";
 
 const SoundMixContainer: React.FC = () => {
-  const createSchulzTraining = async () => {
+  const createSoundMix = async () => {
     const currentDateWithTime = getFullDateWithTime();
 
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "SchulzTraining")
+      .CreateActivityWithNoContent(currentDateWithTime, "SoundMix")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
-  return <SchulzTraining createSchulzTraining={createSchulzTraining} />;
+  return <SoundMix createSoundMix={createSoundMix} />;
 };
 
 export default SoundMixContainer;

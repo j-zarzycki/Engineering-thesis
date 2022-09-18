@@ -24,6 +24,7 @@ import Anger from "./pages/Anger";
 import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
 import SchulZTraining from "./pages/SchulzTraining";
+import SoundMix from "./pages/SoundMix";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -92,6 +93,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route exact path="/sounds">
+              <SoundMix />
             </Route>
             <Route exact path="/schulz">
               <SchulZTraining />
