@@ -56,11 +56,11 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 4)
-      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+    if (swiper?.activeIndex === 3)
+      return <div className="conscious-shower__header" />;
 
     return (
-      <div>
+      <div className="conscious-shower__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -154,11 +154,6 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
                     </p>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Przemyślenia</h4>
-                  </div>
-                </SwiperSlide>
               </Swiper>
             </div>
             {showProceedButton && (
@@ -178,7 +173,7 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton

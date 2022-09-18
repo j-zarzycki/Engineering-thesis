@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
+import SWIPE_ELEMENTS from "@Constants/walking.constants";
+import MainImg from "@Assets/main.png";
+import quote from "@Assets/what.png";
 import Walking from "./Walking.component";
 
 const WalkingContainer: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<any>(null);
+  const [img, setImg] = useState("");
+  const [showProceedButton, setShowProceedButton] = useState(true);
+  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const slideElements = SWIPE_ELEMENTS;
   const currentDateWithTime: String = getFullDateWithTime();
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
 
   const createWalkingWithNoContent = async () => {
     setIsLoading(true);
@@ -46,13 +54,37 @@ const WalkingContainer: React.FC = () => {
     history.push("/note");
   };
 
+  const onProceedButtonClick = () => {
+    swiper?.slideNext();
+    setCurrentSlide(swiper?.activeIndex);
+    if (swiper?.activeIndex === slideElements - 4) {
+      setImg(quote);
+    }
+    if (swiper?.activeIndex === slideElements - 1) {
+      setShowProceedButton(false);
+      setImg(MainImg);
+    }
+  };
+
+  useEffect(() => {
+    setImg(MainImg);
+  }, []);
+
   return (
     <Walking
       onCreateActivityWithNoContent={createWalkingWithNoContent}
       onCreateActivityWithContent={createWalkingWithContent}
+      onProceedButtonClick={onProceedButtonClick}
+      setToast={setToast}
+      setSwiper={setSwiper}
+      setShowProceedButton={setShowProceedButton}
+      currentSlide={currentSlide}
       isLoading={isLoading}
       toast={toast}
-      setToast={setToast}
+      swiper={swiper}
+      img={img}
+      slideElements={slideElements}
+      showProceedButton={showProceedButton}
     />
   );
 };

@@ -3,6 +3,11 @@
 .breathing {
   font-family: $font-main;
 
+  &__header-top {
+    height: 30px;
+    margin-top: 20px;
+  }
+
   &__header {
     display: flex;
     align-items: center;

@@ -1,18 +1,16 @@
-import {
-  IonContent,
-  IonPage,
-  IonImg,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IoMdAdd } from "react-icons/io";
 
 // Import Swiper styles
 import "swiper/css";
 
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
+import Pet from "@Components/Pet";
+import CancelButton from "@Components/CancelButton";
+import Input from "@Components/Input";
 
 import ProceedButton from "@Components/ProceedButton";
 import "./GoodWord.style.scss";
@@ -53,8 +51,10 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
+    if (swiper?.activeIndex >= 3) return <div className="walking__header" />;
+
     return (
-      <div className="good-word__header">
+      <div className="walking__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -90,9 +90,8 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
                 Napisz do siebie miłe rzeczy, takie które w trudnych chwilach
-                będą dla Ciebie wsparciem. Wszystkie wiadomości będziesz mógł
-                odczytać korzystając z opcji Pomoc.Poproś bliskich, aby również
-                zapisali wiadomości od siebie
+                będą dla Ciebie wsparciem. Poproś bliskich, aby również zapisali
+                wiadomości od siebie
               </p>
             </div>
           </SwiperSlide>
@@ -102,8 +101,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
                 Napisz do siebie jakąś miłą wiadomość!
               </h4>
               <p className="swiper-slide__paragraph">
-                <input
-                  className="swiper-slide__input"
+                <Input
                   type="text"
                   placeholder="Wpisz coś miłego..."
                   onChange={onInputChange}
@@ -132,43 +130,39 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="good-word__buttons">
-          <button
-            className="buttons-good-word__end"
-            type="button"
-            onClick={onEndButtonClick}
-          >
-            Zakończ
-          </button>
-          <button
-            className="buttons-good-word__add"
-            type="button"
+          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+          <ProceedButton
+            title="Dodaj"
             onClick={onAddSlide}
             disabled={isAddingDisabled}
-          >
-            Dodaj
-          </button>
+            icon={<IoMdAdd size={25} />}
+          />
         </div>
       );
 
     if (swiper?.activeIndex === 2)
       return (
-        <div className="good-word__buttons">
-          <button
-            className="buttons-good-word__add"
-            type="button"
-            onClick={onAddSlide}
-            disabled={isAddingDisabled}
-          >
-            Dodaj
-          </button>
-        </div>
+        <ProceedButton
+          title="Dodaj"
+          onClick={onAddSlide}
+          disabled={isAddingDisabled}
+          icon={<IoMdAdd size={25} />}
+        />
       );
 
     return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
-    return <IonImg className="good-word__image" alt="pet" src={img} />;
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderLoader = () => {
@@ -196,7 +190,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     return (
-      <div className="good-word__context">
+      <div className="good-word__wrapper">
         {renderToast()}
         {renderLoader()}
         {renderImage()}
@@ -211,7 +205,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="good-word__wrapper">{renderContext()}</div>
+        <div className="good-word">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );

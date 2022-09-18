@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
@@ -7,10 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import "swiper/css";
 
 import "./Walking.style.scss";
-import SWIPE_ELEMENTS from "@Constants/walking.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
@@ -21,43 +18,39 @@ interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(): void;
   setToast(value: {}): void;
+  onProceedButtonClick(): void;
+  setSwiper(value: any): void;
+  setShowProceedButton(value: boolean): void;
   isLoading: boolean;
   toast: any;
+  currentSlide: number;
+  swiper: any;
+  img: string;
+  slideElements: number;
+  showProceedButton: boolean;
 }
 
 const Walking: React.FC<IProps> = (props: IProps) => {
   const {
     onCreateActivityWithNoContent,
     onCreateActivityWithContent,
+    onProceedButtonClick,
     setToast,
+    setSwiper,
+    setShowProceedButton,
     isLoading,
     toast,
+    swiper,
+    currentSlide,
+    img,
+    slideElements,
+    showProceedButton,
   } = props;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [showProceedButton, setShowProceedButton] = useState(true);
-  const slideElements = SWIPE_ELEMENTS;
-
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
-  const onProceedButtonClick = () => {
-    swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setShowProceedButton(false);
-      setImg(MainImg);
-    }
-  };
 
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="good-word__loader"
+        cssClass="walking__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -78,11 +71,10 @@ const Walking: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 3)
-      return <div style={{ paddingTop: "32px" }} className="walking__header" />;
+    if (swiper?.activeIndex === 3) return <div className="walking__header" />;
 
     return (
-      <div>
+      <div className="walking__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -91,11 +83,11 @@ const Walking: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="spacer">
+        <div className="walking">
           {renderToast()}
           {renderLoader()}
           {renderHeader()}
-          <div className="spacer__wrapper">
+          <div className="walking__wrapper">
             <Pet
               src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
@@ -103,14 +95,14 @@ const Walking: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <div className="spacer__horizontal-progress-bar">
+            <div className="walking__horizontal-progress-bar">
               <HorizontalProgressBar
                 currentElement={currentSlide}
                 elements={slideElements}
               />
             </div>
 
-            <div className="spacer__swiper">
+            <div className="walking__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -178,7 +170,7 @@ const Walking: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton

@@ -3,116 +3,191 @@
 
 .gratitude {
   &__wrapper {
-    height: 90%;
-  }
-
-  &__context {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-family: $font-main;
-    height: 100%;
-
-    ion-img {
-      width: 160px;
-      height: 210px;
-      margin-bottom: 38px;
-    }
 
     .proceed-button {
       margin-top: auto;
+      margin-bottom: 50px;
     }
+  }
+
+  &__header {
+    height: 30px;
+    margin-top: 20px;
   }
 
   &__swiper {
     width: 100%;
-    height: auto;
+    margin-top: 43px;
+
+    .swiper {
+      &__proceed-buttons {
+        &-enter {
+          opacity: 0;
+          transform: scale(0.9);
+
+          &-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+
+        &-exit {
+          opacity: 1;
+
+          &-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+      }
+      &-slide {
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &__header {
+          font-family: $font-main;
+          font-weight: $font-weight-xl;
+          font-size: $font-size-xxl;
+          color: $color-black;
+          text-align: center;
+        }
+
+        &__paragraph {
+          font-family: $font-main;
+          font-weight: $font-weight-m;
+          font-size: $font-size-m;
+          line-height: 24px;
+          color: $secondary-gray-90;
+          text-align: center;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        &.swiper {
+          &-slide {
+            &-active {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .final-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
   }
 }
-
-.swiper {
-  &-slide {
-    &-active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 45px;
-      margin-top: 45px;
-    }
-
-    &__header {
-      text-align: center;
-      font-size: $font-size-xxl;
-      font-weight: $font-weight-xl;
-    }
-
-    &__paragraph {
-      text-align: center;
-      font-size: $font-size-m;
-      font-weight: $font-weight-m;
-      color: $secondary-gray-90;
-      max-width: 300px;
-      margin: 0;
-    }
-  }
-}
-
-@include mobile-s {
-  .swiper {
-    &-slide {
-      &__wrapper {
-        margin: 0;
-        gap: 0;
-      }
-
-      &__header {
-        margin-top: 25px;
-      }
-
-      &__paragraph {
-        margin-top: 40px;
-      }
-    }
-  }
-
+@include mobile-xsmall {
   .gratitude {
     &__wrapper {
-      height: 95%;
+      height: 100%;
+
+      .proceed-button {
+        font-size: 20px;
+        height: 60px;
+        transition: all 0.3s;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
     }
 
-    &__context {
-      ion-img {
-        margin-bottom: 24px;
-        height: 150px;
-        width: 150px;
+    &__swiper {
+      margin-top: 20px;
+
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 32px;
+          }
+
+          &__paragraph {
+            font-size: $font-size-m;
+          }
+        }
       }
     }
   }
 }
 
-
-@include mobile-s-long {
+@include mobile-small {
   .gratitude {
-    &__context {
-      ion-img {
-        height: 150px;
-        width: 130px;
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        margin-top: 60px;
+        font-size: 22px;
+        height: 65px;
+        transition: all 0.3s;
+      }
+
+      button {
+        &.save-activity-button {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 34px;
+          }
+
+          &__paragraph {
+            font-size: 18px;
+          }
+        }
       }
     }
   }
+}
 
-  .swiper {
-    &-slide {
-      &__wrapper {
-        margin-top: 30px;
+@include mobile-medium {
+  .gratitude {
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        font-size: 24px;
+        height: 75px;
+        transition: all 0.3s;
+      }
+
+      button {
+        &.save-activity-button {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 38px;
+          }
+
+          &__paragraph {
+            font-size: 20px;
+          }
+        }
       }
     }
   }

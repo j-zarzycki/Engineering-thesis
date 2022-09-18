@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -8,8 +8,8 @@ import "swiper/css";
 import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-
-import ProceedButton from "@Components/ProceedButton";
+import Pet from "@Components/Pet";
+import SaveActivityButton from "@Components/SaveActivityButton";
 
 import "./PreviousDay.style.scss";
 
@@ -60,16 +60,24 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    return <ProceedButton title="Wypisz!" onClick={onProceedButtonClick} />;
+    return <SaveActivityButton title="Zapisz" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
-    return <IonImg className="previous-day__image" alt="pet" src={MainImg} />;
+    return (
+      <Pet
+        src={MainImg}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderContext = () => {
     return (
-      <div className="previous-day__context">
+      <div className="previous-day__wrapper">
         {renderImage()}
         {renderProgressBar()}
         {renderSwiper()}
@@ -82,7 +90,7 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="previous-day__wrapper">{renderContext()}</div>
+        <div className="previous-day">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );

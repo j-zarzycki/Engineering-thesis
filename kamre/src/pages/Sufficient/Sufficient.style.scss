@@ -2,134 +2,120 @@
 @import "@Theme/media";
 
 .sufficient {
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-
-    .buttons-sufficient {
-      &__end {
-        font-size: $font-size-xl;
-        font-weight: $font-weight-xl;
-        color: $color-black;
-        text-decoration: none;
-        background: none;
-      }
-
-      &__add {
-        padding: 23px 30px;
-        color: $color-white;
-        background-color: $primary-color-80;
-        font-weight: $font-weight-xl;
-        font-size: $font-size-xl;
-        filter: $default-drop-shadow;
-        border-radius: $border-radius-m;
-        transition: $transition-default;
-
-        &:disabled {
-          background-color: $secondary-gray-90;
-          cursor: not-allowed;
-          transition: $transition-default;
-        }
-      }
-    }
-  }
-
-  &__context {
+  &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: $font-main;
+  }
 
-    ion-img {
-      width: 160px;
-      height: 210px;
-      margin-bottom: 38px;
-    }
+  &__buttons {
+    display: flex;
+    gap: 10px;
+  }
 
-    .swiper {
-      max-height: 250px;
-
-      &-slide {
-        &-active {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        &__wrapper {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        &__header {
-          text-align: center;
-          font-size: $font-size-xxl;
-          font-weight: $font-weight-xl;
-          margin-top: 20px;
-        }
-
-        &__paragraph {
-          text-align: center;
-          font-size: $font-size-m;
-          font-weight: $font-weight-m;
-          color: $secondary-gray-90;
-          max-width: 320px;
-          width: 100%;
-          margin: 0;
-        }
-
-        &__input {
-          width: 100%;
-          border-radius: $border-radius-s;
-          border: 1px solid $secondary-gray-90;
-          height: 50px;
-          padding: 23px;
-          outline: none;
-          box-shadow: $default-drop-shadow;
-          font-size: $font-size-s;
-          margin-top: 15px;
-        }
-      }
-    }
-
-    .proceed-button {
-      margin-top: 20px;
-      max-width: 230px;
-    }
+  &__header {
+    height: 30px;
+    margin-top: 20px;
   }
 
   &__swiper {
     width: 100%;
-    height: auto;
+    margin-top: 43px;
+
+    .swiper {
+      &__proceed-buttons {
+        &-enter {
+          opacity: 0;
+          transform: scale(0.9);
+
+          &-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+
+        &-exit {
+          opacity: 1;
+
+          &-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+      }
+      &-slide {
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &__header {
+          font-family: $font-main;
+          font-weight: $font-weight-xl;
+          font-size: $font-size-xxl;
+          color: $color-black;
+          text-align: center;
+        }
+
+        &__paragraph {
+          font-family: $font-main;
+          font-weight: $font-weight-m;
+          font-size: $font-size-m;
+          line-height: 24px;
+          color: $secondary-gray-90;
+          text-align: center;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        &.swiper {
+          &-slide {
+            &-active {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .final-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
   }
 }
-
-@include mobile-s {
+@include mobile-xsmall {
   .sufficient {
-    &__context {
-      ion-img {
-        margin-bottom: 24px;
-        height: 150px;
-        width: 150px;
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        width: 90%;
+        font-size: 20px;
+        height: 60px;
+        transition: all 0.3s;
       }
+    }
+
+    &__swiper {
+      margin-top: 20px;
 
       .swiper {
         &-slide {
-          &__wrapper {
-            margin: 0;
-            gap: 0;
-          }
-
           &__header {
-            margin-top: 25px;
+            font-size: 32px;
           }
 
           &__paragraph {
-            margin-bottom: 20px;
+            font-size: $font-size-m;
           }
         }
       }
@@ -137,12 +123,58 @@
   }
 }
 
-@include mobile-s-long {
+@include mobile-small {
   .sufficient {
-    &__context {
-      ion-img {
-        height: 150px;
-        width: 130px;
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        font-size: 22px;
+        height: 65px;
+        transition: all 0.3s;
+        width: 90%;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 34px;
+          }
+
+          &__paragraph {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile-medium {
+  .sufficient {
+    &__wrapper {
+      height: 100%;
+      .proceed-button {
+        font-size: 24px;
+        width: 90%;
+        height: 75px;
+        transition: all 0.3s;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 38px;
+          }
+
+          &__paragraph {
+            font-size: 20px;
+          }
+        }
       }
     }
   }

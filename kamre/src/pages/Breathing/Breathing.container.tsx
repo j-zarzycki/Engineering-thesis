@@ -50,7 +50,6 @@ const BreathingContainer: React.FC = () => {
           clearInterval(intervalId);
           setRenderType(RenderType.EXHAUST);
           setCounter(0);
-          setIsPlaying(false);
         }
 
         setCounter((prevCount) => prevCount + 1);

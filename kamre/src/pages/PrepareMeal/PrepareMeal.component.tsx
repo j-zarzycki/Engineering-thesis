@@ -56,10 +56,10 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
 
   const renderHeader = () => {
     if (swiper?.activeIndex === 3)
-      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+      return <div className="prepare-meal__header" />;
 
     return (
-      <div>
+      <div className="prepare-meal__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -91,11 +91,11 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="spacer">
+        <div className="prepare-meal">
           {renderHeader()}
           {renderToast()}
           {renderLoader()}
-          <div className="spacer__wrapper">
+          <div className="prepare-meal__wrapper">
             <Pet
               src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
@@ -107,7 +107,7 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
               currentElement={currentSlide}
               elements={slideElements}
             />
-            <div className="spacer__swiper">
+            <div className="prepare-meal__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -177,7 +177,7 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton

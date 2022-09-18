@@ -1,21 +1,15 @@
 import React from "react";
-import {
-  IonContent,
-  IonPage,
-  IonImg,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BsArrowRepeat } from "react-icons/bs";
 // Import Swiper styles
 import "swiper/css";
 
-import FinishButton from "@Components/FinishButton";
-import BackButton from "@Components/BackButton";
+import Pet from "@Components/Pet";
+import CancelButton from "@Components/CancelButton";
 import VerticalProgressBar from "@Components/VerticalProgressBar";
-
 import ProceedButton from "@Components/ProceedButton";
+import BackButton from "@Components/BackButton";
 
 import "./FiveToOne.style.scss";
 
@@ -49,8 +43,10 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
+    if (swiper?.activeIndex === 7) return null;
+
     return (
-      <div className="fiveToOne__header">
+      <div className="walking__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -151,13 +147,13 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   const renderProceedButton = () => {
     if (swiper?.activeIndex === 7) {
       return (
-        <div className="fiveToOne__buttons">
+        <div className="final-buttons">
           <ProceedButton
             title="Powtórz"
             onClick={handleRepeatButtonClick}
             icon={<BsArrowRepeat size={25} />}
           />
-          <FinishButton title="Zakończ" onClick={handleFinishButtonClick} />
+          <CancelButton title="Zakończ" onClick={handleFinishButtonClick} />
         </div>
       );
     }
@@ -170,7 +166,15 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderImage = () => {
-    return <IonImg className="fiveToOne__image" alt="pet" src={img} />;
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderLoader = () => {
@@ -198,7 +202,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     return (
-      <div className="fiveToOne__context">
+      <div className="fiveToOne__wrapper">
         {renderImage()}
         {renderSwiper()}
         {renderProceedButton()}
@@ -212,7 +216,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
         {renderToast()}
         {renderLoader()}
         {renderHeader()}
-        <div className="fiveToOne__wrapper">
+        <div className="fiveToOne">
           {renderProgressBar()}
           {renderContext()}
         </div>
