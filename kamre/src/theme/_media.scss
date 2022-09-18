@@ -1,3 +1,23 @@
+@mixin mobile-xsmall {
+  @media (min-width: 1px) and (max-width: 375px) {
+    @content;
+  }
+}
+
+@mixin mobile-small {
+  @media (min-width: 376px) and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin mobile-medium {
+  @media (min-width: 500px) and (max-width: 2560px) {
+    @content;
+  }
+
+}
+
+
 @mixin mobile-s-long {
   @media (max-width: 360px) and (max-height: 740px) {
     @content;

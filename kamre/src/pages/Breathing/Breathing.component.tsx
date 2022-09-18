@@ -97,19 +97,15 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
 
   const renderHeader = () => {
     return (
-      <>
+      <div className="breathing__header-top">
         <BackButton defaultHref="/home" />
-        {!isPlaying && <h4>Oddychanie</h4>}
-      </>
+      </div>
     );
   };
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical breathing"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
         <div className="breathing__header">{renderHeader()}</div>
         <div className="breathing__context">{renderContext()}</div>
       </IonContent>

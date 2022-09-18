@@ -19,7 +19,6 @@ import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import GoodWord from "@Pages/GoodWord";
 import Feet from "@Pages/Feet";
-import Breathing from "./pages/Breathing";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
@@ -73,9 +72,6 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/walking">
               <Walking />
-            </Route>
-            <Route exact path="/breathing">
-              <Breathing />
             </Route>
             <Route path="/fivetoone">
               <FiveToOne />

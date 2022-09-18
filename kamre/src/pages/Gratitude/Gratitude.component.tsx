@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -7,22 +7,60 @@ import "swiper/css";
 
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-
+import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
-
+import SaveActivityButton from "@Components/SaveActivityButton";
 import "./Gratitude.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
+  onHandleFinishClick(): void;
   currentSlide: number;
   slideElements: number;
   img: string;
+  swiper: any;
+  isLoading: boolean;
+  toast: any;
+  setToast(value: { isOpen: boolean; message: string }): void;
 }
 
 const Gratitude: React.FC<IProps> = (props: IProps) => {
-  const { setSwiper, currentSlide, slideElements, onProceedButtonClick, img } =
-    props;
+  const {
+    setSwiper,
+    currentSlide,
+    slideElements,
+    onProceedButtonClick,
+    img,
+    onHandleFinishClick,
+    swiper,
+    isLoading,
+    toast,
+    setToast,
+  } = props;
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
 
   const renderHeader = () => {
     return (
@@ -56,7 +94,7 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Wypisz, za co jesteś dzisiaj wdzięczny_na. To mogą być codzienne
+                Wypisz, za co jesteś dzisiaj wdzięczny/na. To mogą być codzienne
                 czynności, ludzie lub sytuacje. Postaraj się wyciągnąć rzeczy,
                 które wywołały w Tobie pozytywne emocje.
               </p>
@@ -79,16 +117,28 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
+    if (swiper?.activeIndex === 1)
+      return (
+        <SaveActivityButton title="Zapisz" onClick={onHandleFinishClick} />
+      );
     return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
-    return <IonImg className="gratitude__image" alt="pet" src={img} />;
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderContext = () => {
     return (
-      <div className="gratitude__context">
+      <div className="gratitude__wrapper">
         {renderImage()}
         {renderProgressBar()}
         {renderSwiper()}
@@ -99,12 +149,11 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        class="ion-padding-horizontal ion-padding-vertical"
-      >
+      <IonContent fullscreen class="ion-padding-horizontal">
+        {renderLoader()}
+        {renderToast()}
         {renderHeader()}
-        <div className="gratitude__wrapper">{renderContext()}</div>
+        <div className="gratitude">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );

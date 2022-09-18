@@ -1,18 +1,16 @@
-import {
-  IonContent,
-  IonPage,
-  IonImg,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IoMdAdd } from "react-icons/io";
 
 // Import Swiper styles
 import "swiper/css";
 
+import Input from "@Components/Input";
+import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
+import Pet from "@Components/Pet";
 
 import ProceedButton from "@Components/ProceedButton";
 import "./Sufficient.style.scss";
@@ -53,6 +51,8 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
+    if (swiper?.activeIndex >= 3) return <div className="sufficient__header" />;
+
     return (
       <div className="sufficient__header">
         <BackButton defaultHref="/home" />
@@ -101,10 +101,9 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
                 Jestem z siebie dumny, bo:
               </h4>
               <p className="swiper-slide__paragraph">
-                <input
-                  className="swiper-slide__input"
+                <Input
                   type="text"
-                  placeholder="Wpisz za co jesteś z siebie dumny..."
+                  placeholder="Wpisz coś miłego..."
                   onChange={onInputChange}
                 />
               </p>
@@ -131,43 +130,39 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="sufficient__buttons">
-          <button
-            className="buttons-sufficient__end"
-            type="button"
-            onClick={onEndButtonClick}
-          >
-            Zakończ
-          </button>
-          <button
-            className="buttons-sufficient__add"
-            type="button"
+          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+          <ProceedButton
+            title="Dodaj"
             onClick={onAddSlide}
             disabled={isAddingDisabled}
-          >
-            Dodaj
-          </button>
+            icon={<IoMdAdd size={25} />}
+          />
         </div>
       );
 
     if (swiper?.activeIndex === 2)
       return (
-        <div className="sufficient__buttons">
-          <button
-            className="buttons-sufficient__add"
-            type="button"
-            onClick={onAddSlide}
-            disabled={isAddingDisabled}
-          >
-            Dodaj
-          </button>
-        </div>
+        <ProceedButton
+          title="Dodaj"
+          onClick={onAddSlide}
+          disabled={isAddingDisabled}
+          icon={<IoMdAdd size={25} />}
+        />
       );
 
     return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
-    return <IonImg className="sufficient__image" alt="pet" src={img} />;
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderLoader = () => {
@@ -195,7 +190,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     return (
-      <div className="sufficient__context">
+      <div className="sufficient__wrapper">
         {renderToast()}
         {renderLoader()}
         {renderImage()}
@@ -210,7 +205,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="sufficient__wrapper">{renderContext()}</div>
+        <div className="sufficient">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );

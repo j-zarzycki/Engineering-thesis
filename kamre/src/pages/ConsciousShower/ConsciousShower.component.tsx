@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  IonContent,
-  IonPage,
-  useIonAlert,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -26,7 +20,7 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onCreateActivityWithContent(): void;
   setToast(value: {}): void;
   isLoading: boolean;
   toast: { isOpen: boolean; message: string };
@@ -43,7 +37,6 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
   const [showProceedButton, setShowProceedButton] = useState(true);
   const slideElements = SWIPE_ELEMENTS;
 
@@ -61,36 +54,13 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
       setImg(MainImg);
     }
   };
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
-  };
-
-  const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
-  };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 4)
-      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+    if (swiper?.activeIndex === 3)
+      return <div className="conscious-shower__header" />;
 
     return (
-      <div>
+      <div className="conscious-shower__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -184,11 +154,6 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
                     </p>
                   </div>
                 </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Przemyślenia</h4>
-                  </div>
-                </SwiperSlide>
               </Swiper>
             </div>
             {showProceedButton && (
@@ -208,12 +173,12 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton
                   title="Zapisz"
-                  onClick={onProceedButtonClickWithContent}
+                  onClick={onCreateActivityWithContent}
                 />
               </div>
             </CSSTransition>

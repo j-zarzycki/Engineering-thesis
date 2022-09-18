@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  IonContent,
-  IonPage,
-  useIonAlert,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -25,7 +19,7 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onCreateActivityWithContent(): void;
   setToast(value: {}): void;
   isLoading: boolean;
   toast: { isOpen: boolean; message: string };
@@ -42,7 +36,6 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
   const [showProceedButton, setShowProceedButton] = useState(true);
   const slideElements = SWIPE_ELEMENTS;
 
@@ -60,36 +53,16 @@ const Bike: React.FC<IProps> = (props: IProps) => {
       setImg(MainImg);
     }
   };
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
-  };
 
   const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
+    onCreateActivityWithContent();
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 4)
-      return <div style={{ paddingTop: "32px" }} className="bike__header" />;
+    if (swiper?.activeIndex === 4) return <div className="bike__header" />;
 
     return (
-      <div>
+      <div className="bike__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -121,11 +94,11 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="spacer">
+        <div className="bike">
           {renderHeader()}
           {renderToast()}
           {renderLoader()}
-          <div className="spacer__wrapper">
+          <div className="bike__wrapper">
             <Pet
               src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
@@ -139,7 +112,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
                 elements={slideElements}
               />
             </div>
-            <div className="spacer__swiper">
+            <div className="bike__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -191,6 +164,10 @@ const Bike: React.FC<IProps> = (props: IProps) => {
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">Przemyślenia</h4>
+                    <p className="swiper-slide__paragraph">
+                      Co zaobserwowałeś/aś po wykonanym ćwiczeniu? Jak się
+                      czułeś/aś? Co dało Ci to ćwiczenie?
+                    </p>
                   </div>
                 </SwiperSlide>
               </Swiper>
@@ -212,7 +189,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton

@@ -30,7 +30,7 @@ const FeetContainer: React.FC = () => {
     setCurrentSlide(0);
     swiper?.slideTo(0);
     await apiService
-      .CreateActivityWithNoContent(dateTime, "5-4-3-2-1")
+      .CreateActivityWithNoContent(dateTime, "Stopy")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -47,7 +47,7 @@ const FeetContainer: React.FC = () => {
     setIsLoading(true);
     const dateTime = getFullDateWithTime();
     await apiService
-      .CreateActivityWithNoContent(dateTime, "5-4-3-2-1")
+      .CreateActivityWithNoContent(dateTime, "Stopy")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
         history.push("/home");

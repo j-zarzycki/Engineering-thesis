@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  IonContent,
-  IonPage,
-  IonImg,
-  IonLoading,
-  IonToast,
-} from "@ionic/react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BsArrowRepeat } from "react-icons/bs";
 // Import Swiper styles
 import "swiper/css";
 
+import Pet from "@Components/Pet";
 import BackButton from "@Components/BackButton";
 import VerticalProgressBar from "@Components/VerticalProgressBar";
-import FinishButton from "@Components/FinishButton";
-
+import CancelButton from "@Components/CancelButton";
 import ProceedButton from "@Components/ProceedButton";
 
 import "./Feet.style.scss";
@@ -49,8 +43,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 22)
-      return <div style={{ paddingTop: "32px" }} className="feet__header" />;
+    if (swiper?.activeIndex === 22) return null;
 
     return (
       <div className="feet__header">
@@ -272,13 +265,13 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   const renderProceedButton = () => {
     if (swiper?.activeIndex === 22) {
       return (
-        <div className="feet__buttons">
+        <div className="final-buttons">
           <ProceedButton
             title="Powtórz"
             onClick={handleRepeatButtonClick}
             icon={<BsArrowRepeat size={25} />}
           />
-          <FinishButton title="Zakończ" onClick={handleFinishButtonClick} />
+          <CancelButton title="Zakończ" onClick={handleFinishButtonClick} />
         </div>
       );
     }
@@ -291,7 +284,15 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderImage = () => {
-    return <IonImg className="feet__image" alt="pet" src={img} />;
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
   };
 
   const renderLoader = () => {
@@ -319,7 +320,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     return (
-      <div className="feet__context">
+      <div className="feet__wrapper">
         {renderToast()}
         {renderLoader()}
         {renderImage()}
@@ -333,7 +334,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="feet__wrapper">
+        <div className="feet">
           {renderProgressBar()}
           {renderContext()}
         </div>

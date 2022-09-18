@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { useHistory } from "react-router-dom";
 
+import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import apiService from "@Services/api.service";
@@ -41,10 +42,9 @@ const SufficientContainer: React.FC = () => {
         <div className="swiper-slide__wrapper">
           <h4 className="swiper-slide__header">Jestem z siebie dumny, bo:</h4>
           <p className="swiper-slide__paragraph">
-            <input
-              className="swiper-slide__input"
+            <Input
               type="text"
-              placeholder="Wpisz za co jesteś z siebie dumny..."
+              placeholder="Wpisz coś miłego..."
               onChange={onInputChange}
             />
           </p>

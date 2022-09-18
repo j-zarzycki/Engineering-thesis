@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { useHistory } from "react-router-dom";
 
+import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import apiService from "@Services/api.service";
@@ -43,8 +44,7 @@ const GoodWordContainer: React.FC = () => {
             Napisz do siebie jakąś miłą wiadomość!
           </h4>
           <p className="swiper-slide__paragraph">
-            <input
-              className="swiper-slide__input"
+            <Input
               type="text"
               placeholder="Wpisz coś miłego..."
               onChange={onInputChange}
