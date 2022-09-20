@@ -164,15 +164,86 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
               <IonCol className="box-right">
-                <IonCard href="/" class="card-styles">
+                <IonCard href="/feet" class="card-styles">
                   <IonCardHeader>
-                    <IonCardTitle class="card-title">-</IonCardTitle>
+                    <IonCardTitle class="card-title">Stopy</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
                     You'll lose all tasks, conversations and documents.
                   </IonCardContent>
                 </IonCard>
               </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/bike" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">bike</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-right">
+                <IonCard href="/calendar" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Calendar</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/previousday" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Previous Day</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-left">
+                <IonCard href="/preparemeal" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">
+                      Przygotuj coś pysznego
+                    </IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/sufficient" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Sufficient</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonRow>
+                <IonCol className="box-left">
+                  <IonCard href="/goodword" class="card-styles">
+                    <IonCardHeader>
+                      <IonCardTitle class="card-title">Good Word</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent class="card-description">
+                      You'll lose all tasks, conversations and documents.
+                    </IonCardContent>
+                  </IonCard>
+                </IonCol>
+              </IonRow>
             </IonRow>
           </IonGrid>
         </div>

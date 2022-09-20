@@ -12,10 +12,13 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle } from "ionicons/icons";
+import Sufficient from "@Pages/Sufficient";
 import Note from "@Pages/Note";
+import PreviousDay from "@Pages/PreviousDay";
 import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import Breathing from "./pages/Breathing";
+import GoodWord from "@Pages/GoodWord";
+import Feet from "@Pages/Feet";
 import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
@@ -23,6 +26,8 @@ import Home from "./pages/Home";
 import Anger from "./pages/Anger";
 import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
+import Bike from "./pages/Bike";
+import PrepareMeal from "./pages/PrepareMeal";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -68,9 +73,6 @@ const App: React.FC = () => {
             <Route exact path="/walking">
               <Walking />
             </Route>
-            <Route exact path="/breathing">
-              <Breathing />
-            </Route>
             <Route path="/fivetoone">
               <FiveToOne />
             </Route>
@@ -86,14 +88,31 @@ const App: React.FC = () => {
             <Route exact path="/anger">
               <Anger />
             </Route>
+            <Route exact path="/sufficient">
+              <Sufficient />
+            </Route>
+            <Route exact path="/goodword">
+              <GoodWord />
+            </Route>
+            <Route exact path="/feet">
+              <Feet />
+            </Route>
+            <Route exact path="/previousday">
+              <PreviousDay />
+            </Route>
             <Route exact path="/note">
               <Note />
+            </Route>
+            <Route exact path="/bike">
+              <Bike />
+            </Route>
+            <Route exact path="/preparemeal">
+              <PrepareMeal />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
           </IonRouterOutlet>
-
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />

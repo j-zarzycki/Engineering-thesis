@@ -1,1 +1,1 @@
-export { default } from "./Breathing.component";
+export { default } from "./Breathing.container";

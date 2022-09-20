@@ -32,7 +32,7 @@ const CreateActivityWithNoContent = (
 
 const CreateActivityWithContent = (
   registeredDate: String,
-  activityContent: String,
+  activityContent: String | String[],
   activityName: String,
 ) => {
   return axios.post<IDefaultServerResponse>(

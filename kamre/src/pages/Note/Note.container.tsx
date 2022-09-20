@@ -10,14 +10,14 @@ const NoteContainer: React.FC = () => {
   const { prevContent, title, description, hiddenDescription } = useAppSelector(
     (state) => state.note,
   );
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [isHidden, setIsHidden] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [textAreaInput, setTextAreaInput] = useState("");
   const history = useHistory();
 
   const handleChevronClick = () => setIsHidden((prevState) => !prevState);
-  const backToHomePage = () => history.push("/home");
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
@@ -34,13 +34,25 @@ const NoteContainer: React.FC = () => {
   };
 
   const handleSaveButtonClick = async () => {
+    setIsLoading(true);
     const currentDate = getFullDateWithTime();
+
     await apiService
       .CreateActivityWithContent(currentDate, textAreaInput, prevContent)
-      .then(() => backToHomePage());
+      .then(() => {
+        setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
+        history.push("/home");
+      })
+      .finally(() => setIsLoading(false))
+      .catch(() =>
+        setToast({
+          isOpen: true,
+          message: "Wystąpił błąd podczas zapisywania.",
+        }),
+      );
   };
 
-  const handleCancelButtonClick = () => backToHomePage();
+  const handleCancelButtonClick = () => history.push("/home");
 
   return (
     <Note
@@ -48,6 +60,9 @@ const NoteContainer: React.FC = () => {
       description={description}
       hiddenDescription={hiddenDescription}
       isHidden={isHidden}
+      isLoading={isLoading}
+      toast={toast}
+      setToast={setToast}
       isButtonDisabled={isButtonDisabled}
       handleChevronClick={handleChevronClick}
       handleTextAreaChange={handleTextAreaChange}

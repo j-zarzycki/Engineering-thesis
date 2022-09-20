@@ -1,27 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 
-import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
+import apiService from "@Services/api.service";
 import Anger from "./Anger.component";
 
 const AngerContainer: React.FC = () => {
-  const [inputField, setInputField] = useState("");
+  const currentDateWithTime: String = getFullDateWithTime();
 
-  const onInputChange = (e: any) => setInputField(e.detail.value);
+  const createAngerWithNoContent = async () => {
+    await apiService
+      .CreateActivityWithNoContent(currentDateWithTime, "Złość")
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
+  };
 
-  const onSaveButtonClick = async () => {
-    const currentDateWithTime = getFullDateWithTime();
-    await apiService.CreateActivityWithContent(
-      currentDateWithTime,
-      inputField,
-      "Zlosc",
-    );
+  const createAngerWithContent = async (activityContent: String) => {
+    await apiService
+      .CreateActivityWithContent(currentDateWithTime, activityContent, "Złość")
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
   };
 
   return (
     <Anger
-      onSaveButtonClick={onSaveButtonClick}
-      onInputChange={onInputChange}
+      onCreateActivityWithNoContent={createAngerWithNoContent}
+      onCreateActivityWithContent={createAngerWithContent}
     />
   );
 };
