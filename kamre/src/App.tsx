@@ -29,7 +29,6 @@ import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
 import Page403 from "./pages/Page403";
-import useAppSelector from "./hooks/useAppSelector";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -58,26 +57,11 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { hasError, isLoggedIn } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(authLogin("A21KS"));
   }, []);
 
-  const renderTabBar = () => {
-    if (hasError && !isLoggedIn) {
-      return (
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={triangle} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      );
-    }
-
-    return null;
-  };
   return (
     <IonApp>
       <IonReactRouter>
@@ -135,6 +119,12 @@ const App: React.FC = () => {
               <Redirect to="/home" />
             </Route>
           </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={triangle} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
         </IonTabs>
       </IonReactRouter>
     </IonApp>
