@@ -230,6 +230,42 @@ def set_recent():
         return user_id
 
 
+@app.route("/account", methods=['DELETE'])
+def delete_account():
+    status, user_id = check()
+    if status:
+        svc.delete_account(user_id)
+
+        return jsonify({'res': 'Account and all archived activities deleted'})
+
+    else:
+        return user_id
+
+
+@app.route("/recovery", methods=['GET'])
+def generate_code():
+    status, user_id = check()
+    if status:
+        while True:
+            recovery_code = svc.generate_recovery(user_id)
+            if recovery_code is not None:
+                break
+        return jsonify({'recovery_code': recovery_code})
+    else:
+        return user_id
+
+
+@app.route("/recovery", methods=['POST'])
+def migrate_account():
+    res = request.get_json()
+    recovery_code = res['recovery_code']
+    user_id = res['device_id']
+
+    if svc.migrate_account(recovery_code, user_id):
+        return jsonify({'res': 'Account updated'})
+    else:
+        return jsonify({'res': 'Invalid code'}), 400
+
 @socketio.event(namespace='/chat')
 def connect():
     try:

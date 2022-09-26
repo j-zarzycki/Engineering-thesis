@@ -1,3 +1,7 @@
+import datetime
+import secrets
+import string
+
 from data.Activity import Activity
 from data.Favorites import Favorites
 from data.Activity_year import Activity_year
@@ -9,6 +13,7 @@ from data.Recent import Recent
 from data.Emergency import Emergency
 from data.Emergency_seen import Emergency_seen
 from data.Archive import Archive
+from data.Recovery import Recovery
 import random
 
 months_dict = months_dict()
@@ -525,3 +530,51 @@ def user_update_answers(user_id, answer):
 def check_id(user_id):
     user = User.objects(user_id=user_id).first()
     print(str(user.id))
+
+
+def delete_account(user_id):
+    user = User.objects(user_id=user_id).first()
+    archived = Archive.objects(user_id=str(user.id)).all()
+
+    for el in archived:
+        delete_archive(str(user.id))
+
+    user.delete()
+
+
+def delete_archive(user_id):
+    archived = Archive.objects(user_id=user_id).first()
+    archived.delete()
+
+
+def generate_recovery(user_id):
+    recovery = Recovery()
+    user = User.objects(user_id=user_id).first()
+    length = 15
+
+    recovery.created = datetime.datetime.utcnow()
+    recovery.user_id = user.id
+
+    recovery_code = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(length))
+
+    recovery.recovery_code = recovery_code
+
+    try:
+        recovery.save()
+        return recovery_code
+    except:
+        return None
+
+
+def migrate_account(recovery_code, user_id):
+    recovery = Recovery.objects(recovery_code=recovery_code).first()
+    try:
+        user = User.objects(id=recovery.user_id).first()
+
+        user.user_id = user_id
+        user.save()
+
+        recovery.delete()
+        return True
+    except:
+        return False

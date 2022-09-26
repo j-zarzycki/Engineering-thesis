@@ -19,7 +19,7 @@ ans = {
 }
 
 results = {
-    (1, 1, 1): ["Świadomy prysznic", "Przugotuj coś pysznego", "Spacer", "Jazda na rowerze",
+    (1, 1, 1): ["Świadomy prysznic", "Przygotuj coś pysznego", "Spacer", "Jazda na rowerze",
                 "Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Medytacja", "Podcast", "Dźwięki ambientowe",
                 "Mięśień kreatywności",
                 "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
