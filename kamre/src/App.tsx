@@ -29,6 +29,7 @@ import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
 import Weights from "./pages/Weights";
+import Visualization from "./pages/Visualization";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -115,6 +116,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route exact path="/visualization">
+              <Visualization />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
