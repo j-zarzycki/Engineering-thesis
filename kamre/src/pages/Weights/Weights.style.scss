@@ -1,0 +1,258 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.weights {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $font-main;
+
+    h4 {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-weight: $font-weight-m;
+      font-size: $font-size-m;
+      line-height: 24px;
+      color: $secondary-gray-90;
+      text-align: center;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: $font-main;
+    height: 65vh;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      max-width: 210px;
+      max-height: 280px;
+      overflow-y: scroll;
+    }
+
+    li {
+      list-style-type: none;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      color: $secondary-gray-90;
+      font-size: $font-size-l;
+    }
+
+    h4 {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+      margin-bottom: 15px;
+    }
+
+    .proceed-button {
+      margin-top: auto;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
+
+  &__swiper {
+    width: 100%;
+    margin-top: 43px;
+
+    .swiper {
+      &__proceed-buttons {
+        &-enter {
+          opacity: 0;
+          transform: scale(0.9);
+
+          &-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+
+        &-exit {
+          opacity: 1;
+
+          &-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+      }
+      &-slide {
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &__header {
+          font-family: $font-main;
+          font-weight: $font-weight-xl;
+          font-size: $font-size-xxl;
+          color: $color-black;
+          text-align: center;
+        }
+
+        &__paragraph {
+          font-family: $font-main;
+          font-weight: $font-weight-m;
+          font-size: $font-size-m;
+          line-height: 24px;
+          color: $secondary-gray-90;
+          text-align: center;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        &.swiper {
+          &-slide {
+            &-active {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .final-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+@include mobile-xsmall {
+  .weights {
+    .final-buttons {
+      margin-top: 35px;
+    }
+
+    &__list {
+      ul {
+        max-height: 230px;
+      }
+    }
+
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        width: 90%;
+        font-size: 20px;
+        height: 60px;
+        transition: all 0.3s;
+      }
+    }
+
+    &__swiper {
+      margin-top: 20px;
+
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 32px;
+          }
+
+          &__paragraph {
+            font-size: $font-size-m;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile-small {
+  .weights {
+    .final-buttons {
+      margin-top: 85px;
+    }
+
+    &__wrapper {
+      height: 100%;
+
+      .proceed-button {
+        font-size: 22px;
+        height: 65px;
+        transition: all 0.3s;
+        width: 90%;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 34px;
+          }
+
+          &__paragraph {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile-medium {
+  .weights {
+    .final-buttons {
+      margin-top: 115px;
+    }
+
+    &__wrapper {
+      height: 100%;
+      .proceed-button {
+        font-size: 24px;
+        width: 90%;
+        height: 75px;
+        transition: all 0.3s;
+      }
+    }
+
+    &__list {
+      ul {
+        max-height: 500px;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 38px;
+          }
+
+          &__paragraph {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}

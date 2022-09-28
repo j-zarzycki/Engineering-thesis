@@ -247,6 +247,30 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
             </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/weights" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Weights</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-left">
+                <IonCard href="/visualization" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">
+                      Visualization
+                    </IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
           </IonGrid>
         </div>
       </div>

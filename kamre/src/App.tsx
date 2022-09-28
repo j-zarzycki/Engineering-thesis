@@ -30,6 +30,8 @@ import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
 import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
+import Weights from "./pages/Weights";
+import Visualization from "./pages/Visualization";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -117,8 +119,14 @@ const App: React.FC = () => {
             <Route exact path="/emergency">
               <Emergency />
             </Route>
+            <Route exact path="/weights">
+              <Weights />
+            </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route exact path="/visualization">
+              <Visualization />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
