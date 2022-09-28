@@ -28,6 +28,7 @@ import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
+import Music from "./pages/Music";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -108,6 +109,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/preparemeal">
               <PrepareMeal />
+            </Route>
+            <Route exact path="/music">
+              <Music />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />

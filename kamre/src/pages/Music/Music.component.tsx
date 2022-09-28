@@ -6,8 +6,8 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./Anger.style.scss";
-import SWIPE_ELEMENTS from "@Constants/anger.constants";
+import "./Music.style.scss";
+import SWIPE_ELEMENTS from "@Constants/music.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
@@ -22,7 +22,7 @@ interface IProps {
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
-const Anger: React.FC<IProps> = (props: IProps) => {
+const Music: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
@@ -72,9 +72,9 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="anger">
+        <div className="music">
           <BackButton defaultHref="/home" />
-          <div className="anger__wrapper">
+          <div className="music__wrapper">
             <Pet
               src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
@@ -86,7 +86,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               currentElement={currentSlide}
               elements={slideElements}
             />
-            <div className="anger__swiper">
+            <div className="music__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -96,42 +96,21 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Złość</h4>
+                    <h4 className="swiper-slide__header">Relaksująca Muzyka</h4>
                     <p className="swiper-slide__paragraph">
-                      To ćwiczenie pozwoli Ci świadomie zarządzać swoją złością.
-                      Poprzez złość możemy uświadomić sobie swoje granice,
-                      pokazać na co się zgadzamy, a na co nie.
+                      Kliknij w <a href="/">link</a> i oddaj się relaksującym
+                      rytmom. Poczuj muzykę całym Twoim ciałem i uspokój swoje
+                      wewnętrzne 'JA'.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
+                      Opisz swoje odczucia.
                     </h4>
-                    <p className="swiper-slide__paragraph">
-                      Grrr! Rozładuj swoją złość! Ale nie tak jak myślisz, tylko
-                      nie rzucaj telefonem! Wypisz tutaj wszystko co powoduje u
-                      Ciebie frustrację, nerwowość lub po prostu co Cię wkurza!
-                      To czas, żeby dokonać analizy, a następnie wyrzucić złość
-                      za siebie.
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
-                    <p className="swiper-slide__paragraph">
-                      Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
-                      powinna być rozwiązana?
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
                     <IonInput
-                      className="anger-input"
+                      className="music-input"
                       type="text"
                       placeholder="Napisz tutaj"
                     />
@@ -141,7 +120,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
             </div>
             {showProceedButton && (
               <ProceedButton
-                title="Prowadź mnie!"
+                title="Co czujesz?"
                 onClick={onProceedButtonClick}
               />
             )}
@@ -172,4 +151,4 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Anger;
+export default Music;
