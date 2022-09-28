@@ -121,11 +121,13 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Wpisz jaki jesteś:</h4>
+              <h4 className="swiper-slide__header">
+                Wpisz co o sobie sądzisz:
+              </h4>
               <p className="swiper-slide__paragraph">
                 <Input
                   type="text"
-                  placeholder="Wpisz jaki jesteś..."
+                  placeholder="Jestem..."
                   onChange={onInputChange}
                 />
               </p>
@@ -263,6 +265,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
             <p>
               Czy chcesz zapisać swoje przemyślenia po wykonaniu tego ćwiczenia?
             </p>
+            <p>Bądź zmianą, którą pragniesz ujrzeć w świecie ~ M.K. Gandhi</p>
             <div className="final-buttons">
               <CancelButton
                 title="Zakończ"

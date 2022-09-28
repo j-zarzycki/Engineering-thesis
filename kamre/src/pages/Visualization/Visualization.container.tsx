@@ -48,11 +48,11 @@ const VisualizationContainer: React.FC = () => {
     return (
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
-          <h4 className="swiper-slide__header">Wpisz jaki jesteś:</h4>
+          <h4 className="swiper-slide__header">Wpisz co o sobie sądzisz:</h4>
           <p className="swiper-slide__paragraph">
             <Input
               type="text"
-              placeholder="Wpisz jaki jesteś..."
+              placeholder="Jestem..."
               onChange={onInputChange}
             />
           </p>
