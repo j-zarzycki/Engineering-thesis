@@ -1,5 +1,4 @@
 from data.db_connection import db_connection
-from datetime import datetime
 
 db = db_connection()
 
@@ -13,6 +12,6 @@ class Recovery(db.Document):
     meta = {
         'collection': 'recovery',
         'indexes': [
-            {'fields': ['created'], 'expireAfterSeconds': 3600}
+            {'fields': ['created'], 'expireAfterSeconds': 43200}
         ]
     }
