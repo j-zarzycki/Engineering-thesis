@@ -276,6 +276,8 @@ def get_blurb():
     else:
         return user_id
 
+
+
 @socketio.event(namespace='/chat')
 def connect():
     try:

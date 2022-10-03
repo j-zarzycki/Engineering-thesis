@@ -633,6 +633,8 @@ def migrate_account(recovery_code, user_id):
         return False
 
 
+
+
 def get_blurb(user_id):
     blurb = ['Hej co tam u Ciebie?',
              'Jak Ci mija dzień?',
