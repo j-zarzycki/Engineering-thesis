@@ -28,6 +28,7 @@ import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
+import Music from "./pages/Music";
 import Weights from "./pages/Weights";
 import Visualization from "./pages/Visualization";
 
@@ -110,6 +111,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/preparemeal">
               <PrepareMeal />
+            </Route>
+            <Route exact path="/music">
+              <Music />
             </Route>
             <Route exact path="/weights">
               <Weights />
