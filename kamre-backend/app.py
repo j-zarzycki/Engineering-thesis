@@ -268,6 +268,14 @@ def migrate_account():
     else:
         return jsonify({'res': 'Invalid code'}), 400
 
+@app.route("/getBlurb", methods=['GET'])
+def get_blurb():
+    status, user_id = check()
+    if status:
+        return jsonify({'res': svc.get_blurb(user_id)})
+    else:
+        return user_id
+
 @socketio.event(namespace='/chat')
 def connect():
     try:
