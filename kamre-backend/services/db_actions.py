@@ -631,3 +631,10 @@ def migrate_account(recovery_code, user_id):
         return True
     except:
         return False
+
+
+def get_blurb(user_id):
+    blurb = ['Hej co tam u Ciebie?',
+             'Jak Ci mija dzień?',
+             f'Czy miałbyś może ochotę na \'{random.sample(get_reccomended(user_id), 1)[0]}\'']
+    return random.sample(blurb, 1)
