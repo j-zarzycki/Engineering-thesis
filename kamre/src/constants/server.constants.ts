@@ -5,4 +5,6 @@ export const SERVER_URL_HAS_CONTENT =
   "https://kamretest.azurewebsites.net/hasContent";
 export const SERVER_URL_ALL_DAYS = "https://kamretest.azurewebsites.net/getAll";
 
-export const SERVER_URL_ONE_DAY = "https://kamretest.azurewebsites.net/getDay";
+export const SERVER_URL_GET_DAY = "https://kamretest.azurewebsites.net/getDay";
+export const SERVER_URL_GET_MONTH =
+  "https://kamretest.azurewebsites.net/getMonth";

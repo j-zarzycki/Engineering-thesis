@@ -1,14 +1,11 @@
-.calendar-page {
-  &__calendar-wrapper {
+.calendar {
+  &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
-    gap: 30px;
-
-    h3 {
-      margin-top: 64px;
-    }
+    margin-top: 24px;
+    gap: 24px;
   }
 
   &__no-content {
@@ -17,13 +14,5 @@
     color: var(--secondary-gray-90);
     margin-top: 50px;
     font-weight: var(--font-weight-large);
-  }
-}
-
-ion-datetime {
-  &.month-year-picker-open {
-    ~ .calendar-page__no-content {
-      display: none;
-    }
   }
 }

@@ -61,7 +61,7 @@ setupIonicReact();
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(authLogin("A21KS"));
+    dispatch(authLogin("test_user"));
   }, []);
   return (
     <IonApp>
