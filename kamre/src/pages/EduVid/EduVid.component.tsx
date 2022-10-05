@@ -23,7 +23,7 @@ const EduVid: React.FC<IProps> = (props: IProps) => {
             <BackButton defaultHref="/home" />
             <Header
               title="Czy stres to czyste zło?"
-              subtitle="Sprwadź jak można rzucić pozytywne światło na stres, który odczuwamy."
+              subtitle="Sprawadź jak można rzucić pozytywne światło na stres, który odczuwamy."
             />
           </div>
           <div className="video-container">
