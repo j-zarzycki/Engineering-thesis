@@ -1,14 +1,19 @@
-/* eslint-disable */
-
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-import Calendar from "./Calendar.component";
+import { CalendarResponseType } from "@Types/calendar.type";
 import apiService from "@Services/api.service";
+import Calendar from "./Calendar.component";
 
-const CalendarContainer: React.FC = () => {
-  let days: React.ReactElement[] = [];
-  const [startDate, setStartDate] = useState(null);
+interface IProps {
+  onChange: (e: any) => void;
+  onMonthChange: (e: any) => void;
+}
+
+const CalendarContainer: React.FC<IProps> = (props: IProps) => {
+  const { onChange, onMonthChange } = props;
+  const [isLoading, setIsLoading] = useState(false);
+  const [monthData, setMonthData] = useState<CalendarResponseType[]>([]);
   const [currentYear, setCurrentYear] = useState(
     Number(moment().format("YYYY")),
   );
@@ -33,17 +38,74 @@ const CalendarContainer: React.FC = () => {
     }
   };
 
+  const getMonth = async () => {
+    apiService.GetMonth(currentMonth, currentYear).then(({ data: { res } }) => {
+      setMonthData(res);
+    });
+  };
+
+  const onChangeHandle = (value: any) => {
+    setIsLoading(false);
+    const day = moment(value).format("DD");
+    const month = moment(value).format("MM");
+    const year = moment(value).format("YYYY");
+    const date = {
+      day,
+      month,
+      year,
+      fullDate: value,
+    };
+
+    onChange(date);
+  };
+
+  const onMonthChangeHandle = () => {
+    onMonthChange(currentMonth);
+  };
+
+  const onDayClickHandler = (e: any) => {
+    const { value } = e.target.attributes["0"];
+
+    const activeElements = document.querySelectorAll(
+      ".kamre-calendar__day--active",
+    );
+
+    activeElements.forEach((elem) => {
+      elem?.classList.remove("kamre-calendar__day--active");
+    });
+
+    const currentElement = document.querySelector(
+      `[date-full-date='${value}']`,
+    );
+
+    currentElement?.classList.add("kamre-calendar__day--active");
+
+    onChangeHandle(value);
+  };
+
   useEffect(() => {
+    const activeElements = document.querySelectorAll(
+      ".kamre-calendar__day--active",
+    );
+
+    activeElements.forEach((elem) => {
+      elem?.classList.remove("kamre-calendar__day--active");
+    });
+
+    getMonth();
+    onMonthChangeHandle();
   }, [currentMonth]);
 
   return (
     <Calendar
+      isLoading={isLoading}
+      monthData={monthData}
       dayOfWeek={dayOfWeek}
-      startDate={startDate}
       currentYear={currentYear}
       currentMonth={currentMonth}
       onNextMonthClick={onNextMonthClick}
       onPreviousMonthClick={onPreviousMonthClick}
+      onDayClickHandler={onDayClickHandler}
     />
   );
 };

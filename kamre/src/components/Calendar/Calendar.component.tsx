@@ -1,12 +1,13 @@
-/* eslint-disable */
+import React from "react";
+import { IonLoading } from "@ionic/react";
 
-import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
+import { CalendarResponseType } from "@Types/calendar.type";
 import "./Calendar.style.scss";
 
-enum allMonths {
+enum AllMonths {
   "Styczeń" = 1,
   "Luty" = 2,
   "Marzec" = 3,
@@ -25,25 +26,55 @@ interface IProps {
   dayOfWeek: string[];
   currentYear: number;
   currentMonth: number;
-  startDate: any;
+  monthData: CalendarResponseType[];
+  isLoading: boolean;
   onNextMonthClick: () => void;
   onPreviousMonthClick: () => void;
+  onDayClickHandler: (e: any) => void;
 }
 
 const Calendar: React.FC<IProps> = (props: IProps) => {
-  const [clickedDay, setClickedDay] = useState("");
   const {
     dayOfWeek,
-    startDate,
     currentYear,
     currentMonth,
+    monthData,
+    isLoading,
     onNextMonthClick,
     onPreviousMonthClick,
+    onDayClickHandler,
   } = props;
+  const days: React.ReactElement[] = [];
+  const renderDot = (data: CalendarResponseType, date: moment.Moment) => {
+    const {
+      activity_category: activityCategory,
+      registered_date: registeredDate,
+    } = data;
+    const transformedRegisteredData =
+      moment(registeredDate).format("YYYY-MM-DD");
+    const transformedCalendarDay = moment(date).format("YYYY-MM-DD");
 
-  const onDayClickHandler = (e: any) => {
-    const { value } = e.target.attributes["aria-full-date"];
-    setClickedDay(value);
+    if (!(transformedRegisteredData === transformedCalendarDay)) return false;
+    switch (activityCategory) {
+      case "Aktywne":
+        return (
+          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />
+        );
+      case "Bierne":
+        return (
+          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--green" />
+        );
+      case "Zmiana myślenia":
+        return (
+          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--blue" />
+        );
+      case "Pozytywne emocje":
+        return (
+          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--red" />
+        );
+      default:
+        return null;
+    }
   };
 
   const renderDays = () => {
@@ -56,17 +87,16 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
     const previousMonth = moment(date).subtract(1, "month");
     const previousMonthDays = previousMonth.daysInMonth();
     const nextsMonth = moment(date).add(1, "month");
-    let days: React.ReactElement[] = [];
 
-    for (let i = firstDayDate.day(); i > 1; i--) {
+    for (let i = firstDayDate.day(); i > 1; i -= 1) {
       previousMonth.date(previousMonthDays - i + 2);
       days.push(
         <div className="kamre-calendar__day-wrapper">
           <span
-            aria-day={moment(previousMonth).format("DD")}
-            aria-month={moment(previousMonth).format("MM")}
-            aria-year={moment(previousMonth).format("YYYY")}
-            aria-full-date={moment(previousMonth).format("YYYY-MM-DD")}
+            date-day={moment(previousMonth).format("DD")}
+            date-month={moment(previousMonth).format("MM")}
+            date-year={moment(previousMonth).format("YYYY")}
+            full-date={moment(previousMonth).format("YYYY-MM-DD")}
             className="kamre-calendar__day kamre-calendar__day--prevMonth"
           >
             {moment(previousMonth).format("DD")}
@@ -75,28 +105,26 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
       );
     }
 
-    for (let i = 1; i <= daysInMonth; i++) {
+    for (let i = 1; i <= daysInMonth; i += 1) {
       thisDate.date(i);
       days.push(
-        <div className="kamre-calendar__day-wrapper">
+        <div
+          full-date={moment(thisDate).format("YYYY-MM-DD")}
+          date-day={moment(thisDate).format("DD")}
+          date-month={moment(thisDate).format("MM")}
+          date-year={moment(thisDate).format("YYYY")}
+          className="kamre-calendar__day-wrapper"
+        >
           <span
+            date-full-date={moment(thisDate).format("YYYY-MM-DD")}
+            className="kamre-calendar__day"
             onClick={(e) => onDayClickHandler(e)}
-            aria-day={moment(thisDate).format("DD")}
-            aria-month={moment(thisDate).format("MM")}
-            aria-year={moment(thisDate).format("YYYY")}
-            aria-full-date={moment(thisDate).format("YYYY-MM-DD")}
-            className={`kamre-calendar__day ${
-              clickedDay === moment(thisDate).format("YYYY-MM-DD") &&
-              "kamre-calendar__day--active"
-            }`}
+            role="presentation"
           >
             {moment(thisDate).format("DD")}
           </span>
           <div className="kamre-calendar__day-dot__wrapper">
-            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--blue" />
-            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />
-            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--red" />
-            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--green" />
+            {monthData.map((data) => renderDot(data, thisDate))}
           </div>
         </div>,
       );
@@ -104,15 +132,15 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
 
     const daysCount = days.length;
 
-    for (let i = 1; i <= 42 - daysCount; i++) {
+    for (let i = 1; i <= 42 - daysCount; i += 1) {
       nextsMonth.date(i);
       days.push(
         <div className="kamre-calendar__day-wrapper">
           <span
-            aria-day={moment(nextsMonth).format("DD")}
-            aria-month={moment(nextsMonth).format("MM")}
-            aria-year={moment(nextsMonth).format("YYYY")}
-            aria-full-date={moment(nextsMonth).format("YYYY-MM-DD")}
+            date-day={moment(nextsMonth).format("DD")}
+            date-month={moment(nextsMonth).format("MM")}
+            date-year={moment(nextsMonth).format("YYYY")}
+            date-full-date={moment(nextsMonth).format("YYYY-MM-DD")}
             className="kamre-calendar__day kamre-calendar__day--prevMonth"
           >
             {moment(nextsMonth).format("DD")}
@@ -121,29 +149,31 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
       );
     }
 
-    console.log("days = ", days);
-
     return days.map((day, index) => {
-      if (index < 42) return day;
+      if (index < 42) {
+        return day;
+      }
+      return null;
     });
   };
 
   const renderDaysOfWeek = () => {
-    return dayOfWeek.map((day, index) => {
+    return dayOfWeek.map((day) => {
       return (
-        <span className="kamre-calendar__dayOfWeek" week-day={day} key={index}>
+        <span className="kamre-calendar__dayOfWeek" week-day={day}>
           {day}
         </span>
       );
     });
   };
+
   const renderHeader = () => {
     return (
       <div className="kamre-calendar__header">
         <IoChevronBackOutline size={25} onClick={onPreviousMonthClick} />
         <span className="kamre-calendar__header-data">
           <span className="kamre-calendar__header-data--month">
-            {allMonths[currentMonth]}
+            {AllMonths[currentMonth]}
           </span>
           <span className="kamre-calendar__header-data--year">
             {currentYear}
@@ -153,10 +183,21 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
       </div>
     );
   };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="kamre-calendar__loader"
+        isOpen={isLoading}
+        message="Wczytywanie, proszę czekać"
+      />
+    );
+  };
+
   const renderCalendar = () => {
-    console.log("clicked = ", clickedDay);
     return (
       <>
+        {renderLoader()}
         {renderHeader()}
         {renderDaysOfWeek()}
         {renderDays()}

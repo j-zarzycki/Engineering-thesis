@@ -1,33 +1,56 @@
-@import '@Theme/variables';
+@import "@Theme/variables";
 
 .show-hide {
-  font-family: $font-main;
-  font-weight: $font-weight-xl;
-  color: $color-white;
-  width: 100%;
-  filter: $default-drop-shadow;
-  text-align: left;
-  padding: 23px 33px;
-  background-color: $primary-color-80;
-  border-radius: $border-radius-m;
-  transition: $transition-default;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &__wrapper {
+    position: relative;
+    font-family: $font-main;
+    font-weight: $font-weight-xl;
+    color: $color-white;
+    width: 100%;
+    text-align: left;
+    border-radius: $border-radius-m;
   }
 
-  &__hidden-block {
-    max-height: 0;
-    opacity: 0;
-    transition: $transition-default;
+  &__header {
+    z-index: 100;
+    border-radius: $border-radius-m;
 
-    &--isVisible {
-      white-space: wrap;
-      opacity: 1;
-      max-height: 250px;
-      transition: $transition-default;
+    &--yellow {
+      background-color: $color-yellow;
     }
+
+    &--green {
+      background-color: $color-green;
+    }
+
+    &--red {
+      background-color: $color-red;
+    }
+
+    &--blue {
+      background-color: $color-blue;
+    }
+
+    h4 {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px 16px 18px;
+      margin: 0;
+      font-size: $font-size-l;
+    }
+  }
+
+  &__content {
+    position: relative;
+    bottom: 35px;
+    font-weight: $font-weight-m;
+    color: $color-black;
+    background-color: $secondary-gray-35;
+    padding: 46px 18px 16px 18px;
+    border-radius: $border-radius-m;
+    z-index: -1;
+    margin-bottom: -35px;
   }
 }
