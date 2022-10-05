@@ -9,7 +9,7 @@ const YtPageContainer: React.FC = () => {
     const currentDateWithTime = getFullDateWithTime();
 
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "EduVid")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };

@@ -2,19 +2,19 @@ import React from "react";
 
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
-import TedX from "./TedX.component";
+import EduVid from "./EduVid.component";
 
-const TedXContainer: React.FC = () => {
-  const createTedX = async () => {
+const EduVidContainer: React.FC = () => {
+  const createEduVid = async () => {
     const currentDateWithTime = getFullDateWithTime();
 
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "EduVid")
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
-  return <TedX createTedX={createTedX} />;
+  return <EduVid createEduVid={createEduVid} />;
 };
 
-export default TedXContainer;
+export default EduVidContainer;

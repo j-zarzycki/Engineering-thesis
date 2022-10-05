@@ -1,24 +1,24 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
 
-import "./TedX.style.scss";
+import "./EduVid.style.scss";
 import BackButton from "@Components/BackButton";
 import Header from "@Components/Header";
 import SaveButton from "@Components/SaveButton";
-import TEDX_URL from "@Constants/TedX.constatns";
+import EDUVID_URL from "@Constants/EduVid.constatns";
 
 interface IProps {
-  createTedX(): Promise<void>;
+  createEduVid(): Promise<void>;
 }
 
-const TedX: React.FC<IProps> = (props: IProps) => {
-  const { createTedX } = props;
-  const videoUrl = TEDX_URL;
+const EduVid: React.FC<IProps> = (props: IProps) => {
+  const { createEduVid } = props;
+  const videoUrl = EDUVID_URL;
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="tedx">
+        <div className="edu-vid">
           <div className="title">
             <BackButton defaultHref="/home" />
             <Header
@@ -35,7 +35,7 @@ const TedX: React.FC<IProps> = (props: IProps) => {
             />
           </div>
           <div className="ion-text-center">
-            <SaveButton text="Gotowe" type="submit" onClick={createTedX()} />
+            <SaveButton text="Gotowe" type="submit" onClick={createEduVid()} />
           </div>
         </div>
       </IonContent>
@@ -43,4 +43,4 @@ const TedX: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default TedX;
+export default EduVid;
