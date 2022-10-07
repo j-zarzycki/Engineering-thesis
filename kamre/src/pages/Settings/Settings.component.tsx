@@ -79,20 +79,20 @@ const Settings: React.FC<IProps> = (props: IProps) => {
               <IonCard>
                 <div className="settings__wrapper_content__header">
                   <IonCardHeader>
-                    <h2>Settings</h2>
+                    <h2>Ustawienia</h2>
                   </IonCardHeader>
                 </div>
                 <div className="settings__wrapper_content__buttons">
                   {showMigrateAccountButton && (
                     <MigrateAccountButton
                       defaultHref="/migrateaccountpage"
-                      title="Migrate Account"
+                      title="Przenieś konto"
                     />
                   )}
                   {showDeleteAccountButton && (
                     <DeleteAccountButton
                       defaultHref="/deleteaccountpage"
-                      title="Delete Account"
+                      title="Usuń konto"
                     />
                   )}
                 </div>

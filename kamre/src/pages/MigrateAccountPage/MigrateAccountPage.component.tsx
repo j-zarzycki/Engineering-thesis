@@ -79,7 +79,7 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
               <IonCard>
                 <div className="migrateaccountpage__wrapper_content__header">
                   <IonCardHeader>
-                    <h2>Migrate Account Page</h2>
+                    <h2>Przenieś swoje konto</h2>
                     <div className="migrateaccountpage__wrapper_content__header-description">
                       <span className="migrate-code">KOD123</span>
                       <span>
