@@ -1,0 +1,75 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.final-buttons {
+  display: none; // DO WYŁĄCZENIA TE DWA PRZYCISKI
+}
+
+.deleteaccountpage {
+
+  &__wrapper_image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__wrapper_content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    ion-card.md {
+      overflow: inherit;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+    }
+
+    &__header {
+      font-family: $font-main;
+      font-weight: $font-weight-xl;
+      font-size: $font-size-xl;
+
+      h2 {
+        color: black;
+      }
+    }
+
+    &__header-description {
+      display: flex;
+      flex-flow: column;
+
+      span {
+        color: black;
+        font-size: $font-size-l;
+        font-weight: 500;
+      }
+    }
+
+    &__buttons {
+
+      .resign-delete-account-button {
+        margin: 16px 16px 16px 16px;
+      }
+
+      .final-delete-account-button {
+        margin: 16px 16px 16px 16px;
+      }
+    }
+  }
+}
+
+@include mobile-xsmall {
+  .final-delete-account-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .resign-delete-account-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}

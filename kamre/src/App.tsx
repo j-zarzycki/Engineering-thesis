@@ -11,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { triangle } from "ionicons/icons";
+import { triangle, settings } from "ionicons/icons";
 import Sufficient from "@Pages/Sufficient";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
@@ -28,6 +28,9 @@ import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
+import Settings from "./pages/Settings";
+import MigrateAccountPage from "./pages/MigrateAccountPage";
+import DeleteAccountPage from "./pages/DeleteAccountPage";
 import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
@@ -74,6 +77,9 @@ const App: React.FC = () => {
             <Route exact path="/home">
               <Home />
             </Route>
+            <Route exact path="/settings">
+              <Settings />
+            </Route>
             <Route exact path="/walking">
               <Walking />
             </Route>
@@ -113,6 +119,11 @@ const App: React.FC = () => {
             <Route exact path="/preparemeal">
               <PrepareMeal />
             </Route>
+            <Route exact path="/deleteaccountpage">
+              <DeleteAccountPage />
+            </Route>
+            <Route exact path="/migrateaccountpage">
+              <MigrateAccountPage />
             <Route exact path="/music">
               <Music />
             </Route>
@@ -133,6 +144,11 @@ const App: React.FC = () => {
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
               <IonLabel>Home</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="settings" href="/settings">
+              <IonIcon icon={settings} />
+              <IonLabel>Settings</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
