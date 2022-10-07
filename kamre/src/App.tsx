@@ -124,6 +124,7 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/migrateaccountpage">
               <MigrateAccountPage />
+            </Route>
             <Route exact path="/music">
               <Music />
             </Route>
