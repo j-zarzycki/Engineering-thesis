@@ -174,6 +174,7 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
             </IonRow>
+
             <IonRow>
               <IonCol className="box-left">
                 <IonCard href="/bike" class="card-styles">
@@ -186,18 +187,6 @@ const Home: React.FC = () => (
                 </IonCard>
               </IonCol>
               <IonCol className="box-right">
-                <IonCard href="/calendar" class="card-styles">
-                  <IonCardHeader>
-                    <IonCardTitle class="card-title">Calendar</IonCardTitle>
-                  </IonCardHeader>
-                  <IonCardContent class="card-description">
-                    You'll lose all tasks, conversations and documents.
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol className="box-left">
                 <IonCard href="/previousday" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Previous Day</IonCardTitle>
@@ -207,6 +196,9 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
+            </IonRow>
+
+            <IonRow>
               <IonCol className="box-left">
                 <IonCard href="/preparemeal" class="card-styles">
                   <IonCardHeader>
@@ -219,10 +211,7 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-            </IonRow>
-
-            <IonRow>
-              <IonCol className="box-left">
+              <IonCol className="box-right">
                 <IonCard href="/sufficient" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">Sufficient</IonCardTitle>
@@ -232,18 +221,55 @@ const Home: React.FC = () => (
                   </IonCardContent>
                 </IonCard>
               </IonCol>
-              <IonRow>
-                <IonCol className="box-left">
-                  <IonCard href="/goodword" class="card-styles">
-                    <IonCardHeader>
-                      <IonCardTitle class="card-title">Good Word</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent class="card-description">
-                      You'll lose all tasks, conversations and documents.
-                    </IonCardContent>
-                  </IonCard>
-                </IonCol>
-              </IonRow>
+            </IonRow>
+
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/goodword" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Good Word</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-right">
+                <IonCard href="/music" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">
+                      Relaksująca Muzyka
+                    </IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol className="box-left">
+                <IonCard href="/weights" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">Weights</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+              <IonCol className="box-left">
+                <IonCard href="/visualization" class="card-styles">
+                  <IonCardHeader>
+                    <IonCardTitle class="card-title">
+                      Visualization
+                    </IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent class="card-description">
+                    You'll lose all tasks, conversations and documents.
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
             </IonRow>
           </IonGrid>
         </div>

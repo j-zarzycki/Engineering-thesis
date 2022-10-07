@@ -6,23 +6,25 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./Anger.style.scss";
-import SWIPE_ELEMENTS from "@Constants/anger.constants";
+import "./Emergency.style.scss";
+import SWIPE_ELEMENTS from "@Constants/emergency.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import PhoneIcon from "@Assets/phone-icon.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
+import Phone from "@Components/Phone";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
-const Anger: React.FC<IProps> = (props: IProps) => {
+const Emergency: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
@@ -72,9 +74,9 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="anger">
+        <div className="emergency">
           <BackButton defaultHref="/home" />
-          <div className="anger__wrapper">
+          <div className="emergency__wrapper">
             <Pet
               src={img}
               alt="Uśmiechnięta ośmiorniczka jpg"
@@ -86,7 +88,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               currentElement={currentSlide}
               elements={slideElements}
             />
-            <div className="anger__swiper">
+            <div className="emergency__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -96,42 +98,60 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Złość</h4>
+                    <h4 className="swiper-slide__header">Emergency</h4>
                     <p className="swiper-slide__paragraph">
-                      To ćwiczenie pozwoli Ci świadomie zarządzać swoją złością.
-                      Poprzez złość możemy uświadomić sobie swoje granice,
-                      pokazać na co się zgadzamy, a na co nie.
+                      <strong>
+                        Zadzwoń do bliskiej Ci osoby lub czytaj dalej!
+                      </strong>
+                    </p>
+                    <div className="emergency-phone-container">
+                      <a href="tel:+48123456789">
+                        <Phone
+                          src={PhoneIcon}
+                          alt="Ikona telefonu png"
+                          height="200px"
+                          paddingTop="20px"
+                          paddingBottom="20px"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">Nie martw się</h4>
+                    <p className="swiper-slide__paragraph">
+                      Nigdy nie było ani fizycznego, ani mentalnego ubytku na
+                      zdrowiu z powodu ataku paniki.
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">Zaufanie</h4>
+                    <p className="swiper-slide__paragraph">
+                      Możesz zaufać swojemu ciału, aby oddychało za Ciebie samo.
+                      Odpuść i pozwól mu przejąć kontrolę.
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">Równowaga</h4>
+                    <p className="swiper-slide__paragraph">
+                      Twoje ciało upewni się, że odzyskujesz równowagę oraz
+                      spokojny stan bez względu na to jak bardzo umysł
+                      próbowałby Cię przekonać, że tak nie jest.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
+                      Czy udało Ci się uspokoić?
                     </h4>
-                    <p className="swiper-slide__paragraph">
-                      Grrr! Rozładuj swoją złość! Ale nie tak jak myślisz, tylko
-                      nie rzucaj telefonem! Wypisz tutaj wszystko co powoduje u
-                      Ciebie frustrację, nerwowość lub po prostu co Cię wkurza!
-                      To czas, żeby dokonać analizy, a następnie wyrzucić złość
-                      za siebie.
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
-                    <p className="swiper-slide__paragraph">
-                      Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
-                      powinna być rozwiązana?
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Co Cię złości?</h4>
                     <IonInput
-                      className="anger-input"
+                      className="emergency-input"
                       type="text"
                       placeholder="Napisz tutaj"
                     />
@@ -140,10 +160,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               </Swiper>
             </div>
             {showProceedButton && (
-              <ProceedButton
-                title="Prowadź mnie!"
-                onClick={onProceedButtonClick}
-              />
+              <ProceedButton title="Następny" onClick={onProceedButtonClick} />
             )}
 
             <CSSTransition
@@ -172,4 +189,4 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Anger;
+export default Emergency;

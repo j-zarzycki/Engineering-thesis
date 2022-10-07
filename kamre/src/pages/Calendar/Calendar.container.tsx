@@ -1,45 +1,67 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-import { splitDate, getFullDate } from "@Utils/date";
-import { CalendarResponseType } from "@Types/calendar.type";
-import calendarService from "@Services/calendar.service";
-import ErrorType from "@Types/error.type";
+import { CalendarResponseType, CalendarDayType } from "@Types/calendar.type";
+import apiService from "@Services/api.service";
 import Calendar from "./Calendar.component";
 
 const CalendarContainer: React.FC = () => {
-  const [dateInput, setDateInput] = useState<string | undefined | null>(
-    getFullDate(),
-  );
-  const [activitiesFromOneDay, setActivitiesFromOneDay] = useState<
-    CalendarResponseType[]
-  >([]);
-  const [error, setError] = useState<ErrorType>({ hasError: false, msg: "" });
+  const history = useHistory();
+  const [dayData, setDayData] = useState<CalendarResponseType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [clickedDay, setClickedDay] = useState<CalendarDayType>({
+    day: "",
+    month: "",
+    year: "",
+    fullDate: "",
+  });
 
-  const getAllActivityFromOneDay = async (
-    year: String,
-    month: String,
-    day: String,
-  ) => {
-    await calendarService
-      .GetSpecificDay(year, month, day, "1")
-      .then(({ data: { res } }) => setActivitiesFromOneDay(res))
-      .catch((err) => setError({ hasError: true, msg: err }));
+  const onChangeHandler = (e: CalendarDayType) => {
+    setClickedDay(e);
+  };
+
+  const onMonthChangeHandler = (_month: number) => {
+    console.log(_month);
+    setDayData([]);
+  };
+
+  const getDayData = async () => {
+    const { day, month, year } = clickedDay;
+    setIsLoading(true);
+    await apiService
+      .GetDay(day, month, year)
+      .then(({ data: { res } }) => {
+        setDayData(res);
+      })
+      .finally(() => setIsLoading(false))
+      .catch(() => {
+        setToast({
+          isOpen: true,
+          message: "Wystąpił błąd podczas wczytywania danych.",
+        });
+
+        history.push("/");
+      });
   };
 
   useEffect(() => {
-    const currentDate = splitDate(String(dateInput));
-    getAllActivityFromOneDay(
-      currentDate.year,
-      currentDate.month,
-      currentDate.day,
-    );
-  }, [dateInput]);
+    if (!firstLoad) {
+      getDayData();
+    }
+
+    setFirstLoad(false);
+  }, [clickedDay]);
 
   return (
     <Calendar
-      activitiesFromOneDay={activitiesFromOneDay}
-      error={error}
-      setDateInput={setDateInput}
+      toast={toast}
+      setToast={setToast}
+      isLoading={isLoading}
+      dayData={dayData}
+      onChangeHandler={onChangeHandler}
+      onMonthChangeHandler={onMonthChangeHandler}
     />
   );
 };

@@ -5,4 +5,7 @@ db = db_connection()
 
 
 class Emergency_seen(db.EmbeddedDocument):
-    seen = db.IntField()
+    seen = db.ListField(db.IntField())
+    seen_personal = db.ListField(db.IntField())
+
+    last_seen_personal = db.BooleanField(default=False)

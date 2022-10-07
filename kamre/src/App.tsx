@@ -31,6 +31,10 @@ import PrepareMeal from "./pages/PrepareMeal";
 import Settings from "./pages/Settings";
 import MigrateAccountPage from "./pages/MigrateAccountPage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
+import Music from "./pages/Music";
+import Emergency from "./pages/Emergency";
+import Weights from "./pages/Weights";
+import Visualization from "./pages/Visualization";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -60,7 +64,7 @@ setupIonicReact();
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(authLogin("A21KS"));
+    dispatch(authLogin("test_user"));
   }, []);
   return (
     <IonApp>
@@ -120,9 +124,20 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/migrateaccountpage">
               <MigrateAccountPage />
+            <Route exact path="/music">
+              <Music />
+            </Route>
+            <Route exact path="/emergency">
+              <Emergency />
+            </Route>
+            <Route exact path="/weights">
+              <Weights />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route exact path="/visualization">
+              <Visualization />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
