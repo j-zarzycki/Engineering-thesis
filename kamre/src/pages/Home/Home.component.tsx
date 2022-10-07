@@ -238,7 +238,7 @@ const Home: React.FC = () => (
                 <IonCard href="/music" class="card-styles">
                   <IonCardHeader>
                     <IonCardTitle class="card-title">
-                      Relaksująca Muzyka
+                      Muzyka klasyczna
                     </IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
