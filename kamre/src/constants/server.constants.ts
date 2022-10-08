@@ -6,3 +6,6 @@ export const SERVER_URL_HAS_CONTENT =
 export const SERVER_URL_ALL_DAYS = "https://kamretest.azurewebsites.net/getAll";
 
 export const SERVER_URL_ONE_DAY = "https://kamretest.azurewebsites.net/getDay";
+
+export const SERVER_URL_EMERGENCY =
+  "https://kamretest.azurewebsites.net/getEmergency";
