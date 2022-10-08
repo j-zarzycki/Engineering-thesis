@@ -1,7 +1,7 @@
 @import "@Theme/variables";
 @import "@Theme/media";
 
-.sufficient {
+.small-steps {
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -93,7 +93,7 @@
   }
 }
 @include mobile-xsmall {
-  .sufficient {
+  .small-steps {
     &__wrapper {
       height: 100%;
 
@@ -124,7 +124,7 @@
 }
 
 @include mobile-small {
-  .sufficient {
+  .small-steps {
     &__wrapper {
       height: 100%;
 
@@ -153,7 +153,7 @@
 }
 
 @include mobile-medium {
-  .sufficient {
+  .small-steps {
     &__wrapper {
       height: 100%;
       .proceed-button {

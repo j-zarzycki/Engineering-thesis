@@ -223,9 +223,9 @@ const Home: React.FC = () => (
 
             <IonRow>
               <IonCol className="box-left">
-                <IonCard href="/sufficient" class="card-styles">
+                <IonCard href="/smallsteps" class="card-styles">
                   <IonCardHeader>
-                    <IonCardTitle class="card-title">Sufficient</IonCardTitle>
+                    <IonCardTitle class="card-title">Małe kroki</IonCardTitle>
                   </IonCardHeader>
                   <IonCardContent class="card-description">
                     You'll lose all tasks, conversations and documents.
