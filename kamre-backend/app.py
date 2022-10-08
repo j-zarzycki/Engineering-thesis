@@ -11,13 +11,14 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
+
 app = flask_connection()
 app.config['SECRET_KEY'] = os.getenv('JWT_SECRET')
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 @app.route("/newUser", methods=['POST'])
-def newUser():
+def new_user():
     res = request.get_json()
     user_id = res['user_id']
     svc.create_user(user_id)
@@ -39,11 +40,11 @@ def check():
     if status:
         return status, token['device_id']
     else:
-        return status, "Token ivalid"
+        return status, (jsonify({'res': 'Token invalid'}), 401)
 
 
 @app.route("/noContent", methods=['POST'])
-def noContent():
+def no_content():
     status, user_id = check()
     if status:
         res = request.get_json()
@@ -53,7 +54,7 @@ def noContent():
         svc.create_activity(user_id, registered_date, activity_name)
         return jsonify({'res': 'created entry'})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/hasContent", methods=['POST'])
@@ -66,11 +67,14 @@ def has_content():
         has_content = True
         activity_content = res['activity_content']
 
+        if type(activity_content) is str:
+            activity_content = [activity_content]
+
         svc.create_activity_content(user_id, registered_date,activity_name,has_content,activity_content)
 
         return jsonify({'res': 'created entry with content'})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/toggleFavorite", methods=['POST'])
@@ -83,7 +87,7 @@ def toggle_favorite():
 
         return jsonify({'res': response})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getAll", methods=['GET'])
@@ -94,7 +98,7 @@ def get_all():
         res = json.loads(json.dumps(res, default=lambda x : x.__dict__))
         return jsonify({'res': res})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getMonth", methods=['GET'])
@@ -108,7 +112,7 @@ def get_month():
 
         return jsonify({'res': res})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getOne", methods=['GET'])
@@ -128,7 +132,7 @@ def get_one():
 
         return jsonify({'res': res})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getFavs", methods=['GET'])
@@ -139,7 +143,7 @@ def get_favorites():
 
         return jsonify({'favorites': favs})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getDay", methods=['GET'])
@@ -155,7 +159,7 @@ def get_day():
 
         return jsonify(({'res': res}))
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/setCategory", methods=['POST'])
@@ -177,7 +181,7 @@ def get_recommended():
 
         return jsonify({'res': res})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/setEmergency", methods=['POST'])
@@ -198,7 +202,7 @@ def get_emergency():
 
         return jsonify({'res': emergency})
     else:
-        return jsonify({'res': user_id})
+        return user_id
 
 
 @app.route("/getAllActivities", methods=['GET'])
@@ -223,15 +227,14 @@ def set_recent():
 
         return jsonify({'res':'Set recent'})
     else:
-        return jsonify({'res': user_id})
-
+        return user_id
 
 
 @socketio.event(namespace='/chat')
 def connect():
     try:
-        token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), os.getenv('JWT_AUTHTYPE'))
-        svc.user_clear_chat_answers(token['sub'])
+        token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
+        svc.user_clear_chat_answers(token['device_id'])
         return True
     except:
         return False
@@ -239,11 +242,11 @@ def connect():
 
 @socketio.on('message', namespace='/chat')
 def handleMessage(msg):
-    token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), os.getenv('JWT_AUTHTYPE'))
+    token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
     if msg == 'User has connected!':
         response, av_answers = menu.opener()
     else:
-        response, av_answers = menu.chat(token['sub'], msg)
+        response, av_answers = menu.chat(token['device_id'], msg)
     res = {'Question': response, 'Answers': av_answers}
     send(res)
 
