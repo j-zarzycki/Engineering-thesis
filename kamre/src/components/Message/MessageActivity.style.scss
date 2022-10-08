@@ -1,0 +1,23 @@
+@import "@Theme/variables";
+
+.message-activity {
+    &__wrapper {
+        min-height: 89px;
+        background-color: $primary-color-90;
+        border-radius: $border-radius-m;
+        padding: 16px 24px;
+        color: $color-white;
+        font-family: $font-roboto;
+        
+    }
+
+    &__title {
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-weight: $font-weight-xl;
+    }
+
+    &__description {
+        font-weight: $font-weight-m;
+    }
+}

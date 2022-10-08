@@ -1,0 +1,36 @@
+@import "@Theme/media";
+
+.chat {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    height: 220px;
+    overflow-y: scroll;
+  }
+}
+
+@include mobile-xsmall {
+  .chat {
+    &__wrapper {
+      height: 320px;
+    }
+  }
+}
+
+@include mobile-small {
+  .chat {
+    &__wrapper {
+      height: 480px;
+    }
+  }
+}
+
+@include mobile-medium {
+  .chat {
+    &__wrapper {
+      height: 480px;
+    }
+  }
+}

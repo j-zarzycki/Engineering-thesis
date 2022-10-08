@@ -1,9 +1,11 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
+import io from "socket.io-client";
 
 import {
   SERVER_URL_NO_CONTENT,
   SERVER_URL_HAS_CONTENT,
+  SERVER_URL_CHAT,
 } from "@Constants/server.constants";
 import IDefaultServerResponse from "@Types/defaultServerResponse.type";
 
@@ -46,7 +48,17 @@ const CreateActivityWithContent = (
   );
 };
 
+const ChatSocketClient = () => {
+  return io(SERVER_URL_CHAT, {
+    extraHeaders: {
+      auth_token:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VfaWQiOiJBMjFLUyIsImV4cCI6MTY2MzQwNTY3OH0.lsvKbEOmNJwYmWbKyMkgBPlI33O9OKD_R4j9t0AXdx0",
+    },
+  });
+};
+
 export default {
+  ChatSocketClient,
   CreateActivityWithContent,
   CreateActivityWithNoContent,
 };

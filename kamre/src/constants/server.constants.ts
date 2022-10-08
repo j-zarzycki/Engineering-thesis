@@ -6,3 +6,5 @@ export const SERVER_URL_HAS_CONTENT =
 export const SERVER_URL_ALL_DAYS = "https://kamretest.azurewebsites.net/getAll";
 
 export const SERVER_URL_ONE_DAY = "https://kamretest.azurewebsites.net/getDay";
+export const SERVER_URL_CHAT = "https://kamretest.azurewebsites.net/chat";
+export const SERVER_URL_LOCAL_CHAT = "http://127.0.0.1:5000/chat";

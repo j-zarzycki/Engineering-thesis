@@ -1,0 +1,17 @@
+@import "@Theme/variables";
+
+.message-choice {
+    &__wrapper {
+        background-color: $primary-color-75;
+        border-radius: $border-radius-m;
+        padding: 7px 12px;
+        filter: $default-drop-shadow; 
+        flex-shrink: 1;
+    }
+
+    &__value {
+        font-family: $font-roboto;
+        font-size: $font-size-m;
+        color: $color-white;
+    }
+}
