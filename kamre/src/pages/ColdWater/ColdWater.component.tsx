@@ -6,11 +6,11 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./ColdWater.style.scss";
-import SWIPE_ELEMENTS from "@Constants/consciousShower.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import MainImg from "@Assets/main.png";
+import "./ColdWater.style.scss";
+import SWIPE_ELEMENTS from "@Constants/coldWater.constants";
 import quote from "@Assets/what.png";
+import main from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import Pet from "@Components/Pet";
@@ -30,17 +30,17 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
   const slideElements = SWIPE_ELEMENTS;
 
   useEffect(() => {
-    setImg(MainImg);
+    setImg(main);
   }, []);
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
     if (swiper?.activeIndex === slideElements - 1) {
+      setImg(main);
       setShowProceedButton(false);
-      setImg(MainImg);
+    }
+    if (swiper?.activeIndex === slideElements - 3) {
+      setImg(quote);
     }
   };
   const onAlertButtonClick = (alertData: String) => {
@@ -75,7 +75,7 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
           <div className="cold-water__wrapper">
             <Pet
               src={img}
-              alt="Uśmiechnięta ośmiorniczka jpg"
+              alt="Ośmiorniczka ze znakiem zapytania jpg"
               height="200px"
               paddingTop="20px"
               paddingBottom="20px"
@@ -84,7 +84,7 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
               currentElement={currentSlide}
               elements={slideElements}
             />
-            <div className="cold-water__swiper">
+            <div className="conscious-shower__swiper">
               <Swiper
                 allowTouchMove={false}
                 effect="fade"
@@ -97,7 +97,7 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
                     <h4 className="swiper-slide__header">
                       Ostudzenie napięcia
                     </h4>
-                    <p className="swiper-slide__paragraph">
+                    <p className="swiper-slide__description">
                       Potrzebujesz szybkiej ulgi? Oto szybka porada jak zmieszyć
                       uczucie stresu wykorzystując chłodną wodę.
                     </p>
@@ -106,7 +106,7 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">Chłodne nadgarstki</h4>
-                    <p className="swiper-slide__paragraph">
+                    <p className="swiper-slide__description">
                       Znajdź najbliższą łazienkę. Odkręć zminą wodę i zmocz nią
                       nadgarstki oddychając równomiernie.
                     </p>
@@ -114,8 +114,8 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Chłodny kark</h4>
-                    <p className="swiper-slide__paragraph">
+                    <h4 className="swiper-slide__header">Chłodny kark </h4>
+                    <p className="swiper-slide__description">
                       Jeśli uczucie stresu nadal się utrzymuje, spróbuj
                       przyłożyć zmine wilgotne dłonie do karku, cały czas
                       utrzymując spokojny odech.
@@ -125,11 +125,11 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">Jak to działa?</h4>
-                    <p className="swiper-slide__paragraph">
+                    <p className="swiper-slide__description">
                       Poczucie napięcia i nasze fizyczne reakcje są ze sobą
                       ściśle związane. Tak samo jak stres może przyśpieszyć i
                       spłycić nasz oddech, tak nasze świadome spokojne wdechy i
-                      wydechy mogą zmiejszyć uczucie stresu. Spróbuj!
+                      wydechy mogą zmiejszyć uczucie stresu. Spróbuj!{" "}
                     </p>
                   </div>
                 </SwiperSlide>
@@ -142,37 +142,35 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
                 </SwiperSlide>
               </Swiper>
             </div>
-            {showProceedButton && (
-              <ProceedButton
-                title="Prowadź mnie!"
-                onClick={onProceedButtonClick}
-              />
-            )}
+            <div className="cold-water__buttons">
+              {showProceedButton && (
+                <ProceedButton title="Dalej" onClick={onProceedButtonClick} />
+              )}
 
-            <CSSTransition
-              in={!showProceedButton}
-              timeout={300}
-              classNames="swiper__proceed-buttons"
-              unmountOnExit
-              onEnter={() => setShowProceedButton(false)}
-              onExited={() => setShowProceedButton(true)}
-            >
-              <div>
-                <ProceedButton
-                  title="Dodaj przemyślenia"
-                  onClick={onProceedButtonClickWithContent}
-                />
-                <ProceedButton
-                  title="Zakończ"
-                  onClick={onCreateActivityWithNoContent}
-                />
-              </div>
-            </CSSTransition>
+              <CSSTransition
+                in={!showProceedButton}
+                timeout={300}
+                classNames="swiper__proceed-buttons"
+                unmountOnExit
+                onEnter={() => setShowProceedButton(false)}
+                onExited={() => setShowProceedButton(true)}
+              >
+                <div>
+                  <ProceedButton
+                    title="Dodaj przemyślenia"
+                    onClick={onProceedButtonClickWithContent}
+                  />
+                  <ProceedButton
+                    title="Zakończ"
+                    onClick={onCreateActivityWithNoContent}
+                  />
+                </div>
+              </CSSTransition>
+            </div>
           </div>
         </div>
       </IonContent>
     </IonPage>
   );
 };
-
 export default ColdWater;
