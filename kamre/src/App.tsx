@@ -35,6 +35,7 @@ import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
 import Visualization from "./pages/Visualization";
+import Page403 from "./pages/Page403";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -63,9 +64,11 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(authLogin("test_user"));
   }, []);
+
   return (
     <IonApp>
       <IonReactRouter>
@@ -133,6 +136,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/weights">
               <Weights />
+            </Route>
+            <Route exact path="/403">
+              <Page403 />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
