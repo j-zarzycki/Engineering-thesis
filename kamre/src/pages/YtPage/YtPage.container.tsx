@@ -1,7 +1,7 @@
 import React from "react";
 
-import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
+import apiService from "@Services/api.service";
 import YtPage from "./YtPage.component";
 
 const YtPageContainer: React.FC = () => {
@@ -9,14 +9,18 @@ const YtPageContainer: React.FC = () => {
 
   const createYtPageWithNoContent = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Film edukacyjny")
+      .CreateActivityWithNoContent(currentDateWithTime, "Swiadomy prysznic")
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
 
-  const createYtPageWithContent = async () => {
+  const createYtPageWithContent = async (activityContent: String) => {
     await apiService
-      .CreateActivityWithContent(currentDateWithTime, "Cos", "Film edukacyjny")
+      .CreateActivityWithContent(
+        currentDateWithTime,
+        activityContent,
+        "Swiadomy prysznic",
+      )
       .then((data) => console.log("data = ", data))
       .catch((err) => console.log("err = ", err));
   };
