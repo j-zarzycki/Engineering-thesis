@@ -1,20 +1,36 @@
 import React from "react";
 
-import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
+import apiService from "@Services/api.service";
 import SoundMix from "./SoundMix.component";
 
 const SoundMixContainer: React.FC = () => {
-  const createSoundMix = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const currentDateWithTime: String = getFullDateWithTime();
 
+  const createSoundMixWithNoContent = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "SoundMix")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .CreateActivityWithNoContent(currentDateWithTime, "Piosenka")
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
   };
 
-  return <SoundMix createSoundMix={createSoundMix} />;
+  const createSoundMixWithContent = async (activityContent: String) => {
+    await apiService
+      .CreateActivityWithContent(
+        currentDateWithTime,
+        activityContent,
+        "Piosenka",
+      )
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
+  };
+
+  return (
+    <SoundMix
+      onCreateActivityWithNoContent={createSoundMixWithNoContent}
+      onCreateActivityWithContent={createSoundMixWithContent}
+    />
+  );
 };
 
 export default SoundMixContainer;
