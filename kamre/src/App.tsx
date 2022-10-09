@@ -28,6 +28,7 @@ import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
 import Bike from "./pages/Bike";
 import PrepareMeal from "./pages/PrepareMeal";
+import Creativity from "./pages/Creativity";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -111,6 +112,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
+            </Route>
+            <Route exact path="/creativity">
+              <Creativity />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
