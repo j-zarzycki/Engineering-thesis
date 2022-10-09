@@ -13,7 +13,7 @@ import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
 
 import ProceedButton from "@Components/ProceedButton";
-import "./Sufficient.style.scss";
+import "./SmallSteps.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
@@ -32,7 +32,7 @@ interface IProps {
   slides: React.ReactElement[];
 }
 
-const Sufficient: React.FC<IProps> = (props: IProps) => {
+const SmallSteps: React.FC<IProps> = (props: IProps) => {
   const {
     setSwiper,
     currentSlide,
@@ -51,10 +51,11 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex >= 3) return <div className="sufficient__header" />;
+    if (swiper?.activeIndex >= 3)
+      return <div className="small-steps__header" />;
 
     return (
-      <div className="sufficient__header">
+      <div className="small-steps__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -68,7 +69,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
 
   const renderSwiper = () => {
     return (
-      <div className="sufficient__swiper">
+      <div className="small-steps__swiper">
         <Swiper
           allowTouchMove={false}
           effect="fade"
@@ -78,7 +79,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Wystarczający</h4>
+              <h4 className="swiper-slide__header">Małe kroki</h4>
               <p className="swiper-slide__paragraph">
                 Opuśc na moment własną głowę i podaj 3 rzeczy za których jesteś
                 z siebie dumny.
@@ -129,7 +130,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
   const renderButton = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="sufficient__buttons">
+        <div className="small-steps__buttons">
           <CancelButton onClick={onEndButtonClick} title="Zakończ" />
           <ProceedButton
             title="Dodaj"
@@ -190,7 +191,7 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     return (
-      <div className="sufficient__wrapper">
+      <div className="small-steps__wrapper">
         {renderToast()}
         {renderLoader()}
         {renderImage()}
@@ -205,10 +206,10 @@ const Sufficient: React.FC<IProps> = (props: IProps) => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="sufficient">{renderContext()}</div>
+        <div className="small-steps">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Sufficient;
+export default SmallSteps;

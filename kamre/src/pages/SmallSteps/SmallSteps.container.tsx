@@ -7,9 +7,9 @@ import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
-import Sufficient from "./Sufficient.component";
+import SmallSteps from "./SmallSteps.component";
 
-const SufficientContainer: React.FC = () => {
+const SmallStepsContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -64,7 +64,7 @@ const SufficientContainer: React.FC = () => {
     setIsLoading(true);
     const dateTime = getFullDateWithTime();
     await apiService
-      .CreateActivityWithContent(dateTime, slidesInputsValue, "Wystarczający")
+      .CreateActivityWithContent(dateTime, slidesInputsValue, "Małe kroki")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
         history.push("/home");
@@ -91,7 +91,7 @@ const SufficientContainer: React.FC = () => {
   }, []);
 
   return (
-    <Sufficient
+    <SmallSteps
       setSwiper={setSwiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
@@ -110,4 +110,4 @@ const SufficientContainer: React.FC = () => {
   );
 };
 
-export default SufficientContainer;
+export default SmallStepsContainer;
