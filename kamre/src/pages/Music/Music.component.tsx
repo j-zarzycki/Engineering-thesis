@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert, IonInput } from "@ionic/react";
+import React from "react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -7,10 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import "swiper/css";
 
 import "./Music.style.scss";
-import SWIPE_ELEMENTS from "@Constants/music.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
@@ -19,61 +16,83 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
+
+  onCreateActivityWithContent(): void;
+
+  setToast(value: {}): void;
+
+  onProceedButtonClick(): void;
+
+  setSwiper(value: any): void;
+
+  setShowProceedButton(value: boolean): void;
+
+  isLoading: boolean;
+  toast: any;
+  currentSlide: number;
+  swiper: any;
+  img: string;
+  slideElements: number;
+  showProceedButton: boolean;
 }
 
 const Music: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
-  const [showProceedButton, setShowProceedButton] = useState(true);
-  const slideElements = SWIPE_ELEMENTS;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    setToast,
+    setSwiper,
+    setShowProceedButton,
+    isLoading,
+    toast,
+    swiper,
+    currentSlide,
+    img,
+    slideElements,
+    showProceedButton,
+  } = props;
 
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
-  const onProceedButtonClick = () => {
-    swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setShowProceedButton(false);
-      setImg(MainImg);
-    }
-  };
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="music__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
   };
 
-  const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 3) return <div className="music__header" />;
+
+    return (
+      <div className="music__header">
+        <BackButton defaultHref="/home" />
+      </div>
+    );
   };
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="music">
-          <BackButton defaultHref="/home" />
+          {renderToast()}
+          {renderLoader()}
+          {renderHeader()}
           <div className="music__wrapper">
             <Pet
               src={img}
@@ -82,10 +101,13 @@ const Music: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <HorizontalProgressBar
-              currentElement={currentSlide}
-              elements={slideElements}
-            />
+            <div className="music__horizontal-progress-bar">
+              <HorizontalProgressBar
+                currentElement={currentSlide}
+                elements={slideElements}
+              />
+            </div>
+
             <div className="music__swiper">
               <Swiper
                 allowTouchMove={false}
@@ -96,31 +118,49 @@ const Music: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Relaksująca Muzyka</h4>
+                    <h4 className="swiper-slide__header">Muzyka klasyczna</h4>
                     <p className="swiper-slide__paragraph">
-                      Kliknij w <a href="/">link</a> i oddaj się relaksującym
-                      rytmom. Poczuj muzykę całym Twoim ciałem i uspokój swoje
-                      wewnętrzne 'JA'.
+                      Muzyka klasyczna w znacznym stopniu harmonizuje cały
+                      organizm człowieka.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      Opisz swoje odczucia.
+                      O co chodzi w ćwiczeniu?
                     </h4>
-                    <IonInput
-                      className="music-input"
-                      type="text"
-                      placeholder="Napisz tutaj"
-                    />
+                    <p className="swiper-slide__paragraph">
+                      Włącz playlistę z utworami klasycznymi - może to być
+                      przygotowana przez nas, bądź wybrana przez Ciebie.
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">
+                      Słuchaj tyle ile będziesz chcieć
+                    </h4>
+                    <p className="swiper-slide__paragraph">
+                      w sytuacjach kiedy musisz być skupiony bądź, kiedy chcesz
+                      się odciąć od bodźców i odpocząć.
+                    </p>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="swiper-slide__wrapper">
+                    <h4 className="swiper-slide__header">Przemyślenia</h4>
+                    <p className="swiper-slide__paragraph">
+                      Co zaobserwowałeś_aś po muzycznym seansie? Jak się
+                      czułeś_aś? Co dało Ci to ćwiczenie?
+                    </p>
                   </div>
                 </SwiperSlide>
               </Swiper>
             </div>
             {showProceedButton && (
               <ProceedButton
-                title="Co czujesz?"
+                title="Prowadź mnie!"
                 onClick={onProceedButtonClick}
               />
             )}
@@ -135,12 +175,12 @@ const Music: React.FC<IProps> = (props: IProps) => {
             >
               <div className="final-buttons">
                 <CancelButton
-                  title="Anuluj"
+                  title="Zakończ"
                   onClick={onCreateActivityWithNoContent}
                 />
                 <SaveActivityButton
                   title="Zapisz"
-                  onClick={onProceedButtonClickWithContent}
+                  onClick={onCreateActivityWithContent}
                 />
               </div>
             </CSSTransition>
