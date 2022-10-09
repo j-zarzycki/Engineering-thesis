@@ -127,6 +127,15 @@ const WeightsContainer: React.FC = () => {
     history.push("/note");
   };
 
+  const onSlideChangeHandler = () => {
+    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
+    if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
+    if (swiper?.activeIndex === slideElements - 1) {
+      setImg(MainImg);
+    }
+  };
+
   useEffect(() => {
     setSlides((prevState) => [...prevState, renderSlide()]);
   }, []);
@@ -152,6 +161,7 @@ const WeightsContainer: React.FC = () => {
       onDestroyButtonClick={onDestroyButtonClick}
       onSaveButtonWithNoContentClick={onSaveButtonWithNoContentClick}
       onSaveButtonClick={onSaveButtonClick}
+      onSlideChangeHandler={onSlideChangeHandler}
     />
   );
 };

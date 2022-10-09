@@ -218,17 +218,17 @@ const Home: React.FC = () => {
                 </IonCol>
               </IonRow>
 
-            <IonRow>
-              <IonCol className="box-left">
-                <IonCard href="/smallsteps" class="card-styles">
-                  <IonCardHeader>
-                    <IonCardTitle class="card-title">Małe kroki</IonCardTitle>
-                  </IonCardHeader>
-                  <IonCardContent class="card-description">
-                    You'll lose all tasks, conversations and documents.
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
+              <IonRow>
+                <IonCol className="box-left">
+                  <IonCard href="/smallsteps" class="card-styles">
+                    <IonCardHeader>
+                      <IonCardTitle class="card-title">Małe kroki</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent class="card-description">
+                      You'll lose all tasks, conversations and documents.
+                    </IonCardContent>
+                  </IonCard>
+                </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol className="box-left">

@@ -47,6 +47,7 @@
       padding-bottom: 20px;
       color: $secondary-gray-90;
       font-size: $font-size-l;
+      text-align: center;
     }
 
     h4 {
@@ -145,22 +146,23 @@
     }
   }
 
-  .final-buttons {
+  &__final-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 15px;
   }
 }
+
 @include mobile-xsmall {
   .visualization {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 35px;
     }
 
     &__list {
       height: 80vh;
-      
+
       ul {
         max-height: 230px;
       }
@@ -201,7 +203,7 @@
 
 @include mobile-small {
   .visualization {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 85px;
     }
 
@@ -241,12 +243,13 @@
 
 @include mobile-medium {
   .visualization {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 115px;
     }
 
     &__wrapper {
       height: 100%;
+
       .proceed-button {
         font-size: 24px;
         width: 90%;

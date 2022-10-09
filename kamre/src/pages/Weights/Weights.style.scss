@@ -47,6 +47,7 @@
       padding-bottom: 20px;
       color: $secondary-gray-90;
       font-size: $font-size-l;
+      text-align: center;
     }
 
     h4 {
@@ -138,7 +139,7 @@
     }
   }
 
-  .final-buttons {
+  &__final-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -147,7 +148,7 @@
 }
 @include mobile-xsmall {
   .weights {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 35px;
     }
 
@@ -188,7 +189,7 @@
 
 @include mobile-small {
   .weights {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 85px;
     }
 
@@ -221,7 +222,7 @@
 
 @include mobile-medium {
   .weights {
-    .final-buttons {
+    &__final-buttons {
       margin-top: 115px;
     }
 

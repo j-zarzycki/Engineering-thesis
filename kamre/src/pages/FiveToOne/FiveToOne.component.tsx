@@ -61,6 +61,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="fiveToOne__swiper">
         <Swiper
+          direction="vertical"
           allowTouchMove={false}
           effect="fade"
           slidesPerView={1}

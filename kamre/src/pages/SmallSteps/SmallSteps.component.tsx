@@ -1,5 +1,5 @@
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -11,43 +11,47 @@ import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
-
 import ProceedButton from "@Components/ProceedButton";
+
 import "./SmallSteps.style.scss";
 
 interface IProps {
+  canSwipe: boolean;
+  isLoading: boolean;
+  currentSlide: number;
+  slideElements: number;
+  img: string;
+  toast: { isOpen: boolean; message: string };
+  isAddingDisabled: boolean;
+  swiper: any;
+  slides: React.ReactElement[];
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onEndButtonClick(): void;
   setToast(value: {}): void;
-  currentSlide: number;
-  slideElements: number;
-  img: string;
-  isLoading: boolean;
-  toast: { isOpen: boolean; message: string };
-  isAddingDisabled: boolean;
-  swiper: any;
-  slides: React.ReactElement[];
+  onSwipeHandle(): void;
 }
 
 const SmallSteps: React.FC<IProps> = (props: IProps) => {
   const {
-    setSwiper,
+    canSwipe,
     currentSlide,
     slideElements,
-    onProceedButtonClick,
-    onAddSlide,
     img,
     slides,
     isAddingDisabled,
+    swiper,
+    isLoading,
+    toast,
+    setSwiper,
+    onProceedButtonClick,
+    onAddSlide,
     onEndButtonClick,
     onInputChange,
-    swiper,
     setToast,
-    toast,
-    isLoading,
+    onSwipeHandle,
   } = props;
 
   const renderHeader = () => {
@@ -71,11 +75,12 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="small-steps__swiper">
         <Swiper
-          allowTouchMove={false}
+          allowTouchMove={canSwipe}
           effect="fade"
           slidesPerView={1}
           height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSwipeHandle}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -127,10 +132,10 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderButton = () => {
+  const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="small-steps__buttons">
+        <div className="small-steps__final-buttons">
           <CancelButton onClick={onEndButtonClick} title="Zakończ" />
           <ProceedButton
             title="Dodaj"
@@ -166,10 +171,21 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderContext = () => {
+    return (
+      <div className="small-steps__wrapper">
+        {renderImage()}
+        {renderProgressBar()}
+        {renderSwiper()}
+        {renderButtons()}
+      </div>
+    );
+  };
+
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="good-word__loader"
+        cssClass="small-steps__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -189,24 +205,15 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
-    return (
-      <div className="small-steps__wrapper">
-        {renderToast()}
-        {renderLoader()}
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButton()}
-      </div>
-    );
-  };
-
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="small-steps">{renderContext()}</div>
+        <div className="small-steps">
+          {renderLoader()}
+          {renderToast()}
+          {renderContext()}
+        </div>
       </IonContent>
     </IonPage>
   );

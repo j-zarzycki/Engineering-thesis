@@ -6,11 +6,72 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: $font-main;
+
+    h4 {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-weight: $font-weight-m;
+      font-size: $font-size-m;
+      line-height: 24px;
+      color: $secondary-gray-90;
+      text-align: center;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: $font-main;
+    height: 65vh;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      max-width: 210px;
+      max-height: 280px;
+      overflow-y: scroll;
+    }
+
+    li {
+      list-style-type: none;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      color: $secondary-gray-90;
+      font-size: $font-size-l;
+      text-align: center;
+    }
+
+    h4 {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    p {
+      font-weight: $font-weight-l;
+      max-width: 290px;
+      text-align: center;
+    }
 
     .proceed-button {
       margin-top: auto;
-      margin-bottom: 50px;
     }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
   }
 
   &__header {
@@ -85,24 +146,36 @@
     }
   }
 
-  .final-buttons {
+  &__final-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 15px;
   }
 }
+
 @include mobile-xsmall {
   .anger {
+    &__list {
+      height: 80vh;
+
+      ul {
+        max-height: 230px;
+      }
+
+      p {
+        margin-bottom: 30px;
+      }
+    }
+
     &__wrapper {
       height: 100%;
 
       .proceed-button {
+        width: 90%;
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
-        margin-bottom: 0;
-        margin-top: 10px;
       }
     }
 
@@ -130,14 +203,17 @@
       height: 100%;
 
       .proceed-button {
-        margin-top: 60px;
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
+        width: 90%;
       }
+    }
 
-      .final-buttons {
-        margin-top: 60px;
+    &__list {
+      p {
+        margin-top: 12%;
+        margin-bottom: 12%;
       }
     }
 
@@ -161,11 +237,22 @@
   .anger {
     &__wrapper {
       height: 100%;
+
       .proceed-button {
         font-size: 24px;
-
+        width: 90%;
         height: 75px;
         transition: all 0.3s;
+      }
+    }
+
+    &__list {
+      ul {
+        max-height: 500px;
+      }
+
+      p {
+        margin-top: 60px;
       }
     }
 
