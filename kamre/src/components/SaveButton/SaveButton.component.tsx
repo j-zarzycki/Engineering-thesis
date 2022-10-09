@@ -11,7 +11,7 @@ const SaveButton: React.FC<IProps> = (props: IProps) => {
   const { type, onClick, text } = props;
 
   return (
-    <IonButton type={type} onClick={onClick}>
+    <IonButton className="save-button" type={type} onClick={onClick}>
       {text}
     </IonButton>
   );

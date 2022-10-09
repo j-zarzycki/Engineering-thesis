@@ -5,16 +5,28 @@ import { getFullDateWithTime } from "@Utils/date";
 import YtPage from "./YtPage.component";
 
 const YtPageContainer: React.FC = () => {
-  const createPageYt = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const currentDateWithTime: String = getFullDateWithTime();
 
+  const createYtPageWithNoContent = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "EduVid")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .CreateActivityWithNoContent(currentDateWithTime, "Film edukacyjny")
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
   };
 
-  return <YtPage createPageYt={createPageYt} />;
+  const createYtPageWithContent = async () => {
+    await apiService
+      .CreateActivityWithContent(currentDateWithTime, "Cos", "Film edukacyjny")
+      .then((data) => console.log("data = ", data))
+      .catch((err) => console.log("err = ", err));
+  };
+
+  return (
+    <YtPage
+      onCreateActivityWithNoContent={createYtPageWithNoContent}
+      onCreateActivityWithContent={createYtPageWithContent}
+    />
+  );
 };
 
 export default YtPageContainer;

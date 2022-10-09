@@ -3,7 +3,7 @@ import { IonContent, IonPage } from "@ionic/react";
 
 import "./EduVid.style.scss";
 import BackButton from "@Components/BackButton";
-import Header from "@Components/Header";
+import VideoHeader from "@Components/VideoHeader";
 import SaveButton from "@Components/SaveButton";
 import EDUVID_URL from "@Constants/EduVid.constatns";
 
@@ -21,10 +21,7 @@ const EduVid: React.FC<IProps> = (props: IProps) => {
         <div className="edu-vid">
           <div className="title">
             <BackButton defaultHref="/home" />
-            <Header
-              title="Czy stres to czyste zło?"
-              subtitle="Sprawadź jak można rzucić pozytywne światło na stres, który odczuwamy."
-            />
+            <VideoHeader title="Netflix and chill?" />
           </div>
           <div className="video-container">
             <iframe
@@ -34,6 +31,15 @@ const EduVid: React.FC<IProps> = (props: IProps) => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             />
           </div>
+          <p className="source">
+            Źródło TED: How to make stress your friend | Kelly McGonigal
+          </p>
+          <p className="activity-description">
+            Internet to gigantyczne źródło informacji - czas zrobić z tego
+            pożytek! Usiądź wygodnie, weź popcorn lub lody i obejrzyj krótki
+            film dotyczący stresu. Im więcej się o nim dowiesz tym lepiej
+            będziesz z nim walczyć.
+          </p>
           <div className="ion-text-center">
             <SaveButton text="Gotowe" type="submit" onClick={createEduVid()} />
           </div>
