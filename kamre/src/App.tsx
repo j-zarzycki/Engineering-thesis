@@ -38,6 +38,8 @@ import Visualization from "./pages/Visualization";
 import Page403 from "./pages/Page403";
 import SoundMix from "./pages/SoundMix";
 import ColdWater from "./pages/ColdWater";
+import Creativity from "./pages/Creativity";
+import Breathing from "./pages/Breathing";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -153,6 +155,12 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/visualization">
               <Visualization />
+            </Route>
+            <Route exact path="/creativity">
+              <Creativity />
+            </Route>
+            <Route exact path="/breathing">
+              <Breathing />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">

@@ -12,8 +12,10 @@ const BackButton: React.FC<IProps> = (props: IProps) => {
   const { defaultHref } = props;
   const history = useHistory();
 
-  const onClickHandler = () =>
-    history.push(defaultHref, { contentOfLocationState: true });
+  const onClickHandler = () => {
+    console.log("default = ", defaultHref);
+    history.goBack();
+  };
 
   return (
     <IonButtons slot="start">

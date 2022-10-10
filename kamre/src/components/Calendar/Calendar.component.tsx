@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { IonLoading } from "@ionic/react";
 
@@ -45,11 +46,19 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
     onDayClickHandler,
   } = props;
   const days: React.ReactElement[] = [];
+
   const renderDot = (data: CalendarResponseType, date: moment.Moment) => {
     const {
       activity_category: activityCategory,
       registered_date: registeredDate,
     } = data;
+
+    let dotsArr = [];
+    let yellowSwitch = true;
+    let blueSwitch = true;
+    let redSwitch = true;
+    let greenSwitch = true;
+
     const transformedRegisteredData =
       moment(registeredDate).format("YYYY-MM-DD");
     const transformedCalendarDay = moment(date).format("YYYY-MM-DD");
@@ -57,9 +66,14 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
     if (!(transformedRegisteredData === transformedCalendarDay)) return false;
     switch (activityCategory) {
       case "Aktywne":
-        return (
-          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />
-        );
+        if (yellowSwitch) {
+          dotsArr.push(
+            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />,
+          );
+          yellowSwitch = false;
+        }
+        break;
+
       case "Bierne":
         return (
           <div className="kamre-calendar__day-dot kamre-calendar__day-dot--green" />
@@ -75,6 +89,8 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
       default:
         return null;
     }
+
+    return dotsArr;
   };
 
   const renderDays = () => {

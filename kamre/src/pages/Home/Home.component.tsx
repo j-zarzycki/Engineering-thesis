@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import {
   IonGrid,
@@ -18,14 +18,22 @@ import Pet from "@Assets/image-12.png";
 import Avatar from "@Assets/image.png";
 import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
+import { useHistory, useLocation } from "react-router";
 
 const Home: React.FC = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const replaceHistory = useCallback(() => {
+    history.replace({ ...location, state: undefined });
+  }, [history]);
   const ref = useRef<any>(null);
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
 
   useEffect(() => {
+    window.addEventListener("beforeunload", () => replaceHistory);
+    
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -98,6 +106,10 @@ const Home: React.FC = () => {
     });
 
     gesture.enable(true);
+
+    return () => {
+      window.removeEventListener("beforeunload", replaceHistory);
+    };
   }, []);
 
   return (

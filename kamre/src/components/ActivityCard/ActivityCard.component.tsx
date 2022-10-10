@@ -7,14 +7,19 @@ interface IProps {
   title: string;
   description?: string;
   icon?: React.ReactElement | HTMLElement;
+  onClick?: (ev: any) => void;
 }
 
 const ActivityCard: React.FC<IProps> = (props: IProps) => {
-  const { variant, title, description, icon } = props;
+  const { variant, title, description, icon, onClick } = props;
 
   const renderSmall = () => {
     return (
-      <div className="activity-card activity-card--small">
+      <div
+        className="activity-card activity-card--small"
+        role="presentation"
+        onClick={onClick}
+      >
         <div className="activity-card__title">{title}</div>
         <p className="activity-card__description">{description}</p>
       </div>
@@ -23,7 +28,11 @@ const ActivityCard: React.FC<IProps> = (props: IProps) => {
 
   const renderMedium = () => {
     return (
-      <div className="activity-card activity-card--medium">
+      <div
+        className="activity-card activity-card--medium"
+        role="presentation"
+        onClick={onClick}
+      >
         <div className="activity-card__icon">{icon}</div>
         <div className="activity-card__title">{title}</div>
       </div>
@@ -32,7 +41,11 @@ const ActivityCard: React.FC<IProps> = (props: IProps) => {
 
   const renderBig = () => {
     return (
-      <div className="activity-card activity-card--big">
+      <div
+        className="activity-card activity-card--big"
+        role="presentation"
+        onClick={onClick}
+      >
         <div className="activity-card__title">{title}</div>
       </div>
     );
@@ -57,6 +70,9 @@ const ActivityCard: React.FC<IProps> = (props: IProps) => {
 ActivityCard.defaultProps = {
   description: "",
   icon: <span />,
+  onClick: () => {
+    console.log("clicked");
+  },
 };
 
 export default ActivityCard;

@@ -131,6 +131,7 @@ const VisualizationContainer: React.FC = () => {
   };
 
   const onSlideChangeHandler = () => {
+    setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex === 1) setImg(quote);
     if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
