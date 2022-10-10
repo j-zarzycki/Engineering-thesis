@@ -1,0 +1,21 @@
+@import "@Theme/variables";
+
+.activities-card {
+  position: absolute;
+  background-color: $color-white;
+  z-index: 100;
+
+  &__holder {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+    &::before {
+      content: "";
+      width: 120px;
+      height: 3px;
+      background-color: $secondary-gray-90;
+      border-radius: $border-radius-m;
+    }
+  }
+}

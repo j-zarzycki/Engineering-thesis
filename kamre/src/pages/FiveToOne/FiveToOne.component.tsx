@@ -15,15 +15,11 @@ import "./FiveToOne.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
-
   onProceedButtonClick(): void;
-
   handleRepeatButtonClick(): void;
-
   handleFinishButtonClick(): void;
-
+  onSlideChangeHandler(): void;
   setToast(value: {}): void;
-
   currentSlide: number;
   slideElements: number;
   img: string;
@@ -43,6 +39,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     handleRepeatButtonClick,
     handleFinishButtonClick,
     setToast,
+    onSlideChangeHandler,
     toast,
     isLoading,
   } = props;
@@ -62,11 +59,11 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
       <div className="fiveToOne__swiper">
         <Swiper
           direction="vertical"
-          allowTouchMove={false}
           effect="fade"
-          slidesPerView={1}
-          height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSlideChangeHandler}
+          height={200}
+          spaceBetween={20}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">

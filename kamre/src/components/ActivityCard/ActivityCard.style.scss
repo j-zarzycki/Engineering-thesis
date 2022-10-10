@@ -1,0 +1,62 @@
+@import "@Theme/variables";
+
+.activity-card {
+  height: 160px;
+  width: 170px;
+  font-family: $font-poppins;
+  font-weight: $font-weight-xxl;
+  color: $color-white;
+  background-color: $primary-color-90;
+  border-radius: $border-radius-m;
+  padding: 10px;
+  text-transform: uppercase;
+  filter: $default-drop-shadow;
+
+  &--small {
+    .activity-card {
+      &__title {
+        font-size: $font-size-m;
+      }
+
+      &__description {
+        height: 110px;
+        width: 150px;
+        margin: 0;
+        margin-top: 5px;
+        font-size: $font-size-s;
+        font-weight: $font-weight-xl;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+
+  &--medium {
+    position: relative;
+
+    .activity-card {
+      &__title {
+        width: 140px;
+        position: absolute;
+        bottom: 10px;
+        font-size: $font-size-xl;
+      }
+
+      &__icon {
+      }
+    }
+  }
+
+  &--big {
+    position: relative;
+
+    .activity-card {
+      &__title {
+        width: 140px;
+        position: absolute;
+        bottom: 10px;
+        font-size: $font-size-xxl;
+      }
+    }
+  }
+}
