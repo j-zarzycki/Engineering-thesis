@@ -36,6 +36,7 @@ import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
 import Visualization from "./pages/Visualization";
 import Page403 from "./pages/Page403";
+import SoundMix from "./pages/SoundMix";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -143,8 +144,8 @@ const App: React.FC = () => {
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
-            <Route exact path="/visualization">
-              <Visualization />
+            <Route exact path="/sounds">
+              <SoundMix />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
