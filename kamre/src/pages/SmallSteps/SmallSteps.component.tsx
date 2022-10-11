@@ -34,13 +34,21 @@ interface IProps {
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
+
   setSwiper(value: any): void;
+
   onProceedButtonClick(): void;
+
   onAddSlide(): void;
+
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+
   setToast(value: {}): void;
+
   onSwipeHandle(): void;
+
   onSaveActivityWithContent(): void;
+
   onContinueButtonClick(): void;
 }
 
@@ -204,11 +212,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
             paddingBottom="20px"
           />
           <h4>Gratulację!</h4>
-          <p>
-            Wszystkie treści które wpisałeś będą widoczne w Szybkiej Pomocy,
-            możesz poprosić też bliskich o wpisanie słów otuchy dla Ciebie,
-            które przydadzą Ci się w stresowej sytuacji.
-          </p>
+          <p>bla bla bla</p>
           <div className="small-steps__final-buttons">
             <SaveActivityButton
               title="Zakończ"

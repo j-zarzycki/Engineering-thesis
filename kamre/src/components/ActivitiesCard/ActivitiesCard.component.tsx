@@ -20,7 +20,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
       <div className="activities-card__wrapper">
         <ActivityCard
           variant={cardVariant}
-          title="Małe krok"
+          title="Małe kroki"
           onClick={() => onCardClick("smallsteps")}
         />
         <ActivityCard
@@ -100,7 +100,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Muzyka dla duszy"
+          title="Co w duszy gra?"
           onClick={() => onCardClick("smallsteps")}
         />
         <ActivityCard
@@ -115,7 +115,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Trening schultza"
+          title="Trening Schultza"
           onClick={() => onCardClick("schulztraining")}
         />
       </div>

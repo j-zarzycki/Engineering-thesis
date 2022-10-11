@@ -34,13 +34,21 @@ interface IProps {
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
+
   setSwiper(value: any): void;
+
   onProceedButtonClick(): void;
+
   onAddSlide(): void;
+
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+
   setToast(value: {}): void;
+
   onSwipeHandle(): void;
+
   onSaveActivityWithContent(): void;
+
   onContinueButtonClick(): void;
 }
 
@@ -203,8 +211,12 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
             paddingTop="20px"
             paddingBottom="20px"
           />
-          <h4>Gratulację!</h4>
-          <p>Bla, bla, bla, bla, bla, bla, bla, bla, bla, bla, bla,</p>
+          <h4>Gratulacje!</h4>
+          <p>
+            Wszystkie treści które wpisałeś będą widoczne w Szybkiej Pomocy,
+            możesz poprosić też bliskich o wpisanie słów otuchy dla Ciebie,
+            które przydadzą Ci się w stresowej sytuacji.
+          </p>
           <div className="good-word__final-buttons">
             <SaveActivityButton
               title="Zapisz"
