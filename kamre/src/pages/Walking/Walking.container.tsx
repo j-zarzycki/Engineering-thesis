@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
@@ -14,7 +15,6 @@ const WalkingContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
-  const [showProceedButton, setShowProceedButton] = useState(true);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
@@ -31,7 +31,7 @@ const WalkingContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.push("/home");
+        history.replace("/home");
       })
       .catch(() =>
         setToast({
@@ -56,12 +56,23 @@ const WalkingContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
+
     setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex === slideElements - 4) {
       setImg(quote);
     }
     if (swiper?.activeIndex === slideElements - 1) {
-      setShowProceedButton(false);
+      setImg(MainImg);
+    }
+  };
+
+  const onSlideChangeHandler = (slide: Swiper) => {
+    setCurrentSlide(slide?.activeIndex);
+    setImg(MainImg);
+    if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
+      setImg(quote);
+    }
+    if (slide?.activeIndex === slideElements - 1) {
       setImg(MainImg);
     }
   };
@@ -77,14 +88,13 @@ const WalkingContainer: React.FC = () => {
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}
-      setShowProceedButton={setShowProceedButton}
       currentSlide={currentSlide}
       isLoading={isLoading}
       toast={toast}
       swiper={swiper}
       img={img}
       slideElements={slideElements}
-      showProceedButton={showProceedButton}
+      onSlideChangeHandler={onSlideChangeHandler}
     />
   );
 };

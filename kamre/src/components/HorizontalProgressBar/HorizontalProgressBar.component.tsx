@@ -39,6 +39,21 @@ const HorizontalProgressBar: React.FC<IProps> = (props: IProps) => {
   };
 
   const onCurrentElementChange = () => {
+    const allActiveElements = document.querySelectorAll(
+      ".horizontal-progress-bar__element--active",
+    );
+    allActiveElements.forEach((element) =>
+      element?.classList.remove("horizontal-progress-bar__element--active"),
+    );
+
+    if (currentElement === 0) {
+      const element = document.querySelector(
+        `[element-index="${currentElement}"]`,
+      );
+
+      element?.classList.add("horizontal-progress-bar__element--active");
+    }
+
     if (currentElement > prevCurrentElementValue) {
       const element = document.querySelector(
         `[element-index="${currentElement}"]`,

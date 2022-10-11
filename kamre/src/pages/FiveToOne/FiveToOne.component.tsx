@@ -15,15 +15,11 @@ import "./FiveToOne.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
-
   onProceedButtonClick(): void;
-
   handleRepeatButtonClick(): void;
-
   handleFinishButtonClick(): void;
-
+  onSlideChangeHandler(): void;
   setToast(value: {}): void;
-
   currentSlide: number;
   slideElements: number;
   img: string;
@@ -43,6 +39,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     handleRepeatButtonClick,
     handleFinishButtonClick,
     setToast,
+    onSlideChangeHandler,
     toast,
     isLoading,
   } = props;
@@ -51,7 +48,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex === 7) return null;
 
     return (
-      <div className="walking__header">
+      <div className="fiveToOne__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -61,11 +58,12 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="fiveToOne__swiper">
         <Swiper
-          allowTouchMove={false}
+          direction="vertical"
           effect="fade"
-          slidesPerView={1}
-          height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSlideChangeHandler}
+          height={200}
+          spaceBetween={20}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -153,7 +151,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   const renderProceedButton = () => {
     if (swiper?.activeIndex === 7) {
       return (
-        <div className="final-buttons">
+        <div className="fiveToOne__final-buttons">
           <ProceedButton
             title="Powtórz"
             onClick={handleRepeatButtonClick}
@@ -186,7 +184,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="good-word__loader"
+        cssClass="fiveToOne__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />

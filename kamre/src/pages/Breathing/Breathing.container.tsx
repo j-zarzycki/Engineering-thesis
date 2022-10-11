@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+
+import useAppDispatch from "@Hooks/useAppDispatch";
+import { createNote } from "@Store/slices/noteSlice";
 
 import {
   MAX_EXHAUST,
@@ -18,6 +22,8 @@ const BreathingContainer: React.FC = () => {
   const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   const [counter, setCounter] = useState(0);
   const [renderType, setRenderType] = useState(RenderType.EXHAUST);
+  const dispatch = useAppDispatch();
+  const history = useHistory();
   let intervalId: any;
 
   const handleInterval = () => setIsPlaying(true);
@@ -59,6 +65,23 @@ const BreathingContainer: React.FC = () => {
     }
   };
 
+  const onCancelButtonClick = () => {
+    setIsPlaying(false);
+    clearInterval(intervalId);
+    setCounter(0);
+
+    dispatch(
+      createNote({
+        contentName: "Oddychanie",
+        title: "Oddychanie",
+        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
+        hiddenDescription: "",
+      }),
+    );
+
+    history.replace("/note");
+  };
+
   useEffect(() => {
     if (isPlaying) intervalId = setInterval(startCounting, 1000);
 
@@ -72,6 +95,7 @@ const BreathingContainer: React.FC = () => {
       handleButtonClick={handleInterval}
       isPlaying={isPlaying}
       isAnimationPaused={isAnimationPaused}
+      onCancelButtonClick={onCancelButtonClick}
     />
   );
 };

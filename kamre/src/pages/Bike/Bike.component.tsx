@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CSSTransition } from "react-transition-group";
+import { Swiper as SwiperType } from "swiper/types";
 
 // Import Swiper styles
 import "swiper/css";
 
 import "./Bike.style.scss";
-import SWIPE_ELEMENTS from "@Constants/bike.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
@@ -21,57 +18,37 @@ interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(): void;
   setToast(value: {}): void;
+  onProceedButtonClick(): void;
+  setSwiper(value: any): void;
+  onSlideChangeHandler(slide: SwiperType): void;
   isLoading: boolean;
-  toast: { isOpen: boolean; message: string };
+  toast: any;
+  currentSlide: number;
+  swiper: any;
+  img: string;
+  slideElements: number;
 }
 
 const Bike: React.FC<IProps> = (props: IProps) => {
   const {
     onCreateActivityWithNoContent,
     onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
     setToast,
+    setSwiper,
     isLoading,
     toast,
+    swiper,
+    currentSlide,
+    img,
+    slideElements,
   } = props;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [showProceedButton, setShowProceedButton] = useState(true);
-  const slideElements = SWIPE_ELEMENTS;
-
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
-  const onProceedButtonClick = () => {
-    swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setShowProceedButton(false);
-      setImg(MainImg);
-    }
-  };
-
-  const onProceedButtonClickWithContent = () => {
-    onCreateActivityWithContent();
-  };
-
-  const renderHeader = () => {
-    if (swiper?.activeIndex === 4) return <div className="bike__header" />;
-
-    return (
-      <div className="bike__header">
-        <BackButton defaultHref="/home" />
-      </div>
-    );
-  };
 
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="good-word__loader"
+        cssClass="bike__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -91,114 +68,137 @@ const Bike: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 3) return <div className="bike__header" />;
+
+    return (
+      <div className="bike__header">
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
+  const renderImage = () => {
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
+  };
+
+  const renderHorizontalProgressBar = () => {
+    return (
+      <div className="bike__horizontal-progress-bar">
+        <HorizontalProgressBar
+          currentElement={currentSlide}
+          elements={slideElements}
+        />
+      </div>
+    );
+  };
+
+  const renderSwiper = () => {
+    return (
+      <div className="bike__swiper">
+        <Swiper
+          effect="fade"
+          centeredSlides
+          slidesPerView={1}
+          onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={(slide) => onSlideChangeHandler(slide)}
+        >
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Jazda na rowerze</h4>
+              <p className="swiper-slide__paragraph">
+                Środek na zwalczenie stresu bez recepty!
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Endorfiny</h4>
+              <p className="swiper-slide__paragraph">
+                Endorfiny są „antagonistą” stresu, uczucia napięcia nerwowego,
+                niepokoju a nawet bólu głowy.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <p className="swiper-slide__paragraph">
+                Wsiadaj na rumaka i jazda! Aktywność fizyczna jest jedną z
+                najlepszych form walki ze stresem, ponieważ produkowane są wtedy
+                endorfiny - antagoniści stresu, obniżają napięcię nerwowe,
+                niepokój a nawet ból głowy.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <p className="swiper-slide__paragraph">
+                Jeżeli nie masz roweru - możesz spróbować innej aktywności
+                sportowej, która sprawi Ci przyjemność!
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <p className="swiper-slide__paragraph">
+                Co zaobserwowałeś/aś po wykonanym ćwiczeniu? Jak się czułeś/aś?
+                Co dało Ci to ćwiczenie?
+              </p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    );
+  };
+
+  const renderButtons = () => {
+    if (swiper?.activeIndex >= 3)
+      return (
+        <div className="bike__final-buttons">
+          <CancelButton
+            onClick={onCreateActivityWithNoContent}
+            title="Zakończ"
+          />
+          <SaveActivityButton
+            title="Dodaj"
+            onClick={onCreateActivityWithContent}
+          />
+        </div>
+      );
+
+    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+  };
+
+  const renderContext = () => {
+    return (
+      <>
+        {renderImage()}
+        {renderHorizontalProgressBar()}
+        {renderSwiper()}
+        {renderButtons()}
+      </>
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="bike">
-          {renderHeader()}
           {renderToast()}
           {renderLoader()}
-          <div className="bike__wrapper">
-            <Pet
-              src={img}
-              alt="Uśmiechnięta ośmiorniczka jpg"
-              height="200px"
-              paddingTop="20px"
-              paddingBottom="20px"
-            />
-            <div>
-              <HorizontalProgressBar
-                currentElement={currentSlide}
-                elements={slideElements}
-              />
-            </div>
-            <div className="bike__swiper">
-              <Swiper
-                allowTouchMove={false}
-                effect="fade"
-                centeredSlides
-                slidesPerView={1}
-                onSwiper={(swiperData) => setSwiper(swiperData)}
-              >
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Jazda na rowerze</h4>
-                    <p className="swiper-slide__paragraph">
-                      Środek na zwalczenie stresu bez recepty!
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Endorfiny</h4>
-                    <p className="swiper-slide__paragraph">
-                      Endorfiny są „antagonistą” stresu, uczucia napięcia
-                      nerwowego, niepokoju a nawet bólu głowy.
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
-                    <p className="swiper-slide__paragraph">
-                      Wsiadaj na rumaka i jazda! Aktywność fizyczna jest jedną z
-                      najlepszych form walki ze stresem, ponieważ produkowane są
-                      wtedy endorfiny - antagoniści stresu, obniżają napięcię
-                      nerwowe, niepokój a nawet ból głowy.
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
-                    </h4>
-                    <p className="swiper-slide__paragraph">
-                      Jeżeli nie masz roweru - możesz spróbować innej aktywności
-                      sportowej, która sprawi Ci przyjemność!
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Przemyślenia</h4>
-                    <p className="swiper-slide__paragraph">
-                      Co zaobserwowałeś/aś po wykonanym ćwiczeniu? Jak się
-                      czułeś/aś? Co dało Ci to ćwiczenie?
-                    </p>
-                  </div>
-                </SwiperSlide>
-              </Swiper>
-            </div>
-            {showProceedButton && (
-              <ProceedButton
-                title="Prowadź mnie!"
-                onClick={onProceedButtonClick}
-              />
-            )}
-
-            <CSSTransition
-              in={!showProceedButton}
-              timeout={300}
-              classNames="swiper__proceed-buttons"
-              unmountOnExit
-              onEnter={() => setShowProceedButton(false)}
-              onExited={() => setShowProceedButton(true)}
-            >
-              <div className="final-buttons">
-                <CancelButton
-                  title="Zakończ"
-                  onClick={onCreateActivityWithNoContent}
-                />
-                <SaveActivityButton
-                  title="Zapisz"
-                  onClick={onProceedButtonClickWithContent}
-                />
-              </div>
-            </CSSTransition>
-          </div>
+          {renderHeader()}
+          <div className="bike__wrapper">{renderContext()}</div>
         </div>
       </IonContent>
     </IonPage>

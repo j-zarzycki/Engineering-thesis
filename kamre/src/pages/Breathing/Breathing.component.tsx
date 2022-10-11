@@ -3,6 +3,7 @@ import { IonContent, IonPage, IonImg } from "@ionic/react";
 
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
+import CancelButton from "@Components/CancelButton";
 
 import Pet from "@Assets/main.png";
 import "./Breathing.style.scss";
@@ -13,6 +14,7 @@ interface IProps {
   counter: number;
   renderType: string;
   handleButtonClick(): void;
+  onCancelButtonClick(): void;
 }
 
 enum RenderTypeTranslation {
@@ -28,6 +30,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     isAnimationPaused,
     renderType,
     handleButtonClick,
+    onCancelButtonClick,
   } = props;
 
   const renderDescription = () => {
@@ -59,6 +62,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       <div className="breathing__timer">
         <h4>{renderType !== "PAUSE" && counter}</h4>
         <h5>{translatedKey}</h5>
+        <CancelButton title="Zakończ" onClick={onCancelButtonClick} />
       </div>
     );
   };

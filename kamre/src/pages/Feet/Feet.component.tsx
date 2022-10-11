@@ -6,25 +6,26 @@ import { BsArrowRepeat } from "react-icons/bs";
 import "swiper/css";
 
 import Pet from "@Components/Pet";
-import BackButton from "@Components/BackButton";
-import VerticalProgressBar from "@Components/VerticalProgressBar";
 import CancelButton from "@Components/CancelButton";
+import VerticalProgressBar from "@Components/VerticalProgressBar";
 import ProceedButton from "@Components/ProceedButton";
+import BackButton from "@Components/BackButton";
 
 import "./Feet.style.scss";
 
 interface IProps {
-  handleRepeatButtonClick(): void;
-  handleFinishButtonClick(): void;
-  setToast(value: {}): void;
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
+  handleRepeatButtonClick(): void;
+  handleFinishButtonClick(): void;
+  onSlideChangeHandler(): void;
+  setToast(value: {}): void;
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
-  isLoading: boolean;
   swiper: any;
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
 }
 
 const Feet: React.FC<IProps> = (props: IProps) => {
@@ -34,19 +35,20 @@ const Feet: React.FC<IProps> = (props: IProps) => {
     slideElements,
     onProceedButtonClick,
     img,
+    swiper,
+    handleRepeatButtonClick,
+    handleFinishButtonClick,
     setToast,
+    onSlideChangeHandler,
     toast,
     isLoading,
-    swiper,
-    handleFinishButtonClick,
-    handleRepeatButtonClick,
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 22) return null;
+    if (swiper?.activeIndex === 7) return null;
 
     return (
-      <div className="feet__header">
+      <div className="walking__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -56,11 +58,12 @@ const Feet: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="feet__swiper">
         <Swiper
-          allowTouchMove={false}
+          direction="vertical"
           effect="fade"
-          slidesPerView={1}
-          height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSlideChangeHandler}
+          height={260}
+          spaceBetween={20}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -263,7 +266,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    if (swiper?.activeIndex === 22) {
+    if (swiper?.activeIndex === 7) {
       return (
         <div className="final-buttons">
           <ProceedButton
@@ -321,8 +324,6 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   const renderContext = () => {
     return (
       <div className="feet__wrapper">
-        {renderToast()}
-        {renderLoader()}
         {renderImage()}
         {renderSwiper()}
         {renderProceedButton()}
@@ -333,6 +334,8 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderToast()}
+        {renderLoader()}
         {renderHeader()}
         <div className="feet">
           {renderProgressBar()}

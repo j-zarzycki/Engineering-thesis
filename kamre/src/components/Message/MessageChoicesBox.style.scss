@@ -1,0 +1,9 @@
+.message-choices-box {
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        float: right;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+}

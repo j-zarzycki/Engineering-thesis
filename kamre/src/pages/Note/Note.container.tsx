@@ -41,7 +41,7 @@ const NoteContainer: React.FC = () => {
       .CreateActivityWithContent(currentDate, textAreaInput, prevContent)
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
+        history.replace("/home");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>
@@ -60,7 +60,7 @@ const NoteContainer: React.FC = () => {
       .CreateActivityWithNoContent(currentDate, prevContent)
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
+        history.replace("/home");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>

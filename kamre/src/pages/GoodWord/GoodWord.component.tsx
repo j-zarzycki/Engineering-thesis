@@ -1,60 +1,64 @@
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
 // Import Swiper styles
 import "swiper/css";
 
+import Input from "@Components/Input";
+import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
-import CancelButton from "@Components/CancelButton";
-import Input from "@Components/Input";
-
 import ProceedButton from "@Components/ProceedButton";
+
 import "./GoodWord.style.scss";
 
 interface IProps {
+  canSwipe: boolean;
+  isLoading: boolean;
+  currentSlide: number;
+  slideElements: number;
+  img: string;
+  toast: { isOpen: boolean; message: string };
+  isAddingDisabled: boolean;
+  swiper: any;
+  slides: React.ReactElement[];
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onEndButtonClick(): void;
   setToast(value: {}): void;
-  currentSlide: number;
-  slideElements: number;
-  img: string;
-  isAddingDisabled: boolean;
-  isLoading: boolean;
-  swiper: any;
-  toast: { isOpen: boolean; message: string };
-  slides: React.ReactElement[];
+  onSwipeHandle(): void;
 }
 
 const GoodWord: React.FC<IProps> = (props: IProps) => {
   const {
-    setSwiper,
+    canSwipe,
     currentSlide,
     slideElements,
-    onProceedButtonClick,
-    onAddSlide,
     img,
     slides,
     isAddingDisabled,
+    swiper,
+    isLoading,
+    toast,
+    setSwiper,
+    onProceedButtonClick,
+    onAddSlide,
     onEndButtonClick,
     onInputChange,
-    swiper,
     setToast,
-    toast,
-    isLoading,
+    onSwipeHandle,
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex >= 3) return <div className="walking__header" />;
+    if (swiper?.activeIndex >= 3) return <div className="good-word__header" />;
 
     return (
-      <div className="walking__header">
+      <div className="good-word__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -70,18 +74,20 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="good-word__swiper">
         <Swiper
-          allowTouchMove={false}
+          allowTouchMove={canSwipe}
           effect="fade"
           slidesPerView={1}
           height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSwipeHandle}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Dobre słowo</h4>
               <p className="swiper-slide__paragraph">
-                To ćwiczenie wykonaj, gdy będziesz w dobrym nastroju - przyda
-                się na gorsze dni.
+                To ćwiczenie pozwoli Ci lekko zmienić perspektywę na swoje
+                życie. Świadoma koncentracja na pozytywnych emocjach otwiera nas
+                na bardziej pozytywne podejście.
               </p>
             </div>
           </SwiperSlide>
@@ -126,10 +132,10 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderButton = () => {
+  const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="good-word__buttons">
+        <div className="good-word__final-buttons">
           <CancelButton onClick={onEndButtonClick} title="Zakończ" />
           <ProceedButton
             title="Dodaj"
@@ -165,6 +171,17 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderContext = () => {
+    return (
+      <div className="good-word__wrapper">
+        {renderImage()}
+        {renderProgressBar()}
+        {renderSwiper()}
+        {renderButtons()}
+      </div>
+    );
+  };
+
   const renderLoader = () => {
     return (
       <IonLoading
@@ -188,24 +205,15 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
-    return (
-      <div className="good-word__wrapper">
-        {renderToast()}
-        {renderLoader()}
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButton()}
-      </div>
-    );
-  };
-
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="good-word">{renderContext()}</div>
+        <div className="good-word">
+          {renderLoader()}
+          {renderToast()}
+          {renderContext()}
+        </div>
       </IonContent>
     </IonPage>
   );

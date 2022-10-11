@@ -36,6 +36,11 @@ import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
 import Visualization from "./pages/Visualization";
 import Page403 from "./pages/Page403";
+import SoundMix from "./pages/SoundMix";
+import ColdWater from "./pages/ColdWater";
+import Creativity from "./pages/Creativity";
+import Breathing from "./pages/Breathing";
+import SchulzTraining from "./pages/SchulzTraining";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -74,77 +79,44 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route exact path="/shower">
-              <ConsciousShower />
-            </Route>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route exact path="/settings">
-              <Settings />
-            </Route>
-            <Route exact path="/walking">
-              <Walking />
-            </Route>
-            <Route path="/fivetoone">
-              <FiveToOne />
-            </Route>
-            <Route path="/gratitude">
-              <Gratitude />
-            </Route>
-            <Route path="/ytpage">
-              <YtPage />
-            </Route>
-            <Route exact path="/calendar">
-              <Calendar />
-            </Route>
-            <Route exact path="/anger">
-              <Anger />
-            </Route>
-            <Route exact path="/smallsteps">
-              <SmallSteps />
-            </Route>
-            <Route exact path="/goodword">
-              <GoodWord />
-            </Route>
-            <Route exact path="/feet">
-              <Feet />
-            </Route>
-            <Route exact path="/previousday">
-              <PreviousDay />
-            </Route>
-            <Route exact path="/note">
-              <Note />
-            </Route>
-            <Route exact path="/bike">
-              <Bike />
-            </Route>
-            <Route exact path="/preparemeal">
-              <PrepareMeal />
-            </Route>
-            <Route exact path="/deleteaccountpage">
-              <DeleteAccountPage />
-            </Route>
-            <Route exact path="/migrateaccountpage">
-              <MigrateAccountPage />
-            </Route>
-            <Route exact path="/music">
-              <Music />
-            </Route>
-            <Route exact path="/emergency">
-              <Emergency />
-            </Route>
-            <Route exact path="/weights">
-              <Weights />
-            </Route>
-            <Route exact path="/403">
-              <Page403 />
-            </Route>
+            <Route path="/shower" component={ConsciousShower} />
+            <Route path="/home" component={Home} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/walking" component={Walking} />
+            <Route path="/fivetoone" component={FiveToOne} />
+            <Route path="/gratitude" component={Gratitude} />
+            <Route path="/ytpage" component={YtPage} />
+            <Route exact path="/calendar" component={Calendar} />
+            <Route exact path="/anger" component={Anger} />
+            <Route exact path="/smallsteps" component={SmallSteps} />
+            <Route exact path="/goodword" component={GoodWord} />
+            <Route exact path="/feet" component={Feet} />
+            <Route exact path="/previousday" component={PreviousDay} />
+            <Route exact path="/note" component={Note} />
+            <Route exact path="/bike" component={Bike} />
+            <Route exact path="/preparemeal" component={PrepareMeal} />
+            <Route exact path="/music" component={Music} />
+            <Route exact path="/emergency" component={Emergency} />
+            <Route exact path="/weights" component={Weights} />
+            <Route exact path="/403" component={Page403} />
+            <Route exact path="/sounds" component={SoundMix} />
+            <Route exact path="/coldwater" component={ColdWater} />
+            <Route exact path="/visualization" component={Visualization} />
+            <Route exact path="/creativity" component={Creativity} />
+            <Route exact path="/breathing" component={Breathing} />
+            <Route exact path="/schulztraining" component={SchulzTraining} />
+            <Route
+              exact
+              path="/deleteaccountpage"
+              component={DeleteAccountPage}
+            />
+            <Route
+              exact
+              path="/migrateaccountpage"
+              component={MigrateAccountPage}
+            />
             <Route exact path="/">
               <Redirect to="/home" />
-            </Route>
-            <Route exact path="/visualization">
-              <Visualization />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">

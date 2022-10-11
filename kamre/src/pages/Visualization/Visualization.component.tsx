@@ -33,6 +33,7 @@ interface IProps {
   setToast(value: {}): void;
   onSaveButtonWithNoContentClick(): void;
   onSaveButtonClick(): void;
+  onSlideChangeHandler(): void;
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
@@ -70,6 +71,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
     isLoading,
     setToast,
     toast,
+    onSlideChangeHandler,
   } = props;
 
   const renderHeader = () => {
@@ -94,11 +96,11 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="visualization__swiper">
         <Swiper
-          allowTouchMove={false}
           effect="fade"
           slidesPerView={1}
           height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSlideChangeHandler}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -151,7 +153,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
   const renderButton = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="visualization__buttons">
+        <div className="visualization__final-buttons">
           <CancelButton onClick={onEndButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
@@ -263,7 +265,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
             <p>
               Czy chcesz zapisać swoje przemyślenia po wykonaniu tego ćwiczenia?
             </p>
-            <div className="final-buttons">
+            <div className="visualization__final-buttons">
               <CancelButton
                 title="Zakończ"
                 onClick={onSaveButtonWithNoContentClick}
