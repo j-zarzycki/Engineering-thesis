@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 
-import { createNote } from "@Store/slices/noteSlice";
 import { getFullDateWithTime } from "@Utils/date";
-import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
@@ -28,7 +26,6 @@ const WeightsContainer: React.FC = () => {
   });
   const history = useHistory();
   const slideElements = 3;
-  const dispatch = useAppDispatch();
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -94,11 +91,15 @@ const WeightsContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  const onSaveButtonWithNoContentClick = async () => {
+  const onSaveButtonClick = async () => {
     const currentDateWithTime = getFullDateWithTime();
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Ciężary")
+      .CreateActivityWithContent(
+        currentDateWithTime,
+        slidesInputsValue,
+        "Ciężary",
+      )
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -112,19 +113,6 @@ const WeightsContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-  };
-
-  const onSaveButtonClick = () => {
-    dispatch(
-      createNote({
-        contentName: "Ciężary",
-        title: "Ciężary",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
-        hiddenDescription: "",
-      }),
-    );
-
-    history.push("/note");
   };
 
   const onSlideChangeHandler = () => {
@@ -160,7 +148,6 @@ const WeightsContainer: React.FC = () => {
       onInputChange={onInputChange}
       onEndButtonClick={onEndButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonWithNoContentClick={onSaveButtonWithNoContentClick}
       onSaveButtonClick={onSaveButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
     />

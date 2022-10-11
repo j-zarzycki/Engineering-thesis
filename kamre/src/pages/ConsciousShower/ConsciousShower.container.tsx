@@ -72,9 +72,6 @@ const ConsciousShowerContainer: React.FC = () => {
     if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
       setImg(quote);
     }
-    if (slide?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
   };
 
   useEffect(() => {

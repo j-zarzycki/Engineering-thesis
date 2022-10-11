@@ -28,11 +28,10 @@ interface IProps {
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onEndButtonClick(): void;
+  onContinueButtonClick(): void;
   onDestroyButtonClick(): void;
   setToast(value: {}): void;
-  onSaveButtonWithNoContentClick(): void;
-  onSaveButtonClick(): void;
+  onSaveButtonWithContentClick(): void;
   onSlideChangeHandler(): void;
   isLoading: boolean;
   currentSlide: number;
@@ -61,11 +60,10 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     img,
     slides,
     isAddingDisabled,
-    onEndButtonClick,
+    onContinueButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonWithNoContentClick,
-    onSaveButtonClick,
+    onSaveButtonWithContentClick,
     swiper,
     slidesInputsValue,
     isLoading,
@@ -154,8 +152,8 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   const renderButton = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="anger__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Dalej!" />
+        <div className="anger__continue-buttons">
+          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -261,16 +259,13 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <h4>Przemyślenia</h4>
-            <p>
-              Czy chcesz zapisać swoje przemyślenia po wykonaniu tego ćwiczenia?
-            </p>
+            <h4>Gratulację!</h4>
+            <p>Bla, bla, bla, bla, bla, bla, bla, bla, bla, bla,</p>
             <div className="anger__final-buttons">
-              <CancelButton
-                title="Zakończ"
-                onClick={onSaveButtonWithNoContentClick}
+              <SaveActivityButton
+                title="Zapisz"
+                onClick={onSaveButtonWithContentClick}
               />
-              <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
             </div>
           </div>
         </CreateAnimation>

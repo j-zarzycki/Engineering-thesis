@@ -6,7 +6,6 @@ import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import SWIPE_ELEMENTS from "@Constants/walking.constants";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import Bike from "./Bike.component";
@@ -17,18 +16,15 @@ const BikeContainer: React.FC = () => {
   const [img, setImg] = useState("");
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const slideElements = SWIPE_ELEMENTS;
+  const slideElements = 5;
   const currentDateWithTime: String = getFullDateWithTime();
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createWalkingWithNoContent = async () => {
+  const createBikeWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(
-        currentDateWithTime,
-        "Przygotuj coś pysznego",
-      )
+      .CreateActivityWithNoContent(currentDateWithTime, "Jazda na rowerze")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -44,12 +40,12 @@ const BikeContainer: React.FC = () => {
       );
   };
 
-  const createWalkingWithContent = () => {
+  const createBikeWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Przygotuj coś pysznego",
-        title: "Przygotuj coś pysznego",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
+        contentName: "Jazda na rowerze",
+        title: "Jazda na rowerze",
+        description: "Co zaobserwowałeś_aś po aktywności? Jak się czułeś_aś?",
         hiddenDescription: "",
       }),
     );
@@ -86,8 +82,8 @@ const BikeContainer: React.FC = () => {
 
   return (
     <Bike
-      onCreateActivityWithNoContent={createWalkingWithNoContent}
-      onCreateActivityWithContent={createWalkingWithContent}
+      onCreateActivityWithNoContent={createBikeWithNoContent}
+      onCreateActivityWithContent={createBikeWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}

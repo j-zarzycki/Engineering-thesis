@@ -100,11 +100,15 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    return (
-      <div className="breathing__header-top">
-        <BackButton defaultHref="/home" />
-      </div>
-    );
+    if (!isPlaying) {
+      return (
+        <div className="breathing__header-top">
+          <BackButton defaultHref="/home" />
+        </div>
+      );
+    }
+
+    return <div className="breathing__header-top" />;
   };
 
   return (

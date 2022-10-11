@@ -142,9 +142,9 @@ const Music: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <h4 className="swiper-slide__header">Gratulację!</h4>
               <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś/aś po muzycznym seansie? Jak się czułeś/aś? Co
+                Co zaobserwowałeś_aś po muzycznym seansie? Jak się czułeś_aś? Co
                 dało Ci to ćwiczenie?
               </p>
             </div>
@@ -163,7 +163,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Dodaj"
+            title="Zapisz"
             onClick={onCreateActivityWithContent}
           />
         </div>

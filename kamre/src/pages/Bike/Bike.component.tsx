@@ -69,7 +69,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 3) return <div className="bike__header" />;
+    if (swiper?.activeIndex === 4) return <div className="bike__header" />;
 
     return (
       <div className="bike__header">
@@ -152,8 +152,8 @@ const Bike: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś/aś po wykonanym ćwiczeniu? Jak się czułeś/aś?
-                Co dało Ci to ćwiczenie?
+                Co zaobserwowałeś_aś po przejażdżce? Jak się czułeś_aś? Co dało
+                Ci to ćwiczenie?
               </p>
             </div>
           </SwiperSlide>
@@ -163,7 +163,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButtons = () => {
-    if (swiper?.activeIndex >= 3)
+    if (swiper?.activeIndex >= 4)
       return (
         <div className="bike__final-buttons">
           <CancelButton
@@ -171,7 +171,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Dodaj"
+            title="Zapisz"
             onClick={onCreateActivityWithContent}
           />
         </div>

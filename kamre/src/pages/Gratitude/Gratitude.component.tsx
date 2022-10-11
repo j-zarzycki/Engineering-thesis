@@ -1,5 +1,11 @@
 import React from "react";
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonLoading,
+  IonToast,
+  CreateAnimation,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -12,6 +18,8 @@ import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
+import SaveActivityButton from "@Components/SaveActivityButton";
+import PetHappy from "@Assets/happy.png";
 
 import "./Gratitude.style.scss";
 
@@ -24,14 +32,16 @@ interface IProps {
   toast: { isOpen: boolean; message: string };
   isAddingDisabled: boolean;
   swiper: any;
+  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   slides: React.ReactElement[];
   setSwiper(value: any): void;
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onEndButtonClick(): void;
+  onSaveActivityWithContent(): void;
   setToast(value: {}): void;
   onSwipeHandle(): void;
+  onContinueButtonClick(): void;
 }
 
 const Gratitude: React.FC<IProps> = (props: IProps) => {
@@ -45,13 +55,15 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
     swiper,
     isLoading,
     toast,
+    pageController,
     setSwiper,
     onProceedButtonClick,
     onAddSlide,
-    onEndButtonClick,
+    onSaveActivityWithContent,
     onInputChange,
     setToast,
     onSwipeHandle,
+    onContinueButtonClick,
   } = props;
 
   const renderHeader = () => {
@@ -95,16 +107,16 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Wypisz, za co jesteś dzisiaj wdzięczny/na. To mogą być codzienne
-                czynności, ludzie lub sytuacje. Postaraj się wyciągnąć rzeczy,
-                które wywołały w Tobie pozytywne emocje.
+                Wypisz, za co jesteś dzisiaj wdzięczny_na . To mogą być
+                codzienne czynności, ludzie lub sytuacje. Postaraj się wyciągnąć
+                rzeczy, które wywołały w Tobie pozytywne emocje.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">
-                Wpisz za co jesteś wdzięczny/na:
+                Wpisz za co jesteś wdzięczny_na:
               </h4>
               <p className="swiper-slide__paragraph">
                 <Input
@@ -135,8 +147,8 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="gratitude__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+        <div className="gratitude__continue-buttons">
+          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -171,15 +183,54 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
+  const renderFinalStep = () => {
+    const { isFinalVisible } = pageController;
     return (
-      <div className="gratitude__wrapper">
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButtons()}
-      </div>
+      <CreateAnimation
+        play={isFinalVisible}
+        duration={2000}
+        fromTo={{
+          property: "opacity",
+          fromValue: "0",
+          toValue: "1",
+        }}
+      >
+        <div className="gratitude__wrapper">
+          <Pet
+            src={PetHappy}
+            alt="Uśmiechnięta ośmiorniczka jpg"
+            height="200px"
+            paddingTop="20px"
+            paddingBottom="20px"
+          />
+          <h4>Gratulację!</h4>
+          <p>bla, bla,bla, bla,bla, bla,bla, bla,bla, bla,</p>
+          <div className="gratitude__final-buttons">
+            <SaveActivityButton
+              title="Zapisz"
+              onClick={onSaveActivityWithContent}
+            />
+          </div>
+        </div>
+      </CreateAnimation>
     );
+  };
+
+  const renderContext = () => {
+    const { isMainContextVisible } = pageController;
+
+    if (isMainContextVisible) {
+      return (
+        <div className="gratitude__wrapper">
+          {renderImage()}
+          {renderProgressBar()}
+          {renderSwiper()}
+          {renderButtons()}
+        </div>
+      );
+    }
+
+    return <div className="gratitude__wrapper">{renderFinalStep()}</div>;
   };
 
   const renderLoader = () => {

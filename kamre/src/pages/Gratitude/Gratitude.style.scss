@@ -84,6 +84,10 @@
 }
 @include mobile-xsmall {
   .gratitude {
+    &__final-buttons {
+      margin-top: 35px;
+    }
+
     &__wrapper {
       height: 100%;
 
@@ -115,6 +119,9 @@
 
 @include mobile-small {
   .gratitude {
+    &__final-buttons {
+      margin-top: 85px;
+    }
     &__wrapper {
       height: 100%;
 
@@ -126,7 +133,7 @@
       }
     }
 
-    &__final-buttons {
+    &__final-buttons, &__continue-buttons {
       width: 100%;
       display: flex;
       justify-content: center;
@@ -151,6 +158,9 @@
 
 @include mobile-medium {
   .gratitude {
+    &__final-buttons {
+      margin-top: 115px;
+    }
     &__wrapper {
       height: 100%;
 

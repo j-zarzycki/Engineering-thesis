@@ -14,7 +14,7 @@ const FeetContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
-  const slideElements = 8;
+  const slideElements = 23;
   const history = useHistory();
 
   const onProceedButtonClick = () => {
@@ -35,7 +35,6 @@ const FeetContainer: React.FC = () => {
       .CreateActivityWithNoContent(dateTime, "Stopy")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.replace("/home");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>

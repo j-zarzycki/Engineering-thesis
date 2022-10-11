@@ -11,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { triangle, settings } from "ionicons/icons";
+import { triangle } from "ionicons/icons";
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
@@ -123,11 +123,6 @@ const App: React.FC = () => {
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
               <IonLabel>Home</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="settings" href="/settings">
-              <IonIcon icon={settings} />
-              <IonLabel>Settings</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

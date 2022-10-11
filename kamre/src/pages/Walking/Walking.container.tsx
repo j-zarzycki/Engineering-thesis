@@ -46,7 +46,7 @@ const WalkingContainer: React.FC = () => {
       createNote({
         contentName: "Spacer",
         title: "Spacer",
-        description: "Co zaobserwowałeś/aś po spacerze? Jak się czułeś/aś?",
+        description: "Co zaobserwowałeś_aś po spacerze? Jak się czułeś_aś?",
         hiddenDescription: "",
       }),
     );

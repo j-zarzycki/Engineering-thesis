@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 
-import { createNote } from "@Store/slices/noteSlice";
 import { getFullDateWithTime } from "@Utils/date";
-import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
@@ -28,7 +26,6 @@ const AngerContainer: React.FC = () => {
   });
   const history = useHistory();
   const slideElements = 3;
-  const dispatch = useAppDispatch();
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -68,7 +65,7 @@ const AngerContainer: React.FC = () => {
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = () => {
+  const onContinueButtonClick = () => {
     setPageController((prevState) => {
       return {
         ...prevState,
@@ -94,11 +91,15 @@ const AngerContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  const onSaveButtonWithNoContentClick = async () => {
+  const onSaveButtonWithContentClick = async () => {
     const currentDateWithTime = getFullDateWithTime();
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Złość")
+      .CreateActivityWithContent(
+        currentDateWithTime,
+        slidesInputsValue,
+        "Złość",
+      )
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -112,19 +113,6 @@ const AngerContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-  };
-
-  const onSaveButtonClick = () => {
-    dispatch(
-      createNote({
-        contentName: "Złość",
-        title: "Złość",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
-        hiddenDescription: "",
-      }),
-    );
-
-    history.replace("/note");
   };
 
   const onSlideChangeHandler = () => {
@@ -157,10 +145,9 @@ const AngerContainer: React.FC = () => {
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}
-      onEndButtonClick={onEndButtonClick}
+      onContinueButtonClick={onContinueButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonWithNoContentClick={onSaveButtonWithNoContentClick}
-      onSaveButtonClick={onSaveButtonClick}
+      onSaveButtonWithContentClick={onSaveButtonWithContentClick}
       onSlideChangeHandler={onSlideChangeHandler}
     />
   );

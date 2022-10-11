@@ -74,7 +74,8 @@ const BreathingContainer: React.FC = () => {
       createNote({
         contentName: "Oddychanie",
         title: "Oddychanie",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
+        description:
+          "Co zaobserwowałeś_aś po wykonanej aktywności? Jak się czułeś_aś?",
         hiddenDescription: "",
       }),
     );

@@ -142,9 +142,9 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <h4 className="swiper-slide__header">Gratulację!</h4>
               <p className="swiper-slide__paragraph">
-                Po prysznicu przemyśl, co czułeś/aś? Co dało Ci to ćwiczenie?
+                Po prysznicu przemyśl, co czułeś_aś? Co dało Ci to ćwiczenie?
                 Czy udało Ci się oczyścić umysł z myśli?
               </p>
             </div>
@@ -163,7 +163,7 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Dodaj"
+            title="Zapisz"
             onClick={onCreateActivityWithContent}
           />
         </div>

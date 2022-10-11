@@ -45,7 +45,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 7) return null;
+    if (swiper?.activeIndex === 22) return null;
 
     return (
       <div className="walking__header">
@@ -266,7 +266,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    if (swiper?.activeIndex === 7) {
+    if (swiper?.activeIndex === 22) {
       return (
         <div className="final-buttons">
           <ProceedButton

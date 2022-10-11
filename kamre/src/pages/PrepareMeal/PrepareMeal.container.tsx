@@ -22,7 +22,7 @@ const PrepareMealContainer: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createWalkingWithNoContent = async () => {
+  const createPrepareMealWithNoContent = async () => {
     setIsLoading(true);
     await apiService
       .CreateActivityWithNoContent(
@@ -44,17 +44,17 @@ const PrepareMealContainer: React.FC = () => {
       );
   };
 
-  const createWalkingWithContent = () => {
+  const createPrepareMealWithContent = () => {
     dispatch(
       createNote({
         contentName: "Przygotuj coś pysznego",
         title: "Przygotuj coś pysznego",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
+        description: "Co zaobserwowałeś_aś po aktywności? Jak się czułeś_aś?",
         hiddenDescription: "",
       }),
     );
 
-    history.replace("/home");
+    history.replace("/note");
   };
 
   const onProceedButtonClick = () => {
@@ -86,8 +86,8 @@ const PrepareMealContainer: React.FC = () => {
 
   return (
     <PrepareMeal
-      onCreateActivityWithNoContent={createWalkingWithNoContent}
-      onCreateActivityWithContent={createWalkingWithContent}
+      onCreateActivityWithNoContent={createPrepareMealWithNoContent}
+      onCreateActivityWithContent={createPrepareMealWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}

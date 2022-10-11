@@ -19,6 +19,7 @@ import Avatar from "@Assets/image.png";
 import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
 import { useHistory, useLocation } from "react-router";
+import { FiSettings } from "react-icons/fi";
 
 const Home: React.FC = () => {
   const location = useLocation();
@@ -30,6 +31,8 @@ const Home: React.FC = () => {
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
+
+  const onSettingsClick = () => history.replace("/settings")
 
   useEffect(() => {
     window.addEventListener("beforeunload", () => replaceHistory);
@@ -118,11 +121,7 @@ const Home: React.FC = () => {
         <IonToolbar>
           <div className="homepage-toolbar">
             <div className="ion-title">Home</div>
-            <img
-              className="homepage-toolbar__image"
-              src={Avatar}
-              alt="avatar"
-            />
+            <FiSettings size={25} onClick={onSettingsClick}/>
           </div>
         </IonToolbar>
       </IonHeader>

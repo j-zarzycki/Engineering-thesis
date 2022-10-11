@@ -145,7 +145,7 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
-                Pomyśl, jak czułeś/aś się podczas gotowania? Czy miałeś/aś
+                Pomyśl, jak czułeś_aś się podczas gotowania? Czy miałeś_aś
                 jakieś problemy, opory?
               </p>
             </div>
@@ -164,7 +164,7 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Dodaj"
+            title="Zapisz"
             onClick={onCreateActivityWithContent}
           />
         </div>

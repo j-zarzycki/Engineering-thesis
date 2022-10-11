@@ -31,7 +31,6 @@ interface IProps {
   onEndButtonClick(): void;
   onDestroyButtonClick(): void;
   setToast(value: {}): void;
-  onSaveButtonWithNoContentClick(): void;
   onSaveButtonClick(): void;
   onSlideChangeHandler(): void;
   isLoading: boolean;
@@ -64,7 +63,6 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
     onEndButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonWithNoContentClick,
     onSaveButtonClick,
     swiper,
     slidesInputsValue,
@@ -123,11 +121,11 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Wpisz jaki jesteś:</h4>
+              <h4 className="swiper-slide__header">Napisz to!</h4>
               <p className="swiper-slide__paragraph">
                 <Input
                   type="text"
-                  placeholder="Wpisz jaki jesteś..."
+                  placeholder="Wpisz tutaj..."
                   onChange={onInputChange}
                 />
               </p>
@@ -211,7 +209,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
           }}
         >
           <div className="visualization__list">
-            <h4>Super! Oto co wypisałeś</h4>
+            <h4>Super! Oto co wypisałeś_aś</h4>
             <ul>{renderVisualizationDataList()}</ul>
             <p>
               Pomyśl, co musisz zrobić, aby być bardziej taką osobą! Jak
@@ -261,15 +259,9 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <h4>Przemyślenia</h4>
-            <p>
-              Czy chcesz zapisać swoje przemyślenia po wykonaniu tego ćwiczenia?
-            </p>
+            <h4>Gratulację!</h4>
+            <p>Bla, bla, bla, Bla, bla, bla,</p>
             <div className="visualization__final-buttons">
-              <CancelButton
-                title="Zakończ"
-                onClick={onSaveButtonWithNoContentClick}
-              />
               <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
             </div>
           </div>

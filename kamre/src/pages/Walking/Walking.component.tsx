@@ -144,7 +144,7 @@ const Walking: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś/aś po spacerze? Jak się czułeś/aś? Co dało Ci
+                Co zaobserwowałeś_aś po spacerze? Jak się czułeś_aś? Co dało Ci
                 to ćwiczenie?
               </p>
             </div>

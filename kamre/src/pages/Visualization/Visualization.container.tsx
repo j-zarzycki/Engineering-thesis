@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 
-import { createNote } from "@Store/slices/noteSlice";
 import { getFullDateWithTime } from "@Utils/date";
-import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
@@ -28,7 +26,6 @@ const VisualizationContainer: React.FC = () => {
   });
   const history = useHistory();
   const slideElements = 3;
-  const dispatch = useAppDispatch();
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -48,11 +45,11 @@ const VisualizationContainer: React.FC = () => {
     return (
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
-          <h4 className="swiper-slide__header">Wpisz jaki jesteś:</h4>
+          <h4 className="swiper-slide__header">Napisz to!</h4>
           <p className="swiper-slide__paragraph">
             <Input
               type="text"
-              placeholder="Wpisz jaki jesteś..."
+              placeholder="Wpisz tutaj..."
               onChange={onInputChange}
             />
           </p>
@@ -94,12 +91,13 @@ const VisualizationContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  const onSaveButtonWithNoContentClick = async () => {
+  const onSaveButtonClick = async () => {
     const currentDateWithTime = getFullDateWithTime();
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(
+      .CreateActivityWithContent(
         currentDateWithTime,
+        slidesInputsValue,
         "Wizualizacja swojego procesu zmiany",
       )
       .then(() => {
@@ -115,19 +113,6 @@ const VisualizationContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-  };
-
-  const onSaveButtonClick = () => {
-    dispatch(
-      createNote({
-        contentName: "Wizualizacja swojego procesu zmiany",
-        title: "Wizualizacja swojego procesu zmiany",
-        description: "Co zaobserwowałeś/aś po aktywności? Jak się czułeś/aś?",
-        hiddenDescription: "",
-      }),
-    );
-
-    history.push("/note");
   };
 
   const onSlideChangeHandler = () => {
@@ -163,7 +148,6 @@ const VisualizationContainer: React.FC = () => {
       onInputChange={onInputChange}
       onEndButtonClick={onEndButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonWithNoContentClick={onSaveButtonWithNoContentClick}
       onSaveButtonClick={onSaveButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
     />

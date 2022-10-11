@@ -20,6 +20,10 @@ const GratitudeContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const [pageController, setPageController] = useState({
+    isMainContextVisible: true,
+    isFinalVisible: false,
+  });
   const history = useHistory();
   const slideElements = 3;
 
@@ -42,7 +46,7 @@ const GratitudeContainer: React.FC = () => {
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
           <h4 className="swiper-slide__header">
-            Wpisz za co jesteś wdzięczny/na:
+            Wpisz za co jesteś wdzięczny_na:
           </h4>
           <p className="swiper-slide__paragraph">
             <Input
@@ -64,7 +68,10 @@ const GratitudeContainer: React.FC = () => {
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = async () => {
+  const onContinueButtonClick = () =>
+    setPageController({ isMainContextVisible: false, isFinalVisible: true });
+
+  const onSaveActivityWithContent = async () => {
     const currentDate = getFullDateWithTime();
     setIsLoading(true);
     await apiService
@@ -113,13 +120,15 @@ const GratitudeContainer: React.FC = () => {
       swiper={swiper}
       toast={toast}
       isAddingDisabled={isAddingDisabled}
+      pageController={pageController}
       setSwiper={setSwiper}
       setToast={setToast}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}
-      onEndButtonClick={onEndButtonClick}
+      onSaveActivityWithContent={onSaveActivityWithContent}
       onSwipeHandle={onSwipeHandle}
+      onContinueButtonClick={onContinueButtonClick}
     />
   );
 };

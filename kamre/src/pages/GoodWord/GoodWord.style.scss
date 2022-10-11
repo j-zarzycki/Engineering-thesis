@@ -25,6 +25,7 @@
     }
   }
 
+  &__continue-buttons,
   &__final-buttons {
     width: 100%;
     display: flex;
@@ -84,6 +85,10 @@
 }
 @include mobile-xsmall {
   .good-word {
+    &__final-buttons {
+      margin-top: 35px;
+    }
+
     &__wrapper {
       height: 100%;
 
@@ -115,6 +120,10 @@
 
 @include mobile-small {
   .good-word {
+    &__final-buttons {
+      margin-top: 85px;
+    }
+
     &__wrapper {
       height: 100%;
 
@@ -126,7 +135,7 @@
       }
     }
 
-    &__final-buttons {
+    &__continue-buttons {
       margin-top: 60px;
     }
 
@@ -148,6 +157,10 @@
 
 @include mobile-medium {
   .good-word {
+    &__final-buttons {
+      margin-top: 115px;
+    }
+
     &__wrapper {
       height: 100%;
 

@@ -1,5 +1,11 @@
 import React from "react";
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonLoading,
+  IonToast,
+  CreateAnimation,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -12,10 +18,13 @@ import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
+import SaveActivityButton from "@Components/SaveActivityButton";
+import PetHappy from "@Assets/happy.png";
 
 import "./SmallSteps.style.scss";
 
 interface IProps {
+  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   canSwipe: boolean;
   isLoading: boolean;
   currentSlide: number;
@@ -29,13 +38,15 @@ interface IProps {
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onEndButtonClick(): void;
   setToast(value: {}): void;
   onSwipeHandle(): void;
+  onSaveActivityWithContent(): void;
+  onContinueButtonClick(): void;
 }
 
 const SmallSteps: React.FC<IProps> = (props: IProps) => {
   const {
+    pageController,
     canSwipe,
     currentSlide,
     slideElements,
@@ -48,10 +59,11 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     setSwiper,
     onProceedButtonClick,
     onAddSlide,
-    onEndButtonClick,
     onInputChange,
     setToast,
     onSwipeHandle,
+    onSaveActivityWithContent,
+    onContinueButtonClick,
   } = props;
 
   const renderHeader = () => {
@@ -136,7 +148,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="small-steps__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -171,15 +183,58 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
+  const renderFinalStep = () => {
+    const { isFinalVisible } = pageController;
     return (
-      <div className="small-steps__wrapper">
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButtons()}
-      </div>
+      <CreateAnimation
+        play={isFinalVisible}
+        duration={2000}
+        fromTo={{
+          property: "opacity",
+          fromValue: "0",
+          toValue: "1",
+        }}
+      >
+        <div className="small-steps__wrapper">
+          <Pet
+            src={PetHappy}
+            alt="Uśmiechnięta ośmiorniczka jpg"
+            height="200px"
+            paddingTop="20px"
+            paddingBottom="20px"
+          />
+          <h4>Gratulację!</h4>
+          <p>
+            Wszystkie treści które wpisałeś będą widoczne w Szybkiej Pomocy,
+            możesz poprosić też bliskich o wpisanie słów otuchy dla Ciebie,
+            które przydadzą Ci się w stresowej sytuacji.
+          </p>
+          <div className="small-steps__final-buttons">
+            <SaveActivityButton
+              title="Zakończ"
+              onClick={onSaveActivityWithContent}
+            />
+          </div>
+        </div>
+      </CreateAnimation>
     );
+  };
+
+  const renderContext = () => {
+    const { isMainContextVisible } = pageController;
+
+    if (isMainContextVisible) {
+      return (
+        <div className="small-steps__wrapper">
+          {renderImage()}
+          {renderProgressBar()}
+          {renderSwiper()}
+          {renderButtons()}
+        </div>
+      );
+    }
+
+    return <div className="small-steps__wrapper">{renderFinalStep()}</div>;
   };
 
   const renderLoader = () => {

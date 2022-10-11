@@ -20,6 +20,10 @@ const GoodWordContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const [pageController, setPageController] = useState({
+    isMainContextVisible: true,
+    isFinalVisible: false,
+  });
   const history = useHistory();
   const slideElements = 3;
 
@@ -64,7 +68,9 @@ const GoodWordContainer: React.FC = () => {
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = async () => {
+  const onContinueButtonClick = () =>
+    setPageController({ isMainContextVisible: false, isFinalVisible: true });
+  const onSaveActivityWithContent = async () => {
     const currentDate = getFullDateWithTime();
     setIsLoading(true);
     await apiService
@@ -108,6 +114,7 @@ const GoodWordContainer: React.FC = () => {
 
   return (
     <GoodWord
+      pageController={pageController}
       canSwipe={canSwipe}
       isLoading={isLoading}
       currentSlide={currentSlide}
@@ -122,8 +129,9 @@ const GoodWordContainer: React.FC = () => {
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}
-      onEndButtonClick={onEndButtonClick}
       onSwipeHandle={onSwipeHandle}
+      onSaveActivityWithContent={onSaveActivityWithContent}
+      onContinueButtonClick={onContinueButtonClick}
     />
   );
 };

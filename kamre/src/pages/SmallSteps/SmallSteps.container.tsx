@@ -16,10 +16,14 @@ const SmallStepsContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
-  const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
+  const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const [pageController, setPageController] = useState({
+    isMainContextVisible: true,
+    isFinalVisible: false,
+  });
   const history = useHistory();
   const slideElements = 3;
 
@@ -41,9 +45,7 @@ const SmallStepsContainer: React.FC = () => {
     return (
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
-          <h4 className="swiper-slide__header">
-            Napisz do siebie jakąś miłą wiadomość!
-          </h4>
+          <h4 className="swiper-slide__header">Jestem z siebie dumny, bo:</h4>
           <p className="swiper-slide__paragraph">
             <Input
               type="text"
@@ -64,7 +66,13 @@ const SmallStepsContainer: React.FC = () => {
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = async () => {
+  const onContinueButtonClick = () =>
+    setPageController({ isMainContextVisible: false, isFinalVisible: true });
+
+  const onSaveActivityWithContent = async () => {
+    if (slideInputValue.length > 0) {
+      setSlidesInputsValue((prevState) => [...prevState, slideInputValue]);
+    }
     const currentDate = getFullDateWithTime();
     setIsLoading(true);
     await apiService
@@ -105,6 +113,7 @@ const SmallStepsContainer: React.FC = () => {
 
   return (
     <GoodWord
+      pageController={pageController}
       canSwipe={canSwipe}
       isLoading={isLoading}
       currentSlide={currentSlide}
@@ -119,8 +128,9 @@ const SmallStepsContainer: React.FC = () => {
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}
-      onEndButtonClick={onEndButtonClick}
       onSwipeHandle={onSwipeHandle}
+      onSaveActivityWithContent={onSaveActivityWithContent}
+      onContinueButtonClick={onContinueButtonClick}
     />
   );
 };

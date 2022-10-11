@@ -1,5 +1,11 @@
 import React from "react";
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonLoading,
+  IonToast,
+  CreateAnimation,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
@@ -9,13 +15,16 @@ import "swiper/css";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
+import SaveActivityButton from "@Components/SaveActivityButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
+import PetHappy from "@Assets/happy.png";
 
 import "./GoodWord.style.scss";
 
 interface IProps {
+  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   canSwipe: boolean;
   isLoading: boolean;
   currentSlide: number;
@@ -29,9 +38,10 @@ interface IProps {
   onProceedButtonClick(): void;
   onAddSlide(): void;
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onEndButtonClick(): void;
   setToast(value: {}): void;
   onSwipeHandle(): void;
+  onSaveActivityWithContent(): void;
+  onContinueButtonClick(): void;
 }
 
 const GoodWord: React.FC<IProps> = (props: IProps) => {
@@ -45,13 +55,15 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     swiper,
     isLoading,
     toast,
+    pageController,
     setSwiper,
     onProceedButtonClick,
     onAddSlide,
-    onEndButtonClick,
     onInputChange,
     setToast,
     onSwipeHandle,
+    onSaveActivityWithContent,
+    onContinueButtonClick,
   } = props;
 
   const renderHeader = () => {
@@ -135,8 +147,8 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="good-word__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+        <div className="good-word__continue-buttons">
+          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -171,15 +183,53 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
+  const renderFinalStep = () => {
+    const { isFinalVisible } = pageController;
     return (
-      <div className="good-word__wrapper">
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButtons()}
-      </div>
+      <CreateAnimation
+        play={isFinalVisible}
+        duration={2000}
+        fromTo={{
+          property: "opacity",
+          fromValue: "0",
+          toValue: "1",
+        }}
+      >
+        <div className="good-word__wrapper">
+          <Pet
+            src={PetHappy}
+            alt="Uśmiechnięta ośmiorniczka jpg"
+            height="200px"
+            paddingTop="20px"
+            paddingBottom="20px"
+          />
+          <h4>Gratulację!</h4>
+          <p>Bla, bla, bla, bla, bla, bla, bla, bla, bla, bla, bla,</p>
+          <div className="good-word__final-buttons">
+            <SaveActivityButton
+              title="Zapisz"
+              onClick={onSaveActivityWithContent}
+            />
+          </div>
+        </div>
+      </CreateAnimation>
     );
+  };
+
+  const renderContext = () => {
+    const { isMainContextVisible } = pageController;
+
+    if (isMainContextVisible) {
+      return (
+        <div className="good-word__wrapper">
+          {renderImage()}
+          {renderProgressBar()}
+          {renderSwiper()}
+          {renderButtons()}
+        </div>
+      );
+    }
+    return <div className="good-word__wrapper">{renderFinalStep()}</div>;
   };
 
   const renderLoader = () => {
