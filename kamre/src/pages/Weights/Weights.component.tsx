@@ -32,7 +32,6 @@ interface IProps {
   onEndButtonClick(): void;
   onDestroyButtonClick(): void;
   setToast(value: {}): void;
-  onSaveButtonWithNoContentClick(): void;
   onSaveButtonClick(): void;
   onSlideChangeHandler(): void;
   isLoading: boolean;
@@ -65,7 +64,6 @@ const Weights: React.FC<IProps> = (props: IProps) => {
     onEndButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonWithNoContentClick,
     onSaveButtonClick,
     swiper,
     slidesInputsValue,
@@ -261,15 +259,9 @@ const Weights: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <h4>Przemyślenia</h4>
-            <p>
-              Czy chcesz zapisać swoje przemyślenia po wykonaniu tego ćwiczenia?
-            </p>
-            <div className="final-buttons">
-              <CancelButton
-                title="Zakończ"
-                onClick={onSaveButtonWithNoContentClick}
-              />
+            <h4>Gratulacje!</h4>
+            <p>Bla, bla, bla, bla, bla, bla, bla, bla,</p>
+            <div className="weights__final-buttons">
               <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
             </div>
           </div>
