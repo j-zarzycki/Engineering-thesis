@@ -79,7 +79,7 @@ const BreathingContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    history.replace("/note");
   };
 
   useEffect(() => {

@@ -31,7 +31,7 @@ const MusicContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.push("/home");
+        history.replace("/home");
       })
       .catch(() =>
         setToast({
@@ -52,7 +52,7 @@ const MusicContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    history.replace("/home");
   };
 
   const onProceedButtonClick = () => {

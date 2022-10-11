@@ -14,7 +14,7 @@ const BackButton: React.FC<IProps> = (props: IProps) => {
 
   const onClickHandler = () => {
     console.log("default = ", defaultHref);
-    history.goBack();
+    history.replace("/home");
   };
 
   return (

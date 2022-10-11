@@ -34,7 +34,7 @@ const BikeContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.push("/home");
+        history.replace("/home");
       })
       .catch(() =>
         setToast({
@@ -54,7 +54,7 @@ const BikeContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    history.replace("/note");
   };
 
   const onProceedButtonClick = () => {

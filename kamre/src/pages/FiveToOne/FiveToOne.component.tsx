@@ -48,7 +48,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex === 7) return null;
 
     return (
-      <div className="walking__header">
+      <div className="fiveToOne__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -151,7 +151,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   const renderProceedButton = () => {
     if (swiper?.activeIndex === 7) {
       return (
-        <div className="final-buttons">
+        <div className="fiveToOne__final-buttons">
           <ProceedButton
             title="Powtórz"
             onClick={handleRepeatButtonClick}
@@ -184,7 +184,7 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="good-word__loader"
+        cssClass="fiveToOne__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />

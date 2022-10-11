@@ -19,7 +19,7 @@ const PreviousDayContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    history.replace("/note");
   };
 
   return (

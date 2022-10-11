@@ -74,7 +74,7 @@ const GoodWordContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.push("/home");
+        history.replace("/home");
       })
       .catch(() =>
         setToast({

@@ -35,7 +35,7 @@ const FeetContainer: React.FC = () => {
       .CreateActivityWithNoContent(dateTime, "Stopy")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
+        history.replace("/home");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>
@@ -54,7 +54,7 @@ const FeetContainer: React.FC = () => {
 
   const handleFinishButtonClick = async () => {
     createFeetNoContent();
-    history.push("/home");
+    history.replace("/home");
   };
 
   const onSlideChangeHandler = () => {

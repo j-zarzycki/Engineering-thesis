@@ -54,16 +54,18 @@ const FiveToOneContainer: React.FC = () => {
       .CreateActivityWithNoContent(dateTime, "5-4-3-2-1")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false);
+        history.replace("/home");
+      })
       .catch(() =>
         setToast({
           isOpen: true,
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-    history.push("/home");
+    history.replace("/home");
   };
 
   const onSlideChangeHandler = () => {

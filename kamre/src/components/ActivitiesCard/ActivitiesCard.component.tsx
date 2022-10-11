@@ -6,7 +6,7 @@ import ActivityCard from "@Components/ActivityCard";
 import { useHistory } from "react-router";
 
 const ActivitiesCard = forwardRef((_props, ref: any) => {
-  const cardVariant = "medium";
+  const cardVariant = "small";
   const history = useHistory();
 
   const renderHolder = () => {
@@ -96,7 +96,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         <ActivityCard
           variant={cardVariant}
           title="Ostudzenie napięcia"
-          onClick={() => onCardClick("smallsteps")}
+          onClick={() => onCardClick("coldwater")}
         />
         <ActivityCard
           variant={cardVariant}
@@ -112,6 +112,11 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
           variant={cardVariant}
           title="Film edukacyjny"
           onClick={() => onCardClick("ytpage")}
+        />
+        <ActivityCard
+          variant={cardVariant}
+          title="Trening schultza"
+          onClick={() => onCardClick("schulztraining")}
         />
       </div>
     );
