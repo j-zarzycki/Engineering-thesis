@@ -8,6 +8,7 @@ import services.jwt_svc as jwt_svc
 import jwt
 from flask_socketio import SocketIO, send
 from dotenv import load_dotenv
+# import simple_websocket
 load_dotenv()
 import os
 
@@ -187,11 +188,12 @@ def get_recommended():
 @app.route("/setEmergency", methods=['POST'])
 def set_emergency():
     res = request.get_json()
-    tip_id = res['tip_id']
+    # tip_id = res['tip_id']
     tip = res['tip']
-    svc.set_emergency(tip_id, tip)
+    for el in tip:
+        svc.set_emergency(el)
 
-    return jsonify({'res': f'Created tip {tip} with id {tip_id}'})
+    return jsonify({'res': f'Created tip {tip}'})
 
 
 @app.route("/getEmergency", methods=['GET'])
@@ -230,11 +232,58 @@ def set_recent():
         return user_id
 
 
+@app.route("/account", methods=['DELETE'])
+def delete_account():
+    status, user_id = check()
+    if status:
+        svc.delete_account(user_id)
+
+        return jsonify({'res': 'Account and all archived activities deleted'})
+
+    else:
+        return user_id
+
+
+@app.route("/recovery", methods=['GET'])
+def generate_code():
+    status, user_id = check()
+    if status:
+        while True:
+            recovery_code = svc.generate_recovery(user_id)
+            if recovery_code is not None:
+                break
+        return jsonify({'recovery_code': recovery_code})
+    else:
+        return user_id
+
+
+@app.route("/recovery", methods=['POST'])
+def migrate_account():
+    res = request.get_json()
+    recovery_code = res['recovery_code']
+    user_id = res['device_id']
+
+    if svc.migrate_account(recovery_code, user_id):
+        return jsonify({'res': 'Account updated'})
+    else:
+        return jsonify({'res': 'Invalid code'}), 400
+
+@app.route("/getBlurb", methods=['GET'])
+def get_blurb():
+    status, user_id = check()
+    if status:
+        return jsonify({'res': svc.get_blurb(user_id)})
+    else:
+        return user_id
+
 @socketio.event(namespace='/chat')
 def connect():
     try:
         token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
-        svc.user_clear_chat_answers(token['device_id'])
+        if request.headers['is_continuation'] == 'false':
+            svc.user_clear_chat_answers(token['device_id'])
+        else:
+            pass
         return True
     except:
         return False
@@ -243,11 +292,13 @@ def connect():
 @socketio.on('message', namespace='/chat')
 def handleMessage(msg):
     token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
-    if msg == 'User has connected!':
-        response, av_answers = menu.opener()
+    if msg == 'User has connected!' and request.headers['is_continuation'] == 'false':
+        response, av_answers, type = menu.opener()
+    elif request.headers['is_continuation'] == 'true' and msg == 'User has connected!':
+        response, av_answers, type = menu.confirmation_opener()
     else:
-        response, av_answers = menu.chat(token['device_id'], msg)
-    res = {'Question': response, 'Answers': av_answers}
+        response, av_answers, type = menu.chat(token['device_id'], msg)
+    res = {'Question': response, 'Answers': av_answers, 'is_activity': type}
     send(res)
 
 

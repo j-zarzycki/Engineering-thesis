@@ -6,11 +6,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: $font-main;
 
-    .proceed-button {
-      margin-top: auto;
-      margin-bottom: 50px;
+    h4 {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-xl;
+      margin-bottom: 15px;
     }
+
+    p {
+      font-weight: $font-weight-m;
+      font-size: $font-size-m;
+      line-height: 24px;
+      color: $secondary-gray-90;
+      text-align: center;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  &__final-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
   }
 
   &__header {
@@ -23,28 +42,6 @@
     margin-top: 43px;
 
     .swiper {
-      &__proceed-buttons {
-        &-enter {
-          opacity: 0;
-          transform: scale(0.9);
-
-          &-active {
-            opacity: 1;
-            transform: translateX(0);
-            transition: opacity 300ms, transform 300ms;
-          }
-        }
-
-        &-exit {
-          opacity: 1;
-
-          &-active {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 300ms, transform 300ms;
-          }
-        }
-      }
       &-slide {
         &__wrapper {
           display: flex;
@@ -84,25 +81,21 @@
       }
     }
   }
-
-  .final-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
 }
 @include mobile-xsmall {
   .gratitude {
+    &__final-buttons {
+      margin-top: 35px;
+    }
+
     &__wrapper {
       height: 100%;
 
       .proceed-button {
+        width: 90%;
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
-        margin-bottom: 0;
-        margin-top: 10px;
       }
     }
 
@@ -126,21 +119,25 @@
 
 @include mobile-small {
   .gratitude {
+    &__final-buttons {
+      margin-top: 85px;
+    }
     &__wrapper {
       height: 100%;
 
       .proceed-button {
-        margin-top: 60px;
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
+        width: 90%;
       }
+    }
 
-      button {
-        &.save-activity-button {
-          margin-top: 10px;
-        }
-      }
+    &__final-buttons, &__continue-buttons {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
 
     &__swiper {
@@ -161,19 +158,17 @@
 
 @include mobile-medium {
   .gratitude {
+    &__final-buttons {
+      margin-top: 115px;
+    }
     &__wrapper {
       height: 100%;
 
       .proceed-button {
         font-size: 24px;
+        width: 90%;
         height: 75px;
         transition: all 0.3s;
-      }
-
-      button {
-        &.save-activity-button {
-          margin-top: 10px;
-        }
       }
     }
 

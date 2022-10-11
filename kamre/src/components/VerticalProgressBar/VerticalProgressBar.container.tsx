@@ -39,6 +39,13 @@ const VerticalProgressBarContainer: React.FC<IProps> = (props: IProps) => {
   };
 
   const onCurrentElementChange = () => {
+    const allActiveElements = document.querySelectorAll(
+      ".vertical-progress-bar__element--active",
+    );
+    allActiveElements.forEach((element) =>
+      element?.classList.remove("vertical-progress-bar__element--active"),
+    );
+
     if (currentElement === 0) {
       const element = document.querySelector(
         `[element-index="${currentElement}"]`,

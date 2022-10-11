@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import happy from "@Assets/happy.png";
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
 import FiveToOne from "./FiveToOne.component";
@@ -22,6 +23,9 @@ const FiveToOneContainer: React.FC = () => {
     setImg(MainImg);
 
     if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex === 7) {
+      setImg(happy);
+    }
   };
 
   const handleRepeatButtonClick = async () => {
@@ -50,16 +54,30 @@ const FiveToOneContainer: React.FC = () => {
       .CreateActivityWithNoContent(dateTime, "5-4-3-2-1")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false);
+        history.replace("/home");
+      })
       .catch(() =>
         setToast({
           isOpen: true,
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-    history.push("/home");
+    history.replace("/home");
+  };
+
+  const onSlideChangeHandler = () => {
+    setCurrentSlide(swiper?.activeIndex);
+    setImg(MainImg);
+    if (swiper?.activeIndex === 1) {
+      setImg(quote);
+    }
+
+    if (swiper?.activeIndex === 7) {
+      setImg(happy);
+    }
   };
 
   return (
@@ -75,6 +93,7 @@ const FiveToOneContainer: React.FC = () => {
       onProceedButtonClick={onProceedButtonClick}
       handleRepeatButtonClick={handleRepeatButtonClick}
       handleFinishButtonClick={handleFinishButtonClick}
+      onSlideChangeHandler={onSlideChangeHandler}
     />
   );
 };

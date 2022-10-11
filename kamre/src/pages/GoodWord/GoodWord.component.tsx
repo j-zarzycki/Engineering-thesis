@@ -1,60 +1,84 @@
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import React from "react";
+import {
+  IonContent,
+  IonPage,
+  IonLoading,
+  IonToast,
+  CreateAnimation,
+} from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
 
 // Import Swiper styles
 import "swiper/css";
 
+import Input from "@Components/Input";
+import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
+import SaveActivityButton from "@Components/SaveActivityButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
-import CancelButton from "@Components/CancelButton";
-import Input from "@Components/Input";
-
 import ProceedButton from "@Components/ProceedButton";
+import PetHappy from "@Assets/happy.png";
+
 import "./GoodWord.style.scss";
 
 interface IProps {
-  setSwiper(value: any): void;
-  onProceedButtonClick(): void;
-  onAddSlide(): void;
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onEndButtonClick(): void;
-  setToast(value: {}): void;
+  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
+  canSwipe: boolean;
+  isLoading: boolean;
   currentSlide: number;
   slideElements: number;
   img: string;
-  isAddingDisabled: boolean;
-  isLoading: boolean;
-  swiper: any;
   toast: { isOpen: boolean; message: string };
+  isAddingDisabled: boolean;
+  swiper: any;
   slides: React.ReactElement[];
+
+  setSwiper(value: any): void;
+
+  onProceedButtonClick(): void;
+
+  onAddSlide(): void;
+
+  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+
+  setToast(value: {}): void;
+
+  onSwipeHandle(): void;
+
+  onSaveActivityWithContent(): void;
+
+  onContinueButtonClick(): void;
 }
 
 const GoodWord: React.FC<IProps> = (props: IProps) => {
   const {
-    setSwiper,
+    canSwipe,
     currentSlide,
     slideElements,
-    onProceedButtonClick,
-    onAddSlide,
     img,
     slides,
     isAddingDisabled,
-    onEndButtonClick,
-    onInputChange,
     swiper,
-    setToast,
-    toast,
     isLoading,
+    toast,
+    pageController,
+    setSwiper,
+    onProceedButtonClick,
+    onAddSlide,
+    onInputChange,
+    setToast,
+    onSwipeHandle,
+    onSaveActivityWithContent,
+    onContinueButtonClick,
   } = props;
 
   const renderHeader = () => {
-    if (swiper?.activeIndex >= 3) return <div className="walking__header" />;
+    if (swiper?.activeIndex >= 3) return <div className="good-word__header" />;
 
     return (
-      <div className="walking__header">
+      <div className="good-word__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -70,18 +94,20 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="good-word__swiper">
         <Swiper
-          allowTouchMove={false}
+          allowTouchMove={canSwipe}
           effect="fade"
           slidesPerView={1}
           height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={onSwipeHandle}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Dobre słowo</h4>
               <p className="swiper-slide__paragraph">
-                To ćwiczenie wykonaj, gdy będziesz w dobrym nastroju - przyda
-                się na gorsze dni.
+                To ćwiczenie pozwoli Ci lekko zmienić perspektywę na swoje
+                życie. Świadoma koncentracja na pozytywnych emocjach otwiera nas
+                na bardziej pozytywne podejście.
               </p>
             </div>
           </SwiperSlide>
@@ -126,11 +152,11 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderButton = () => {
+  const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="good-word__buttons">
-          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
+        <div className="good-word__continue-buttons">
+          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -165,6 +191,59 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderFinalStep = () => {
+    const { isFinalVisible } = pageController;
+    return (
+      <CreateAnimation
+        play={isFinalVisible}
+        duration={2000}
+        fromTo={{
+          property: "opacity",
+          fromValue: "0",
+          toValue: "1",
+        }}
+      >
+        <div className="good-word__wrapper">
+          <Pet
+            src={PetHappy}
+            alt="Uśmiechnięta ośmiorniczka jpg"
+            height="200px"
+            paddingTop="20px"
+            paddingBottom="20px"
+          />
+          <h4>Gratulacje!</h4>
+          <p>
+            Wszystkie treści które wpisałeś będą widoczne w Szybkiej Pomocy,
+            możesz poprosić też bliskich o wpisanie słów otuchy dla Ciebie,
+            które przydadzą Ci się w stresowej sytuacji.
+          </p>
+          <div className="good-word__final-buttons">
+            <SaveActivityButton
+              title="Zapisz"
+              onClick={onSaveActivityWithContent}
+            />
+          </div>
+        </div>
+      </CreateAnimation>
+    );
+  };
+
+  const renderContext = () => {
+    const { isMainContextVisible } = pageController;
+
+    if (isMainContextVisible) {
+      return (
+        <div className="good-word__wrapper">
+          {renderImage()}
+          {renderProgressBar()}
+          {renderSwiper()}
+          {renderButtons()}
+        </div>
+      );
+    }
+    return <div className="good-word__wrapper">{renderFinalStep()}</div>;
+  };
+
   const renderLoader = () => {
     return (
       <IonLoading
@@ -188,24 +267,15 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderContext = () => {
-    return (
-      <div className="good-word__wrapper">
-        {renderToast()}
-        {renderLoader()}
-        {renderImage()}
-        {renderProgressBar()}
-        {renderSwiper()}
-        {renderButton()}
-      </div>
-    );
-  };
-
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderHeader()}
-        <div className="good-word">{renderContext()}</div>
+        <div className="good-word">
+          {renderLoader()}
+          {renderToast()}
+          {renderContext()}
+        </div>
       </IonContent>
     </IonPage>
   );

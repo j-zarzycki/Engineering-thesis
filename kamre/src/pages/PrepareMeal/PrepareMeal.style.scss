@@ -85,7 +85,7 @@
     }
   }
 
-  .final-buttons {
+  &__final-buttons {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -135,10 +135,6 @@
         height: 65px;
         transition: all 0.3s;
       }
-
-      .final-buttons {
-        margin-top: 60px;
-      }
     }
 
     &__swiper {
@@ -153,6 +149,10 @@
           }
         }
       }
+    }
+
+    &__final-buttons {
+      margin-top: 60px;
     }
   }
 }

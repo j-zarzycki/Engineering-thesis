@@ -1,0 +1,120 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.kamre-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(8, max(60px));
+  height: 516px;
+  width: 100%;
+  padding: 20px;
+  font-family: $font-main;
+  border-radius: $border-radius-s;
+  background-color: $secondary-gray-35;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1 / -1;
+    font-size: $font-size-l;
+    font-weight: $font-weight-l;
+
+    &-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      &--year {
+        font-family: $font-size-s;
+        font-weight: $font-weight-m;
+        font-size: $font-size-m;
+      }
+    }
+  }
+
+  &__dayOfWeek {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font-weight-xl;
+  }
+
+  &__day {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-wrapper {
+      justify-self: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      font-weight: $font-weight-xl;
+    }
+
+    &--prevMonth {
+      font-weight: $font-weight-s;
+    }
+
+    &--active {
+      background-color: $primary-color-90;
+      color: $color-white;
+      border-radius: 50%;
+    }
+
+    &-dot {
+      height: 5px;
+      width: 5px;
+      border-radius: 50%;
+
+      &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 25px;
+        margin: 5px 0;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      &--blue {
+        background-color: $color-blue;
+      }
+
+      &--yellow {
+        background-color: $color-yellow;
+      }
+
+      &--red {
+        background-color: $color-red;
+      }
+
+      &--green {
+        background-color: $color-green;
+      }
+    }
+  }
+}
+
+@include mobile-xsmall {
+  .kamre-calendar {
+    grid-template-rows: repeat(8, max(52px));
+    height: 442px;
+    padding: 15px;
+    font-size: $font-size-s;
+
+    &__header {
+      font-size: $font-size-m;
+    }
+
+    &__day {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

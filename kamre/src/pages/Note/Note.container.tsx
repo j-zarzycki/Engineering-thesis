@@ -41,7 +41,7 @@ const NoteContainer: React.FC = () => {
       .CreateActivityWithContent(currentDate, textAreaInput, prevContent)
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
+        history.replace("/home");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>
@@ -52,7 +52,24 @@ const NoteContainer: React.FC = () => {
       );
   };
 
-  const handleCancelButtonClick = () => history.push("/home");
+  const handleCancelButtonClick = async () => {
+    setIsLoading(true);
+    const currentDate = getFullDateWithTime();
+
+    await apiService
+      .CreateActivityWithNoContent(currentDate, prevContent)
+      .then(() => {
+        setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
+        history.replace("/home");
+      })
+      .finally(() => setIsLoading(false))
+      .catch(() =>
+        setToast({
+          isOpen: true,
+          message: "Wystąpił błąd podczas zapisywania.",
+        }),
+      );
+  };
 
   return (
     <Note
