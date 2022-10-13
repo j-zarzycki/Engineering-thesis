@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, useIonAlert, IonInput } from "@ionic/react";
+
+import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -19,15 +20,23 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onCreateActivityWithContent(): void;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
 }
 
 const Creativity: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
   const [showProceedButton, setShowProceedButton] = useState(true);
   const slideElements = SWIPE_ELEMENTS;
 
@@ -45,39 +54,52 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
       setImg(MainImg);
     }
   };
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
+
+  const renderHeader = () => {
+    if (swiper?.activeIndex === 3)
+      return <div className="conscious-shower__header" />;
+
+    return (
+      <div className="conscious-shower__header">
+        <BackButton defaultHref="/home" />
+      </div>
+    );
   };
 
-  const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="good-word__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
   };
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="sound-mix">
-          <BackButton defaultHref="/home" />
-          <div className="sound-mix__wrapper">
+        <div className="conscious-shower">
+          {renderToast()}
+          {renderLoader()}
+          {renderHeader()}
+          <div className="conscious-shower__wrapper">
             <Pet
               src={img}
-              alt="Ośmiorniczka ze znakiem zapytania jpg"
+              alt="Uśmiechnięta ośmiorniczka jpg"
               height="200px"
               paddingTop="20px"
               paddingBottom="20px"
@@ -86,7 +108,6 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
               currentElement={currentSlide}
               elements={slideElements}
             />
-            ;
             <div className="conscious-shower__swiper">
               <Swiper
                 allowTouchMove={false}
@@ -97,69 +118,51 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
               >
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">Muzyka dla duszy</h4>
-                    <p className="swiper-slide__description">
-                      Muzyka jest jedną z najlepszych rzeczy dla serca i duszy -
-                      pomaga łagodzić ból, poprawia nastrój i budzi w nas
-                      pozytywne emocje. W skrócie, czyni nas szczęśliwszymi!
+                    <h4 className="swiper-slide__header">
+                      Mięsień kreatywności
+                    </h4>
+                    <p className="swiper-slide__paragraph">
+                      Czasami nasz umysł do wyciszenia potrzebuje kreatywnej
+                      rozrywki.
                     </p>
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
                   <div className="swiper-slide__wrapper">
                     <h4 className="swiper-slide__header">
-                      O co chodzi w ćwiczeniu?
+                      10 sposobów na.. kawę!
                     </h4>
-                    <p className="swiper-slide__description">
-                      Puść swoją ulubioną piosenkę lub playlistę! Oglądałeś
-                      Stranger Thnigs? Czas otwórzyć własny magiczny portal i
-                      uciec w przyjemniejsze miejsce. Spróbuj poczuć muzykę,
-                      każde jej brzmienie. Jeśli masz ochotę, rozluźnij mięśnie
-                      i zacznij poruszać w rytm muzyki. Poczuj napływ endorfin!
+                    <p className="swiper-slide__paragraph">
+                      Wypisz 10 niekonencjonalych sposobów na zaparzenie kawy.
+                      Im bardziej szalone tym lepiej !
                     </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <p className="swiper-slide__description">
-                      Szukasz muzycznych inspiracji? Sprawdź naszą playlistę!
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      Gratulacje, udało&nbsp;Ci&nbsp;się!
-                    </h4>
                   </div>
                 </SwiperSlide>
               </Swiper>
             </div>
-            <div className="sound-mix__buttons">
-              {showProceedButton && (
-                <ProceedButton title="Dalej" onClick={onProceedButtonClick} />
-              )}
+            {showProceedButton && (
+              <ProceedButton title="Dalej" onClick={onProceedButtonClick} />
+            )}
 
-              <CSSTransition
-                in={!showProceedButton}
-                timeout={300}
-                classNames="swiper__proceed-buttons"
-                unmountOnExit
-                onEnter={() => setShowProceedButton(false)}
-                onExited={() => setShowProceedButton(true)}
-              >
-                <div>
-                  <CancelButton
-                    title="Dodaj przemyślenia"
-                    onClick={onProceedButtonClickWithContent}
-                  />
-                  <SaveActivityButton
-                    title="Zakończ"
-                    onClick={onCreateActivityWithNoContent}
-                  />
-                </div>
-              </CSSTransition>
-            </div>
+            <CSSTransition
+              in={!showProceedButton}
+              timeout={300}
+              classNames="swiper__proceed-buttons"
+              unmountOnExit
+              onEnter={() => setShowProceedButton(false)}
+              onExited={() => setShowProceedButton(true)}
+            >
+              <div className="final-buttons">
+                <CancelButton
+                  title="Zakończ"
+                  onClick={onCreateActivityWithNoContent}
+                />
+                <SaveActivityButton
+                  title="Dalej"
+                  onClick={onCreateActivityWithContent}
+                />
+              </div>
+            </CSSTransition>
           </div>
         </div>
       </IonContent>
