@@ -26,14 +26,23 @@ import "./Weights.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
+
   onProceedButtonClick(): void;
+
   onAddSlide(): void;
+
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+
   onEndButtonClick(): void;
+
   onDestroyButtonClick(): void;
+
   setToast(value: {}): void;
+
   onSaveButtonClick(): void;
+
   onSlideChangeHandler(): void;
+
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
@@ -260,9 +269,13 @@ const Weights: React.FC<IProps> = (props: IProps) => {
               paddingBottom="20px"
             />
             <h4>Gratulacje!</h4>
-            <p>Bla, bla, bla, bla, bla, bla, bla, bla,</p>
+            <p>
+              Często nosimy w sobie emocje, które powodują u nas ucisk w sercu,
+              na duszy. Zaakceptuj te uczucia i próbuj wybaczać je sobie. Wiem,
+              to trudne zadanie ale jestem przekonana, że Ci się uda!
+            </p>
             <div className="weights__final-buttons">
-              <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
+              <SaveActivityButton title="Gotowe" onClick={onSaveButtonClick} />
             </div>
           </div>
         </CreateAnimation>
