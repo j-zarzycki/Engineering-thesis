@@ -41,6 +41,7 @@ import ColdWater from "./pages/ColdWater";
 import Creativity from "./pages/Creativity";
 import Breathing from "./pages/Breathing";
 import SchulzTraining from "./pages/SchulzTraining";
+import WelcomePage from "./pages/WelcomePage";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -79,6 +80,7 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+            <Route path="/welcomepage" component={WelcomePage} />
             <Route path="/shower" component={ConsciousShower} />
             <Route path="/home" component={Home} />
             <Route path="/settings" component={Settings} />

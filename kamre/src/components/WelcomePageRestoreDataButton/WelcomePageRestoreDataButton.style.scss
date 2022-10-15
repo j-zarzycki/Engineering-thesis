@@ -1,0 +1,34 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.welcome-page-restore-data-button {
+  box-sizing: border-box;
+  font-family: $font-main;
+  font-weight: $font-weight-xl;
+  font-size: $font-size-ll;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 75px;
+  border-radius: 12px;
+  background-color: $color-white;
+  padding: 33px 23px;
+  color: $primary-color-80;
+  filter: $default-drop-shadow;
+  transition: $transition-default;
+
+  &:disabled {
+    background-color: $secondary-gray-90;
+    transition: $transition-default;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    //opacity: 0.8;
+    color: $color-white;
+    background-color: $primary-color-80;
+    transition: all 0.3s;
+  }
+}

@@ -1,0 +1,48 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.welcome-page-proceed-button {
+  box-sizing: border-box;
+  font-family: $font-main;
+  font-weight: $font-weight-xl;
+  font-size: $font-size-xl;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 333px;
+  height: 75px;
+  border-radius: 12px;
+  background-color: $primary-color-80;
+  padding: 33px 23px;
+  color: $color-white;
+  filter: $default-drop-shadow;
+  transition: $transition-default;
+
+  &:disabled {
+    background-color: $secondary-gray-90;
+    transition: $transition-default;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.3s;
+  }
+}
+
+@include mobile-xsmall {
+  .welcome-page-proceed-button {
+    width: 100%;
+    height: 50px;
+    font-size: 22px;
+  }
+}
+
+@include mobile-small {
+  .welcome-page-proceed-button {
+    width: 100%;
+    height: 55px;
+    font-size: 22px;
+  }
+}
