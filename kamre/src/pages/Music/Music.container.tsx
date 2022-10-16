@@ -6,7 +6,7 @@ import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import SWIPE_ELEMENTS from "@Constants/walking.constants";
+import { SWIPE_ELEMENTS } from "@Constants/music.constants";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import Music from "./Music.component";
@@ -22,7 +22,7 @@ const MusicContainer: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createWalkingWithNoContent = async () => {
+  const createMusicWithNoContent = async () => {
     setIsLoading(true);
     await apiService
       .CreateActivityWithNoContent(currentDateWithTime, "Muzyka klasyczna")
@@ -41,18 +41,18 @@ const MusicContainer: React.FC = () => {
       );
   };
 
-  const createWalkingWithContent = () => {
+  const createMusicWithContent = () => {
     dispatch(
       createNote({
         contentName: "Muzyka klasyczna",
         title: "Muzyka klasyczna",
         description:
-          "Co zaobserwowałeś/aś po muzycznym seansie? Jak się czułeś/aś? Co dało Ci to ćwiczenie?",
+          "Możesz zapisać swoje przemyślenia na temat słuchania muzyki klasycznej.",
         hiddenDescription: "",
       }),
     );
 
-    history.replace("/home");
+    history.push("/note");
   };
 
   const onProceedButtonClick = () => {
@@ -84,8 +84,8 @@ const MusicContainer: React.FC = () => {
 
   return (
     <Music
-      onCreateActivityWithNoContent={createWalkingWithNoContent}
-      onCreateActivityWithContent={createWalkingWithContent}
+      onCreateActivityWithNoContent={createMusicWithNoContent}
+      onCreateActivityWithContent={createMusicWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}

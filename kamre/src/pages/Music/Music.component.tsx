@@ -13,6 +13,7 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
+import { MUSIC_URL } from "@Constants/music.constants";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
@@ -44,6 +45,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
     img,
     slideElements,
   } = props;
+  const videoUrl = MUSIC_URL;
 
   const renderLoader = () => {
     return (
@@ -79,11 +81,28 @@ const Music: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderImage = () => {
+    if (swiper?.activeIndex === 2) {
+      return (
+        <div className="video">
+          <div className="video__container">
+            <iframe
+              className="video__embed"
+              src={videoUrl}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            />
+          </div>
+          <p className="video__source">
+            Źródło YouTube: Maide 🍂 - pov: you're at your secret place
+          </p>
+        </div>
+      );
+    }
     return (
       <Pet
         src={img}
         alt="Uśmiechnięta ośmiorniczka jpg"
-        height="200px"
+        height="250px"
         paddingTop="20px"
         paddingBottom="20px"
       />
@@ -113,39 +132,36 @@ const Music: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Muzyka klasyczna</h4>
+              <h4 className="swiper-slide__header">Muzyka klasyczna </h4>
               <p className="swiper-slide__paragraph">
-                Muzyka klasyczna w znacznym stopniu harmonizuje cały organizm
-                człowieka.
+                Muzyka klasyczna pomaga harmonizować cały organizm człowieka.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <h4 className="swiper-slide__header">O co chodzi?</h4>
               <p className="swiper-slide__paragraph">
                 Włącz playlistę z utworami klasycznymi - może to być
-                przygotowana przez nas, bądź wybrana przez Ciebie.
+                przygotowana przez nas, bądź wybrana przez Ciebie. Muzyka
+                klasyczna pomaga się skupić skupiony oraz odpocząć od zbyt wielu
+                bodźców.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">
-                Słuchaj tyle ile będziesz chcieć
-              </h4>
               <p className="swiper-slide__paragraph">
-                w sytuacjach kiedy musisz być skupiony bądź, kiedy chcesz się
-                odciąć od bodźców i odpocząć.
+                Sprawdź nasza propozycję.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Gratulacje!</h4>
+              <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś_aś po muzycznym seansie? Jak się czułeś_aś? Co
-                dało Ci to ćwiczenie?
+                Jakie odczucia towarzyszyły Ci podczas słuchania muzyki? Podziel
+                się swoimi przemyśleniami.
               </p>
             </div>
           </SwiperSlide>
@@ -163,7 +179,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Zapisz"
+            title="Dodaj"
             onClick={onCreateActivityWithContent}
           />
         </div>
