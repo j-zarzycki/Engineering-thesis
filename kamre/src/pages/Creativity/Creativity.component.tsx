@@ -1,80 +1,44 @@
-import React, { useEffect, useState } from "react";
-
-import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
+import React from "react";
+import { IonContent, IonPage, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CSSTransition } from "react-transition-group";
+import { Swiper as SwiperType } from "swiper/types";
 
 // Import Swiper styles
 import "swiper/css";
 
 import "./Creativity.style.scss";
-import SWIPE_ELEMENTS from "@Constants/creativity.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
-import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(): void;
   setToast(value: {}): void;
-  isLoading: boolean;
-  toast: { isOpen: boolean; message: string };
+  onProceedButtonClick(): void;
+  setSwiper(value: any): void;
+  onSlideChangeHandler(slide: SwiperType): void;
+  toast: any;
+  currentSlide: number;
+  swiper: any;
+  img: string;
+  slideElements: number;
 }
 
 const Creativity: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
     onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
     setToast,
-    isLoading,
+    setSwiper,
     toast,
+    swiper,
+    currentSlide,
+    img,
+    slideElements,
   } = props;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [showProceedButton, setShowProceedButton] = useState(true);
-  const slideElements = SWIPE_ELEMENTS;
-
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
-  const onProceedButtonClick = () => {
-    swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setShowProceedButton(false);
-      setImg(MainImg);
-    }
-  };
-
-  const renderHeader = () => {
-    if (swiper?.activeIndex === 3)
-      return <div className="conscious-shower__header" />;
-
-    return (
-      <div className="conscious-shower__header">
-        <BackButton defaultHref="/home" />
-      </div>
-    );
-  };
-
-  const renderLoader = () => {
-    return (
-      <IonLoading
-        cssClass="good-word__loader"
-        isOpen={isLoading}
-        message="Zapisywanie, proszę czekać"
-      />
-    );
-  };
 
   const renderToast = () => {
     const { isOpen, message } = toast;
@@ -89,81 +53,101 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderHeader = () => {
+    return (
+      <div className="creativity__header">
+        <BackButton defaultHref="/home" />
+      </div>
+    );
+  };
+
+  const renderImage = () => {
+    return (
+      <Pet
+        src={img}
+        alt="Uśmiechnięta ośmiorniczka jpg"
+        height="200px"
+        paddingTop="20px"
+        paddingBottom="20px"
+      />
+    );
+  };
+
+  const renderHorizontalProgressBar = () => {
+    return (
+      <div className="creativity__horizontal-progress-bar">
+        <HorizontalProgressBar
+          currentElement={currentSlide}
+          elements={slideElements}
+        />
+      </div>
+    );
+  };
+
+  const renderSwiper = () => {
+    return (
+      <div className="creativity__swiper">
+        <Swiper
+          effect="fade"
+          centeredSlides
+          slidesPerView={1}
+          onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={(slide) => onSlideChangeHandler(slide)}
+        >
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header"> Mięsień kreatywności</h4>
+              <p className="swiper-slide__paragraph">
+                Czasami nasz umysł do wyciszenia potrzebuje kreatywnej rozrywki.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">10 sposobów na.. kawę!</h4>
+              <p className="swiper-slide__paragraph">
+                Wypisz 10 niekonencjonalych sposobów na zaparzenie kawy. Im
+                bardziej szalone tym lepiej !
+              </p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    );
+  };
+
+  const renderButtons = () => {
+    if (swiper?.activeIndex >= 1)
+      return (
+        <div className="creativity__final-buttons">
+          <SaveActivityButton
+            title="Dodaj"
+            onClick={onCreateActivityWithContent}
+          />
+        </div>
+      );
+
+    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+  };
+
+  const renderContext = () => {
+    return (
+      <>
+        {renderImage()}
+        {renderHorizontalProgressBar()}
+        {renderSwiper()}
+        {renderButtons()}
+      </>
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="conscious-shower">
+        <div className="creativity">
           {renderToast()}
-          {renderLoader()}
           {renderHeader()}
-          <div className="conscious-shower__wrapper">
-            <Pet
-              src={img}
-              alt="Uśmiechnięta ośmiorniczka jpg"
-              height="200px"
-              paddingTop="20px"
-              paddingBottom="20px"
-            />
-            <HorizontalProgressBar
-              currentElement={currentSlide}
-              elements={slideElements}
-            />
-            <div className="conscious-shower__swiper">
-              <Swiper
-                allowTouchMove={false}
-                effect="fade"
-                centeredSlides
-                slidesPerView={1}
-                onSwiper={(swiperData) => setSwiper(swiperData)}
-              >
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      Mięsień kreatywności
-                    </h4>
-                    <p className="swiper-slide__paragraph">
-                      Czasami nasz umysł do wyciszenia potrzebuje kreatywnej
-                      rozrywki.
-                    </p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div className="swiper-slide__wrapper">
-                    <h4 className="swiper-slide__header">
-                      10 sposobów na.. kawę!
-                    </h4>
-                    <p className="swiper-slide__paragraph">
-                      Wypisz 10 niekonencjonalych sposobów na zaparzenie kawy.
-                      Im bardziej szalone tym lepiej !
-                    </p>
-                  </div>
-                </SwiperSlide>
-              </Swiper>
-            </div>
-            {showProceedButton && (
-              <ProceedButton title="Dalej" onClick={onProceedButtonClick} />
-            )}
-
-            <CSSTransition
-              in={!showProceedButton}
-              timeout={300}
-              classNames="swiper__proceed-buttons"
-              unmountOnExit
-              onEnter={() => setShowProceedButton(false)}
-              onExited={() => setShowProceedButton(true)}
-            >
-              <div className="final-buttons">
-                <CancelButton
-                  title="Zakończ"
-                  onClick={onCreateActivityWithNoContent}
-                />
-                <SaveActivityButton
-                  title="Dalej"
-                  onClick={onCreateActivityWithContent}
-                />
-              </div>
-            </CSSTransition>
-          </div>
+          <div className="creativity__wrapper">{renderContext()}</div>
         </div>
       </IonContent>
     </IonPage>
