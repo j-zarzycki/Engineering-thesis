@@ -8,7 +8,6 @@ import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import { SWIPE_ELEMENTS } from "@Constants/schultzTraining.constatns";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
 import SchultzTraining from "./SchultzTraining.component";
 
 const SchultzTrainingContainer: React.FC = () => {
@@ -58,23 +57,10 @@ const SchultzTrainingContainer: React.FC = () => {
     swiper?.slideNext();
 
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
   };
 
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
-    setImg(MainImg);
-    if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
-      setImg(quote);
-    }
-    if (slide?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
   };
 
   useEffect(() => {

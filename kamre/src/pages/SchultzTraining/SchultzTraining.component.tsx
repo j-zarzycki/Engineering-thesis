@@ -71,7 +71,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 3) return <div className="schultz__header" />;
+    if (swiper?.activeIndex === 2) return <div className="schultz__header" />;
 
     return (
       <div className="schultz__header">
