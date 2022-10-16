@@ -142,7 +142,7 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi?</h4>
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
                 Puść swoją ulubioną piosenkę lub playlistę! Oglądałeś Stranger
                 Things? Czas otworzyć własny magiczny portal i uciec w

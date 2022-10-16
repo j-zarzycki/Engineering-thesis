@@ -44,7 +44,6 @@ import SchulzTraining from "./pages/SchulzTraining";
 import EduVideo from "./pages/EduVideo";
 import WelcomePage from "./pages/WelcomePage";
 
-
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
