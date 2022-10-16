@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { HiChevronUp, HiChevronDown } from "react-icons/hi";
+import React from "react";
 
 import { CalendarResponseType } from "@Types/calendar.type";
 
@@ -13,30 +12,58 @@ const ShowHideText: React.FC<IProps> = (props: IProps) => {
   const {
     dayContent: {
       activity_content: activityContent,
+      activity_category: activityCategory,
       activity_name: activityName,
       has_content: hasContent,
     },
   } = props;
 
-  const [isExpanded, setIsExpanded] = useState<Boolean>(false);
+  const renderHeader = () => {
+    switch (activityCategory) {
+      case "Aktywne":
+        return (
+          <div className="show-hide__header show-hide__header--yellow">
+            <h4>{activityName}</h4>
+          </div>
+        );
+      case "Bierne":
+        return (
+          <div className="show-hide__header show-hide__header--green">
+            <h4>{activityName}</h4>
+          </div>
+        );
+      case "Zmiana myślenia":
+        return (
+          <div className="show-hide__header show-hide__header--blue">
+            <h4>{activityName}</h4>
+          </div>
+        );
+      case "Pozytywne emocje":
+        return (
+          <div className="show-hide__header show-hide__header--red">
+            <h4>{activityName}</h4>
+          </div>
+        );
 
-  const onExpandIconClick = () => setIsExpanded(!isExpanded);
+      default:
+        return (
+          <div className="show-hide__header show-hide__header--red>">
+            <h4>{activityName}</h4>
+          </div>
+        );
+    }
+  };
+
+  const renderContent = () => {
+    return (
+      hasContent && <div className="show-hide__content">{activityContent}</div>
+    );
+  };
 
   return (
-    <div className="show-hide">
-      <div className="show-hide__Wrapper">
-        <h4 className="show-hide__header" onClick={onExpandIconClick}>
-          {activityName}
-          {isExpanded ? <HiChevronUp size={30} /> : <HiChevronDown size={30} />}
-        </h4>
-        <div
-          className={`show-hide__hidden-block${
-            hasContent && isExpanded ? "--isVisible" : ""
-          }`}
-        >
-          {activityContent}
-        </div>
-      </div>
+    <div className="show-hide__wrapper">
+      {renderHeader()}
+      {renderContent()}
     </div>
   );
 };

@@ -1,5 +1,10 @@
 @import "@Theme/variables";
 @import "@Theme/media";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap");
+
+ion-header {
+  z-index: 101;
+}
 
 .ion-title {
   color: $color-black;
@@ -141,7 +146,19 @@ ion-label {
   }
 }
 
+@media (min-width: 1px) and (max-width: 375px) {
+  .card-styles {
+    max-height: 125px;
+    max-width: 125px;
+  }
+}
+
 @media (min-width: 375px) and (max-width: 550px) {
+  .card-styles {
+    max-height: 150px;
+    max-width: 150px;
+  }
+
   .box {
     &-left {
       display: flex;

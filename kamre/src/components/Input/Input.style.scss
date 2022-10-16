@@ -1,0 +1,13 @@
+@import "@Theme/variables";
+
+.kamre-input {
+    border-radius: $border-radius-s;
+    padding: 12px;
+    outline: 0;
+    border: 2px solid $primary-color-80;
+    box-shadow: $default-drop-shadow;
+
+    &::placeholder {
+        color: $color-black;
+    }
+}

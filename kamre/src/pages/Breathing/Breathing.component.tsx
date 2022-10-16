@@ -1,78 +1,121 @@
-import React, { useEffect, useState } from "react";
-import { IonContent, IonPage, IonCard } from "@ionic/react";
-import "./Breathing.style.scss";
+import React from "react";
+import { IonContent, IonPage, IonImg } from "@ionic/react";
+
+import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
-import Header from "@Components/Header";
-import SaveButton from "@Components/SaveButton";
-import breathingService from "@Services/breathing.service";
-import { getFullDateWithTime } from "@Utils/date";
+import CancelButton from "@Components/CancelButton";
 
-const Breathing: React.FC = () => {
-  const createBreathing = () => {
-    const dateTime = getFullDateWithTime();
+import Pet from "@Assets/main.png";
+import "./Breathing.style.scss";
 
-    breathingService
-      .CreateBreathing(dateTime, "Oddychanie")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+interface IProps {
+  isPlaying: boolean;
+  isAnimationPaused: boolean;
+  counter: number;
+  renderType: string;
+  handleButtonClick(): void;
+  onCancelButtonClick(): void;
+}
+
+enum RenderTypeTranslation {
+  Wydech = "EXHAUST",
+  Wdech = "INHALE",
+  Wstrzymaj = "PAUSE",
+}
+
+const Breathing: React.FC<IProps> = (props: IProps) => {
+  const {
+    counter,
+    isPlaying,
+    isAnimationPaused,
+    renderType,
+    handleButtonClick,
+    onCancelButtonClick,
+  } = props;
+
+  const renderDescription = () => {
+    return (
+      <div className="breathing__description">
+        <ul>
+          <li>
+            Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
+            powinny być proste.
+          </li>
+          <li>Weź głęboki i spokojny oddech przez nos.</li>
+          <li>
+            Upewnij się, że obszar, który się podnosi, to przepona (brzuch), a
+            nie klatka piersiowa.
+          </li>
+          <li>Następnie głośno wydychaj powietrze przez usta.</li>
+        </ul>
+      </div>
+    );
   };
 
-  const [time, setTime] = useState(0);
-  const [running, setRunning] = useState(false);
-  const placeholderText = ["wdech", "wydech"];
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    let interval: any;
-    if (running) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 10);
-      }, 10);
+  const renderTimer = () => {
+    const indexOfEnumValue = Object.values(RenderTypeTranslation).indexOf(
+      renderType as unknown as RenderTypeTranslation,
+    );
+    const translatedKey = Object.keys(RenderTypeTranslation)[indexOfEnumValue];
 
-      const timer = () => {
-        setIndex((prevIndex) => {
-          if (prevIndex === placeholderText.length - 1) {
-            return 0;
-          }
-          return prevIndex + 1;
-        });
-      };
-      setInterval(timer, 7800);
-    } else if (!running) {
-      clearInterval(interval);
+    return (
+      <div className="breathing__timer">
+        <h4>{renderType !== "PAUSE" && counter}</h4>
+        <h5>{translatedKey}</h5>
+        <CancelButton title="Zakończ" onClick={onCancelButtonClick} />
+      </div>
+    );
+  };
+
+  const renderImage = () => {
+    return (
+      <div
+        className={`breathing__image ${
+          isPlaying && !isAnimationPaused && "breathing__image--active"
+        }`}
+      >
+        <IonImg
+          className={`${isPlaying && "breathing__image--active"}`}
+          src={Pet}
+          alt="pet"
+        />
+        <div className="ring" />
+        <div className="ring" />
+        <div className="ring" />
+      </div>
+    );
+  };
+
+  const renderContext = () => {
+    return (
+      <>
+        {renderImage()}
+        {isPlaying ? renderTimer() : renderDescription()}
+
+        {!isPlaying && (
+          <ProceedButton title="Prowadź mnie!" onClick={handleButtonClick} />
+        )}
+      </>
+    );
+  };
+
+  const renderHeader = () => {
+    if (!isPlaying) {
+      return (
+        <div className="breathing__header-top">
+          <BackButton defaultHref="/home" />
+        </div>
+      );
     }
-    return () => clearInterval(interval);
-  }, [running]);
+
+    return <div className="breathing__header-top" />;
+  };
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="title">
-          <BackButton defaultHref="/home" />
-          <Header
-            title="Oddychanie"
-            subtitle="poniżej znajdziesz instrukcję, krok po kroku jak wykonać zadanie"
-          />
-        </div>
-        <IonCard>
-          <div className="stopwatch ion-text-center">
-            <div className="numbers">
-              <span>{`0${Math.floor((time / 60000) % 60)}`.slice(-2)}:</span>
-              <span>{`0${Math.floor((time / 1000) % 60)}`.slice(-2)}:</span>
-              <span>{`0${(time / 10) % 100}`.slice(-2)}</span>
-            </div>
-            <div className="message-container">
-              <p className="message">{placeholderText[index]}</p>
-            </div>
-            <div className="buttons">
-              <button type="button" onClick={() => setRunning(true)}>
-                Start
-              </button>
-            </div>
-          </div>
-        </IonCard>
-        <div className="ion-text-center">
-          <SaveButton text="Gotowe" type="submit" onClick={createBreathing} />
-        </div>
+        <div className="breathing__header">{renderHeader()}</div>
+        <div className="breathing__context">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );
