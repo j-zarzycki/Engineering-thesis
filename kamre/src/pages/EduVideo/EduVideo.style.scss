@@ -1,7 +1,7 @@
 @import "@Theme/variables";
 @import "@Theme/media";
 
-.ytpage {
+.eduvideo {
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
         text-align: center;
       }
     }
-    .ytpage__horizontal-progress-bar {
+    .eduvideo__horizontal-progress-bar {
       display: none;
     }
 
@@ -126,7 +126,7 @@
   }
 }
 @include mobile-xsmall {
-  .ytpage {
+  .eduvideo {
     &__wrapper {
       height: 100%;
 
@@ -172,7 +172,7 @@
 }
 
 @include mobile-small {
-  .ytpage {
+  .eduvideo {
     &__wrapper {
       height: 100%;
 
@@ -219,7 +219,7 @@
 }
 
 @include mobile-medium {
-  .ytpage {
+  .eduvideo {
     &__wrapper {
       height: 100%;
 

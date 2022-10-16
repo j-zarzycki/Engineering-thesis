@@ -6,14 +6,14 @@ import { Swiper as SwiperType } from "swiper/types";
 // Import Swiper styles
 import "swiper/css";
 
-import "./YtPage.style.scss";
+import "./EduVideo.style.scss";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
-import { YTPAGE_URL } from "@Constants/ytPage.constants";
+import { EDUVIDEO_URL } from "@Constants/eduVid.constatns";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
@@ -30,7 +30,7 @@ interface IProps {
   slideElements: number;
 }
 
-const YtPage: React.FC<IProps> = (props: IProps) => {
+const EduVideo: React.FC<IProps> = (props: IProps) => {
   const {
     onCreateActivityWithNoContent,
     onCreateActivityWithContent,
@@ -45,12 +45,12 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
     img,
     slideElements,
   } = props;
-  const videoUrl = YTPAGE_URL;
+  const videoUrl = EDUVIDEO_URL;
 
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="ytpage__loader"
+        cssClass="eduvideo__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -71,10 +71,10 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 2) return <div className="ytpage__header" />;
+    if (swiper?.activeIndex === 2) return <div className="eduvideo__header" />;
 
     return (
-      <div className="ytpage__header">
+      <div className="eduvideo__header">
         <BackButton defaultHref="/home" />
       </div>
     );
@@ -93,7 +93,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
             />
           </div>
           <p className="video__source">
-            Źródło Youtube: Katarzyna Miller - Co z tym stresem?
+            Źródło TED: How to make stress your friend | Kelly McGonigal
           </p>
         </div>
       );
@@ -111,7 +111,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
 
   const renderHorizontalProgressBar = () => {
     return (
-      <div className="ytpage__horizontal-progress-bar">
+      <div className="eduvideo__horizontal-progress-bar">
         <HorizontalProgressBar
           currentElement={currentSlide}
           elements={slideElements}
@@ -122,7 +122,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
 
   const renderSwiper = () => {
     return (
-      <div className="ytpage__swiper">
+      <div className="eduvideo__swiper">
         <Swiper
           effect="fade"
           centeredSlides
@@ -132,20 +132,19 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Netflix and chill? </h4>
+              <h4 className="swiper-slide__header">Czy stres jest zły? </h4>
               <p className="swiper-slide__paragraph">
-                Internet to ogromne źródło informacji - czas zrobić z niego
-                użytek! Usiądź wygodnie, weź popcorn lub lody i obejrzyj krótki
-                film dotyczący stresu. Im więcej się o nim dowiesz tym
-                skuteczniej będziesz z nim walczyć.
+                Już samo podejście do odczuwania stresu wpływa na nasze zdrowie.
+                To skomplikowany mechanizm, a jego zrozumienie jest ważnym
+                elementem naszej drogi.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
               <p className="swiper-slide__paragraph">
-                Pokażę Ci jak krok po kroku zwiększyć świadomość swoich działań
-                w codziennym życiu.
+                Zobacz jak różne patrzenie na stres wpływa na nasze samopoczucie
+                i zdrowie.
               </p>
             </div>
           </SwiperSlide>
@@ -166,7 +165,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 2)
       return (
-        <div className="ytpage__final-buttons">
+        <div className="eduvideo__final-buttons">
           <CancelButton
             onClick={onCreateActivityWithNoContent}
             title="Zakończ"
@@ -195,15 +194,15 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="ytpage">
+        <div className="eduvideo">
           {renderToast()}
           {renderLoader()}
           {renderHeader()}
-          <div className="ytpage__wrapper">{renderContext()}</div>
+          <div className="eduvideo__wrapper">{renderContext()}</div>
         </div>
       </IonContent>
     </IonPage>
   );
 };
 
-export default YtPage;
+export default EduVideo;
