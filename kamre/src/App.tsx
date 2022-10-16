@@ -41,7 +41,9 @@ import ColdWater from "./pages/ColdWater";
 import Creativity from "./pages/Creativity";
 import Breathing from "./pages/Breathing";
 import SchulzTraining from "./pages/SchulzTraining";
+import EduVideo from "./pages/EduVideo";
 import WelcomePage from "./pages/WelcomePage";
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -107,6 +109,7 @@ const App: React.FC = () => {
             <Route exact path="/creativity" component={Creativity} />
             <Route exact path="/breathing" component={Breathing} />
             <Route exact path="/schulztraining" component={SchulzTraining} />
+            <Route exact path="/eduvideo" component={EduVideo} />
             <Route
               exact
               path="/deleteaccountpage"

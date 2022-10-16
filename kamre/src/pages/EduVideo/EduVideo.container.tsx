@@ -6,11 +6,11 @@ import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import { SWIPE_ELEMENTS } from "@Constants/ytPage.constants";
+import { SWIPE_ELEMENTS } from "@Constants/eduVid.constatns";
 import MainImg from "@Assets/main.png";
-import YtPage from "./YtPage.component";
+import EduVideo from "./EduVideo.component";
 
-const YtPageContainer: React.FC = () => {
+const EduVideoContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
@@ -21,10 +21,10 @@ const YtPageContainer: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createYtPageWithNoContent = async () => {
+  const createEduVideoWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "Edu Video")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -40,10 +40,10 @@ const YtPageContainer: React.FC = () => {
       );
   };
 
-  const createYtPageWithContent = () => {
+  const createEduVideoWithContent = () => {
     dispatch(
       createNote({
-        contentName: "TedX",
+        contentName: "Edu Video",
         title: "Film edukacyjny",
         description:
           "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
@@ -69,9 +69,9 @@ const YtPageContainer: React.FC = () => {
   }, []);
 
   return (
-    <YtPage
-      onCreateActivityWithNoContent={createYtPageWithNoContent}
-      onCreateActivityWithContent={createYtPageWithContent}
+    <EduVideo
+      onCreateActivityWithNoContent={createEduVideoWithNoContent}
+      onCreateActivityWithContent={createEduVideoWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}
@@ -86,4 +86,4 @@ const YtPageContainer: React.FC = () => {
   );
 };
 
-export default YtPageContainer;
+export default EduVideoContainer;
