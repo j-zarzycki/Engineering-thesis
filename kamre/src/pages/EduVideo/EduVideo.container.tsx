@@ -6,12 +6,11 @@ import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import { SWIPE_ELEMENTS } from "@Constants/soundMix.constatns";
+import { SWIPE_ELEMENTS } from "@Constants/eduVid.constatns";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
-import SoundMix from "./SoundMix.component";
+import EduVideo from "./EduVideo.component";
 
-const SoundMixContainer: React.FC = () => {
+const EduVideoContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
@@ -22,10 +21,10 @@ const SoundMixContainer: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createSoundMixWithNoContent = async () => {
+  const createEduVideoWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Piosenka")
+      .CreateActivityWithNoContent(currentDateWithTime, "Edu Video")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -41,12 +40,13 @@ const SoundMixContainer: React.FC = () => {
       );
   };
 
-  const createSoundMixWithContent = () => {
+  const createEduVideoWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Piosenka",
-        title: "Piosenka",
-        description: "Zapisz, jakie uczucia wywołała w Tobie piosenka.",
+        contentName: "Edu Video",
+        title: "Film edukacyjny",
+        description:
+          "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
         hiddenDescription: "",
       }),
     );
@@ -58,23 +58,10 @@ const SoundMixContainer: React.FC = () => {
     swiper?.slideNext();
 
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === 1 || swiper?.activeIndex === 2) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === 0 || swiper?.activeIndex === 4) {
-      setImg(MainImg);
-    }
   };
 
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
-    setImg(MainImg);
-    if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
-      setImg(quote);
-    }
-    if (slide?.activeIndex === 4) {
-      setImg(MainImg);
-    }
   };
 
   useEffect(() => {
@@ -82,9 +69,9 @@ const SoundMixContainer: React.FC = () => {
   }, []);
 
   return (
-    <SoundMix
-      onCreateActivityWithNoContent={createSoundMixWithNoContent}
-      onCreateActivityWithContent={createSoundMixWithContent}
+    <EduVideo
+      onCreateActivityWithNoContent={createEduVideoWithNoContent}
+      onCreateActivityWithContent={createEduVideoWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}
@@ -99,4 +86,4 @@ const SoundMixContainer: React.FC = () => {
   );
 };
 
-export default SoundMixContainer;
+export default EduVideoContainer;

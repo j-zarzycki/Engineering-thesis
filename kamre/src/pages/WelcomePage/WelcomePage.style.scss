@@ -1,52 +1,20 @@
 @import "@Theme/variables";
 @import "@Theme/media";
 
-.soundmix {
+.welcome-page {
   &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .video {
-      margin-top: 16px;
-      max-height: 280px;
-
-      &__container {
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-top: 56.25%; // 9 / 16 * 100%
-      }
-
-      &__embed {
-        border-radius: 20px;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      &__source {
-        margin-top: 10px;
-        font-style: normal;
-        font-weight: 300;
-        font-size: 12px;
-        line-height: 24px;
-        color: $secondary-gray-90;
-        text-align: center;
-      }
-    }
-
-
-    .proceed-button {
-      margin-top: auto;
-      margin-bottom: 50px;
-    }
-  }
-
-  &__header {
     height: 30px;
     margin-top: 20px;
+
+    .welcome-page-proceed-button {
+      margin-top: auto;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__swiper {
@@ -97,7 +65,7 @@
           font-weight: $font-weight-m;
           font-size: $font-size-m;
           line-height: 24px;
-          color: $secondary-gray-90;
+          color: #000;
           text-align: center;
           padding-left: 1.5rem;
           padding-right: 1.5rem;
@@ -119,28 +87,26 @@
   &__final-buttons {
     width: 100%;
     display: flex;
+    flex-flow: column;
     justify-content: center;
+    align-items: center;
     gap: 15px;
+
+    .welcome-page-start-button {
+      display: flex;
+      justify-content: center;
+    }
+
+    .welcome-page-restore-data-button {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 @include mobile-xsmall {
-  .soundmix {
+  .welcome-page {
     &__wrapper {
       height: 100%;
-
-      .video {
-        max-height: 250px;
-        width: 100%;
-
-        &__embed {
-          max-height: 230px;
-          max-width: 409px;
-        }
-
-        &__source {
-          font-size: $font-size-xxs;
-        }
-      }
 
       .proceed-button {
         font-size: 20px;
@@ -148,6 +114,13 @@
         transition: all 0.3s;
         margin-bottom: 0;
         margin-top: 10px;
+      }
+    }
+
+    &__final-buttons {
+      .welcome-page-start-button, .welcome-page-restore-data-button {
+        width: 100%;
+        height: 60px;
       }
     }
 
@@ -170,23 +143,9 @@
 }
 
 @include mobile-small {
-  .soundmix {
+  .welcome-page {
     &__wrapper {
       height: 100%;
-
-      .video {
-        width: 100%;
-        max-height: 250px;
-
-        &__embed {
-          max-height: 230px;
-          max-width: 409px;
-        }
-
-        &__source {
-          font-size: $font-size-s;
-        }
-      }
 
       .proceed-button {
         margin-top: 60px;
@@ -212,39 +171,33 @@
 
     &__final-buttons {
       margin-top: 60px;
+
+      .welcome-page-start-button, .welcome-page-restore-data-button {
+        width: 100%;
+        height: 60px;
+      }
+    }
+  }
+}
+
+@include mobile-s {
+  .welcome-page {
+    &__final-buttons {
+      .welcome-page-start-button, .welcome-page-restore-data-button {
+        width: 100%;
+        height: 60px;
+      }
     }
   }
 }
 
 @include mobile-medium {
-  .soundmix {
+  .welcome-page {
     &__wrapper {
       height: 100%;
-
-      .video {
-        max-height: 430px;
-        width: 100%;
-        max-width: 675px;
-
-        &__container {
-          max-height: 380px;
-          width: 100%;
-          display: flex;
-          align-items: center;
-        }
-
-        &__embed {
-          max-height: 380px;
-          max-width: 675px;
-        }
-
-        &__source {
-          font-size: $font-size-s;
-        }
-      }
-
       .proceed-button {
         font-size: 24px;
+
         height: 75px;
         transition: all 0.3s;
       }

@@ -2,66 +2,44 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Swiper } from "swiper/types";
 
-import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
-import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import { SWIPE_ELEMENTS } from "@Constants/soundMix.constatns";
+import SWIPE_ELEMENTS from "@Constants/walking.constants";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
-import SoundMix from "./SoundMix.component";
+import WelcomePage from "./WelcomePage.component";
 
-const SoundMixContainer: React.FC = () => {
+const WelcomePageContainer: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
   const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
-  const currentDateWithTime: String = getFullDateWithTime();
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const createSoundMixWithNoContent = async () => {
-    setIsLoading(true);
-    await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Piosenka")
-      .then(() => {
-        setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-      })
-      .finally(() => {
-        setIsLoading(false);
-        history.replace("/home");
-      })
-      .catch(() =>
-        setToast({
-          isOpen: true,
-          message: "Wystąpił błąd podczas zapisywania.",
-        }),
-      );
-  };
-
-  const createSoundMixWithContent = () => {
+  const createWelcomePageWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Piosenka",
-        title: "Piosenka",
-        description: "Zapisz, jakie uczucia wywołała w Tobie piosenka.",
+        contentName: "Strona powitalna",
+        title: "Strona powitalna",
+        description: "Przejdź do strony głównej lub przywróć dane",
         hiddenDescription: "",
       }),
     );
-
-    history.push("/note");
+    // przeniesienie po nacisnieciu buttona przywroc dane
+    history.replace("/home");
   };
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
 
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === 1 || swiper?.activeIndex === 2) {
+    if (swiper?.activeIndex === slideElements - 4) {
       setImg(quote);
     }
-    if (swiper?.activeIndex === 0 || swiper?.activeIndex === 4) {
+    if (swiper?.activeIndex === slideElements - 1) {
       setImg(MainImg);
     }
   };
@@ -72,9 +50,6 @@ const SoundMixContainer: React.FC = () => {
     if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
       setImg(quote);
     }
-    if (slide?.activeIndex === 4) {
-      setImg(MainImg);
-    }
   };
 
   useEffect(() => {
@@ -82,9 +57,8 @@ const SoundMixContainer: React.FC = () => {
   }, []);
 
   return (
-    <SoundMix
-      onCreateActivityWithNoContent={createSoundMixWithNoContent}
-      onCreateActivityWithContent={createSoundMixWithContent}
+    <WelcomePage
+      onCreateActivityWithContent={createWelcomePageWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
       setSwiper={setSwiper}
@@ -99,4 +73,4 @@ const SoundMixContainer: React.FC = () => {
   );
 };
 
-export default SoundMixContainer;
+export default WelcomePageContainer;

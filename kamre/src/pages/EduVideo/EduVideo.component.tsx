@@ -6,27 +6,22 @@ import { Swiper as SwiperType } from "swiper/types";
 // Import Swiper styles
 import "swiper/css";
 
-import "./Bike.style.scss";
+import "./EduVideo.style.scss";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
+import { EDUVIDEO_URL } from "@Constants/eduVid.constatns";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-
   onCreateActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onProceedButtonClick(): void;
-
   setSwiper(value: any): void;
-
   onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -35,7 +30,7 @@ interface IProps {
   slideElements: number;
 }
 
-const Bike: React.FC<IProps> = (props: IProps) => {
+const EduVideo: React.FC<IProps> = (props: IProps) => {
   const {
     onCreateActivityWithNoContent,
     onCreateActivityWithContent,
@@ -50,11 +45,12 @@ const Bike: React.FC<IProps> = (props: IProps) => {
     img,
     slideElements,
   } = props;
+  const videoUrl = EDUVIDEO_URL;
 
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="bike__loader"
+        cssClass="eduvideo__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -75,21 +71,38 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderHeader = () => {
-    if (swiper?.activeIndex === 4) return <div className="bike__header" />;
+    if (swiper?.activeIndex === 2) return <div className="eduvideo__header" />;
 
     return (
-      <div className="bike__header">
+      <div className="eduvideo__header">
         <BackButton defaultHref="/home" />
       </div>
     );
   };
 
   const renderImage = () => {
+    if (swiper?.activeIndex === 1) {
+      return (
+        <div className="video">
+          <div className="video__container">
+            <iframe
+              className="video__embed"
+              src={videoUrl}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            />
+          </div>
+          <p className="video__source">
+            Źródło TED: How to make stress your friend | Kelly McGonigal
+          </p>
+        </div>
+      );
+    }
     return (
       <Pet
         src={img}
         alt="Uśmiechnięta ośmiorniczka jpg"
-        height="200px"
+        height="250px"
         paddingTop="20px"
         paddingBottom="20px"
       />
@@ -98,7 +111,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
 
   const renderHorizontalProgressBar = () => {
     return (
-      <div className="bike__horizontal-progress-bar">
+      <div className="eduvideo__horizontal-progress-bar">
         <HorizontalProgressBar
           currentElement={currentSlide}
           elements={slideElements}
@@ -109,7 +122,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
 
   const renderSwiper = () => {
     return (
-      <div className="bike__swiper">
+      <div className="eduvideo__swiper">
         <Swiper
           effect="fade"
           centeredSlides
@@ -119,38 +132,19 @@ const Bike: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Jazda na rowerze</h4>
+              <h4 className="swiper-slide__header">Czy stres jest zły? </h4>
               <p className="swiper-slide__paragraph">
-                Środek na zwalczenie stresu bez recepty!
+                Już samo podejście do odczuwania stresu wpływa na nasze zdrowie.
+                To skomplikowany mechanizm, a jego zrozumienie jest ważnym
+                elementem naszej drogi.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Endorfiny</h4>
               <p className="swiper-slide__paragraph">
-                Endorfiny są „antagonistą” stresu, uczucia napięcia nerwowego,
-                niepokoju a nawet bólu głowy.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
-              <p className="swiper-slide__paragraph">
-                Wsiadaj na rumaka i jazda! Aktywność fizyczna jest jedną z
-                najlepszych form walki ze stresem, ponieważ produkowane są wtedy
-                endorfiny - antagoniści stresu, obniżają napięcię nerwowe,
-                niepokój a nawet ból głowy.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Jeżeli nie masz roweru</h4>
-              <p className="swiper-slide__paragraph">
-                możesz spróbować innej aktywności sportowej, która sprawi Ci
-                przyjemność!
+                Zobacz jak różne patrzenie na stres wpływa na nasze samopoczucie
+                i zdrowie.
               </p>
             </div>
           </SwiperSlide>
@@ -158,8 +152,8 @@ const Bike: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś_aś po przejażdżce? Jak się czułeś_aś? Co dało
-                Ci to ćwiczenie?
+                Jakie przemyślenia nasunęły Ci się po obejrzeniu filmu? Zapisz
+                je, aby lepiej utrwalić nowe informacje.
               </p>
             </div>
           </SwiperSlide>
@@ -169,15 +163,15 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButtons = () => {
-    if (swiper?.activeIndex >= 4)
+    if (swiper?.activeIndex >= 2)
       return (
-        <div className="bike__final-buttons">
+        <div className="eduvideo__final-buttons">
           <CancelButton
             onClick={onCreateActivityWithNoContent}
             title="Zakończ"
           />
           <SaveActivityButton
-            title="Zapisz"
+            title="Dodaj"
             onClick={onCreateActivityWithContent}
           />
         </div>
@@ -200,15 +194,15 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="bike">
+        <div className="eduvideo">
           {renderToast()}
           {renderLoader()}
           {renderHeader()}
-          <div className="bike__wrapper">{renderContext()}</div>
+          <div className="eduvideo__wrapper">{renderContext()}</div>
         </div>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Bike;
+export default EduVideo;

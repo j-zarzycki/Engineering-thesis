@@ -6,27 +6,19 @@ import { Swiper as SwiperType } from "swiper/types";
 // Import Swiper styles
 import "swiper/css";
 
-import "./Bike.style.scss";
+import "./WelcomePage.style.scss";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
-import BackButton from "@Components/BackButton";
-import ProceedButton from "@Components/ProceedButton";
-import SaveActivityButton from "@Components/SaveActivityButton";
-import CancelButton from "@Components/CancelButton";
+import WelcomePageProceedButton from "@Components/WelcomePageProceedButton";
+import WelcomePageStartButton from "@Components/WelcomePageStartButton";
+import WelcomePageRestoreDataButton from "@Components/WelcomePageRestoreDataButton";
 import Pet from "@Components/Pet";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-
   onCreateActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onProceedButtonClick(): void;
-
   setSwiper(value: any): void;
-
   onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -35,9 +27,8 @@ interface IProps {
   slideElements: number;
 }
 
-const Bike: React.FC<IProps> = (props: IProps) => {
+const WelcomePage: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
     onCreateActivityWithContent,
     onProceedButtonClick,
     onSlideChangeHandler,
@@ -54,7 +45,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="bike__loader"
+        cssClass="welcome-page__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
@@ -74,16 +65,6 @@ const Bike: React.FC<IProps> = (props: IProps) => {
     );
   };
 
-  const renderHeader = () => {
-    if (swiper?.activeIndex === 4) return <div className="bike__header" />;
-
-    return (
-      <div className="bike__header">
-        <BackButton defaultHref="/home" />
-      </div>
-    );
-  };
-
   const renderImage = () => {
     return (
       <Pet
@@ -98,7 +79,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
 
   const renderHorizontalProgressBar = () => {
     return (
-      <div className="bike__horizontal-progress-bar">
+      <div className="welcome-page__horizontal-progress-bar">
         <HorizontalProgressBar
           currentElement={currentSlide}
           elements={slideElements}
@@ -109,7 +90,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
 
   const renderSwiper = () => {
     return (
-      <div className="bike__swiper">
+      <div className="welcome-page__swiper">
         <Swiper
           effect="fade"
           centeredSlides
@@ -119,47 +100,39 @@ const Bike: React.FC<IProps> = (props: IProps) => {
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Jazda na rowerze</h4>
+              <h4 className="swiper-slide__header">
+                Ahoj Kamracie! <br />
+                Mam na imię Kamre
+              </h4>
               <p className="swiper-slide__paragraph">
-                Środek na zwalczenie stresu bez recepty!
+                Będę Cię wspierać w trakcie Twojej podróży w aplikacji.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Endorfiny</h4>
+              <h4 className="swiper-slide__header">
+                Mam wiele umiejętności...
+              </h4>
+              <p className="swiper-slide__paragraph">Pomogę Ci...</p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Staję się coraz lepsza!</h4>
               <p className="swiper-slide__paragraph">
-                Endorfiny są „antagonistą” stresu, uczucia napięcia nerwowego,
-                niepokoju a nawet bólu głowy.
+                Uczę się! Dlatego im częściej będziesz próbować nowe zadania,
+                tym ja łatwiej będę potrafiła dopasowywać pod Ciebie kolejne
+                propozycje.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <h4 className="swiper-slide__header">Dbam o Twoją prywatność!</h4>
               <p className="swiper-slide__paragraph">
-                Wsiadaj na rumaka i jazda! Aktywność fizyczna jest jedną z
-                najlepszych form walki ze stresem, ponieważ produkowane są wtedy
-                endorfiny - antagoniści stresu, obniżają napięcię nerwowe,
-                niepokój a nawet ból głowy.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Jeżeli nie masz roweru</h4>
-              <p className="swiper-slide__paragraph">
-                możesz spróbować innej aktywności sportowej, która sprawi Ci
-                przyjemność!
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
-              <p className="swiper-slide__paragraph">
-                Co zaobserwowałeś_aś po przejażdżce? Jak się czułeś_aś? Co dało
-                Ci to ćwiczenie?
+                Nie tworzysz u nas konta. Generujemy dla Ciebie tajny klucz
+                dostępny tylko do Twojego telefonu.
               </p>
             </div>
           </SwiperSlide>
@@ -169,21 +142,20 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButtons = () => {
-    if (swiper?.activeIndex >= 4)
+    if (swiper?.activeIndex >= 3)
       return (
-        <div className="bike__final-buttons">
-          <CancelButton
-            onClick={onCreateActivityWithNoContent}
-            title="Zakończ"
-          />
-          <SaveActivityButton
-            title="Zapisz"
+        <div className="welcome-page__final-buttons">
+          <WelcomePageStartButton defaultHref="/home" title="Zaczynamy!" />
+          <WelcomePageRestoreDataButton
+            title="Przywróć dane"
             onClick={onCreateActivityWithContent}
           />
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return (
+      <WelcomePageProceedButton title="Dalej" onClick={onProceedButtonClick} />
+    );
   };
 
   const renderContext = () => {
@@ -200,15 +172,14 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="bike">
+        <div className="welcome-page">
           {renderToast()}
           {renderLoader()}
-          {renderHeader()}
-          <div className="bike__wrapper">{renderContext()}</div>
+          <div className="welcome-page__wrapper">{renderContext()}</div>
         </div>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Bike;
+export default WelcomePage;

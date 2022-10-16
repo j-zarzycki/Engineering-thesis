@@ -41,6 +41,9 @@ import ColdWater from "./pages/ColdWater";
 import Creativity from "./pages/Creativity";
 import Breathing from "./pages/Breathing";
 import SchultzTraining from "./pages/SchultzTraining";
+import SchulzTraining from "./pages/SchulzTraining";
+import EduVideo from "./pages/EduVideo";
+import WelcomePage from "./pages/WelcomePage";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -79,6 +82,7 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+            <Route path="/welcomepage" component={WelcomePage} />
             <Route path="/shower" component={ConsciousShower} />
             <Route path="/home" component={Home} />
             <Route path="/settings" component={Settings} />
@@ -105,6 +109,8 @@ const App: React.FC = () => {
             <Route exact path="/creativity" component={Creativity} />
             <Route exact path="/breathing" component={Breathing} />
             <Route exact path="/schultztraining" component={SchultzTraining} />
+            <Route exact path="/schulztraining" component={SchulzTraining} />
+            <Route exact path="/eduvideo" component={EduVideo} />
             <Route
               exact
               path="/deleteaccountpage"
@@ -122,7 +128,7 @@ const App: React.FC = () => {
           <IonTabBar slot="bottom">
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
-              <IonLabel>Home</IonLabel>
+              <IonLabel>Strona główna</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

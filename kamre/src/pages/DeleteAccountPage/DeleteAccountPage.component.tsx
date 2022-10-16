@@ -80,7 +80,7 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
               <IonCard>
                 <div className="deleteaccountpage__wrapper_content__header">
                   <IonCardHeader>
-                    <h2>Delete Account Confirmation</h2>
+                    <h2>Potwierdź usunięcie konta</h2>
                     <div className="deleteaccountpage__wrapper_content__header-description">
                       <span>Czy na pewno chcesz usunąć konto?</span>
                     </div>
@@ -90,13 +90,13 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
                   {showMigrateAccountButton && (
                     <ResignDeleteAccountButton
                       defaultHref="/settings"
-                      title="Resign"
+                      title="Zrezygnuj"
                     />
                   )}
                   {showDeleteAccountButton && (
                     <FinalDeleteAccountButton
                       defaultHref="/home"
-                      title="Delete Account"
+                      title="Usuń konto"
                     />
                   )}
                 </div>
