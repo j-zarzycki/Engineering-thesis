@@ -17,11 +17,17 @@ import { MUSIC_URL } from "@Constants/music.constants";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
+
   onCreateActivityWithContent(): void;
+
   setToast(value: {}): void;
+
   onProceedButtonClick(): void;
+
   setSwiper(value: any): void;
+
   onSlideChangeHandler(slide: SwiperType): void;
+
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -140,19 +146,18 @@ const Music: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi?</h4>
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
                 Włącz playlistę z utworami klasycznymi - może to być
                 przygotowana przez nas, bądź wybrana przez Ciebie. Muzyka
-                klasyczna pomaga się skupić skupiony oraz odpocząć od zbyt wielu
-                bodźców.
+                klasyczna pomaga się skupić oraz odpocząć od zbyt wielu bodźców.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
               <p className="swiper-slide__paragraph">
-                Sprawdź nasza propozycję.
+                Sprawdź naszą propozycję.
               </p>
             </div>
           </SwiperSlide>
