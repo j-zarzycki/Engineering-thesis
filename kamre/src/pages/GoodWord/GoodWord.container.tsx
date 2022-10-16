@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { SwiperSlide } from "swiper/react";
 import { useHistory } from "react-router-dom";
+import { SwiperSlide } from "swiper/react";
 
+import { getFullDateWithTime } from "@Utils/date";
+import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
-import apiService from "@Services/api.service";
-import { getFullDateWithTime } from "@Utils/date";
 import GoodWord from "./GoodWord.component";
 
 const GoodWordContainer: React.FC = () => {
+  const [canSwipe, setCanSwipe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,6 +20,10 @@ const GoodWordContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const [pageController, setPageController] = useState({
+    isMainContextVisible: true,
+    isFinalVisible: false,
+  });
   const history = useHistory();
   const slideElements = 3;
 
@@ -56,22 +61,27 @@ const GoodWordContainer: React.FC = () => {
   };
 
   const onAddSlide = () => {
+    setCanSwipe(false);
     swiper?.slideNext();
     setIsAddingDisabled(true);
     setSlidesInputsValue((prevState) => [...prevState, slideInputValue]);
     setSlides((prevState) => [...prevState, renderSlide()]);
   };
 
-  const onEndButtonClick = async () => {
+  const onContinueButtonClick = () =>
+    setPageController({ isMainContextVisible: false, isFinalVisible: true });
+  const onSaveActivityWithContent = async () => {
+    const currentDate = getFullDateWithTime();
     setIsLoading(true);
-    const dateTime = getFullDateWithTime();
     await apiService
-      .CreateActivityWithContent(dateTime, slidesInputsValue, "Dobre słowo")
+      .CreateActivityWithContent(currentDate, slidesInputsValue, "Dobre słowo")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.push("/home");
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false);
+        history.replace("/home");
+      })
       .catch(() =>
         setToast({
           isOpen: true,
@@ -82,10 +92,20 @@ const GoodWordContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    if (swiper?.activeIndex < 2) setCurrentSlide(swiper?.activeIndex);
+
     setImg(MainImg);
 
     if (swiper?.activeIndex === 1) setImg(quote);
+  };
+
+  const onSwipeHandle = () => {
+    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
+    if (swiper?.activeIndex > 1) {
+      setImg(MainImg);
+      swiper.allowTouchMove = false;
+    }
   };
 
   useEffect(() => {
@@ -94,20 +114,24 @@ const GoodWordContainer: React.FC = () => {
 
   return (
     <GoodWord
-      setSwiper={setSwiper}
+      pageController={pageController}
+      canSwipe={canSwipe}
+      isLoading={isLoading}
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
-      isLoading={isLoading}
       slides={slides}
       swiper={swiper}
       toast={toast}
-      setToast={setToast}
       isAddingDisabled={isAddingDisabled}
+      setSwiper={setSwiper}
+      setToast={setToast}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}
-      onEndButtonClick={onEndButtonClick}
+      onSwipeHandle={onSwipeHandle}
+      onSaveActivityWithContent={onSaveActivityWithContent}
+      onContinueButtonClick={onContinueButtonClick}
     />
   );
 };

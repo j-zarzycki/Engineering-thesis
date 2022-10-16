@@ -1,3 +1,7 @@
+import datetime
+import secrets
+import string
+
 from data.Activity import Activity
 from data.Favorites import Favorites
 from data.Activity_year import Activity_year
@@ -9,6 +13,9 @@ from data.Recent import Recent
 from data.Emergency import Emergency
 from data.Emergency_seen import Emergency_seen
 from data.Archive import Archive
+from data.Recovery import Recovery
+from data.Emergency_personal_tip import EmergencyPersonalTip
+from data.Emergency_personal import EmergencyPersonal
 import random
 
 months_dict = months_dict()
@@ -17,9 +24,11 @@ months_dict = months_dict()
 def create_user(user_id) -> User:
     user = User()
     recent = Recent()
-
+    emgr_seen = Emergency_seen()
     user.user_id = user_id
+
     user.recent.append(recent)
+    user.emergency_seen = emgr_seen
 
     user.save()
 
@@ -37,6 +46,25 @@ def archive_check(user_id):
     del user.activities_years[0]
     user.save()
     archive.save()
+
+
+def update_emergency_personal(user_id, activity_content):
+    user = User.objects(user_id=user_id).first()
+    emrg_personal = EmergencyPersonal.objects(user_id=user.id).first()
+    emrg_tip = EmergencyPersonalTip()
+
+    emrg_tip.created = datetime.datetime.utcnow()
+    emrg_tip.tip = activity_content
+
+    if emrg_personal is not None:
+        emrg_personal['tips'].append(emrg_tip)
+
+    else:
+        emrg_personal = EmergencyPersonal()
+        emrg_personal.user_id = user.id
+        emrg_personal.tips.append(emrg_tip)
+
+    emrg_personal.save()
 
 
 def create_activity(user_id, registered_date, activity_name):
@@ -62,6 +90,7 @@ def create_activity(user_id, registered_date, activity_name):
             user.activities_years[x].activities.append(activity)
         x += 1
     user.save()
+
     if user.recent[0]['quiz_valid']:
         quiz_validity_check(user)
     else:
@@ -97,12 +126,17 @@ def create_activity_content(user_id, registered_date, activity_name, has_content
             user.activities_years[x].activities.append(activity)
         x += 1
     user.save()
+
     if user.recent[0]['quiz_valid']:
         quiz_validity_check(user)
     else:
         count_activities(user_id)
     if len(user.activities_years) != 1:
         archive_check(user_id)
+
+    if activity_name == 'Dobre słowo':
+        update_emergency_personal(user_id, activity_content)
+
     return user
 
 
@@ -116,7 +150,8 @@ def get_all(user_id):
                 'registered_date': str(el['registered_date']),
                 'activity_name': el['activity_name'],
                 'has_content': el['has_content'],
-                'activity_content': el['activity_content']
+                'activity_content': el['activity_content'],
+                'activity_category': el['activity_category']
             }
             activities.append(ac)
 
@@ -126,7 +161,8 @@ def get_all(user_id):
                 'registered_date': str(el['registered_date']),
                 'activity_name': el['activity_name'],
                 'has_content': el['has_content'],
-                'activity_content': el['activity_content']
+                'activity_content': el['activity_content'],
+                'activity_category': el['activity_category']
             }
             activities.append(ac)
 
@@ -152,19 +188,21 @@ def get_month(user_id, month, year):
                     'registered_date': str(el['registered_date']),
                     'activity_name': el['activity_name'],
                     'has_content': el['has_content'],
-                    'activity_content': el['activity_content']
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
                 }
                 activities.append(ac)
-
-    for el in reversed(archive['activities']):
-        if start <= el['registered_date'] <= end:
-            ac = {
-                'registered_date': str(el['registered_date']),
-                'activity_name': el['activity_name'],
-                'has_content': el['has_content'],
-                'activity_content': el['activity_content']
-            }
-            activities.append(ac)
+    if archive is not None:
+        for el in reversed(archive['activities']):
+            if start <= el['registered_date'] <= end:
+                ac = {
+                    'registered_date': str(el['registered_date']),
+                    'activity_name': el['activity_name'],
+                    'has_content': el['has_content'],
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
+                }
+                activities.append(ac)
 
     return activities
 
@@ -184,19 +222,21 @@ def get_one(user_id, month, year, day, hour, minute, second, name):
                     'registered_date': str(el['registered_date']),
                     'activity_name': el['activity_name'],
                     'has_content': el['has_content'],
-                    'activity_content': el['activity_content']
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
                 }
                 activities.append(ac)
-
-    for el in reversed(archive['activities']):
-        if start <= el['registered_date'] <= end and el['activity_name'] == name:
-            ac = {
-                'registered_date': str(el['registered_date']),
-                'activity_name': el['activity_name'],
-                'has_content': el['has_content'],
-                'activity_content': el['activity_content']
-            }
-            activities.append(ac)
+    if archive is not None:
+        for el in reversed(archive['activities']):
+            if start <= el['registered_date'] <= end and el['activity_name'] == name:
+                ac = {
+                    'registered_date': str(el['registered_date']),
+                    'activity_name': el['activity_name'],
+                    'has_content': el['has_content'],
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
+                }
+                activities.append(ac)
 
     return activities
 
@@ -253,19 +293,21 @@ def get_day(user_id, month, year, day):
                     'registered_date': str(el['registered_date']),
                     'activity_name': el['activity_name'],
                     'has_content': el['has_content'],
-                    'activity_content': el['activity_content']
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
                 }
                 activities.append(ac)
-
-    for el in reversed(archive['activities']):
-        if start <= el['registered_date'] <= end:
-            ac = {
-                'registered_date': str(el['registered_date']),
-                'activity_name': el['activity_name'],
-                'has_content': el['has_content'],
-                'activity_content': el['activity_content']
-            }
-            activities.append(ac)
+    if archive is not None:
+        for el in reversed(archive['activities']):
+            if start <= el['registered_date'] <= end:
+                ac = {
+                    'registered_date': str(el['registered_date']),
+                    'activity_name': el['activity_name'],
+                    'has_content': el['has_content'],
+                    'activity_content': el['activity_content'],
+                    'activity_category': el['activity_category']
+                }
+                activities.append(ac)
 
     return activities
 
@@ -429,10 +471,9 @@ def get_reccomended(user_id):
     return recommended
 
 
-def set_emergency(tip_id, tip) -> Emergency:
+def set_emergency(tip) -> Emergency:
     emergency = Emergency()
 
-    emergency.tip_id = tip_id
     emergency.tip = tip
 
     emergency.save()
@@ -442,29 +483,46 @@ def set_emergency(tip_id, tip) -> Emergency:
 
 def get_emergency(user_id):
     user = User.objects(user_id=user_id).first()
-    seen = Emergency_seen()
     tips = Emergency.objects()
+    tips_personal = EmergencyPersonal.objects(user_id=user.id).first()
     tip_dict = {}
     tips_seen = []
 
-    for obj in user.emergency_seen:
-        tips_seen.append(obj.seen)
+    if user.emergency_seen['last_seen_personal'] or tips_personal is None or len(tips_personal['tips']) == 0:
+        for el in user.emergency_seen['seen']:
+            tips_seen.append(el)
 
-    for obj in tips:
-        tip_dict[obj['tip_id']] = obj['tip']
+        for obj in tips:
+            tip_dict[obj['tip_id']] = obj['tip']
 
-    tip_ids = list(tip_dict.keys())
-    if len(tips_seen) == len(tip_ids):
-        user.emergency_seen = []
-        tips_seen = []
+        tip_ids = list(tip_dict.keys())
+        if len(tips_seen) >= len(tip_ids):
+            user.emergency_seen['seen'] = []
+            tips_seen = []
 
-    tip_ids = list(set(tip_ids) - set(tips_seen))
+        tip_ids = list(set(tip_ids) - set(tips_seen))
+        sent_id = random.sample(tip_ids, 1)
 
-    sent_id = random.sample(tip_ids, 1)
-    print(sent_id)
-    print(tip_dict[sent_id[0]])
-    seen.seen = sent_id[0]
-    user.emergency_seen.append(seen)
+        user.emergency_seen['seen'].append(sent_id[0])
+        user.emergency_seen['last_seen_personal'] = False
+
+    else:
+        for el in user.emergency_seen['seen_personal']:
+            tips_seen.append(el)
+
+        for obj in tips_personal['tips']:
+            tip_dict[obj['tip_id']] = obj['tip']
+
+        tip_ids = list(tip_dict.keys())
+        if len(tips_seen) >= len(tip_ids):
+            user.emergency_seen['seen_personal'] = []
+            tips_seen = []
+
+        tip_ids = list(set(tip_ids) - set(tips_seen))
+        sent_id = random.sample(tip_ids, 1)
+        user.emergency_seen['seen_personal'].append(sent_id[0])
+        user.emergency_seen['last_seen_personal'] = True
+
     user.save()
 
     return tip_dict[sent_id[0]]
@@ -525,3 +583,58 @@ def user_update_answers(user_id, answer):
 def check_id(user_id):
     user = User.objects(user_id=user_id).first()
     print(str(user.id))
+
+
+def delete_account(user_id):
+    user = User.objects(user_id=user_id).first()
+    archived = Archive.objects(user_id=str(user.id)).all()
+
+    for el in archived:
+        delete_archive(str(user.id))
+
+    user.delete()
+
+
+def delete_archive(user_id):
+    archived = Archive.objects(user_id=user_id).first()
+    archived.delete()
+
+
+def generate_recovery(user_id):
+    recovery = Recovery()
+    user = User.objects(user_id=user_id).first()
+    length = 15
+
+    recovery.created = datetime.datetime.utcnow()
+    recovery.user_id = user.id
+
+    recovery_code = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(length))
+
+    recovery.recovery_code = recovery_code
+
+    try:
+        recovery.save()
+        return recovery_code
+    except:
+        return None
+
+
+def migrate_account(recovery_code, user_id):
+    recovery = Recovery.objects(recovery_code=recovery_code).first()
+    try:
+        user = User.objects(id=recovery.user_id).first()
+
+        user.user_id = user_id
+        user.save()
+
+        recovery.delete()
+        return True
+    except:
+        return False
+
+
+def get_blurb(user_id):
+    blurb = ['Hej co tam u Ciebie?',
+             'Jak Ci mija dzień?',
+             f'Czy miałbyś może ochotę na \'{random.sample(get_reccomended(user_id), 1)[0]}\'']
+    return random.sample(blurb, 1)

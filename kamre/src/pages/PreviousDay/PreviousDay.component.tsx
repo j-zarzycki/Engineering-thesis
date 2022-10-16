@@ -54,7 +54,7 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
   const renderProgressBar = () => {
     return (
       <div>
-        <HorizontalProgressBar currentElement={1} elements={slideElements} />
+        <HorizontalProgressBar currentElement={0} elements={slideElements} />
       </div>
     );
   };

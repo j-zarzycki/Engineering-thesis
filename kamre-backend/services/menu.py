@@ -19,7 +19,7 @@ ans = {
 }
 
 results = {
-    (1, 1, 1): ["Świadomy prysznic", "Przugotuj coś pysznego", "Spacer", "Jazda na rowerze",
+    (1, 1, 1): ["Świadomy prysznic", "Przygotuj coś pysznego", "Spacer", "Jazda na rowerze",
                 "Oddychanie", "TedX", "Piosenka", "Muzyka klasyczna", "Medytacja", "Podcast", "Dźwięki ambientowe",
                 "Mięśień kreatywności",
                 "Wdzięczność", "Wizualizacja swojego procesu zmiany", "Wystarczający", "Poprzedni dzień", "Dobre słowo"],
@@ -51,25 +51,30 @@ results = {
 
 
 def opener():
-    return questions[0], av_answers[0]
+    return questions[0], av_answers[0], False
 
 
 def chat(user_id, msg):
     if msg != 'Tak' and msg != 'Nie':
         svc.user_update_answers(user_id, ans.get(msg))
         if len(svc.user_check_answers(user_id)) < 3:
-            return questions[len(svc.user_check_answers(user_id))], av_answers[len(svc.user_check_answers(user_id))]
+            return questions[len(svc.user_check_answers(user_id))], av_answers[len(svc.user_check_answers(user_id))],False
         else:
             return get_results(user_id)
     else:
         if msg == 'Tak':
             svc.user_clear_chat_answers(user_id)
-            return 'Good shit', 'Nice'
+            return 'Good shit', 'Nice', False
         else:
             return get_results(user_id)
+
 
 
 def get_results(user_id):
     res = svc.user_check_answers(user_id)
     activities = results.get(tuple(res))
-    return random.sample(activities, 1), "Czy pomogło? Tak, Nie"
+    return random.sample(activities, 1), None, True
+
+
+def confirmation_opener():
+    return 'Czy pomogło?', ['Tak', 'Nie'], False

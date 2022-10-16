@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 20px;
   }
 
   .vertical-progress-bar {
@@ -16,6 +17,7 @@
 
   .proceed-button {
     gap: 10px;
+    margin-top: 40px;
   }
 
   &__buttons {
@@ -30,9 +32,12 @@
 
   &__swiper {
     width: 100%;
-    margin-top: 43px;
 
     .swiper {
+      &-wrapper {
+        height: 200px;
+      }
+
       &__proceed-buttons {
         &-enter {
           opacity: 0;
@@ -95,7 +100,7 @@
     }
   }
 
-  .final-buttons {
+  &__final-buttons {
     width: 80%;
     margin-left: 20px;
     display: flex;
@@ -118,8 +123,6 @@
     }
 
     &__swiper {
-      margin-top: 20px;
-
       .swiper {
         &-slide {
           &__header {
