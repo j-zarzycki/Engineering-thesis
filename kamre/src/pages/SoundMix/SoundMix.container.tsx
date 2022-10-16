@@ -58,10 +58,10 @@ const SoundMixContainer: React.FC = () => {
     swiper?.slideNext();
 
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
+    if (swiper?.activeIndex === 1 || swiper?.activeIndex === 2) {
       setImg(quote);
     }
-    if (swiper?.activeIndex === slideElements - 1) {
+    if (swiper?.activeIndex === 0 || swiper?.activeIndex === 4) {
       setImg(MainImg);
     }
   };
@@ -72,7 +72,7 @@ const SoundMixContainer: React.FC = () => {
     if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
       setImg(quote);
     }
-    if (slide?.activeIndex === slideElements - 1) {
+    if (slide?.activeIndex === 4) {
       setImg(MainImg);
     }
   };
