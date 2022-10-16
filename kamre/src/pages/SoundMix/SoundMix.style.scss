@@ -1,81 +1,33 @@
 @import "@Theme/variables";
 @import "@Theme/media";
 
-
-.sound-mix {
-  height: 100%;
+.soundmix {
   &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
 
-    .proceed-button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: auto;
-      margin-bottom: 2em;
-    }
-  }
+    .video {
+      margin-top: 16px;
+      max-height: 280px;
 
-  .swiper {
-    width: 100%;
-    margin-top: 43px;
-    &__proceed-buttons {
-      &-enter {
-        opacity: 0;
-        transform: scale(0.9);
-
-        &-active {
-          opacity: 1;
-          transform: translateX(0);
-          transition: opacity 300ms, transform 300ms;
-        }
+      &__container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-top: 56.25%; // 9 / 16 * 100%
       }
 
-      &-exit {
-        opacity: 1;
-
-        &-active {
-          opacity: 0;
-          transform: scale(0.9);
-          transition: opacity 300ms, transform 300ms;
-        }
-      }
-    }
-
-    &-slide {
-      &__wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-      }
-
-      &__header {
-        font-family: $font-main;
-        font-weight: $font-weight-xl;
-        font-size: $font-size-xxl;
-        color: $color-black;
-        text-align: center;
-        height: 30px;
-        margin-top: 20px;
-      }
-
-      &__description {
-        font-family: $font-main;
-        font-weight: $font-weight-m;
-        font-size: $font-size-m;
-        line-height: 24px;
-        color: $secondary-gray-90;
-        text-align: left;
-        padding-top: 2em;
+      &__embed {
+        border-radius: 20px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
       }
 
       &__source {
-        margin: 10px 0 0 0;
+        margin-top: 10px;
         font-style: normal;
         font-weight: 300;
         font-size: 12px;
@@ -83,42 +35,233 @@
         color: $secondary-gray-90;
         text-align: center;
       }
+    }
 
-      .video-container {
-        margin-top: 24px;
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-top: 56.25%; // 9 / 16 * 100%
 
-        &__embed {
-          border-radius: 20px;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+    .proceed-button {
+      margin-top: auto;
+      margin-bottom: 50px;
+    }
+  }
+
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
+
+  &__swiper {
+    width: 100%;
+    margin-top: 43px;
+
+    .swiper {
+      &__proceed-buttons {
+        &-enter {
+          opacity: 0;
+          transform: scale(0.9);
+
+          &-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+          }
+        }
+
+        &-exit {
+          opacity: 1;
+
+          &-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms, transform 300ms;
+          }
         }
       }
+      &-slide {
+        &__wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
 
-      &.swiper {
-        &-slide {
-          &-active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        &__header {
+          font-family: $font-main;
+          font-weight: $font-weight-xl;
+          font-size: $font-size-xxl;
+          color: $color-black;
+          text-align: center;
+        }
+
+        &__paragraph {
+          font-family: $font-main;
+          font-weight: $font-weight-m;
+          font-size: $font-size-m;
+          line-height: 24px;
+          color: $secondary-gray-90;
+          text-align: center;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        &.swiper {
+          &-slide {
+            &-active {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
           }
         }
       }
     }
   }
 
-  &__buttons {
+  &__final-buttons {
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 15px;
   }
+}
+@include mobile-xsmall {
+  .soundmix {
+    &__wrapper {
+      height: 100%;
 
+      .video {
+        max-height: 250px;
+        width: 100%;
+
+        &__embed {
+          max-height: 230px;
+          max-width: 409px;
+        }
+
+        &__source {
+          font-size: $font-size-xxs;
+        }
+      }
+
+      .proceed-button {
+        font-size: 20px;
+        height: 60px;
+        transition: all 0.3s;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+    }
+
+    &__swiper {
+      margin-top: 20px;
+
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 32px;
+          }
+
+          &__paragraph {
+            font-size: $font-size-m;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include mobile-small {
+  .soundmix {
+    &__wrapper {
+      height: 100%;
+
+      .video {
+        width: 100%;
+        max-height: 250px;
+
+        &__embed {
+          max-height: 230px;
+          max-width: 409px;
+        }
+
+        &__source {
+          font-size: $font-size-s;
+        }
+      }
+
+      .proceed-button {
+        margin-top: 60px;
+        font-size: 22px;
+        height: 65px;
+        transition: all 0.3s;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 34px;
+          }
+
+          &__paragraph {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    &__final-buttons {
+      margin-top: 60px;
+    }
+  }
+}
+
+@include mobile-medium {
+  .soundmix {
+    &__wrapper {
+      height: 100%;
+
+      .video {
+        max-height: 430px;
+        width: 100%;
+        max-width: 675px;
+
+        &__container {
+          max-height: 380px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+        }
+
+        &__embed {
+          max-height: 380px;
+          max-width: 675px;
+        }
+
+        &__source {
+          font-size: $font-size-s;
+        }
+      }
+
+      .proceed-button {
+        font-size: 24px;
+        height: 75px;
+        transition: all 0.3s;
+      }
+    }
+
+    &__swiper {
+      .swiper {
+        &-slide {
+          &__header {
+            font-size: 38px;
+          }
+
+          &__paragraph {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
 }
