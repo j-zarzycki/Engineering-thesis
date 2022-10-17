@@ -41,7 +41,6 @@ import ColdWater from "./pages/ColdWater";
 import Creativity from "./pages/Creativity";
 import Breathing from "./pages/Breathing";
 import SchultzTraining from "./pages/SchultzTraining";
-import SchulzTraining from "./pages/SchulzTraining";
 import EduVideo from "./pages/EduVideo";
 import WelcomePage from "./pages/WelcomePage";
 
@@ -109,7 +108,6 @@ const App: React.FC = () => {
             <Route exact path="/creativity" component={Creativity} />
             <Route exact path="/breathing" component={Breathing} />
             <Route exact path="/schultztraining" component={SchultzTraining} />
-            <Route exact path="/schulztraining" component={SchulzTraining} />
             <Route exact path="/eduvideo" component={EduVideo} />
             <Route
               exact
