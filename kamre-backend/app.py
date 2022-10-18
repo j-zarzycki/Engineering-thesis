@@ -276,8 +276,6 @@ def get_blurb():
     else:
         return user_id
 
-# app.run(port=5000, ssl_context="adhoc")
-# socketio.run(app, allow_unsafe_werkzeug=True)
 
 
 
