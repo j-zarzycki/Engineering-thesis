@@ -16,6 +16,9 @@ from data.Archive import Archive
 from data.Recovery import Recovery
 from data.Emergency_personal_tip import EmergencyPersonalTip
 from data.Emergency_personal import EmergencyPersonal
+from data.Answer import Answer
+from data.Question import Question
+from data.ChatResult import ChatResult
 import random
 
 months_dict = months_dict()
@@ -138,6 +141,45 @@ def create_activity_content(user_id, registered_date, activity_name, has_content
         update_emergency_personal(user_id, activity_content)
 
     return user
+
+
+def add_answers(answer_id, answers):
+    answer = Answer()
+    answer.answer_id = answer_id
+    answer.answers = answers
+    answer.save()
+
+
+def add_questions(question_id, question_content):
+    question = Question()
+    question.question_id = question_id
+    question.question_content = question_content
+    question.save()
+
+
+def add_chat_result(result_code, activity_list):
+    chat_result = ChatResult()
+    chat_result.result_code = result_code
+    chat_result.activity_list = activity_list
+    chat_result.save()
+
+
+def get_all_questions():
+    questions_objects = Question.objects.order_by('question_id').all()
+    questions = []
+    for el in questions_objects:
+        questions.append(el.question_content)
+
+    return questions
+
+
+def get_all_answers():
+    answers_objects = Answer.objects.order_by('answer_id').all()
+    answers = []
+    for el in answers_objects:
+        answers.append(el.answers)
+
+    return answers
 
 
 def get_all(user_id):
@@ -571,12 +613,14 @@ def user_clear_chat_answers(user_id):
 
 def user_check_answers(user_id):
     user = User.objects(user_id=user_id).first()
-    return user.chat_answers
+    result_code = ''.join(str(x) for x in user.chat_answers)
+    activity_list = ChatResult.objects(result_code=result_code).first().activity_list
+    return random.sample(activity_list, 1)
 
 
 def user_update_answers(user_id, answer):
     user = User.objects(user_id=user_id).first()
-    user.chat_answers.append(answer)
+    user.chat_answers = answer
     user.save()
 
 
@@ -631,8 +675,6 @@ def migrate_account(recovery_code, user_id):
         return True
     except:
         return False
-
-
 
 
 def get_blurb(user_id):
