@@ -276,37 +276,8 @@ def get_blurb():
     else:
         return user_id
 
-
-
-@socketio.event(namespace='/chat')
-def connect():
-    try:
-        token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
-        if request.headers['is_continuation'] == 'false':
-            svc.user_clear_chat_answers(token['device_id'])
-        else:
-            pass
-        return True
-    except:
-        return False
-
-
-@socketio.on('message', namespace='/chat')
-def handleMessage(msg):
-    token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
-    if msg == 'User has connected!' and request.headers['is_continuation'] == 'false':
-        response, av_answers, type = menu.opener()
-    elif request.headers['is_continuation'] == 'true' and msg == 'User has connected!':
-        response, av_answers, type = menu.confirmation_opener()
-    else:
-        response, av_answers, type = menu.chat(token['device_id'], msg)
-    res = {'Question': response, 'Answers': av_answers, 'is_activity': type}
-    send(res)
-
-
 # app.run(port=5000, ssl_context="adhoc")
 # socketio.run(app, allow_unsafe_werkzeug=True)
-if __name__ == '__main__':
-    socketio.run(app, allow_unsafe_werkzeug=True)
+
 
 
