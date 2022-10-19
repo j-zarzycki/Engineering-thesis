@@ -120,7 +120,7 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <div className="homepage-toolbar">
-            <div className="ion-title">Home</div>
+            <div className="ion-title">Strona główna</div>
             <FiSettings size={25} onClick={onSettingsClick}/>
           </div>
         </IonToolbar>
