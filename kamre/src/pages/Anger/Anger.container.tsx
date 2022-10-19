@@ -25,7 +25,7 @@ const AngerContainer: React.FC = () => {
     isFinalVisible: false,
   });
   const history = useHistory();
-  const slideElements = 3;
+  const slideElements = 4;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -45,7 +45,7 @@ const AngerContainer: React.FC = () => {
     return (
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
-          <h4 className="swiper-slide__header">Co Cię złości?:</h4>
+          <h4 className="swiper-slide__header">Przemyślenia</h4>
           <p className="swiper-slide__paragraph">
             <Input
               type="text"
