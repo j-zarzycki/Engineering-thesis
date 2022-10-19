@@ -31,6 +31,7 @@ import PrepareMeal from "./pages/PrepareMeal";
 import Settings from "./pages/Settings";
 import MigrateAccountPage from "./pages/MigrateAccountPage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
@@ -115,6 +116,7 @@ const App: React.FC = () => {
               path="/migrateaccountpage"
               component={MigrateAccountPage}
             />
+            <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
