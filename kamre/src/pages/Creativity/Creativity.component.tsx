@@ -1,5 +1,5 @@
 import React from "react";
-import { IonContent, IonPage, IonToast } from "@ionic/react";
+import { IonContent, IonLoading, IonPage, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
@@ -12,33 +12,56 @@ import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import Pet from "@Components/Pet";
+import CancelButton from "@Components/CancelButton";
 
 interface IProps {
+  onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(): void;
   setToast(value: {}): void;
   onProceedButtonClick(): void;
   setSwiper(value: any): void;
   onSlideChangeHandler(slide: SwiperType): void;
+  onGenerateSubject(): void;
+  isLoading: boolean;
   toast: any;
   currentSlide: number;
   swiper: any;
   img: string;
+  subjectShort: string;
+  subjectLong: string;
   slideElements: number;
 }
 
 const Creativity: React.FC<IProps> = (props: IProps) => {
   const {
+    onCreateActivityWithNoContent,
     onCreateActivityWithContent,
     onProceedButtonClick,
     onSlideChangeHandler,
+    onGenerateSubject,
     setToast,
     setSwiper,
+    isLoading,
     toast,
     swiper,
     currentSlide,
     img,
+    subjectShort,
+    subjectLong,
     slideElements,
   } = props;
+
+  onGenerateSubject();
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="walking__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
 
   const renderToast = () => {
     const { isOpen, message } = toast;
@@ -104,10 +127,12 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">10 sposobów na.. kawę!</h4>
+              <h4 className="swiper-slide__header">
+                10 sposobów na.. {subjectShort}!
+              </h4>
               <p className="swiper-slide__paragraph">
-                Wypisz 10 niekonencjonalych sposobów na zaparzenie kawy. Im
-                bardziej szalone tym lepiej !
+                Wypisz 10 niekonencjonalych sposobów na {subjectLong}. Im
+                bardziej szalone tym lepiej!
               </p>
             </div>
           </SwiperSlide>
@@ -119,11 +144,20 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 1)
       return (
-        <div className="creativity__final-buttons">
-          <SaveActivityButton
-            title="Dodaj"
-            onClick={onCreateActivityWithContent}
-          />
+        <div>
+          <div className="creativity__final-buttons">
+            <CancelButton onClick={onGenerateSubject} title="Zmień temat" />
+          </div>
+          <div className="creativity__final-buttons">
+            <CancelButton
+              onClick={onCreateActivityWithNoContent}
+              title="Zakończ"
+            />
+            <SaveActivityButton
+              title="Dodaj"
+              onClick={onCreateActivityWithContent}
+            />
+          </div>
         </div>
       );
 
@@ -146,6 +180,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="creativity">
           {renderToast()}
+          {renderLoader()}
           {renderHeader()}
           <div className="creativity__wrapper">{renderContext()}</div>
         </div>
