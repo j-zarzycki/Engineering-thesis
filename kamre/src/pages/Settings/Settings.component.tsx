@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  IonContent,
-  IonPage,
-  useIonAlert,
-  IonCard,
-  IonCardHeader,
-} from "@ionic/react";
+import { IonContent, IonPage, IonCard, IonCardHeader } from "@ionic/react";
 import { CSSTransition } from "react-transition-group";
 
 // Import Swiper styles
@@ -17,19 +11,10 @@ import BackButton from "@Components/BackButton";
 import DeleteAccountButton from "@Components/DeleteAccountButton";
 import MigrateAccountButton from "@Components/MigrateAccountButton";
 import PrivacyPolicyButton from "@Components/PrivacyPolicyButton";
-import SaveActivityButton from "@Components/SaveActivityButton";
-import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 
-interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(activityContent: String): Promise<void>;
-}
-
-const Settings: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+const Settings: React.FC = () => {
   const [img, setImg] = useState("");
-  const [presentAlert] = useIonAlert();
   const [showDeleteAccountButton, setShowDeleteAccountButton] = useState(true);
   const [showMigrateAccountButton, setShowMigrateAccountButton] =
     useState(true);
@@ -38,29 +23,29 @@ const Settings: React.FC<IProps> = (props: IProps) => {
   useEffect(() => {
     setImg(MainImg);
   }, []);
-  const onAlertButtonClick = (alertData: String) => {
-    onCreateActivityWithContent(alertData);
-  };
-
-  const onProceedButtonClickWithContent = () => {
-    presentAlert({
-      header: "Dodaj swoje przemyślenia",
-      buttons: [
-        {
-          text: "OK",
-          handler: (alertData) => {
-            onAlertButtonClick(alertData.content);
-          },
-        },
-      ],
-      inputs: [
-        {
-          name: "content",
-          placeholder: "Wpisz je tutaj...",
-        },
-      ],
-    });
-  };
+  // const onAlertButtonClick = (alertData: String) => {
+  //   onCreateActivityWithContent(alertData);
+  // };
+  //
+  // const onProceedButtonClickWithContent = () => {
+  //   presentAlert({
+  //     header: "Dodaj swoje przemyślenia",
+  //     buttons: [
+  //       {
+  //         text: "OK",
+  //         handler: (alertData) => {
+  //           onAlertButtonClick(alertData.content);
+  //         },
+  //       },
+  //     ],
+  //     inputs: [
+  //       {
+  //         name: "content",
+  //         placeholder: "Wpisz je tutaj...",
+  //       },
+  //     ],
+  //   });
+  // };
 
   return (
     <IonPage>
@@ -116,16 +101,6 @@ const Settings: React.FC<IProps> = (props: IProps) => {
               onExited={() => setShowDeleteAccountButton(true)}
             />
 
-            <div className="final-buttons">
-              <CancelButton
-                title="Anuluj"
-                onClick={onCreateActivityWithNoContent}
-              />
-              <SaveActivityButton
-                title="Zapisz"
-                onClick={onProceedButtonClickWithContent}
-              />
-            </div>
             <CSSTransition
               in={!showMigrateAccountButton}
               timeout={300}
