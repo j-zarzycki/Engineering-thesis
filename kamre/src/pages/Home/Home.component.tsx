@@ -142,13 +142,13 @@ const Home: React.FC = () => {
                     <IonCol className="chat">
                       <IonCard class="chat-styles">
                         <IonCardContent class="chat-description">
-                          <span>Hi!</span>
+                          <span>Cześć!</span>
                         </IonCardContent>
                       </IonCard>
 
                       <IonCard class="chat-styles">
                         <IonCardContent class="chat-description">
-                          <span>What would you like to do today?</span>
+                          <span>Co chcesz dziś porobić?</span>
                         </IonCardContent>
                       </IonCard>
                     </IonCol>

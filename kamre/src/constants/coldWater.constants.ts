@@ -1,3 +1,3 @@
-const SWIPE_ELEMENTS = 5;
+const SWIPE_ELEMENTS = 6;
 
 export default SWIPE_ELEMENTS;
