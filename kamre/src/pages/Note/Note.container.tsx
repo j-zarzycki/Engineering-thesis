@@ -53,6 +53,11 @@ const NoteContainer: React.FC = () => {
   };
 
   const handleCancelButtonClick = async () => {
+    if (prevContent === "Poprzedni dzień") {
+      history.replace("/home");
+      return null;
+    }
+
     setIsLoading(true);
     const currentDate = getFullDateWithTime();
 
@@ -69,6 +74,8 @@ const NoteContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
+
+    return null;
   };
 
   return (
