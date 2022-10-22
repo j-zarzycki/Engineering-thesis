@@ -101,7 +101,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         <ActivityCard
           variant={cardVariant}
           title="Co w duszy gra?"
-          onClick={() => onCardClick("smallsteps")}
+          onClick={() => onCardClick("sounds")}
         />
         <ActivityCard
           variant={cardVariant}
