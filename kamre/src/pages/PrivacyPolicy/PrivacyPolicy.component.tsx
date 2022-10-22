@@ -11,12 +11,11 @@ import { CSSTransition } from "react-transition-group";
 // Import Swiper styles
 import "swiper/css";
 
-import "./Settings.style.scss";
+import "./PrivacyPolicy.style.scss";
 import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import DeleteAccountButton from "@Components/DeleteAccountButton";
 import MigrateAccountButton from "@Components/MigrateAccountButton";
-import PrivacyPolicyButton from "@Components/PrivacyPolicyButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
@@ -26,14 +25,13 @@ interface IProps {
   onCreateActivityWithContent(activityContent: String): Promise<void>;
 }
 
-const Settings: React.FC<IProps> = (props: IProps) => {
+const PrivacyPolicy: React.FC<IProps> = (props: IProps) => {
   const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
   const [img, setImg] = useState("");
   const [presentAlert] = useIonAlert();
   const [showDeleteAccountButton, setShowDeleteAccountButton] = useState(true);
   const [showMigrateAccountButton, setShowMigrateAccountButton] =
     useState(true);
-  const [showPrivacyPolicyButton, setShowPrivacyPolicyButton] = useState(true);
 
   useEffect(() => {
     setImg(MainImg);
@@ -65,10 +63,10 @@ const Settings: React.FC<IProps> = (props: IProps) => {
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
-        <div className="settings">
-          <BackButton defaultHref="/home" />
-          <div className="settings__wrapper">
-            <div className="settings__wrapper_image">
+        <div className="privacypolicy">
+          <BackButton defaultHref="/settings" />
+          <div className="privacypolicy__wrapper">
+            <div className="privacypolicy__wrapper_image">
               <Pet
                 src={img}
                 alt="Uśmiechnięta ośmiorniczka jpg"
@@ -77,30 +75,50 @@ const Settings: React.FC<IProps> = (props: IProps) => {
                 paddingBottom="20px"
               />
             </div>
-            <div className="settings__wrapper_content">
+            <div className="privacypolicy__wrapper_content">
               <IonCard>
-                <div className="settings__wrapper_content__header">
+                <div className="privacypolicy__wrapper_content__header">
                   <IonCardHeader>
-                    <h2>Ustawienia</h2>
+                    <h2>Polityka prywatności</h2>
+                    <div className="privacypolicy__wrapper_content__header-description">
+                      <span>
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit
+                        Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem Lorem Ipsum
+                        Dolor Sit Amet Lorem Lorem Ipsum Dolor Sit Amet Lorem
+                        Lorem Ipsum Dolor Sit Amet Lorem
+                      </span>
+                    </div>
                   </IonCardHeader>
                 </div>
-                <div className="settings__wrapper_content__buttons">
+                <div className="privacypolicy__wrapper_content__buttons">
                   {showMigrateAccountButton && (
                     <MigrateAccountButton
                       defaultHref="/migrateaccountpage"
-                      title="Przenieś konto"
+                      title="Migrate Account"
                     />
                   )}
                   {showDeleteAccountButton && (
                     <DeleteAccountButton
                       defaultHref="/deleteaccountpage"
-                      title="Usuń konto"
-                    />
-                  )}
-                  {showPrivacyPolicyButton && (
-                    <PrivacyPolicyButton
-                      defaultHref="/privacypolicy"
-                      title="Polityka prywatności"
+                      title="Delete Account"
                     />
                   )}
                 </div>
@@ -134,14 +152,6 @@ const Settings: React.FC<IProps> = (props: IProps) => {
               onEnter={() => setShowMigrateAccountButton(false)}
               onExited={() => setShowMigrateAccountButton(true)}
             />
-            <CSSTransition
-              in={!showPrivacyPolicyButton}
-              timeout={300}
-              classNames="swiper__privacy-policy-buttons"
-              unmountOnExit
-              onEnter={() => setShowPrivacyPolicyButton(false)}
-              onExited={() => setShowPrivacyPolicyButton(true)}
-            />
           </div>
         </div>
       </IonContent>
@@ -149,4 +159,4 @@ const Settings: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Settings;
+export default PrivacyPolicy;

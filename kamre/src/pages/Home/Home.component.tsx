@@ -14,7 +14,7 @@ import {
   createGesture,
   Gesture,
 } from "@ionic/react";
-import Pet from "@Assets/image-12.png";
+import Pet from "@Assets/happy.png";
 import Avatar from "@Assets/image.png";
 import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";

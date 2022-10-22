@@ -32,6 +32,23 @@ ion-header {
     }
   }
 
+  &__image {
+    img {
+      @media (min-width: 1px) and (max-width: 375px) {
+        max-width: 55%;
+        transition: all .3s;
+      }
+      @media (min-width: 375px) and (max-width: 550px) {
+        max-width: 60%;
+        transition: all .3s;
+      }
+      @media (min-width: 550px) and (max-width: 2560px) {
+        max-width: 70%;
+        transition: all .3s;
+      }
+    }
+  }
+
   &-header {
     &-wrapper {
       display: flex;
