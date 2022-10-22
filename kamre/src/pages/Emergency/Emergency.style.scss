@@ -7,10 +7,6 @@
     flex-direction: column;
     align-items: center;
 
-    .proceed-button {
-      margin-top: auto;
-      margin-bottom: 50px;
-    }
   }
 
   &__header {
@@ -45,6 +41,7 @@
           }
         }
       }
+
       &-slide {
         &__wrapper {
           display: flex;
@@ -62,12 +59,12 @@
         }
 
         &__paragraph {
+          text-align: center;
           font-family: $font-main;
           font-weight: $font-weight-m;
           font-size: $font-size-m;
           line-height: 24px;
           color: $secondary-gray-90;
-          text-align: center;
           padding-left: 1.5rem;
           padding-right: 1.5rem;
         }
@@ -85,22 +82,6 @@
     }
   }
 
-  .final-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-}
-
-.emergency-phone-container {
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    opacity: .8;
-    transition: all .3s;
-  }
 }
 
 @include mobile-xsmall {
@@ -128,6 +109,7 @@
 
           &__paragraph {
             font-size: $font-size-m;
+            text-align: center;
           }
         }
       }
@@ -161,6 +143,7 @@
 
           &__paragraph {
             font-size: 18px;
+            text-align: center;
           }
         }
       }
@@ -172,6 +155,7 @@
   .emergency {
     &__wrapper {
       height: 100%;
+
       .proceed-button {
         font-size: 24px;
 
@@ -189,6 +173,7 @@
 
           &__paragraph {
             font-size: 20px;
+            text-align: center;
           }
         }
       }

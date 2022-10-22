@@ -2,7 +2,6 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { SERVER_URL_EMERGENCY } from "@Constants/server.constants";
 import IDefaultServerResponse from "@Types/defaultServerResponse.type";
-import { useState } from "react";
 
 const cookies = new Cookies();
 
