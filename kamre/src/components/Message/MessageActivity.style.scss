@@ -1,23 +1,34 @@
 @import "@Theme/variables";
+@import "@Theme/mixins";
 
 .message-activity {
-    &__wrapper {
-        min-height: 89px;
-        background-color: $primary-color-90;
-        border-radius: $border-radius-m;
-        padding: 16px 24px;
-        color: $color-white;
-        font-family: $font-roboto;
-        
-    }
+  height: 89px;
 
-    &__title {
-        text-transform: uppercase;
-        margin-bottom: 5px;
-        font-weight: $font-weight-xl;
-    }
+  &__wrapper {
+    height: 89px;
+    background-color: $primary-color-90;
+    border-radius: $border-radius-m;
+    padding: 16px 24px;
+    color: $color-white;
+    font-family: $font-roboto;
 
-    &__description {
-        font-weight: $font-weight-m;
-    }
+    @include animation-properties;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: $font-weight-xl;
+    overflow: hidden;
+    @include animation-properties;
+  }
+
+  &__description {
+    font-weight: $font-weight-m;
+    white-space: nowrap;
+    overflow: hidden;
+    @include animation-properties;
+  }
 }
+
+@include message-animation;

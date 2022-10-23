@@ -100,7 +100,7 @@ http://ionicframework.com/docs/theming/ */
   --transition-default: all .3s ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------

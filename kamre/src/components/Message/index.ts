@@ -3,6 +3,7 @@ import MessageAnswer from "./MessageAnswer.component";
 import MessageQuestion from "./MessageQuestion.component";
 import MessageChoicesBox from "./MessageChoicesBox.component";
 import MessageChoice from "./MessageChoice.component";
+import MessageLoader from "./MessageLoader.component";
 
 export {
   MessageActivity,
@@ -10,4 +11,5 @@ export {
   MessageQuestion,
   MessageChoicesBox,
   MessageChoice,
+  MessageLoader,
 };
