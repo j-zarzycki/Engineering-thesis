@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -72,8 +72,10 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [isFirstStart, setIsFirstStart] = useState(true);
 
   useEffect(() => {
+    setIsFirstStart(Boolean(localStorage.getItem("isFirstStart")));
     dispatch(authLogin("test_user"));
   }, []);
 
@@ -82,9 +84,9 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route path="/welcomepage" component={WelcomePage} />
-            <Route path="/shower" component={ConsciousShower} />
+            <Route path="/welcompage" component={WelcomePage} />
             <Route path="/home" component={Home} />
+            <Route path="/shower" component={ConsciousShower} />
             <Route path="/settings" component={Settings} />
             <Route path="/walking" component={Walking} />
             <Route path="/fivetoone" component={FiveToOne} />
@@ -122,7 +124,11 @@ const App: React.FC = () => {
             />
             <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
-              <Redirect to="/home" />
+              {isFirstStart ? (
+                <Redirect to="/home" />
+              ) : (
+                <Redirect to="/welcompage" />
+              )}
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">

@@ -19,6 +19,7 @@ interface IProps {
   onProceedButtonClick(): void;
   setSwiper(value: any): void;
   onSlideChangeHandler(slide: SwiperType): void;
+  onStartButtonClick(): void;
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -29,6 +30,7 @@ interface IProps {
 
 const WelcomePage: React.FC<IProps> = (props: IProps) => {
   const {
+    onStartButtonClick,
     onCreateActivityWithContent,
     onProceedButtonClick,
     onSlideChangeHandler,
@@ -145,7 +147,10 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="welcome-page__final-buttons">
-          <WelcomePageStartButton defaultHref="/home" title="Zaczynamy!" />
+          <WelcomePageStartButton
+            onClick={onStartButtonClick}
+            title="Zaczynamy!"
+          />
           <WelcomePageRestoreDataButton
             title="Przywróć dane"
             onClick={onCreateActivityWithContent}

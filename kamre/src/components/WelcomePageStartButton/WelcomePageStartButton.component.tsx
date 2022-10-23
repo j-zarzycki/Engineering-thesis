@@ -1,24 +1,21 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 import "./WelcomePageStartButton.style.scss";
 
 interface IProps {
-  defaultHref: string;
   title: String;
   disabled?: boolean;
+  onClick: () => void;
 }
 
 const WelcomePageStartButton: React.FC<IProps> = (props: IProps) => {
-  const { defaultHref, title, disabled } = props;
-  const history = useHistory();
-  const onClickHandler = () => history.push(defaultHref);
+  const { title, disabled, onClick } = props;
 
   return (
     <button
       className="welcome-page-start-button"
       type="button"
-      onClick={onClickHandler}
+      onClick={onClick}
       disabled={disabled}
     >
       {title}
