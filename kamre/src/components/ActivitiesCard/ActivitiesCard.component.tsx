@@ -118,11 +118,6 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
           title="Trening Schultza"
           onClick={() => onCardClick("schulztraining")}
         />
-        <ActivityCard
-          variant={cardVariant}
-          title="Mięsień kreatywności"
-          onClick={() => onCardClick("creativity")}
-        />
       </div>
     );
   };
