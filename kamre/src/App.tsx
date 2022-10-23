@@ -11,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { triangle } from "ionicons/icons";
+import { triangle, flash, today } from "ionicons/icons";
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
@@ -31,6 +31,7 @@ import PrepareMeal from "./pages/PrepareMeal";
 import Settings from "./pages/Settings";
 import MigrateAccountPage from "./pages/MigrateAccountPage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
@@ -40,7 +41,9 @@ import SoundMix from "./pages/SoundMix";
 import ColdWater from "./pages/ColdWater";
 import Creativity from "./pages/Creativity";
 import Breathing from "./pages/Breathing";
-import SchulzTraining from "./pages/SchulzTraining";
+import SchultzTraining from "./pages/SchultzTraining";
+import EduVideo from "./pages/EduVideo";
+import WelcomePage from "./pages/WelcomePage";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -79,6 +82,7 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+            <Route path="/welcomepage" component={WelcomePage} />
             <Route path="/shower" component={ConsciousShower} />
             <Route path="/home" component={Home} />
             <Route path="/settings" component={Settings} />
@@ -104,7 +108,8 @@ const App: React.FC = () => {
             <Route exact path="/visualization" component={Visualization} />
             <Route exact path="/creativity" component={Creativity} />
             <Route exact path="/breathing" component={Breathing} />
-            <Route exact path="/schulztraining" component={SchulzTraining} />
+            <Route exact path="/schultztraining" component={SchultzTraining} />
+            <Route exact path="/eduvideo" component={EduVideo} />
             <Route
               exact
               path="/deleteaccountpage"
@@ -115,14 +120,23 @@ const App: React.FC = () => {
               path="/migrateaccountpage"
               component={MigrateAccountPage}
             />
+            <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
+            <IonTabButton tab="emergency" href="/emergency">
+              <IonIcon icon={flash} />
+              <IonLabel>Szybka pomoc</IonLabel>
+            </IonTabButton>
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
-              <IonLabel>Home</IonLabel>
+              <IonLabel>Strona główna</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="calendar" href="/calendar">
+              <IonIcon icon={today} />
+              <IonLabel>Kalendarz</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

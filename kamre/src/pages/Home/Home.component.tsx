@@ -14,7 +14,7 @@ import {
   createGesture,
   Gesture,
 } from "@ionic/react";
-import Pet from "@Assets/image-12.png";
+import Pet from "@Assets/happy.png";
 import Avatar from "@Assets/image.png";
 import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <div className="homepage-toolbar">
-            <div className="ion-title">Home</div>
+            <div className="ion-title">Strona główna</div>
             <FiSettings size={25} onClick={onSettingsClick}/>
           </div>
         </IonToolbar>
@@ -142,13 +142,13 @@ const Home: React.FC = () => {
                     <IonCol className="chat">
                       <IonCard class="chat-styles">
                         <IonCardContent class="chat-description">
-                          <span>Hi!</span>
+                          <span>Cześć!</span>
                         </IonCardContent>
                       </IonCard>
 
                       <IonCard class="chat-styles">
                         <IonCardContent class="chat-description">
-                          <span>What would you like to do today?</span>
+                          <span>Co chcesz dziś porobić?</span>
                         </IonCardContent>
                       </IonCard>
                     </IonCol>
