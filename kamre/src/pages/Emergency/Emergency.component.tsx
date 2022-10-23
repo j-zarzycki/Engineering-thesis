@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonSpinner } from "@ionic/react";
 import { CSSTransition } from "react-transition-group";
 import "./Emergency.style.scss";
 import MainImg from "@Assets/main.png";
@@ -13,6 +13,8 @@ const Emergency: React.FC = () => {
   const [showProceedButton, setShowProceedButton] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
   const [data, setData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     setImg(MainImg);
   }, []);
@@ -26,8 +28,10 @@ const Emergency: React.FC = () => {
   }, []);
 
   const adviseContent = async () => {
+    setIsLoading(true);
     await emergencyService().then((res) => {
       setData(res.data.res);
+      setIsLoading(false);
     });
   };
 
@@ -49,11 +53,15 @@ const Emergency: React.FC = () => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Szybka Pomoc</h4>
-            </div>
-            <div className="swiper-slide__wrapper">
-              <p className="swiper-slide__paragraph ion-text-center">{data}</p>
+            <div className="emergency__swiper">
+              <div className="swiper-slide__wrapper">
+                <h4 className="swiper-slide__header">Szybka Pomoc</h4>
+              </div>
+              <div className="swiper-slide__wrapper">
+                <p className="swiper-slide__paragraph ion-text-center">
+                  {isLoading ? <IonSpinner name="dots" /> : data}
+                </p>
+              </div>
             </div>
             <ProceedButton title="Następny" onClick={changeContent} />
           </div>
