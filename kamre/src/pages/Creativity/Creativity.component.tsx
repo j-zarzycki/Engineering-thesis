@@ -141,7 +141,8 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
               <h4 className="swiper-slide__header">Gratulacje!</h4>
               <p className="swiper-slide__paragraph">
                 Czy udało Ci się uspokoić? W jakim kierunku uciekały Twoje
-                myśli?<br />
+                myśli?
+                <br />
                 Jeśli chcesz dodaj notatkę ze swoimi sposobami lub
                 przemyśleniami.
               </p>
