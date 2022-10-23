@@ -136,28 +136,42 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
               </p>
             </div>
           </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Gratulacje!</h4>
+              <p className="swiper-slide__paragraph">
+                Czy udało Ci się uspokoić? W jakim kierunku uciekały Twoje
+                myśli? <br />
+                Jeśli chcesz dodaj notatkę ze swoimi sposobami lub
+                przemyśleniami.
+              </p>
+            </div>
+          </SwiperSlide>
         </Swiper>
       </div>
     );
   };
 
   const renderButtons = () => {
-    if (swiper?.activeIndex >= 1)
+    if (swiper?.activeIndex === 1) {
       return (
-        <div>
-          <div className="creativity__final-buttons">
-            <CancelButton onClick={onGenerateSubject} title="Zmień temat" />
-          </div>
-          <div className="creativity__final-buttons">
-            <CancelButton
-              onClick={onCreateActivityWithNoContent}
-              title="Zakończ"
-            />
-            <SaveActivityButton
-              title="Dodaj"
-              onClick={onCreateActivityWithContent}
-            />
-          </div>
+        <div className="creativity__final-buttons">
+          <CancelButton onClick={onGenerateSubject} title="Losuj" />
+          <SaveActivityButton title="Dalej!" onClick={onProceedButtonClick} />
+        </div>
+      );
+    }
+    if (swiper?.activeIndex >= 2)
+      return (
+        <div className="creativity__final-buttons">
+          <CancelButton
+            onClick={onCreateActivityWithNoContent}
+            title="Zakończ"
+          />
+          <SaveActivityButton
+            title="Dodaj"
+            onClick={onCreateActivityWithContent}
+          />
         </div>
       );
 

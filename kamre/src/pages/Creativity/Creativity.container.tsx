@@ -64,7 +64,7 @@ const CreativityContainer: React.FC = () => {
       createNote({
         contentName: "Mięsień kreatywności",
         title: "Mięsień kreatywnośći",
-        description: `Wypisz swoje 10 sposobów na ${{ subjectShort }}: `,
+        description: `Wypisz swoje 10 sposobów na ${subjectShort}: `,
         hiddenDescription: "",
       }),
     );
