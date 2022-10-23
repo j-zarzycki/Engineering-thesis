@@ -151,7 +151,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <h4 className="swiper-slide__header">Gratulacje!</h4>
               <p className="swiper-slide__paragraph">
                 Jakie odczucia towarzyszyły Ci podczas treningu. Podziel się
                 swoimi przemyśleniami.

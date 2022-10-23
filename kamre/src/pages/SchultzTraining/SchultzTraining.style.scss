@@ -43,6 +43,10 @@
     }
   }
 
+  &__horizontal-progress-bar {
+    margin-top: 3rem;
+  }
+
   &__header {
     height: 30px;
     margin-top: 20px;
@@ -50,7 +54,7 @@
 
   &__swiper {
     width: 100%;
-    margin-top: 43px;
+    margin-top: 16px;
 
     .swiper {
       &__proceed-buttons {
