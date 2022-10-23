@@ -1,23 +1,23 @@
-/* eslint-disable */
 import React from "react";
 
 import "./MessageChoice.style.scss";
 
 interface IProps {
   value: string;
-  index: number;
-  onClick: (obj: { value: string; index: number }) => void;
+  activityIndex: number;
+  onClick: (obj: { value: string; activityIndex: number }) => void;
 }
 
-const MessageChoice: React.FC<IProps> = ({ onClick, value, index }) => {
+const MessageChoice: React.FC<IProps> = ({ onClick, value, activityIndex }) => {
   const generateKey = () => {
     return `message_${new Date().getTime()}`;
   };
-  
+
   return (
     <div
+      role="presentation"
       className="message-choice__wrapper"
-      onClick={() => onClick({ value, index })}
+      onClick={() => onClick({ value, activityIndex })}
       key={generateKey()}
     >
       <span className="message-choice__value">{value}</span>

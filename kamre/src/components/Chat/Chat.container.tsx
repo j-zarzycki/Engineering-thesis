@@ -1,4 +1,7 @@
 /* eslint-disable */
+/* musi być, bo eslint z niewiadomych przyczyn wywala błąd z wywołąniem renderNegotiation
+   przed jej zadeklarowaniem (pomimo tego że jest to function()) */
+
 
 import React, { useState, useRef, useEffect } from "react";
 
@@ -43,9 +46,41 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
 
   const sendEndOfNegotiation = async () => {
     await apiService.ChatResult([0]);
-  }
-  const onChoiceClick = (obj: { value: string; index: number }) => {
-    const { value, index } = obj;
+  };
+
+  const handleScroll = () => {
+    const element = document.querySelector(".chat__wrapper");
+    element!.scrollTop = element!.scrollHeight;
+  };
+
+  const renderActivity = async () => {
+    await apiService.ChatResult(userAnswers).then(({ data: { results } }) => {
+      setConversationData((prevState) => [
+        ...prevState,
+        <MessageActivity activityTitle={results} activityDescription="" />,
+      ]);
+      handleScroll();
+    });
+
+    setIsIndicatorVisible(false);
+    setIsContinuation(true);
+  };
+
+  const renderConversationData = () => {
+    const { answers, questions } = chatData;
+    if (answers.length >= 1 && index < questions.length) {
+      setIsIndicatorVisible(true);
+      setTimeout(renderNegotiation, 1500);
+    }
+
+    if (index >= questions.length && isContinuation === false) {
+      setIsIndicatorVisible(true);
+      renderActivity();
+    }
+  };
+
+  const onChoiceClick = (obj: { value: string; activityIndex: number }) => {
+    const { value, activityIndex } = obj;
     const choiceBox = document.querySelector(".message-choices-box");
     choiceBox?.remove();
     setIndex((prevState) => prevState + 1);
@@ -63,15 +98,13 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         <MessageQuestion value="Jesteśmy bardzo szczęśliwy, że mogliśmy Tobie pomóc! <3" />,
       ]);
     } else {
-      setUserAnswers((prevState) => [...prevState, index]);
+      setUserAnswers((prevState) => [...prevState, activityIndex]);
     }
+
+    handleScroll();
   };
 
-  const handleScroll = (ref: any) => {
-    ref.scrollTop = ref.scrollHeight;
-  };
-
-  const renderNegotiation = () => {
+  function renderNegotiation() {
     const { questions } = chatData;
     setIsIndicatorVisible(false);
     setConversationData((prevState) => [
@@ -80,10 +113,10 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         <MessageQuestion value={questions[index]} />
         <MessageChoicesBox>
           {(chatData.answers[index] as unknown as any[]).map(
-            (choice, index) => {
+            (choice, activityIndex) => {
               return (
                 <MessageChoice
-                  index={index}
+                  activityIndex={activityIndex}
                   value={choice}
                   onClick={onChoiceClick}
                 />
@@ -93,34 +126,9 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         </MessageChoicesBox>
       </>,
     ]);
-  };
 
-  const renderActivity = async () => {
-    await apiService.ChatResult(userAnswers).then(({ data: { results } }) => {
-      setConversationData((prevState) => [
-        ...prevState,
-        <MessageActivity activityTitle={results} activityDescription="" />,
-      ]);
-    });
-
-    setIsIndicatorVisible(false);
-    setIsContinuation(true);
-
-    handleScroll(chatRef);
-  };
-
-  const renderConversationData = () => {
-    const { answers, questions } = chatData;
-    if (answers.length >= 1 && index < questions.length) {
-      setIsIndicatorVisible(true);
-      setTimeout(renderNegotiation, 1500);
-    }
-
-    if (index >= questions.length && isContinuation === false) {
-      setIsIndicatorVisible(true);
-      renderActivity();
-    }
-  };
+    handleScroll();
+  }
 
   useEffect(() => {
     if (!isActivitiesCardHidden) {
@@ -133,7 +141,9 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
   }, [isContinuation, isActivitiesCardHidden]);
 
   useEffect(() => {
-    if (isActivitiesCardHidden) renderConversationData();
+    if (isActivitiesCardHidden) {
+      renderConversationData();
+    }
   }, [chatData, index]);
 
   if (isActivitiesCardHidden) {
@@ -145,9 +155,9 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         conversationData={conversationData}
       />
     );
-  } else {
-    return null;
   }
+
+  return null;
 };
 
 export default ChatContainer;

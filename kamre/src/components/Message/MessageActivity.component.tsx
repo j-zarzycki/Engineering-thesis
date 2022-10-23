@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from "react";
 import { useHistory } from "react-router-dom";
 
@@ -57,8 +56,29 @@ const MessageActivity: React.FC<IProps> = ({
       case "Wizualizacja":
         history.push("/visualization");
         break;
-      case "Walking":
+      case "Spacer":
         history.push("/walking");
+        break;
+      case "Film edukacyjny":
+        history.push("/eduvideo");
+        break;
+      case "Przyjaciel stres":
+        history.push("/ytpage");
+        break;
+      case "Muzyka klasyczna":
+        history.push("/music");
+        break;
+      case "Ostudzenie napięcia":
+        history.push("/coldwater");
+        break;
+      case "Co w duszy gra?":
+        history.push("/sounds");
+        break;
+      case "Trening Schultza":
+        history.push("/schultztraining");
+        break;
+      case "Mięsień kreatywności":
+        history.push("/creativity");
         break;
       default:
         break;
@@ -67,6 +87,7 @@ const MessageActivity: React.FC<IProps> = ({
 
   return (
     <div
+      role="presentation"
       className="message-activity__wrapper"
       onClick={onActivityClick}
     >
