@@ -40,7 +40,12 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Film z yt"
+          title="Film edukacyjny"
+          onClick={() => onCardClick("eduvideo")}
+        />
+        <ActivityCard
+          variant={cardVariant}
+          title="Przyjaciel stres"
           onClick={() => onCardClick("ytpage")}
         />
         <ActivityCard

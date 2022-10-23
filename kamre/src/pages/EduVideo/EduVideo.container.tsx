@@ -24,7 +24,7 @@ const EduVideoContainer: React.FC = () => {
   const createEduVideoWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Edu Video")
+      .CreateActivityWithNoContent(currentDateWithTime, "Filmik edukacyjny")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -43,7 +43,7 @@ const EduVideoContainer: React.FC = () => {
   const createEduVideoWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Edu Video",
+        contentName: "Filmik edukacyjny",
         title: "Film edukacyjny",
         description:
           "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
