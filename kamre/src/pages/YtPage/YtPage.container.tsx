@@ -24,7 +24,7 @@ const YtPageContainer: React.FC = () => {
   const createYtPageWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "Przyjaciel stres")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -43,7 +43,7 @@ const YtPageContainer: React.FC = () => {
   const createYtPageWithContent = () => {
     dispatch(
       createNote({
-        contentName: "TedX",
+        contentName: "Przyjaciel stres",
         title: "Film edukacyjny",
         description:
           "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
