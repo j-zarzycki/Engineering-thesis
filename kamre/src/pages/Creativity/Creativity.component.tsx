@@ -131,7 +131,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
                 10 sposobów na.. {subjectShort}!
               </h4>
               <p className="swiper-slide__paragraph">
-                Wypisz 10 niekonencjonalych sposobów na {subjectLong}. Im
+                Wymyśl 10 niekonencjonalych sposobów na {subjectLong}. Im
                 bardziej szalone tym lepiej!
               </p>
             </div>
