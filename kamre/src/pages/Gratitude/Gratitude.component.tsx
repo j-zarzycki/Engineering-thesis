@@ -34,21 +34,13 @@ interface IProps {
   swiper: any;
   pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   slides: React.ReactElement[];
-
   setSwiper(value: any): void;
-
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onSaveActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onSwipeHandle(): void;
-
   onContinueButtonClick(): void;
 }
 
@@ -211,12 +203,8 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
             paddingTop="20px"
             paddingBottom="20px"
           />
-          <h4>Gratulacje!</h4>
-          <p>
-            Praktykowanie wdzięczności to klucz do bycia szczęśliwym
-            człowiekiem! Nie wierzysz? Spróbuj wyrobić sobie nawyk i korzystać z
-            tej aktywności jak najczęściej, a zobaczysz ciekawe rezultaty :)
-          </p>
+          <h4>Gratulację!</h4>
+          <p>bla, bla,bla, bla,bla, bla,bla, bla,bla, bla,</p>
           <div className="gratitude__final-buttons">
             <SaveActivityButton
               title="Zapisz"

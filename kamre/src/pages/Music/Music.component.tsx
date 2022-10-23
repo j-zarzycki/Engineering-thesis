@@ -142,7 +142,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Gratulacje!</h4>
+              <h4 className="swiper-slide__header">Gratulację!</h4>
               <p className="swiper-slide__paragraph">
                 Co zaobserwowałeś_aś po muzycznym seansie? Jak się czułeś_aś? Co
                 dało Ci to ćwiczenie?

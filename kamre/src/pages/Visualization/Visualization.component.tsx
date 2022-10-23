@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  CreateAnimation,
   IonContent,
-  IonLoading,
   IonPage,
+  IonLoading,
   IonToast,
+  CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoMdAdd } from "react-icons/io";
@@ -25,23 +25,14 @@ import "./Visualization.style.scss";
 
 interface IProps {
   setSwiper(value: any): void;
-
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onEndButtonClick(): void;
-
   onDestroyButtonClick(): void;
-
   setToast(value: {}): void;
-
   onSaveButtonClick(): void;
-
   onSlideChangeHandler(): void;
-
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
@@ -268,12 +259,8 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
               paddingTop="20px"
               paddingBottom="20px"
             />
-            <h4>Gratulacje!</h4>
-            <p>
-              Wizualizacje to potężne narzędzie, dzięki nim nasz mózg jest gotów
-              do działania w kierunku ich zawartości, dlatego warto skupiać się
-              w nich na samych pozytywach!
-            </p>
+            <h4>Gratulację!</h4>
+            <p>Bla, bla, bla, Bla, bla, bla,</p>
             <div className="visualization__final-buttons">
               <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
             </div>

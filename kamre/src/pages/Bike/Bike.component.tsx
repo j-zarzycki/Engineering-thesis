@@ -16,17 +16,11 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-
   onCreateActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onProceedButtonClick(): void;
-
   setSwiper(value: any): void;
-
   onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -147,10 +141,10 @@ const Bike: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Jeżeli nie masz roweru</h4>
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                możesz spróbować innej aktywności sportowej, która sprawi Ci
-                przyjemność!
+                Jeżeli nie masz roweru - możesz spróbować innej aktywności
+                sportowej, która sprawi Ci przyjemność!
               </p>
             </div>
           </SwiperSlide>

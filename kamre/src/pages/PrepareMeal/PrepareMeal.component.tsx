@@ -16,17 +16,11 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
-
   onCreateActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onProceedButtonClick(): void;
-
   setSwiper(value: any): void;
-
   onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -129,22 +123,21 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
+              <h4 className="swiper-slide__header">Co schrupać?</h4>
               <p className="swiper-slide__paragraph">
-                Co byś dzisiaj zjadł_a? Poświęć całą swoją uwagę na
-                przygotowaniu swojego kulinarnego dzieła. Zainspiruj się
-                przepisem, bądź użyj swojej fantazji i kreatywności - wymyśl to,
-                co podpowiadają Ci zmysły.
+                Co byś dzisiaj zjadł/a? Przeszukaj lodówkę lub przejdź się do
+                sklepu i przygotuj samodzielnie potrawę. Oczyść swój umysł i
+                oderwij się od natrętnych myśli.
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Co schrupać?</h4>
+              <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Przeszukaj lodówkę lub przejdź się do sklepu i przygotuj
-                samodzielnie potrawę. Oczyść swój umysł i oderwij się od
-                natrętnych myśli.
+                Poświęć całą swoją uwagę na przygotowaniu swojego kulinarnego
+                dzieła. Zainspiruj się przepisem, bądź użyj swojej fantazji i
+                kreatywności - wymyśl to, co podpowiadają Ci zmysły.
               </p>
             </div>
           </SwiperSlide>

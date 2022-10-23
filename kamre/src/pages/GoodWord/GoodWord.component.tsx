@@ -219,7 +219,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
           </p>
           <div className="good-word__final-buttons">
             <SaveActivityButton
-              title="Gotowe"
+              title="Zapisz"
               onClick={onSaveActivityWithContent}
             />
           </div>

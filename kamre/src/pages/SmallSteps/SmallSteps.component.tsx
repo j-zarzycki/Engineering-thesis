@@ -106,8 +106,8 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Małe kroki</h4>
               <p className="swiper-slide__paragraph">
-                Opuśc na moment własną głowę i podaj rzeczy, sytuacje za których
-                jesteś z siebie dumny.
+                Opuśc na moment własną głowę i podaj 3 rzeczy za których jesteś
+                z siebie dumny.
               </p>
             </div>
           </SwiperSlide>
@@ -211,11 +211,8 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
             paddingTop="20px"
             paddingBottom="20px"
           />
-          <h4>Gratulacje!</h4>
-          <p>
-            Pomyśl, jak się czujesz po wypisaniu swoich sukcesów? Doceniaj
-            siebie i swoje osiągnięcia, bo jesteś super!
-          </p>
+          <h4>Gratulację!</h4>
+          <p>bla bla bla</p>
           <div className="small-steps__final-buttons">
             <SaveActivityButton
               title="Zakończ"
