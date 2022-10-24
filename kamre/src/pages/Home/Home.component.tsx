@@ -156,7 +156,7 @@ const Home: React.FC = () => {
                 </IonCol>
               </IonRow>
               <ActivitiesCard ref={ref} />
-              <Chat isHidden={isActivitiesCardHidden} />
+              <Chat isActivitiesCardHidden={isActivitiesCardHidden} />
             </IonGrid>
           </div>
         </div>

@@ -8,8 +8,10 @@ interface IProps {
 
 const MessageAnswer: React.FC<IProps> = ({ value }) => {
   return (
-    <div className="message-answer__wrapper">
-      <div className="message-answer__value">{value}</div>
+    <div className="message-answer">
+      <div className="message-answer__wrapper">
+        <span className="message-answer__value">{value}</span>
+      </div>
     </div>
   );
 };
