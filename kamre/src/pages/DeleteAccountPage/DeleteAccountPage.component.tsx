@@ -5,6 +5,8 @@ import {
   useIonAlert,
   IonCard,
   IonCardHeader,
+  IonLoading,
+  IonToast,
 } from "@ionic/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -23,10 +25,21 @@ import Pet from "@Components/Pet";
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onDeleteClick: () => void;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: any;
 }
 
 const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onDeleteClick,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [img, setImg] = useState("");
   const [presentAlert] = useIonAlert();
   const [showDeleteAccountButton, setShowDeleteAccountButton] = useState(true);
@@ -61,9 +74,34 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
     });
   };
 
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="deleteaccountpage__loader"
+        isOpen={isLoading}
+        message="Usuwanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderLoader()}
+        {renderToast()}
         <div className="deleteaccountpage">
           <BackButton defaultHref="/settings" />
           <div className="deleteaccountpage__wrapper">
@@ -95,7 +133,7 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
                   )}
                   {showDeleteAccountButton && (
                     <FinalDeleteAccountButton
-                      defaultHref="/home"
+                      onClick={onDeleteClick}
                       title="Usuń konto"
                     />
                   )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { createNote } from "@Store/slices/noteSlice";
@@ -16,8 +16,8 @@ const WelcomePageContainer: React.FC = () => {
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [isLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
-  const history = useHistory();
   const dispatch = useAppDispatch();
+  const router = useIonRouter();
 
   const createWelcomePageWithContent = () => {
     dispatch(
@@ -29,12 +29,12 @@ const WelcomePageContainer: React.FC = () => {
       }),
     );
     // przeniesienie po nacisnieciu buttona przywroc dane
-    history.replace("/home");
+    router.push("/home");
   };
 
   const onStartButtonClick = () => {
     localStorage.setItem("isFirstStart", "false");
-    history.push("/home");
+    router.push("/home", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {
