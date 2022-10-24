@@ -24,7 +24,7 @@ const SchultzTrainingContainer: React.FC = () => {
   const createSchultzTrainingWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Trening Schultza")
+      .CreateActivityWithNoContent(currentDateWithTime, "Podcast")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
@@ -43,7 +43,7 @@ const SchultzTrainingContainer: React.FC = () => {
   const createSchultzTrainingWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Trening Schultza",
+        contentName: "Podcast",
         title: "Trening Schultza",
         description: "Możesz zapisać swoje przemyślenia na temat treingu.",
         hiddenDescription: "",
