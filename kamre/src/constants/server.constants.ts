@@ -14,3 +14,4 @@ export const SERVER_URL_EMERGENCY =
   "https://kamretest.azurewebsites.net/getEmergency";
 export const SERVER_URL_CHAT = "https://kamretest.azurewebsites.net/chat";
 export const SERVER_URL_LOCAL_CHAT = "http://127.0.0.1:5000/chat";
+export const SERVER_URL_ACCOUNT = "https://kamretest.azurewebsites.net/account";

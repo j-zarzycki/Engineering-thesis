@@ -8,6 +8,7 @@ import {
   SERVER_URL_GET_MONTH,
   SERVER_URL_GET_DAY,
   SERVER_URL_CHAT,
+  SERVER_URL_ACCOUNT,
 } from "@Constants/server.constants";
 import IDefaultServerResponse from "@Types/defaultServerResponse.type";
 import { ICalendarResponse } from "@Types/calendar.type";
@@ -74,10 +75,15 @@ const ChatSocketClient = () => {
   });
 };
 
+const DeleteUser = () => {
+  return axios.delete(SERVER_URL_ACCOUNT, { headers: authHeader() });
+};
+
 export default {
   ChatSocketClient,
   CreateActivityWithContent,
   CreateActivityWithNoContent,
   GetMonth,
   GetDay,
+  DeleteUser,
 };
