@@ -12,8 +12,7 @@ export const SERVER_URL_ONE_DAY = "https://kamretest.azurewebsites.net/getDay";
 
 export const SERVER_URL_EMERGENCY =
   "https://kamretest.azurewebsites.net/getEmergency";
-export const SERVER_URL_CHAT =
-  "https://test-app-kamre.azurewebsites.net/negotiate";
+export const SERVER_URL_CHAT = "https://kamretest.azurewebsites.net/negotiate";
 export const SERVER_URL_LOCAL_CHAT = "http://127.0.0.1:5000/chat";
 export const SERVER_URL_CHAT_RESULT =
-  "https://test-app-kamre.azurewebsites.net/chat/result";
+  "https://kamretest.azurewebsites.net/chat/result";
