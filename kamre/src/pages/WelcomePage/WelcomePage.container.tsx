@@ -32,6 +32,11 @@ const WelcomePageContainer: React.FC = () => {
     history.replace("/home");
   };
 
+  const onStartButtonClick = () => {
+    localStorage.setItem("isFirstStart", "false");
+    history.push("/home");
+  };
+
   const onProceedButtonClick = () => {
     swiper?.slideNext();
 
@@ -58,6 +63,7 @@ const WelcomePageContainer: React.FC = () => {
 
   return (
     <WelcomePage
+      onStartButtonClick={onStartButtonClick}
       onCreateActivityWithContent={createWelcomePageWithContent}
       onProceedButtonClick={onProceedButtonClick}
       setToast={setToast}
