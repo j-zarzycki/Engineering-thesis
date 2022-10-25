@@ -5,6 +5,8 @@ import {
   useIonAlert,
   IonCard,
   IonCardHeader,
+  IonLoading,
+  IonToast,
 } from "@ionic/react";
 import { CSSTransition } from "react-transition-group";
 
@@ -23,10 +25,21 @@ import Pet from "@Components/Pet";
 interface IProps {
   onCreateActivityWithNoContent(): Promise<void>;
   onCreateActivityWithContent(activityContent: String): Promise<void>;
+  onDeleteClick: () => void;
+  setToast(value: {}): void;
+  isLoading: boolean;
+  toast: any;
 }
 
 const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
-  const { onCreateActivityWithNoContent, onCreateActivityWithContent } = props;
+  const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onDeleteClick,
+    setToast,
+    isLoading,
+    toast,
+  } = props;
   const [img, setImg] = useState("");
   const [presentAlert] = useIonAlert();
   const [showDeleteAccountButton, setShowDeleteAccountButton] = useState(true);
@@ -61,9 +74,34 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
     });
   };
 
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="deleteaccountpage__loader"
+        isOpen={isLoading}
+        message="Usuwanie, proszę czekać"
+      />
+    );
+  };
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderLoader()}
+        {renderToast()}
         <div className="deleteaccountpage">
           <BackButton defaultHref="/settings" />
           <div className="deleteaccountpage__wrapper">
@@ -80,7 +118,7 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
               <IonCard>
                 <div className="deleteaccountpage__wrapper_content__header">
                   <IonCardHeader>
-                    <h2>Delete Account Confirmation</h2>
+                    <h2>Potwierdź usunięcie konta</h2>
                     <div className="deleteaccountpage__wrapper_content__header-description">
                       <span>Czy na pewno chcesz usunąć konto?</span>
                     </div>
@@ -90,13 +128,13 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
                   {showMigrateAccountButton && (
                     <ResignDeleteAccountButton
                       defaultHref="/settings"
-                      title="Resign"
+                      title="Zrezygnuj"
                     />
                   )}
                   {showDeleteAccountButton && (
                     <FinalDeleteAccountButton
-                      defaultHref="/home"
-                      title="Delete Account"
+                      onClick={onDeleteClick}
+                      title="Usuń konto"
                     />
                   )}
                 </div>

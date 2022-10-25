@@ -1,12 +1,12 @@
 from flask import request, jsonify, json
 from services.flask_connection import flask_connection
+from flask_cors import CORS
 import cryptography
 from dateutil import parser
 import services.db_actions as svc
 import services.menu as menu
 import services.jwt_svc as jwt_svc
 import jwt
-from flask_socketio import SocketIO, send
 from dotenv import load_dotenv
 # import simple_websocket
 load_dotenv()
@@ -15,7 +15,8 @@ import os
 
 app = flask_connection()
 app.config['SECRET_KEY'] = os.getenv('JWT_SECRET')
-socketio = SocketIO(app, cors_allowed_origins='*')
+# socketio = SocketIO(app, cors_allowed_origins='*')
+CORS(app)
 
 
 @app.route("/newUser", methods=['POST'])
@@ -227,7 +228,7 @@ def set_recent():
 
         svc.set_recent(user_id, b_count, a_count, z_count, p_count)
 
-        return jsonify({'res':'Set recent'})
+        return jsonify({'res': 'Set recent'})
     else:
         return user_id
 
@@ -268,6 +269,7 @@ def migrate_account():
     else:
         return jsonify({'res': 'Invalid code'}), 400
 
+
 @app.route("/getBlurb", methods=['GET'])
 def get_blurb():
     status, user_id = check()
@@ -276,35 +278,46 @@ def get_blurb():
     else:
         return user_id
 
-@socketio.event(namespace='/chat')
-def connect():
-    try:
-        token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
+
+##############################################
+# chat
+
+
+@app.route('/negotiate', methods=['GET'])
+def negotiate():
+    status, user_id = check()
+    if status:
         if request.headers['is_continuation'] == 'false':
-            svc.user_clear_chat_answers(token['device_id'])
+            questions, answers, is_activity = menu.get_all_questions_answers()
         else:
-            pass
-        return True
-    except:
-        return False
+            questions, answers, is_activity = menu.confirmation_opener()
 
-
-@socketio.on('message', namespace='/chat')
-def handleMessage(msg):
-    token = jwt.decode(request.headers['auth_token'], os.getenv('JWT_SECRET'), algorithms="HS256")
-    if msg == 'User has connected!' and request.headers['is_continuation'] == 'false':
-        response, av_answers, type = menu.opener()
-    elif request.headers['is_continuation'] == 'true' and msg == 'User has connected!':
-        response, av_answers, type = menu.confirmation_opener()
+        return jsonify({'questions': questions, 'answers': answers, 'is_activity': is_activity}), 200
     else:
-        response, av_answers, type = menu.chat(token['device_id'], msg)
-    res = {'Question': response, 'Answers': av_answers, 'is_activity': type}
-    send(res)
+        return user_id
 
 
-# app.run(port=5000, ssl_context="adhoc")
-# socketio.run(app, allow_unsafe_werkzeug=True)
+@app.route('/chat/result', methods=['POST'])
+def chat_result():
+    status, user_id = check()
+    if status:
+        res = request.get_json()
+        user_answers = res['usr_answers']
+        if len(user_answers) != 1:
+            svc.user_update_answers(user_id, user_answers)
+
+        elif len(user_answers) == 1 and user_answers[0] == 0:
+            svc.user_clear_chat_answers(user_id)
+            return jsonify({'results': 'Świetnie!', 'is_activity': False}), 200
+
+        activity, is_activity = menu.get_results(user_id)
+        return jsonify({'results': activity, 'is_activity': is_activity}), 200
+
+    else:
+        return user_id
+
+
 if __name__ == '__main__':
-    socketio.run(app, allow_unsafe_werkzeug=True)
+    app.run()
 
 

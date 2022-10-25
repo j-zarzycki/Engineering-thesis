@@ -1,0 +1,87 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.final-buttons {
+  display: none; // DO WYŁĄCZENIA TE DWA PRZYCISKI
+}
+
+.privacypolicy {
+
+  &__wrapper_image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__wrapper_content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    ion-card.md {
+      overflow: inherit;
+      box-shadow: none;
+    }
+
+    &__header {
+      font-family: $font-main;
+      font-weight: $font-weight-xl;
+      font-size: $font-size-xl;
+
+      h2 {
+        color: black;
+      }
+    }
+
+    &__header-description {
+      display: flex;
+      flex-flow: column;
+
+      span {
+        color: black;
+        font-size: $font-size-m;
+        font-weight: 500;
+      }
+    }
+
+    &__buttons {
+      display: none; // DISPLAY: FLEX; zmieniony na NONE, żeby w razie potrzeby ukryć przyciski.
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+
+      .migrate-account-button {
+        margin: 16px 16px 16px 16px;
+      }
+
+      .delete-account-button {
+        margin: 16px 16px 16px 16px;
+      }
+
+      .privacy-policy-button {
+        margin: 16px 16px 16px 16px;
+        text-align: left;
+      }
+    }
+  }
+}
+
+@include mobile-xsmall {
+  .delete-account-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .migrate-account-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .privacy-policy-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}

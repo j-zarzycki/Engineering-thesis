@@ -120,5 +120,4 @@ const CreativityContainer: React.FC = () => {
     />
   );
 };
-
 export default CreativityContainer;

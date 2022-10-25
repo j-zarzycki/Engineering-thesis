@@ -40,7 +40,12 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Film z yt"
+          title="Film edukacyjny"
+          onClick={() => onCardClick("eduvideo")}
+        />
+        <ActivityCard
+          variant={cardVariant}
+          title="Przyjaciel stres"
           onClick={() => onCardClick("ytpage")}
         />
         <ActivityCard
@@ -101,7 +106,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         <ActivityCard
           variant={cardVariant}
           title="Co w duszy gra?"
-          onClick={() => onCardClick("smallsteps")}
+          onClick={() => onCardClick("sounds")}
         />
         <ActivityCard
           variant={cardVariant}
@@ -110,13 +115,8 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Film edukacyjny"
-          onClick={() => onCardClick("ytpage")}
-        />
-        <ActivityCard
-          variant={cardVariant}
           title="Trening Schultza"
-          onClick={() => onCardClick("schulztraining")}
+          onClick={() => onCardClick("schultztraining")}
         />
         <ActivityCard
           variant={cardVariant}

@@ -1,26 +1,23 @@
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
-import { useHistory } from "react-router-dom";
 
 import "./FinalDeleteAccountButton.style.scss";
 
 interface IProps {
-  defaultHref: string;
   title: String;
   icon?: React.ReactElement;
   disabled?: boolean;
+  onClick: () => void;
 }
 
 const FinalDeleteAccountButton: React.FC<IProps> = (props: IProps) => {
-  const { defaultHref, title, icon, disabled } = props;
-  const history = useHistory();
-  const onClickHandler = () => history.push(defaultHref);
+  const { title, icon, disabled, onClick } = props;
 
   return (
     <button
       className="final-delete-account-button"
       type="button"
-      onClick={onClickHandler}
+      onClick={onClick}
       disabled={disabled}
     >
       {title}
