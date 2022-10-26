@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 
+import useAppDispatch from "@Hooks/useAppDispatch";
+import { createNote } from "@Store/slices/noteSlice";
+
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
@@ -19,6 +22,7 @@ const AngerContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const dispatch = useAppDispatch();
   const [pageController, setPageController] = useState({
     isMainContextVisible: true,
     isAngerListVisible: false,
@@ -91,6 +95,20 @@ const AngerContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
+  const onNextButtonClick = () => {
+    dispatch(
+      createNote({
+        contentName: "Złość",
+        title: "Złość",
+        description:
+          "Co zaobserwowałeś_aś po wykonanej aktywności? Jak się czułeś_aś?",
+        hiddenDescription: "",
+      }),
+    );
+
+    history.replace("/note");
+  };
+
   const onSaveButtonWithContentClick = async () => {
     const currentDateWithTime = getFullDateWithTime();
     setIsLoading(true);
@@ -144,11 +162,11 @@ const AngerContainer: React.FC = () => {
       isAddingDisabled={isAddingDisabled}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
-      onInputChange={onInputChange}
       onContinueButtonClick={onContinueButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
       onSaveButtonWithContentClick={onSaveButtonWithContentClick}
       onSlideChangeHandler={onSlideChangeHandler}
+      onNextButtonClick={onNextButtonClick}
     />
   );
 };
