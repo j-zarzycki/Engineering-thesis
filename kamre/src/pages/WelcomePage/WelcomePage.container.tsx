@@ -29,7 +29,7 @@ const WelcomePageContainer: React.FC = () => {
       }),
     );
     // przeniesienie po nacisnieciu buttona przywroc dane
-    router.push("/home");
+    router.push("/home", "forward", "pop");
   };
 
   const onStartButtonClick = () => {

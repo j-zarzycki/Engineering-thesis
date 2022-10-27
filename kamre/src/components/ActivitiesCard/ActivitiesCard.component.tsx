@@ -3,17 +3,17 @@ import { forwardRef } from "react";
 import "./ActivitiesCard.style.scss";
 
 import ActivityCard from "@Components/ActivityCard";
-import { useHistory } from "react-router";
+import { useIonRouter } from "@ionic/react";
 
 const ActivitiesCard = forwardRef((_props, ref: any) => {
   const cardVariant = "small";
-  const history = useHistory();
+  const router = useIonRouter();
 
   const renderHolder = () => {
     return <div className="activities-card__holder" />;
   };
 
-  const onCardClick = (route: string) => history.push(`/${route}`);
+  const onCardClick = (route: string) => router.push(`/${route}`, "forward");
 
   const renderContext = () => {
     return (
