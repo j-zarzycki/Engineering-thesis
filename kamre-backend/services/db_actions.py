@@ -8,7 +8,6 @@ from data.Activity_year import Activity_year
 from data.User import User
 from dateutil import parser
 from data.months_dict import months_dict
-from data.Categories import Categories
 from data.Recent import Recent
 from data.Emergency import Emergency
 from data.Emergency_seen import Emergency_seen
@@ -19,6 +18,7 @@ from data.Emergency_personal import EmergencyPersonal
 from data.Answer import Answer
 from data.Question import Question
 from data.ChatResult import ChatResult
+from data.ActivityList import ActivityList
 import random
 
 months_dict = months_dict()
@@ -72,14 +72,12 @@ def update_emergency_personal(user_id, activity_content):
 
 def create_activity(user_id, registered_date, activity_name):
     user = User.objects(user_id=user_id).first()
-    cat = Categories.objects()
+    cat = ActivityList.objects(activity_name=activity_name).first().category
     activity = Activity()
 
     activity.registered_date = registered_date
     activity.activity_name = activity_name
-    for category in cat:
-        if activity_name in category['activities']:
-            activity.activity_category = category['category']
+    activity.activity_category = cat
     yrs = []
     for el in user.activities_years:
         yrs.append(el['year'])
@@ -106,16 +104,14 @@ def create_activity(user_id, registered_date, activity_name):
 def create_activity_content(user_id, registered_date, activity_name, has_content, activity_content):
     user = User.objects(user_id=user_id).first()
     activity = Activity()
-    cat = Categories.objects()
+    cat = ActivityList.objects(activity_name=activity_name).first().category
 
     activity.registered_date = registered_date
     activity.activity_name = activity_name
     activity.has_content = has_content
     activity.activity_content = activity_content
 
-    for category in cat:
-        if activity_name in category['activities']:
-            activity.activity_category = category['category']
+    activity.activity_category = cat
     yrs = []
     for el in user.activities_years:
         yrs.append(el['year'])
@@ -138,7 +134,8 @@ def create_activity_content(user_id, registered_date, activity_name, has_content
         archive_check(user_id)
 
     if activity_name == 'Dobre słowo':
-        update_emergency_personal(user_id, activity_content)
+        for tip in activity_content:
+            update_emergency_personal(user_id, tip)
 
     return user
 
@@ -354,17 +351,6 @@ def get_day(user_id, month, year, day):
     return activities
 
 
-def set_categories(category_name, activities) -> Categories:
-    category = Categories()
-
-    category.category = category_name
-    category.activities = activities
-
-    category.save()
-
-    return category
-
-
 def count_activities(user_id) -> Recent:
     recent = Recent()
     user = User.objects(user_id=user_id).first()
@@ -479,10 +465,30 @@ def set_recent(user_id, b_count, a_count, z_count, p_count):
 def get_reccomended(user_id):
     user = User.objects(user_id=user_id).first()
     recent = user.recent[0]
-    bierne = Categories.objects(category="Bierne").first().activities
-    aktywne = Categories.objects(category="Aktywne").first().activities
-    zmyslenia = Categories.objects(category="Zmiana myślenia").first().activities
-    pemocje = Categories.objects(category="Pozytywne emocje").first().activities
+    total = recent['total']
+    if recent['total'] == 0:
+        total = 1
+
+    b = ActivityList.objects(category="Bierne")
+    a = ActivityList.objects(category="Aktywne")
+    z = ActivityList.objects(category="Zmiana myślenia")
+    p = ActivityList.objects(category="Pozytywne emocje")
+    bierne = []
+    aktywne = []
+    zmyslenia = []
+    pemocje = []
+
+    for el in b:
+        bierne.append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in a:
+        aktywne.append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in z:
+        zmyslenia.append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in p:
+        pemocje.append({'name': el['activity_name'], 'url': el['url']})
     recommended = []
 
     activities = {
@@ -494,10 +500,10 @@ def get_reccomended(user_id):
     # bierne 0 aktywne 1 zmyslenia 2 pemocje 3
 
     percentages = {
-        0: recent['Bierne_count'] / recent['total'],
-        1: recent['Aktywne_count'] / recent['total'],
-        2: recent['ZmianaMyslenia_count'] / recent['total'],
-        3: recent['PozytywneEmocje_count'] / recent['total']
+        0: recent['Bierne_count'] / total,
+        1: recent['Aktywne_count'] / total,
+        2: recent['ZmianaMyslenia_count'] / total,
+        3: recent['PozytywneEmocje_count'] / total
     }
 
     percentages = dict(sorted(percentages.items(), key=lambda item: item[1], reverse=True))
@@ -511,16 +517,6 @@ def get_reccomended(user_id):
             recommended += random.sample(activities[key], 1)
 
     return recommended
-
-
-def set_emergency(tip) -> Emergency:
-    emergency = Emergency()
-
-    emergency.tip = tip
-
-    emergency.save()
-
-    return emergency
 
 
 def get_emergency(user_id):
@@ -571,12 +567,31 @@ def get_emergency(user_id):
 
 
 def get_all_activities():
-    cat = Categories.objects()
-    activities = {}
-    for obj in cat:
-        activities[obj['category']] = obj['activities']
+    aktywne = ActivityList.objects(category='Aktywne')
+    bierne = ActivityList.objects(category='Bierne')
+    pozytywne_emocje = ActivityList.objects(category='Pozytywne emocje')
+    zmiana_myslenia = ActivityList.objects(category='Zmiana myślenia')
 
-    return activities
+    acc = {
+        'Aktywne': [],
+        'Bierne': [],
+        'Pozytywne emocje': [],
+        'Zmiana myślenia': []
+    }
+
+    for el in aktywne:
+        acc['Aktywne'].append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in bierne:
+        acc['Bierne'].append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in pozytywne_emocje:
+        acc['Pozytywne emocje'].append({'name': el['activity_name'], 'url': el['url']})
+
+    for el in zmiana_myslenia:
+        acc['Zmiana myślenia'].append({'name': el['activity_name'], 'url': el['url']})
+
+    return acc
 
 
 def stress():
@@ -608,6 +623,7 @@ def user_check(user_id):
 def user_clear_chat_answers(user_id):
     user = User.objects(user_id=user_id).first()
     user.chat_answers = []
+    user.chat_recommended_seen = []
     user.save()
 
 
@@ -615,12 +631,25 @@ def user_check_answers(user_id):
     user = User.objects(user_id=user_id).first()
     result_code = ''.join(str(x) for x in user.chat_answers)
     activity_list = ChatResult.objects(result_code=result_code).first().activity_list
-    return random.sample(activity_list, 1)
+
+    if len(activity_list) == len(user.chat_recommended_seen):
+        user.chat_recommended_seen = []
+        print('error')
+
+    activity_list = list(set(activity_list) - set(user.chat_recommended_seen))
+    activity = random.sample(activity_list, 1)
+    user.chat_recommended_seen.append(activity[0])
+
+    user.save()
+
+    url = ActivityList.objects(activity_name=activity[0]).first().url
+    return activity, url
 
 
 def user_update_answers(user_id, answer):
     user = User.objects(user_id=user_id).first()
     user.chat_answers = answer
+    user.chat_recommended_seen = []
     user.save()
 
 
@@ -647,20 +676,24 @@ def delete_archive(user_id):
 def generate_recovery(user_id):
     recovery = Recovery()
     user = User.objects(user_id=user_id).first()
-    length = 15
+    existing_recovery = Recovery.objects(user_id=user.id).first()
+    if existing_recovery is not None:
+        return existing_recovery.recovery_code
+    else:
+        length = 15
 
-    recovery.created = datetime.datetime.utcnow()
-    recovery.user_id = user.id
+        recovery.created = datetime.datetime.utcnow()
+        recovery.user_id = user.id
 
-    recovery_code = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(length))
+        recovery_code = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(length))
 
-    recovery.recovery_code = recovery_code
+        recovery.recovery_code = recovery_code
 
-    try:
-        recovery.save()
-        return recovery_code
-    except:
-        return None
+        try:
+            recovery.save()
+            return recovery_code
+        except:
+            return None
 
 
 def migrate_account(recovery_code, user_id):
