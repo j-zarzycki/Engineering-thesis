@@ -12,7 +12,6 @@ import { IoMdAdd } from "react-icons/io";
 // Import Swiper styles
 import "swiper/css";
 
-import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
@@ -30,8 +29,6 @@ interface IProps {
 
   onAddSlide(): void;
 
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onContinueButtonClick(): void;
 
   onDestroyButtonClick(): void;
@@ -41,6 +38,8 @@ interface IProps {
   onSaveButtonWithContentClick(): void;
 
   onSlideChangeHandler(): void;
+
+  onNextButtonClick(): void;
 
   isLoading: boolean;
   currentSlide: number;
@@ -70,7 +69,6 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     slides,
     isAddingDisabled,
     onContinueButtonClick,
-    onInputChange,
     onDestroyButtonClick,
     onSaveButtonWithContentClick,
     swiper,
@@ -79,6 +77,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     setToast,
     toast,
     onSlideChangeHandler,
+    onNextButtonClick,
   } = props;
 
   const renderHeader = () => {
@@ -143,11 +142,6 @@ const Anger: React.FC<IProps> = (props: IProps) => {
                 To czas, żeby dokonać analizy, a następnie wyrzucić złość za
                 siebie. Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
                 powinna być rozwiązana?
-                <Input
-                  type="text"
-                  placeholder="Wpisz tutaj..."
-                  onChange={onInputChange}
-                />
               </p>
             </div>
           </SwiperSlide>
@@ -174,7 +168,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
         <div className="anger__continue-buttons">
           <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
-            title="Dodaj"
+            title="Dalej!"
             onClick={onAddSlide}
             disabled={isAddingDisabled}
             icon={<IoMdAdd size={25} />}
@@ -185,9 +179,8 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex === 3)
       return (
         <ProceedButton
-          title="Dodaj"
-          onClick={onAddSlide}
-          disabled={isAddingDisabled}
+          title="Dalej"
+          onClick={onNextButtonClick}
           icon={<IoMdAdd size={25} />}
         />
       );
