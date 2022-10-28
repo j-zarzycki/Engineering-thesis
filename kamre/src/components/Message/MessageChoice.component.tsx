@@ -4,11 +4,22 @@ import "./MessageChoice.style.scss";
 
 interface IProps {
   value: string;
+  activityIndex: number;
+  onClick: (obj: { value: string; activityIndex: number }) => void;
 }
 
-const MessageChoice: React.FC<IProps> = ({ value }) => {
+const MessageChoice: React.FC<IProps> = ({ onClick, value, activityIndex }) => {
+  const generateKey = () => {
+    return `message_${new Date().getTime()}`;
+  };
+
   return (
-    <div className="message-choice__wrapper">
+    <div
+      role="presentation"
+      className="message-choice__wrapper"
+      onClick={() => onClick({ value, activityIndex })}
+      key={generateKey()}
+    >
       <span className="message-choice__value">{value}</span>
     </div>
   );

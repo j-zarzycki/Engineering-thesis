@@ -41,6 +41,11 @@
       .delete-account-button {
         margin: 16px 16px 16px 16px;
       }
+      
+      .privacy-policy-button {
+        margin: 16px 16px 16px 16px;
+        text-align: left;
+      }
     }
   }
 }
@@ -53,6 +58,12 @@
   }
 
   .migrate-account-button {
+    width: 250px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .privacy-policy-button {
     width: 250px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
