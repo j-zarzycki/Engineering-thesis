@@ -2,18 +2,6 @@
 @import "@Theme/media";
 
 .anger {
-
-  .anger-input {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    
-    input {
-      margin-top: 12px;
-    }
-  }
-
   &__wrapper {
     display: flex;
     flex-direction: column;
