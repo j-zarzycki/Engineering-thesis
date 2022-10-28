@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import { createNote } from "@Store/slices/noteSlice";
 import { useAppDispatch } from "@Hooks/useAppDispatch";
@@ -7,7 +7,7 @@ import PreviousDay from "./PreviousDay.component";
 
 const PreviousDayContainer: React.FC = () => {
   const slideElements = 1;
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
   const onProceedButtonClick = () => {
     dispatch(
@@ -19,7 +19,7 @@ const PreviousDayContainer: React.FC = () => {
       }),
     );
 
-    history.replace("/note");
+    router.push("/note", "forward", "pop");
   };
 
   return (

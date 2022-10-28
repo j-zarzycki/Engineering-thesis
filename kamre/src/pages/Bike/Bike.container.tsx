@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -18,7 +18,7 @@ const BikeContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = 5;
   const currentDateWithTime: String = getFullDateWithTime();
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
 
   const createBikeWithNoContent = async () => {
@@ -30,7 +30,7 @@ const BikeContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -50,7 +50,7 @@ const BikeContainer: React.FC = () => {
       }),
     );
 
-    history.replace("/note");
+    router.push("/note", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {
