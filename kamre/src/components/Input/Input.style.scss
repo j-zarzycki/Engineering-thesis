@@ -6,6 +6,7 @@
     outline: 0;
     border: 2px solid $primary-color-80;
     box-shadow: $default-drop-shadow;
+    background-color: $color-white;
 
     &::placeholder {
         color: $color-black;
