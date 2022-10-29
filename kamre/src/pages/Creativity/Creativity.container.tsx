@@ -98,6 +98,7 @@ const CreativityContainer: React.FC = () => {
 
   useEffect(() => {
     setImg(MainImg);
+    generateSubject();
   }, []);
 
   return (
