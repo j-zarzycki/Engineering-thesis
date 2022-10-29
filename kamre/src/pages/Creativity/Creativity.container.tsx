@@ -30,8 +30,8 @@ const CreativityContainer: React.FC = () => {
     { shortText: "oszczędności", longText: "zaoszczędzenie pieniędzy" },
     { shortText: "wodę", longText: "zaoszczędzenie wody" },
     {
-      shortText: "husteczkę",
-      longText: "wykorzystanie husteczki higienicznej",
+      shortText: "chusteczkę",
+      longText: "wykorzystanie chusteczki higienicznej",
     },
     { shortText: "słoik", longText: "wykorzystanie słoika" },
     { shortText: "ścianę", longText: "ozdobienie ściany w pokoju" },
