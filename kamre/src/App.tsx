@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -11,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { triangle } from "ionicons/icons";
+import { triangle, flash, today } from "ionicons/icons";
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
@@ -31,6 +31,7 @@ import PrepareMeal from "./pages/PrepareMeal";
 import Settings from "./pages/Settings";
 import MigrateAccountPage from "./pages/MigrateAccountPage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Music from "./pages/Music";
 import Emergency from "./pages/Emergency";
 import Weights from "./pages/Weights";
@@ -71,8 +72,10 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [isFirstStart, setIsFirstStart] = useState(true);
 
   useEffect(() => {
+    setIsFirstStart(Boolean(localStorage.getItem("isFirstStart")));
     dispatch(authLogin("test_user"));
   }, []);
 
@@ -81,9 +84,9 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route path="/welcomepage" component={WelcomePage} />
-            <Route path="/shower" component={ConsciousShower} />
+            <Route path="/welcompage" component={WelcomePage} />
             <Route path="/home" component={Home} />
+            <Route path="/shower" component={ConsciousShower} />
             <Route path="/settings" component={Settings} />
             <Route path="/walking" component={Walking} />
             <Route path="/fivetoone" component={FiveToOne} />
@@ -119,14 +122,27 @@ const App: React.FC = () => {
               path="/migrateaccountpage"
               component={MigrateAccountPage}
             />
+            <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
-              <Redirect to="/home" />
+              {isFirstStart ? (
+                <Redirect to="/home" />
+              ) : (
+                <Redirect to="/welcompage" />
+              )}
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
+            <IonTabButton tab="emergency" href="/emergency">
+              <IonIcon icon={flash} />
+              <IonLabel>Szybka pomoc</IonLabel>
+            </IonTabButton>
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />
               <IonLabel>Strona główna</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="calendar" href="/calendar">
+              <IonIcon icon={today} />
+              <IonLabel>Kalendarz</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

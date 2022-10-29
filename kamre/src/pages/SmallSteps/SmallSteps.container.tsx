@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -24,7 +24,7 @@ const SmallStepsContainer: React.FC = () => {
     isMainContextVisible: true,
     isFinalVisible: false,
   });
-  const history = useHistory();
+  const router = useIonRouter();
   const slideElements = 3;
 
   const generateKey = () => {
@@ -82,7 +82,7 @@ const SmallStepsContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({

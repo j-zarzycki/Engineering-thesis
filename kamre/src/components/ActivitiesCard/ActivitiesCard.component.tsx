@@ -3,17 +3,17 @@ import { forwardRef } from "react";
 import "./ActivitiesCard.style.scss";
 
 import ActivityCard from "@Components/ActivityCard";
-import { useHistory } from "react-router";
+import { useIonRouter } from "@ionic/react";
 
 const ActivitiesCard = forwardRef((_props, ref: any) => {
   const cardVariant = "small";
-  const history = useHistory();
+  const router = useIonRouter();
 
   const renderHolder = () => {
     return <div className="activities-card__holder" />;
   };
 
-  const onCardClick = (route: string) => history.push(`/${route}`);
+  const onCardClick = (route: string) => router.push(`/${route}`, "forward");
 
   const renderContext = () => {
     return (
@@ -40,7 +40,12 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Film z yt"
+          title="Film edukacyjny"
+          onClick={() => onCardClick("eduvideo")}
+        />
+        <ActivityCard
+          variant={cardVariant}
+          title="Przyjaciel stres"
           onClick={() => onCardClick("ytpage")}
         />
         <ActivityCard
@@ -101,7 +106,7 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         <ActivityCard
           variant={cardVariant}
           title="Co w duszy gra?"
-          onClick={() => onCardClick("smallsteps")}
+          onClick={() => onCardClick("sounds")}
         />
         <ActivityCard
           variant={cardVariant}
@@ -110,13 +115,13 @@ const ActivitiesCard = forwardRef((_props, ref: any) => {
         />
         <ActivityCard
           variant={cardVariant}
-          title="Film edukacyjny"
-          onClick={() => onCardClick("ytpage")}
+          title="Trening Schultza"
+          onClick={() => onCardClick("schultztraining")}
         />
         <ActivityCard
           variant={cardVariant}
-          title="Trening Schultza"
-          onClick={() => onCardClick("schultztraining")}
+          title="Mięsień kreatywności"
+          onClick={() => onCardClick("creativity")}
         />
       </div>
     );

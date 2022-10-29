@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -18,19 +18,19 @@ const YtPageContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
   const currentDateWithTime: String = getFullDateWithTime();
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
 
   const createYtPageWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "Przyjaciel stres")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -43,7 +43,7 @@ const YtPageContainer: React.FC = () => {
   const createYtPageWithContent = () => {
     dispatch(
       createNote({
-        contentName: "TedX",
+        contentName: "Przyjaciel stres",
         title: "Film edukacyjny",
         description:
           "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
@@ -51,7 +51,7 @@ const YtPageContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    router.push("/note", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {

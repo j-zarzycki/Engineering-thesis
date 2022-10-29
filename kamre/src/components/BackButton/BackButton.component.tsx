@@ -1,8 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 import { IoChevronBack } from "react-icons/io5";
-import { IonButtons } from "@ionic/react";
+import { useIonRouter, IonButtons } from "@ionic/react";
 
 interface IProps {
   defaultHref: string;
@@ -10,11 +9,11 @@ interface IProps {
 
 const BackButton: React.FC<IProps> = (props: IProps) => {
   const { defaultHref } = props;
-  const history = useHistory();
+  const router = useIonRouter();
 
   const onClickHandler = () => {
     console.log("default = ", defaultHref);
-    history.replace("/home");
+    router.goBack();
   };
 
   return (

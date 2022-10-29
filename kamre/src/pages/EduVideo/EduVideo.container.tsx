@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -18,19 +18,19 @@ const EduVideoContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
   const currentDateWithTime: String = getFullDateWithTime();
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
 
   const createEduVideoWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "TedX")
+      .CreateActivityWithNoContent(currentDateWithTime, "Filmik edukacyjny")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -43,7 +43,7 @@ const EduVideoContainer: React.FC = () => {
   const createEduVideoWithContent = () => {
     dispatch(
       createNote({
-        contentName: "TedX",
+        contentName: "Filmik edukacyjny",
         title: "Film edukacyjny",
         description:
           "Co myślisz o obejrzanym filmie? Zapisz przemyślenia poniżej",
@@ -51,7 +51,7 @@ const EduVideoContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    router.push("/note", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {

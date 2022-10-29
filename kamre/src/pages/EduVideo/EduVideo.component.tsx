@@ -150,7 +150,7 @@ const EduVideo: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <h4 className="swiper-slide__header">Gratulacje!</h4>
               <p className="swiper-slide__paragraph">
                 Jakie przemyślenia nasunęły Ci się po obejrzeniu filmu? Zapisz
                 je, aby lepiej utrwalić nowe informacje.

@@ -12,7 +12,6 @@ import { IoMdAdd } from "react-icons/io";
 // Import Swiper styles
 import "swiper/css";
 
-import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
@@ -30,8 +29,6 @@ interface IProps {
 
   onAddSlide(): void;
 
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onContinueButtonClick(): void;
 
   onDestroyButtonClick(): void;
@@ -41,6 +38,8 @@ interface IProps {
   onSaveButtonWithContentClick(): void;
 
   onSlideChangeHandler(): void;
+
+  onNextButtonClick(): void;
 
   isLoading: boolean;
   currentSlide: number;
@@ -70,7 +69,6 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     slides,
     isAddingDisabled,
     onContinueButtonClick,
-    onInputChange,
     onDestroyButtonClick,
     onSaveButtonWithContentClick,
     swiper,
@@ -79,11 +77,12 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     setToast,
     toast,
     onSlideChangeHandler,
+    onNextButtonClick,
   } = props;
 
   const renderHeader = () => {
     const { isFinalVisible } = pageController;
-    if (swiper?.activeIndex >= 3 || isFinalVisible)
+    if (swiper?.activeIndex >= 4 || isFinalVisible)
       return <div className="anger__header" />;
 
     return (
@@ -114,6 +113,13 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               <h4 className="swiper-slide__header">Złość</h4>
               <p className="swiper-slide__paragraph">
                 To ćwiczenie pozwoli Ci świadomie zarządzać swoją złością.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Złość</h4>
+              <p className="swiper-slide__paragraph">
                 Poprzez złość możemy uświadomić sobie swoje granice, pokazać na
                 co się zgadzamy, a na co nie.
               </p>
@@ -131,13 +137,11 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Co Cię złości?:</h4>
-              <p className="swiper-slide__paragraph">
-                <Input
-                  type="text"
-                  placeholder="Wpisz tutaj..."
-                  onChange={onInputChange}
-                />
+              <h4 className="swiper-slide__header">Przemyślenia</h4>
+              <p className="swiper-slide__paragraph anger-input">
+                To czas, żeby dokonać analizy, a następnie wyrzucić złość za
+                siebie. Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
+                powinna być rozwiązana?
               </p>
             </div>
           </SwiperSlide>
@@ -159,12 +163,12 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButton = () => {
-    if (swiper?.activeIndex >= 3)
+    if (swiper?.activeIndex >= 4)
       return (
         <div className="anger__continue-buttons">
           <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
           <ProceedButton
-            title="Dodaj"
+            title="Dalej!"
             onClick={onAddSlide}
             disabled={isAddingDisabled}
             icon={<IoMdAdd size={25} />}
@@ -172,12 +176,11 @@ const Anger: React.FC<IProps> = (props: IProps) => {
         </div>
       );
 
-    if (swiper?.activeIndex === 2)
+    if (swiper?.activeIndex === 3)
       return (
         <ProceedButton
-          title="Dodaj"
-          onClick={onAddSlide}
-          disabled={isAddingDisabled}
+          title="Dalej"
+          onClick={onNextButtonClick}
           icon={<IoMdAdd size={25} />}
         />
       );
