@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
-
+import { useIonRouter } from "@ionic/react";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import { createNote } from "@Store/slices/noteSlice";
+import useAppDispatch from "@Hooks/useAppDispatch";
 import Visualization from "./Visualization.component";
 
 const VisualizationContainer: React.FC = () => {
+  const router = useIonRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,7 +27,9 @@ const VisualizationContainer: React.FC = () => {
     isVisualizationListVisible: false,
     isFinalVisible: false,
   });
+  const currentDateWithTime: String = getFullDateWithTime();
   const router = useIonRouter();
+  const dispatch = useAppDispatch();
   const slideElements = 3;
 
   const generateKey = () => {
@@ -91,13 +96,11 @@ const VisualizationContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  const onSaveButtonClick = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const createVisualizationWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithContent(
+      .CreateActivityWithNoContent(
         currentDateWithTime,
-        slidesInputsValue,
         "Wizualizacja swojego procesu zmiany",
       )
       .then(() => {
@@ -113,6 +116,19 @@ const VisualizationContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
+  };
+
+  const createVisualizationWithContent = () => {
+    dispatch(
+      createNote({
+        contentName: "Wizualizacja swojego procesu zmiany",
+        title: "Wizualizacja swojego procesu zmianyr",
+        description: "Co czujesz po wykonaniu tego ćwiczenia?",
+        hiddenDescription: "",
+      }),
+    );
+
+    router.push("/note", "forward", "pop");
   };
 
   const onSlideChangeHandler = () => {
@@ -148,8 +164,9 @@ const VisualizationContainer: React.FC = () => {
       onInputChange={onInputChange}
       onEndButtonClick={onEndButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonClick={onSaveButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
+      onCreateActivityWithNoContent={createVisualizationWithNoContent}
+      onCreateActivityWithContent={createVisualizationWithContent}
     />
   );
 };
