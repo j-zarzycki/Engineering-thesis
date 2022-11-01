@@ -20,6 +20,7 @@ import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
 import { useHistory, useLocation } from "react-router";
 import { FiSettings } from "react-icons/fi";
+import MessageQuestion from "../../components/Message/MessageQuestion.component";
 
 const Home: React.FC = () => {
   const location = useLocation();
@@ -32,11 +33,11 @@ const Home: React.FC = () => {
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
 
-  const onSettingsClick = () => history.replace("/settings")
+  const onSettingsClick = () => history.replace("/settings");
 
   useEffect(() => {
     window.addEventListener("beforeunload", () => replaceHistory);
-    
+
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -121,7 +122,7 @@ const Home: React.FC = () => {
         <IonToolbar>
           <div className="homepage-toolbar">
             <div className="ion-title">Strona główna</div>
-            <FiSettings size={25} onClick={onSettingsClick}/>
+            <FiSettings size={25} onClick={onSettingsClick} />
           </div>
         </IonToolbar>
       </IonHeader>
@@ -140,17 +141,11 @@ const Home: React.FC = () => {
                   </IonRow>
                   <IonRow>
                     <IonCol className="chat">
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Cześć!</span>
-                        </IonCardContent>
-                      </IonCard>
-
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Co chcesz dziś porobić?</span>
-                        </IonCardContent>
-                      </IonCard>
+                      <MessageQuestion
+                        value={
+                          "Cześć! \n Przesuń palec w dół aby rozpocząć ze mną czat!"
+                        }
+                      />
                     </IonCol>
                   </IonRow>
                 </IonCol>
