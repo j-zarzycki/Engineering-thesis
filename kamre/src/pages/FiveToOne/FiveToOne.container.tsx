@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
@@ -15,7 +15,7 @@ const FiveToOneContainer: React.FC = () => {
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
   const slideElements = 8;
-  const history = useHistory();
+  const router = useIonRouter();
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
@@ -57,7 +57,7 @@ const FiveToOneContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -65,7 +65,7 @@ const FiveToOneContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
-    history.replace("/home");
+    router.push("/home", "forward", "pop");
   };
 
   const onSlideChangeHandler = () => {

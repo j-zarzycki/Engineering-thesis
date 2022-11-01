@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
 import { useIonRouter } from "@ionic/react";
 import { getFullDateWithTime } from "@Utils/date";

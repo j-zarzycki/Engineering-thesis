@@ -3,7 +3,8 @@ import random
 
 
 def get_results(user_id):
-    return svc.user_check_answers(user_id), True
+    activity, url = svc.user_check_answers(user_id)
+    return activity, url, True
 
 
 def confirmation_opener():

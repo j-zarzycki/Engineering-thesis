@@ -36,14 +36,15 @@
         text-align: center;
       }
     }
-    .schultz__horizontal-progress-bar {
-      display: none;
-    }
 
     .proceed-button {
       margin-top: auto;
       margin-bottom: 50px;
     }
+  }
+
+  &__horizontal-progress-bar {
+    margin-top: 4em;
   }
 
   &__header {
@@ -53,7 +54,7 @@
 
   &__swiper {
     width: 100%;
-    margin-top: 43px;
+    margin-top: 16px;
 
     .swiper {
       &__proceed-buttons {

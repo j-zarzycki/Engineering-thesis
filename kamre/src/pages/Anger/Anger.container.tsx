@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
+
+import useAppDispatch from "@Hooks/useAppDispatch";
+import { createNote } from "@Store/slices/noteSlice";
 
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
@@ -19,12 +22,13 @@ const AngerContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const dispatch = useAppDispatch();
   const [pageController, setPageController] = useState({
     isMainContextVisible: true,
     isAngerListVisible: false,
     isFinalVisible: false,
   });
-  const history = useHistory();
+  const router = useIonRouter();
   const slideElements = 4;
 
   const generateKey = () => {
@@ -91,6 +95,20 @@ const AngerContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
+  const onNextButtonClick = () => {
+    dispatch(
+      createNote({
+        contentName: "Złość",
+        title: "Złość",
+        description:
+          "Co zaobserwowałeś_aś po wykonanej aktywności? Jak się czułeś_aś?",
+        hiddenDescription: "",
+      }),
+    );
+
+    history.replace("/note");
+  };
+
   const onSaveButtonWithContentClick = async () => {
     const currentDateWithTime = getFullDateWithTime();
     setIsLoading(true);
@@ -105,7 +123,7 @@ const AngerContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -144,11 +162,11 @@ const AngerContainer: React.FC = () => {
       isAddingDisabled={isAddingDisabled}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
-      onInputChange={onInputChange}
       onContinueButtonClick={onContinueButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
       onSaveButtonWithContentClick={onSaveButtonWithContentClick}
       onSlideChangeHandler={onSlideChangeHandler}
+      onNextButtonClick={onNextButtonClick}
     />
   );
 };
