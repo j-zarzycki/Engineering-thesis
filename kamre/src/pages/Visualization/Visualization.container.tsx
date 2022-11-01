@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
-import { useIonRouter } from "@ionic/react";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
@@ -28,7 +27,6 @@ const VisualizationContainer: React.FC = () => {
     isFinalVisible: false,
   });
   const currentDateWithTime: String = getFullDateWithTime();
-  const router = useIonRouter();
   const dispatch = useAppDispatch();
   const slideElements = 3;
 
@@ -122,7 +120,7 @@ const VisualizationContainer: React.FC = () => {
     dispatch(
       createNote({
         contentName: "Wizualizacja swojego procesu zmiany",
-        title: "Wizualizacja swojego procesu zmianyr",
+        title: "Wizualizacja swojego procesu zmiany",
         description: "Co czujesz po wykonaniu tego ćwiczenia?",
         hiddenDescription: "",
       }),
