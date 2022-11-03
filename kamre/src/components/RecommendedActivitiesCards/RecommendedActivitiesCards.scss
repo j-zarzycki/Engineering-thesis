@@ -1,0 +1,43 @@
+@import "@Theme/variables";
+@import "@Theme/media";
+
+.activities-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: $color-white;
+  z-index: 100;
+  width: 100%;
+  padding-inline-start: var(--padding-start);
+  padding-inline-end: var(--padding-end);
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+    grid-gap: 20px;
+  }
+
+  &__holder {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    &::before {
+      content: "";
+      width: 120px;
+      height: 5px;
+      background-color: $secondary-gray-90;
+      border-radius: $border-radius-m;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .activities-card {
+    &__wrapper {
+      grid-template-columns: 1fr;
+    }
+  }
+}
