@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import {
-  useIonRouter,
   IonGrid,
   IonRow,
   IonCol,
@@ -17,20 +16,27 @@ import {
 } from "@ionic/react";
 import Pet from "@Assets/happy.png";
 import Avatar from "@Assets/image.png";
-import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
+import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
+import { useHistory, useLocation } from "react-router";
 import { FiSettings } from "react-icons/fi";
 
-const Home: React.FC = () => {
-  const router = useIonRouter();
+const All: React.FC = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const replaceHistory = useCallback(() => {
+    history.replace({ ...location, state: undefined });
+  }, [history]);
   const ref = useRef<any>(null);
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
 
-  const onSettingsClick = () => router.push("/settings", "forward", "pop");
+  const onSettingsClick = () => history.replace("/settings");
 
   useEffect(() => {
+    window.addEventListener("beforeunload", () => replaceHistory);
+
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -103,6 +109,10 @@ const Home: React.FC = () => {
     });
 
     gesture.enable(true);
+
+    return () => {
+      window.removeEventListener("beforeunload", replaceHistory);
+    };
   }, []);
 
   return (
@@ -145,7 +155,7 @@ const Home: React.FC = () => {
                   </IonRow>
                 </IonCol>
               </IonRow>
-              <RecommendedActivitiesCards ref={ref} />
+              <ActivitiesCard ref={ref} />
               <Chat isActivitiesCardHidden={isActivitiesCardHidden} />
             </IonGrid>
           </div>
@@ -155,4 +165,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default All;

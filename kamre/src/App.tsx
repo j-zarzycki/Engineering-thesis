@@ -23,6 +23,7 @@ import Gratitude from "./pages/Gratitude";
 import Walking from "./pages/Walking";
 import FiveToOne from "./pages/FiveToOne";
 import Home from "./pages/Home";
+import All from "./pages/All";
 import Anger from "./pages/Anger";
 import ConsciousShower from "./pages/ConsciousShower";
 import Calendar from "./pages/Calendar";
@@ -86,6 +87,7 @@ const App: React.FC = () => {
           <IonRouterOutlet>
             <Route path="/welcompage" component={WelcomePage} />
             <Route path="/home" component={Home} />
+            <Route path="/all" component={All} />
             <Route path="/shower" component={ConsciousShower} />
             <Route path="/settings" component={Settings} />
             <Route path="/walking" component={Walking} />
