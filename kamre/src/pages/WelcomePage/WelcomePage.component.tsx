@@ -15,11 +15,17 @@ import Pet from "@Components/Pet";
 
 interface IProps {
   onCreateActivityWithContent(): void;
+
   setToast(value: {}): void;
+
   onProceedButtonClick(): void;
+
   setSwiper(value: any): void;
+
   onSlideChangeHandler(slide: SwiperType): void;
+
   onStartButtonClick(): void;
+
   isLoading: boolean;
   toast: any;
   currentSlide: number;
@@ -113,10 +119,11 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">
-                Mam wiele umiejętności...
-              </h4>
-              <p className="swiper-slide__paragraph">Pomogę Ci...</p>
+              <h4 className="swiper-slide__header">Mam wiele umiejętności</h4>
+              <p className="swiper-slide__paragraph">
+                Nauczę Cię zarządzać swoim stresem, co więcej przestaniesz go
+                postrzegać jako twojego wroga!
+              </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>

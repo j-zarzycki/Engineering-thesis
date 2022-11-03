@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -19,7 +19,7 @@ const ColdWaterContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
   const currentDateWithTime: String = getFullDateWithTime();
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
 
   const createColdWaterWithNoContent = async () => {
@@ -34,7 +34,7 @@ const ColdWaterContainer: React.FC = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -55,7 +55,7 @@ const ColdWaterContainer: React.FC = () => {
       }),
     );
 
-    history.push("/note");
+    router.push("/note", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {

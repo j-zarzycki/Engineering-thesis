@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -18,19 +18,19 @@ const SchultzTrainingContainer: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
   const currentDateWithTime: String = getFullDateWithTime();
-  const history = useHistory();
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
 
   const createSchultzTrainingWithNoContent = async () => {
     setIsLoading(true);
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "Trening Schultza")
+      .CreateActivityWithNoContent(currentDateWithTime, "Podcast")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -43,14 +43,14 @@ const SchultzTrainingContainer: React.FC = () => {
   const createSchultzTrainingWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Trening Schultza",
+        contentName: "Podcast",
         title: "Trening Schultza",
         description: "Możesz zapisać swoje przemyślenia na temat treingu.",
         hiddenDescription: "",
       }),
     );
 
-    history.push("/note");
+    router.push("/note", "forward", "pop");
   };
 
   const onProceedButtonClick = () => {

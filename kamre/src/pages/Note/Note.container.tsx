@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
@@ -15,7 +15,7 @@ const NoteContainer: React.FC = () => {
   const [isHidden, setIsHidden] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [textAreaInput, setTextAreaInput] = useState("");
-  const history = useHistory();
+  const router = useIonRouter();
 
   const handleChevronClick = () => setIsHidden((prevState) => !prevState);
 
@@ -41,7 +41,7 @@ const NoteContainer: React.FC = () => {
       .CreateActivityWithContent(currentDate, textAreaInput, prevContent)
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>
@@ -54,7 +54,7 @@ const NoteContainer: React.FC = () => {
 
   const handleCancelButtonClick = async () => {
     if (prevContent === "Poprzedni dzień") {
-      history.replace("/home");
+      router.push("/home", "forward", "pop");
       return null;
     }
 
@@ -65,7 +65,7 @@ const NoteContainer: React.FC = () => {
       .CreateActivityWithNoContent(currentDate, prevContent)
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .finally(() => setIsLoading(false))
       .catch(() =>

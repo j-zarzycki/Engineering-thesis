@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import {
+  useIonRouter,
   IonGrid,
   IonRow,
   IonCol,
@@ -18,25 +19,18 @@ import Pet from "@Assets/happy.png";
 import Avatar from "@Assets/image.png";
 import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
 import Chat from "@Components/Chat";
-import { useHistory, useLocation } from "react-router";
 import { FiSettings } from "react-icons/fi";
 
 const Home: React.FC = () => {
-  const location = useLocation();
-  const history = useHistory();
-  const replaceHistory = useCallback(() => {
-    history.replace({ ...location, state: undefined });
-  }, [history]);
+  const router = useIonRouter();
   const ref = useRef<any>(null);
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
 
-  const onSettingsClick = () => history.replace("/settings");
+  const onSettingsClick = () => router.push("/settings", "forward", "pop");
 
   useEffect(() => {
-    window.addEventListener("beforeunload", () => replaceHistory);
-
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -109,10 +103,6 @@ const Home: React.FC = () => {
     });
 
     gesture.enable(true);
-
-    return () => {
-      window.removeEventListener("beforeunload", replaceHistory);
-    };
   }, []);
 
   return (

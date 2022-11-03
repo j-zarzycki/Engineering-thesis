@@ -7,7 +7,7 @@ class EmergencyPersonalTip(db.EmbeddedDocument):
 
     created = db.DateTimeField()
     tip_id = db.SequenceField(value_decorator=1)
-    tip = db.ListField(db.StringField())
+    tip = db.StringField()
 
     meta = {
         'indexes': [
