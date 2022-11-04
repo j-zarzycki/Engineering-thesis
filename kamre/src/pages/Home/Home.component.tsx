@@ -20,6 +20,7 @@ import Avatar from "@Assets/image.png";
 import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
 import Chat from "@Components/Chat";
 import { FiSettings } from "react-icons/fi";
+import MessageQuestion from "../../components/Message/MessageQuestion.component";
 
 const Home: React.FC = () => {
   const router = useIonRouter();
@@ -130,17 +131,11 @@ const Home: React.FC = () => {
                   </IonRow>
                   <IonRow>
                     <IonCol className="chat">
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Cześć!</span>
-                        </IonCardContent>
-                      </IonCard>
-
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Co chcesz dziś porobić?</span>
-                        </IonCardContent>
-                      </IonCard>
+                      <MessageQuestion
+                        value={
+                          "Cześć! \n Przesuń palec w dół aby rozpocząć ze mną czat!"
+                        }
+                      />
                     </IonCol>
                   </IonRow>
                 </IonCol>

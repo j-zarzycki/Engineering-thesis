@@ -60,18 +60,7 @@ ion-header {
 .chat {
   display: flex;
   flex-flow: column;
-
-  &-styles {
-    border-radius: $border-radius-m;
-    margin: 4px;
-  }
-
-  &-description {
-    font-size: $font-size-xxs;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    line-height: 1;
-  }
+  white-space: pre-line;
 }
 
 ion-content {
