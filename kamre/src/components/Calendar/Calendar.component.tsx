@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from "react";
 import { IonLoading } from "@ionic/react";
 
@@ -47,50 +46,65 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
   } = props;
   const days: React.ReactElement[] = [];
 
-  const renderDot = (data: CalendarResponseType, date: moment.Moment) => {
-    const {
-      activity_category: activityCategory,
-      registered_date: registeredDate,
-    } = data;
+  const renderDots = (date: moment.Moment) => {
+    const dots: React.ReactElement[] = [];
+    let isYellowDotRendered = false;
+    let isRedDotRendered = false;
+    let isBlueDotRendered = false;
+    let isGreenDotRendered = false;
 
-    let dotsArr = [];
-    let yellowSwitch = true;
-    let blueSwitch = true;
-    let redSwitch = true;
-    let greenSwitch = true;
+    for (let i = 0; i < monthData.length; i += 1) {
+      const {
+        activity_category: activityCategory,
+        registered_date: registeredDate,
+      } = monthData[i];
 
-    const transformedRegisteredData =
-      moment(registeredDate).format("YYYY-MM-DD");
-    const transformedCalendarDay = moment(date).format("YYYY-MM-DD");
+      const transformedRegisteredData =
+        moment(registeredDate).format("YYYY-MM-DD");
+      const transformedCalendarDay = moment(date).format("YYYY-MM-DD");
 
-    if (!(transformedRegisteredData === transformedCalendarDay)) return false;
-    switch (activityCategory) {
-      case "Aktywne":
-        if (yellowSwitch) {
-          dotsArr.push(
-            <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />,
-          );
-          yellowSwitch = false;
+      if (transformedRegisteredData === transformedCalendarDay) {
+        switch (activityCategory) {
+          case "Aktywne":
+            if (!isYellowDotRendered) {
+              dots.push(
+                <div className="kamre-calendar__day-dot kamre-calendar__day-dot--yellow" />,
+              );
+              isYellowDotRendered = true;
+            }
+            break;
+
+          case "Bierne":
+            if (!isGreenDotRendered) {
+              dots.push(
+                <div className="kamre-calendar__day-dot kamre-calendar__day-dot--green" />,
+              );
+              isGreenDotRendered = true;
+            }
+            break;
+          case "Zmiana myślenia":
+            if (!isBlueDotRendered) {
+              dots.push(
+                <div className="kamre-calendar__day-dot kamre-calendar__day-dot--blue" />,
+              );
+              isBlueDotRendered = true;
+            }
+            break;
+          case "Pozytywne emocje":
+            if (!isRedDotRendered) {
+              dots.push(
+                <div className="kamre-calendar__day-dot kamre-calendar__day-dot--red" />,
+              );
+              isRedDotRendered = true;
+            }
+            break;
+          default:
+            return null;
         }
-        break;
-
-      case "Bierne":
-        return (
-          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--green" />
-        );
-      case "Zmiana myślenia":
-        return (
-          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--blue" />
-        );
-      case "Pozytywne emocje":
-        return (
-          <div className="kamre-calendar__day-dot kamre-calendar__day-dot--red" />
-        );
-      default:
-        return null;
+      }
     }
 
-    return dotsArr;
+    return dots;
   };
 
   const renderDays = () => {
@@ -140,7 +154,7 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
             {moment(thisDate).format("DD")}
           </span>
           <div className="kamre-calendar__day-dot__wrapper">
-            {monthData.map((data) => renderDot(data, thisDate))}
+            {renderDots(thisDate)}
           </div>
         </div>,
       );

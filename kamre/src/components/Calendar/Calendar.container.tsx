@@ -64,7 +64,7 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
   };
 
   const onDayClickHandler = (e: any) => {
-    const { value } = e.target.attributes["0"];
+    const value = e.target.getAttribute("date-full-date");
 
     const activeElements = document.querySelectorAll(
       ".kamre-calendar__day--active",
