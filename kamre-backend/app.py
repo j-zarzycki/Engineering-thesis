@@ -310,8 +310,8 @@ def chat_result():
             svc.user_clear_chat_answers(user_id)
             return jsonify({'results': 'Świetnie!', 'is_activity': False}), 200
 
-        activity, is_activity = menu.get_results(user_id)
-        return jsonify({'results': activity, 'is_activity': is_activity}), 200
+        activity, url, is_activity = menu.get_results(user_id)
+        return jsonify({'results': activity, 'url': url, 'is_activity': is_activity}), 200
 
     else:
         return user_id

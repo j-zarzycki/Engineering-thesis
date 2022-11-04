@@ -24,24 +24,16 @@ import PetHappy from "@Assets/happy.png";
 import "./Anger.style.scss";
 
 interface IProps {
+  onCreateActivityWithContent(): void;
+  onCreateActivityWithNoContent(): Promise<void>;
   setSwiper(value: any): void;
-
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onContinueButtonClick(): void;
-
   onDestroyButtonClick(): void;
-
   setToast(value: {}): void;
-
-  onSaveButtonWithContentClick(): void;
-
   onSlideChangeHandler(): void;
-
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
@@ -60,6 +52,8 @@ interface IProps {
 
 const Anger: React.FC<IProps> = (props: IProps) => {
   const {
+    onCreateActivityWithContent,
+    onCreateActivityWithNoContent,
     setSwiper,
     currentSlide,
     slideElements,
@@ -72,7 +66,6 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     onContinueButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonWithContentClick,
     swiper,
     slidesInputsValue,
     isLoading,
@@ -83,7 +76,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
 
   const renderHeader = () => {
     const { isFinalVisible } = pageController;
-    if (swiper?.activeIndex >= 4 || isFinalVisible)
+    if (swiper?.activeIndex >= 3 || isFinalVisible)
       return <div className="anger__header" />;
 
     return (
@@ -114,13 +107,6 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               <h4 className="swiper-slide__header">Złość</h4>
               <p className="swiper-slide__paragraph">
                 To ćwiczenie pozwoli Ci świadomie zarządzać swoją złością.
-              </p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Złość</h4>
-              <p className="swiper-slide__paragraph">
                 Poprzez złość możemy uświadomić sobie swoje granice, pokazać na
                 co się zgadzamy, a na co nie.
               </p>
@@ -138,11 +124,8 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Przemyślenia</h4>
-              <p className="swiper-slide__paragraph anger-input">
-                To czas, żeby dokonać analizy, a następnie wyrzucić złość za
-                siebie. Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja
-                powinna być rozwiązana?
+              <h4 className="swiper-slide__header">Co Cię złości?:</h4>
+              <p className="swiper-slide__paragraph">
                 <Input
                   type="text"
                   placeholder="Wpisz tutaj..."
@@ -169,7 +152,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButton = () => {
-    if (swiper?.activeIndex >= 4)
+    if (swiper?.activeIndex >= 3)
       return (
         <div className="anger__continue-buttons">
           <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
@@ -182,7 +165,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
         </div>
       );
 
-    if (swiper?.activeIndex === 3)
+    if (swiper?.activeIndex === 2)
       return (
         <ProceedButton
           title="Dodaj"
@@ -229,13 +212,17 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           }}
         >
           <div className="anger__list">
-            <h4>Super! Oto co wypisałeś</h4>
+            <h4>Wkurza mnie:</h4>
             <ul>{renderAngerDataList()}</ul>
             <p>
-              Dlaczego się tak czujesz? Jak Twoim zdaniem ta sytuacja powinna
-              być rozwiązana?
+              To czas, żeby dokonać analizy, a następnie wyrzucić złość za
+              siebie. Dlaczego się tak czujesz? Jak Twoim zdaniem te sytuacje
+              powinny być rozwiązane?
             </p>
-            <ProceedButton title="Dalej!" onClick={onDestroyButtonClick} />
+            <ProceedButton
+              title="Wyrzucam z siebie"
+              onClick={onDestroyButtonClick}
+            />
           </div>
         </CreateAnimation>
       )
@@ -285,9 +272,13 @@ const Anger: React.FC<IProps> = (props: IProps) => {
               wewnętrzny stan w sposób bezpieczny dla nas samych i dla innych.
             </p>
             <div className="anger__final-buttons">
+              <CancelButton
+                onClick={onCreateActivityWithNoContent}
+                title="Zakończ"
+              />
               <SaveActivityButton
                 title="Zapisz"
-                onClick={onSaveButtonWithContentClick}
+                onClick={onCreateActivityWithContent}
               />
             </div>
           </div>

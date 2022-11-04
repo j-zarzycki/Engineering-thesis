@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
@@ -15,7 +15,7 @@ const FeetContainer: React.FC = () => {
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
   const slideElements = 23;
-  const history = useHistory();
+  const router = useIonRouter();
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
@@ -53,7 +53,7 @@ const FeetContainer: React.FC = () => {
 
   const handleFinishButtonClick = async () => {
     createFeetNoContent();
-    history.replace("/home");
+    router.push("/home", "forward", "pop");
   };
 
   const onSlideChangeHandler = () => {

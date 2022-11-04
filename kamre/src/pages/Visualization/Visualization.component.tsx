@@ -24,6 +24,10 @@ import PetHappy from "@Assets/happy.png";
 import "./Visualization.style.scss";
 
 interface IProps {
+  onCreateActivityWithNoContent(): Promise<void>;
+
+  onCreateActivityWithContent(): void;
+
   setSwiper(value: any): void;
 
   onProceedButtonClick(): void;
@@ -37,8 +41,6 @@ interface IProps {
   onDestroyButtonClick(): void;
 
   setToast(value: {}): void;
-
-  onSaveButtonClick(): void;
 
   onSlideChangeHandler(): void;
 
@@ -60,6 +62,8 @@ interface IProps {
 
 const Visualization: React.FC<IProps> = (props: IProps) => {
   const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
     setSwiper,
     currentSlide,
     slideElements,
@@ -72,7 +76,6 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
     onEndButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonClick,
     swiper,
     slidesInputsValue,
     isLoading,
@@ -272,10 +275,17 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
             <p>
               Wizualizacje to potężne narzędzie, dzięki nim nasz mózg jest gotów
               do działania w kierunku ich zawartości, dlatego warto skupiać się
-              w nich na samych pozytywach!
+              w nich na samych pozytywach! Czy chcesz dodać przemyślenia?
             </p>
             <div className="visualization__final-buttons">
-              <SaveActivityButton title="Zapisz" onClick={onSaveButtonClick} />
+              <CancelButton
+                onClick={onCreateActivityWithNoContent}
+                title="Zakończ"
+              />
+              <SaveActivityButton
+                title="Dodaj"
+                onClick={onCreateActivityWithContent}
+              />
             </div>
           </div>
         </CreateAnimation>

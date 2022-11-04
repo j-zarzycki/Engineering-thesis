@@ -51,8 +51,6 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
     slideElements,
   } = props;
 
-  onGenerateSubject();
-
   const renderLoader = () => {
     return (
       <IonLoading
@@ -140,10 +138,10 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Gratulacje!</h4>
               <p className="swiper-slide__paragraph">
-                Czy udało Ci się uspokoić? W jakim kierunku uciekały Twoje
-                myśli? <br />
-                Jeśli chcesz dodaj notatkę ze swoimi sposobami lub
-                przemyśleniami.
+                Świetna robota! Czy udało Ci się uspokoić? Gdzie uciekały Twoje
+                myśli?
+                <br />
+                Dodaj notatkę ze swoimi sposobami lub przemyśleniami.
               </p>
             </div>
           </SwiperSlide>

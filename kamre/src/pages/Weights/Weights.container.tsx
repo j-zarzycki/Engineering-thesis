@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -7,6 +7,8 @@ import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import { createNote } from "@Store/slices/noteSlice";
+import useAppDispatch from "@Hooks/useAppDispatch";
 import Weights from "./Weights.component";
 
 const WeightsContainer: React.FC = () => {
@@ -24,7 +26,8 @@ const WeightsContainer: React.FC = () => {
     isWeightsListVisible: false,
     isFinalVisible: false,
   });
-  const history = useHistory();
+  const router = useIonRouter();
+  const dispatch = useAppDispatch();
   const slideElements = 3;
 
   const generateKey = () => {
@@ -90,22 +93,17 @@ const WeightsContainer: React.FC = () => {
 
     if (swiper?.activeIndex === 1) setImg(quote);
   };
-
-  const onSaveButtonClick = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const createWeightsWithNoContent = async () => {
     setIsLoading(true);
+    const currentDateWithTime: String = getFullDateWithTime();
     await apiService
-      .CreateActivityWithContent(
-        currentDateWithTime,
-        slidesInputsValue,
-        "Ciężary",
-      )
+      .CreateActivityWithNoContent(currentDateWithTime, "Ciężary")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -113,6 +111,20 @@ const WeightsContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
+  };
+
+  const createWeightsWithContent = () => {
+    dispatch(
+      createNote({
+        contentName: "Ciężary",
+        title: "Ciężary",
+        description:
+          "Co zaobserwowałeś_aś po wykonaniu ćwiczenia? Jak się czułeś_aś?",
+        hiddenDescription: "",
+      }),
+    );
+
+    router.push("/note", "forward", "pop");
   };
 
   const onSlideChangeHandler = () => {
@@ -148,8 +160,9 @@ const WeightsContainer: React.FC = () => {
       onInputChange={onInputChange}
       onEndButtonClick={onEndButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonClick={onSaveButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
+      onCreateActivityWithNoContent={createWeightsWithNoContent}
+      onCreateActivityWithContent={createWeightsWithContent}
     />
   );
 };

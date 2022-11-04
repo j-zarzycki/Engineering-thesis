@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useIonRouter } from "@ionic/react";
 
 import useAppDispatch from "@Hooks/useAppDispatch";
 import { createNote } from "@Store/slices/noteSlice";
@@ -23,7 +23,7 @@ const BreathingContainer: React.FC = () => {
   const [counter, setCounter] = useState(0);
   const [renderType, setRenderType] = useState(RenderType.EXHAUST);
   const dispatch = useAppDispatch();
-  const history = useHistory();
+  const router = useIonRouter();
   let intervalId: any;
 
   const handleInterval = () => setIsPlaying(true);
@@ -80,7 +80,7 @@ const BreathingContainer: React.FC = () => {
       }),
     );
 
-    history.replace("/note");
+    router.push("/note", "forward", "pop");
   };
 
   useEffect(() => {

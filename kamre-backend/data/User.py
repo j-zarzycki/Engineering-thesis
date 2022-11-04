@@ -12,6 +12,7 @@ class User(db.Document):
 
     activities_years = db.SortedListField(db.EmbeddedDocumentField(Activity_year), ordering="year")
     chat_answers = db.ListField(db.IntField())
+    chat_recommended_seen = db.ListField(db.StringField())
     favorites = db.EmbeddedDocumentListField(Favorites)
     emergency_seen = db.EmbeddedDocumentField(Emergency_seen)
     recent = db.ListField(db.EmbeddedDocumentField(Recent))

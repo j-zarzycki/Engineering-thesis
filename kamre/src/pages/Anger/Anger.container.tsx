@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
 
 import { getFullDateWithTime } from "@Utils/date";
@@ -7,6 +7,8 @@ import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
+import { createNote } from "@Store/slices/noteSlice";
+import useAppDispatch from "@Hooks/useAppDispatch";
 import Anger from "./Anger.component";
 
 const AngerContainer: React.FC = () => {
@@ -19,13 +21,14 @@ const AngerContainer: React.FC = () => {
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
+  const dispatch = useAppDispatch();
   const [pageController, setPageController] = useState({
     isMainContextVisible: true,
     isAngerListVisible: false,
     isFinalVisible: false,
   });
-  const history = useHistory();
-  const slideElements = 4;
+  const router = useIonRouter();
+  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -45,7 +48,7 @@ const AngerContainer: React.FC = () => {
     return (
       <SwiperSlide key={generateKey()}>
         <div className="swiper-slide__wrapper">
-          <h4 className="swiper-slide__header">Przemyślenia</h4>
+          <h4 className="swiper-slide__header">Co Cię złości?:</h4>
           <p className="swiper-slide__paragraph">
             <Input
               type="text"
@@ -91,21 +94,17 @@ const AngerContainer: React.FC = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
   };
 
-  const onSaveButtonWithContentClick = async () => {
-    const currentDateWithTime = getFullDateWithTime();
+  const createAngerNoContent = async () => {
+    const currentDateWithTime: String = getFullDateWithTime();
     setIsLoading(true);
     await apiService
-      .CreateActivityWithContent(
-        currentDateWithTime,
-        slidesInputsValue,
-        "Złość",
-      )
+      .CreateActivityWithNoContent(currentDateWithTime, "Złość")
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
       })
       .finally(() => {
         setIsLoading(false);
-        history.replace("/home");
+        router.push("/home", "forward", "pop");
       })
       .catch(() =>
         setToast({
@@ -113,6 +112,20 @@ const AngerContainer: React.FC = () => {
           message: "Wystąpił błąd podczas zapisywania.",
         }),
       );
+  };
+
+  const createAngerWithContent = () => {
+    dispatch(
+      createNote({
+        contentName: "Złość",
+        title: "Złość",
+        description:
+          "Przyjmij, że twoja złość, jest dla Ciebie informacją, co Ci w trakcie ćwiczenia powiedziała? ",
+        hiddenDescription: "",
+      }),
+    );
+
+    router.push("/note", "forward", "pop");
   };
 
   const onSlideChangeHandler = () => {
@@ -147,8 +160,9 @@ const AngerContainer: React.FC = () => {
       onInputChange={onInputChange}
       onContinueButtonClick={onContinueButtonClick}
       onDestroyButtonClick={onDestroyButtonClick}
-      onSaveButtonWithContentClick={onSaveButtonWithContentClick}
       onSlideChangeHandler={onSlideChangeHandler}
+      onCreateActivityWithContent={createAngerWithContent}
+      onCreateActivityWithNoContent={createAngerNoContent}
     />
   );
 };
