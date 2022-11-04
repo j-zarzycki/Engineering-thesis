@@ -142,7 +142,7 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Gratulacje!</h4>
+              <h4 className="swiper-slide__header">Przemyślenia</h4>
               <p className="swiper-slide__paragraph">
                 Po prysznicu przemyśl, co czułeś_aś? Co dało Ci to ćwiczenie?
                 Czy udało Ci się oczyścić umysł z myśli?

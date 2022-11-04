@@ -120,7 +120,7 @@ const VisualizationContainer: React.FC = () => {
     dispatch(
       createNote({
         contentName: "Wizualizacja swojego procesu zmiany",
-        title: "Wizualizacja swojego procesu zmianyr",
+        title: "Wizualizacja swojego procesu zmiany",
         description: "Co czujesz po wykonaniu tego ćwiczenia?",
         hiddenDescription: "",
       }),

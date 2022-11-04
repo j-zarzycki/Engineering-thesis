@@ -25,6 +25,10 @@ import PetHappy from "@Assets/happy.png";
 import "./Weights.style.scss";
 
 interface IProps {
+  onCreateActivityWithNoContent(): Promise<void>;
+
+  onCreateActivityWithContent(): void;
+
   setSwiper(value: any): void;
 
   onProceedButtonClick(): void;
@@ -38,8 +42,6 @@ interface IProps {
   onDestroyButtonClick(): void;
 
   setToast(value: {}): void;
-
-  onSaveButtonClick(): void;
 
   onSlideChangeHandler(): void;
 
@@ -61,6 +63,8 @@ interface IProps {
 
 const Weights: React.FC<IProps> = (props: IProps) => {
   const {
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
     setSwiper,
     currentSlide,
     slideElements,
@@ -73,7 +77,6 @@ const Weights: React.FC<IProps> = (props: IProps) => {
     onEndButtonClick,
     onInputChange,
     onDestroyButtonClick,
-    onSaveButtonClick,
     swiper,
     slidesInputsValue,
     isLoading,
@@ -272,10 +275,18 @@ const Weights: React.FC<IProps> = (props: IProps) => {
             <p>
               Często nosimy w sobie emocje, które powodują u nas ucisk w sercu,
               na duszy. Zaakceptuj te uczucia i próbuj wybaczać je sobie. Wiem,
-              to trudne zadanie ale jestem przekonana, że Ci się uda!
+              to trudne zadanie ale jestem przekonana, że Ci się uda! Czy chcesz
+              dodać przemyślenia?
             </p>
             <div className="weights__final-buttons">
-              <SaveActivityButton title="Gotowe" onClick={onSaveButtonClick} />
+              <CancelButton
+                onClick={onCreateActivityWithNoContent}
+                title="Zakończ"
+              />
+              <SaveActivityButton
+                title="Dodaj"
+                onClick={onCreateActivityWithContent}
+              />
             </div>
           </div>
         </CreateAnimation>

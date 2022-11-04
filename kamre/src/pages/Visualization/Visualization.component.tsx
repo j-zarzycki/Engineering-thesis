@@ -275,7 +275,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
             <p>
               Wizualizacje to potężne narzędzie, dzięki nim nasz mózg jest gotów
               do działania w kierunku ich zawartości, dlatego warto skupiać się
-              w nich na samych pozytywach!
+              w nich na samych pozytywach! Czy chcesz dodać przemyślenia?
             </p>
             <div className="visualization__final-buttons">
               <CancelButton
