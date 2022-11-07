@@ -55,7 +55,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
       <IonLoading
         cssClass="welcome-page__loader"
         isOpen={isLoading}
-        message="Zapisywanie, proszę czekać"
+        message="Trwa inicjowanie aplikacji, proszę czekać."
       />
     );
   };

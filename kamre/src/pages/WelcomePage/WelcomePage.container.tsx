@@ -15,7 +15,7 @@ const WelcomePageContainer: React.FC = () => {
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState("");
   const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const slideElements = SWIPE_ELEMENTS;
   const dispatch = useAppDispatch();
   const router = useIonRouter();
@@ -33,15 +33,21 @@ const WelcomePageContainer: React.FC = () => {
     router.push("/home", "forward", "pop");
   };
 
-  const onStartButtonClick = () => {
+  const authenticateUser = () => {
     dispatch(authLogin("test_user"))
       .then(() => {
         localStorage.setItem("isFirstStart", "false");
         router.push("/home", "forward", "pop");
+        setIsLoading(false);
       })
       .catch(() => {
         router.push("/403", "forward", "pop");
       });
+  };
+
+  const onStartButtonClick = () => {
+    setIsLoading(true);
+    setTimeout(authenticateUser, 3000);
   };
 
   const onProceedButtonClick = () => {
