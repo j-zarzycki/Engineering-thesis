@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
+import { authLogin } from "@Actions/auth";
 import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import SWIPE_ELEMENTS from "@Constants/walking.constants";
@@ -33,8 +34,14 @@ const WelcomePageContainer: React.FC = () => {
   };
 
   const onStartButtonClick = () => {
-    localStorage.setItem("isFirstStart", "false");
-    router.push("/home", "forward", "pop");
+    dispatch(authLogin("test_user"))
+      .then(() => {
+        localStorage.setItem("isFirstStart", "false");
+        router.push("/home", "forward", "pop");
+      })
+      .catch(() => {
+        router.push("/403", "forward", "pop");
+      });
   };
 
   const onProceedButtonClick = () => {
