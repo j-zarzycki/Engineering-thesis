@@ -1,7 +1,9 @@
 @import "@Theme/variables";
 @import "@Theme/media";
+@import "@Theme/mixins";
 
 .welcome-page {
+  @include animation-properties;
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -20,6 +22,7 @@
   &__swiper {
     width: 100%;
     margin-top: 43px;
+    @include animation-properties;
 
     .swiper {
       &__proceed-buttons {
@@ -102,6 +105,42 @@
       justify-content: center;
     }
   }
+
+  &-recovery {
+    width: 100%;
+    margin-top: 43px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include animation-properties;
+
+    .welcome-page-recovery {
+      &__header {
+        font-family: $font-main;
+        font-weight: $font-weight-xl;
+        font-size: $font-size-xxl;
+        color: $color-black;
+        text-align: center;
+      }
+
+      &__paragraph {
+        font-family: $font-main;
+        font-weight: $font-weight-m;
+        font-size: $font-size-m;
+        line-height: 24px;
+        color: #000;
+        text-align: center;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+    .kamre {
+      &-input {
+        margin-top: 4px;
+      }
+    }
+  }
 }
 @include mobile-xsmall {
   .welcome-page {
@@ -118,7 +157,9 @@
     }
 
     &__final-buttons {
-      .welcome-page-start-button, .welcome-page-restore-data-button {
+      .cancel-button,
+      .welcome-page-start-button,
+      .welcome-page-restore-data-button {
         width: 100%;
         height: 60px;
       }
@@ -136,6 +177,26 @@
           &__paragraph {
             font-size: $font-size-m;
           }
+        }
+      }
+    }
+
+    .welcome-page-recovery {
+      margin-top: 20px;
+
+      &__header {
+        font-size: 32px;
+      }
+
+      &__paragraph {
+        font-size: $font-size-m;
+      }
+    }
+
+    &-recovery {
+      & ~ .welcome-page {
+        &__final-buttons {
+          margin-top: 20px;
         }
       }
     }
@@ -169,10 +230,22 @@
       }
     }
 
+    .welcome-page-recovery {
+      &__header {
+        font-size: 34px;
+      }
+
+      &__paragraph {
+        font-size: 18px;
+      }
+    }
+
     &__final-buttons {
       margin-top: 60px;
 
-      .welcome-page-start-button, .welcome-page-restore-data-button {
+      .welcome-page-start-button,
+      .cancel-button,
+      .welcome-page-restore-data-button {
         width: 100%;
         height: 60px;
       }
@@ -183,7 +256,9 @@
 @include mobile-s {
   .welcome-page {
     &__final-buttons {
-      .welcome-page-start-button, .welcome-page-restore-data-button {
+      .cancel-button,
+      .welcome-page-start-button,
+      .welcome-page-restore-data-button {
         width: 100%;
         height: 60px;
       }
@@ -216,5 +291,17 @@
         }
       }
     }
+
+    .welcome-page-recovery {
+      &__header {
+        font-size: 38px;
+      }
+
+      &__paragraph {
+        font-size: 20px;
+      }
+    }
   }
 }
+
+@include message-animation;

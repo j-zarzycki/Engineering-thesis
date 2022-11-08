@@ -5,8 +5,8 @@ import { Swiper as SwiperType } from "swiper/types";
 
 // Import Swiper styles
 import "swiper/css";
-
 import "./WelcomePage.style.scss";
+import Input from "@Components/Input";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import WelcomePageProceedButton from "@Components/WelcomePageProceedButton";
 import WelcomePageStartButton from "@Components/WelcomePageStartButton";
@@ -14,30 +14,35 @@ import WelcomePageRestoreDataButton from "@Components/WelcomePageRestoreDataButt
 import Pet from "@Components/Pet";
 
 interface IProps {
-  onCreateActivityWithContent(): void;
-
   setToast(value: {}): void;
-
   onProceedButtonClick(): void;
-
   setSwiper(value: any): void;
-
   onSlideChangeHandler(slide: SwiperType): void;
-
   onStartButtonClick(): void;
-
+  onRecoveryButtonClick(): void;
+  onInputChange(e: any): void;
+  onCancelRecoveryButtonHandle(): void;
+  onRestoreDataButtonClick(): void;
   isLoading: boolean;
   toast: any;
   currentSlide: number;
   swiper: any;
   img: string;
   slideElements: number;
+  recoveryRef: any;
+  swiperRef: any;
+  pageController: {
+    isWelcomeViewVisible: boolean;
+    isRecoveryViewVisible: boolean;
+  };
 }
 
 const WelcomePage: React.FC<IProps> = (props: IProps) => {
   const {
+    onCancelRecoveryButtonHandle,
+    pageController,
     onStartButtonClick,
-    onCreateActivityWithContent,
+    onRecoveryButtonClick,
     onProceedButtonClick,
     onSlideChangeHandler,
     setToast,
@@ -48,6 +53,10 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
     currentSlide,
     img,
     slideElements,
+    onInputChange,
+    recoveryRef,
+    swiperRef,
+    onRestoreDataButtonClick,
   } = props;
 
   const renderLoader = () => {
@@ -98,7 +107,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
 
   const renderSwiper = () => {
     return (
-      <div className="welcome-page__swiper">
+      <div ref={swiperRef} className="welcome-page__swiper">
         <Swiper
           effect="fade"
           centeredSlides
@@ -119,11 +128,10 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Mam wiele umiejętności</h4>
-              <p className="swiper-slide__paragraph">
-                Nauczę Cię zarządzać swoim stresem, co więcej przestaniesz go
-                postrzegać jako twojego wroga!
-              </p>
+              <h4 className="swiper-slide__header">
+                Mam wiele umiejętności...
+              </h4>
+              <p className="swiper-slide__paragraph">Pomogę Ci...</p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
@@ -151,7 +159,8 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderButtons = () => {
-    if (swiper?.activeIndex >= 3)
+    const { isWelcomeViewVisible, isRecoveryViewVisible } = pageController;
+    if (swiper?.activeIndex === 3 && isWelcomeViewVisible)
       return (
         <div className="welcome-page__final-buttons">
           <WelcomePageStartButton
@@ -160,13 +169,41 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
           />
           <WelcomePageRestoreDataButton
             title="Przywróć dane"
-            onClick={onCreateActivityWithContent}
+            onClick={onRecoveryButtonClick}
           />
         </div>
       );
 
+    if (isRecoveryViewVisible) {
+      return (
+        <div className="welcome-page__final-buttons">
+          <WelcomePageStartButton
+            onClick={onRestoreDataButtonClick}
+            title="Przywróć dane"
+          />
+          <WelcomePageRestoreDataButton
+            title="Anuluj"
+            onClick={onCancelRecoveryButtonHandle}
+          />
+        </div>
+      );
+    }
+
     return (
       <WelcomePageProceedButton title="Dalej" onClick={onProceedButtonClick} />
+    );
+  };
+
+  const renderRecovery = () => {
+    return (
+      <div ref={recoveryRef} className="welcome-page-recovery">
+        <h4 className="welcome-page-recovery__header">Migracja konta</h4>
+        <p className="welcome-page-recovery__paragraph">
+          Poniżej podaj swój wcześniej wygenerowany kod, a następnie potwierdź
+          go naciskając przycisk.
+        </p>
+        <Input placeholder="Wpisz tutaj swój kod..." onChange={onInputChange} />
+      </div>
     );
   };
 
@@ -176,13 +213,14 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
         {renderImage()}
         {renderHorizontalProgressBar()}
         {renderSwiper()}
+        {renderRecovery()}
         {renderButtons()}
       </>
     );
   };
 
   return (
-    <IonPage>
+    <IonPage class="welcome">
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="welcome-page">
           {renderToast()}

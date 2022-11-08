@@ -54,10 +54,15 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderHeader = () => {
+    return <div className="calendar__header" />;
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div>
+          {renderHeader()}
           {renderToast()}
           {renderLoader()}
           <ReactCalendar

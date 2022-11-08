@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useIonViewWillEnter } from "@ionic/react";
 import moment from "moment";
 
 import { CalendarResponseType } from "@Types/calendar.type";
@@ -64,7 +65,7 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
   };
 
   const onDayClickHandler = (e: any) => {
-    const { value } = e.target.attributes["0"];
+    const value = e.target.getAttribute("date-full-date");
 
     const activeElements = document.querySelectorAll(
       ".kamre-calendar__day--active",
@@ -82,6 +83,16 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
 
     onChangeHandle(value);
   };
+
+  useIonViewWillEnter(() => {
+    const activeElements = document.querySelectorAll(
+      ".kamre-calendar__day--active",
+    );
+
+    activeElements.forEach((elem) => {
+      elem?.classList.remove("kamre-calendar__day--active");
+    });
+  });
 
   useEffect(() => {
     const activeElements = document.querySelectorAll(
