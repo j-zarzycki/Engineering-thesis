@@ -3,7 +3,6 @@ import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
 import { authLogin } from "@Actions/auth";
-import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
 import SWIPE_ELEMENTS from "@Constants/walking.constants";
@@ -26,6 +25,7 @@ const WelcomePageContainer: React.FC = () => {
   const router = useIonRouter();
   const swiperRef = useRef<any>(null);
   const recoveryRef = useRef<any>(null);
+  const dispatch = useAppDispatch();
 
   const authenticateUser = () => {
     dispatch(authLogin("test_user"))
