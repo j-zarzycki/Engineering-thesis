@@ -27,7 +27,7 @@ const ColdWaterContainer: React.FC = () => {
     await apiService
       .CreateActivityWithNoContent(
         currentDateWithTime,
-        "Schłodzenie nadgarstków",
+        "Schłódź nadgarstki kark",
       )
       .then(() => {
         setToast({ isOpen: true, message: "Pomyślnie zapisano!" });
@@ -47,8 +47,8 @@ const ColdWaterContainer: React.FC = () => {
   const createColdWaterWithContent = () => {
     dispatch(
       createNote({
-        contentName: "Schłodzenie nadgarstków",
-        title: "Schłodzenie nadgarstków",
+        contentName: "Schłódź nadgarstki kark",
+        title: "Schłódź nadgarstki kark",
         description:
           "Jake efekty udało Ci się poczuć po użyciu chłodnej wody? Zapisz swoje przemyślenia poniżej.",
         hiddenDescription: "",
