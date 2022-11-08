@@ -131,7 +131,10 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
               <h4 className="swiper-slide__header">
                 Mam wiele umiejętności...
               </h4>
-              <p className="swiper-slide__paragraph">Pomogę Ci...</p>
+              <p className="swiper-slide__paragraph">
+                Pomogę Ci zarządzać stresem, co więcej przestaniesz go
+                postrzegać jako twojego wroga!
+              </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
