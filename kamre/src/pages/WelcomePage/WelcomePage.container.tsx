@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
 
+import { authLogin } from "@Actions/auth";
+import { createNote } from "@Store/slices/noteSlice";
+import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
 import SWIPE_ELEMENTS from "@Constants/walking.constants";
 import MainImg from "@Assets/main.png";
@@ -24,9 +27,21 @@ const WelcomePageContainer: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const recoveryRef = useRef<any>(null);
 
+  const authenticateUser = () => {
+    dispatch(authLogin("test_user"))
+      .then(() => {
+        localStorage.setItem("isFirstStart", "false");
+        router.push("/home", "forward", "pop");
+        setIsLoading(false);
+      })
+      .catch(() => {
+        router.push("/403", "forward", "pop");
+      });
+  };
+
   const onStartButtonClick = () => {
-    localStorage.setItem("isFirstStart", "false");
-    router.push("/home", "forward", "pop");
+    setIsLoading(true);
+    setTimeout(authenticateUser, 3000);
   };
 
   const onProceedButtonClick = () => {

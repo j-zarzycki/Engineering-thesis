@@ -64,7 +64,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
       <IonLoading
         cssClass="welcome-page__loader"
         isOpen={isLoading}
-        message="Trwa migracja danych, proszę czekać"
+        message="Trwa inicjowanie aplikacji, proszę czekać."
       />
     );
   };

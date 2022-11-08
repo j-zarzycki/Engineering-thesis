@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -9,13 +9,18 @@ import {
   IonTabButton,
   IonTabs,
   setupIonicReact,
+  useIonRouter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle, flash, today } from "ionicons/icons";
+import Cookies from "universal-cookie";
+import moment from "moment";
+
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
 import { authLogin } from "@Actions/auth";
+import useAppSelector from "@Hooks/useAppSelector";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import GoodWord from "@Pages/GoodWord";
 import Feet from "@Pages/Feet";
@@ -72,12 +77,20 @@ import YtPage from "./pages/YtPage";
 setupIonicReact();
 
 const App: React.FC = () => {
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const cookies = new Cookies();
+  const userTokenExp = cookies.get("token_exp");
+  const isUserAuthenticated = cookies.get("token")?.length > 28 || isLoggedIn;
+  const isFirstStart = !localStorage.getItem("isFirstStart");
+  const router = useIonRouter();
   const dispatch = useAppDispatch();
-  const [isFirstStart, setIsFirstStart] = useState(true);
 
   useEffect(() => {
-    setIsFirstStart(Boolean(localStorage.getItem("isFirstStart")));
-    dispatch(authLogin("test_user"));
+    if (moment().isAfter(userTokenExp)) {
+      dispatch(authLogin("test_user")).catch(() => {
+        router.push("/403", "forward", "pop");
+      });
+    }
   }, []);
 
   return (
@@ -86,7 +99,6 @@ const App: React.FC = () => {
         <IonTabs>
           <IonRouterOutlet>
             <Route path="/welcompage" component={WelcomePage} />
-            <Route path="/home" component={Home} />
             <Route path="/all" component={All} />
             <Route path="/shower" component={ConsciousShower} />
             <Route path="/settings" component={Settings} />
@@ -127,11 +139,12 @@ const App: React.FC = () => {
             <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
               {isFirstStart ? (
-                <Redirect to="/home" />
-              ) : (
                 <Redirect to="/welcompage" />
+              ) : (
+                <Redirect to="/home" />
               )}
             </Route>
+            <Route path="/home">{isUserAuthenticated && <Home />}</Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="emergency" href="/emergency">
