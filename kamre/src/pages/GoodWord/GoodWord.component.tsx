@@ -156,7 +156,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="good-word__continue-buttons">
-          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
+          <CancelButton onClick={onContinueButtonClick} title="Dalej" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -176,7 +176,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
         />
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return <ProceedButton title="Dalej" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
@@ -219,7 +219,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
           </p>
           <div className="good-word__final-buttons">
             <SaveActivityButton
-              title="Gotowe"
+              title="Zapisz"
               onClick={onSaveActivityWithContent}
             />
           </div>

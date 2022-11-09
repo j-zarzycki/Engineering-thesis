@@ -156,7 +156,7 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="gratitude__continue-buttons">
-          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
+          <CancelButton onClick={onContinueButtonClick} title="Dalej" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -176,7 +176,7 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
         />
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return <ProceedButton title="Dalej" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {

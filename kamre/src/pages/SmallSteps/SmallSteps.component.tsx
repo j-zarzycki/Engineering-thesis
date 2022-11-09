@@ -156,7 +156,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="small-steps__final-buttons">
-          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
+          <CancelButton onClick={onContinueButtonClick} title="Dalej" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -176,7 +176,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
         />
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return <ProceedButton title="Dalej" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
@@ -218,7 +218,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
           </p>
           <div className="small-steps__final-buttons">
             <SaveActivityButton
-              title="Zakończ"
+              title="Zapisz"
               onClick={onSaveActivityWithContent}
             />
           </div>

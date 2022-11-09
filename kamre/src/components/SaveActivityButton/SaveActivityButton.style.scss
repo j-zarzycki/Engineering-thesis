@@ -18,6 +18,11 @@
   filter: $default-drop-shadow;
   transition: $transition-default;
 
+  svg {
+    margin-bottom: -4px;
+    margin-left: 10px;
+  }
+
   &:hover {
     opacity: .8;
     transition: all .3s;

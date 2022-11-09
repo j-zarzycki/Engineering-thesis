@@ -25,6 +25,14 @@
     }
   }
 
+  &__continue-buttons {
+    width: 100%;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__final-buttons {
     width: 100%;
     display: flex;
