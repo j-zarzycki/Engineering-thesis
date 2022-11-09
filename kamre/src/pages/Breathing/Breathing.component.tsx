@@ -136,7 +136,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
   const renderLoader = () => {
     return (
       <IonLoading
-        cssClass="walking__loader"
+        cssClass="breathing__loader"
         isOpen={isLoading}
         message="Zapisywanie, proszę czekać"
       />
