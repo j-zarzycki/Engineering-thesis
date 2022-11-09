@@ -1,5 +1,11 @@
 import React from "react";
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonToast,
+  IonLoading,
+} from "@ionic/react";
 
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
@@ -13,6 +19,8 @@ interface IProps {
   isAnimationPaused: boolean;
   counter: number;
   renderType: string;
+  isLoading: boolean;
+  toast: any;
   handleButtonClick(): void;
   onCancelButtonClick(): void;
 }
@@ -29,6 +37,8 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     isPlaying,
     isAnimationPaused,
     renderType,
+    toast,
+    isLoading,
     handleButtonClick,
     onCancelButtonClick,
   } = props;
@@ -111,9 +121,33 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     return <div className="breathing__header-top" />;
   };
 
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="walking__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderLoader()}
+        {renderToast()}
         <div className="breathing__header">{renderHeader()}</div>
         <div className="breathing__context">{renderContext()}</div>
       </IonContent>
