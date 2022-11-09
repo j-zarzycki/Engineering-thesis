@@ -6,7 +6,8 @@ import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import SWIPE_ELEMENTS from "@Constants/creativity.constants";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Question from "@Assets/what.png";
+import Think from "@Assets/think.png";
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
 import Creativity from "./Creativity.component";
@@ -74,19 +75,14 @@ const CreativityContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-
     setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === 1) {
-      setImg(quote);
-    }
   };
 
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
-    setImg(MainImg);
-    if (slide?.activeIndex === 1) {
-      setImg(quote);
-    }
+    setImg(Think);
+    if (slide?.activeIndex === 1) setImg(Question);
+    if (slide?.activeIndex === 2) setImg(MainImg);
   };
 
   const generateSubject = () => {
@@ -97,7 +93,7 @@ const CreativityContainer: React.FC = () => {
   };
 
   useEffect(() => {
-    setImg(MainImg);
+    setImg(Think);
     generateSubject();
   }, []);
 

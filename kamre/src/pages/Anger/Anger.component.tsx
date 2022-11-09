@@ -124,7 +124,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Co Cię złości?:</h4>
+              <h4 className="swiper-slide__header">Co Cię złości?</h4>
               <p className="swiper-slide__paragraph">
                 <Input
                   type="text"

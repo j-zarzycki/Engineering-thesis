@@ -5,8 +5,9 @@ import { SwiperSlide } from "swiper/react";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
-import MainImg from "@Assets/main.png";
+import Rest from "@Assets/rest.png";
 import quote from "@Assets/what.png";
+import Sad from "@Assets/sad.png";
 import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import Weights from "./Weights.component";
@@ -16,7 +17,7 @@ const WeightsContainer: React.FC = () => {
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState(MainImg);
+  const [img, setImg] = useState(Sad);
   const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
@@ -89,9 +90,6 @@ const WeightsContainer: React.FC = () => {
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     setCurrentSlide(swiper?.activeIndex);
-    setImg(MainImg);
-
-    if (swiper?.activeIndex === 1) setImg(quote);
   };
   const createWeightsWithNoContent = async () => {
     setIsLoading(true);
@@ -129,11 +127,12 @@ const WeightsContainer: React.FC = () => {
 
   const onSlideChangeHandler = () => {
     setCurrentSlide(swiper?.activeIndex);
+    setImg(Sad);
     if (swiper?.activeIndex === 1) setImg(quote);
     if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
     if (swiper?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
+      setImg(Rest);
     }
   };
 
