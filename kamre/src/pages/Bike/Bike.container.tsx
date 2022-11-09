@@ -7,7 +7,10 @@ import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Smile from "@Assets/smile.png";
+import Happy from "@Assets/happy.png";
+import Dumb from "@Assets/dumb.png";
+import Question from "@Assets/what.png";
 import Bike from "./Bike.component";
 
 const BikeContainer: React.FC = () => {
@@ -55,25 +58,14 @@ const BikeContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-
-    setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex === slideElements - 4) {
-      setImg(quote);
-    }
-    if (swiper?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
   };
 
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
-    setImg(MainImg);
-    if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
-      setImg(quote);
-    }
-    if (slide?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
+    setImg(Smile);
+    if (slide?.activeIndex === 2 || slide?.activeIndex === 4) setImg(Question);
+    if (slide?.activeIndex === 1) setImg(Happy);
+    if (slide?.activeIndex === 3) setImg(Dumb);
   };
 
   useEffect(() => {

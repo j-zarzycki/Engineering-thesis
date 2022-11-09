@@ -5,7 +5,8 @@ import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
 import CancelButton from "@Components/CancelButton";
 
-import Pet from "@Assets/main.png";
+import MainImg from "@Assets/main.png";
+import Smile from "@Assets/smile.png";
 import "./Breathing.style.scss";
 
 interface IProps {
@@ -76,7 +77,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       >
         <IonImg
           className={`${isPlaying && "breathing__image--active"}`}
-          src={Pet}
+          src={isPlaying ? MainImg : Smile}
           alt="pet"
         />
         <div className="ring" />

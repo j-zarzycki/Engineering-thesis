@@ -6,7 +6,8 @@ import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Question from "@Assets/what.png";
+import Rest from "@Assets/rest.png";
 import Gratitude from "./Gratitude.component";
 
 const GratitudeContainer: React.FC = () => {
@@ -94,15 +95,15 @@ const GratitudeContainer: React.FC = () => {
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     if (swiper?.activeIndex < 2) setCurrentSlide(swiper?.activeIndex);
-
-    setImg(MainImg);
-
-    if (swiper?.activeIndex === 1) setImg(quote);
   };
 
   const onSwipeHandle = () => {
     if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
+
+    setImg(MainImg);
+    if (swiper?.activeIndex === 1) setImg(Question);
+    if (swiper?.activeIndex === 2) setImg(Rest);
   };
 
   useEffect(() => {

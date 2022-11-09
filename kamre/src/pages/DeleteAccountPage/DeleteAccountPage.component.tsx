@@ -14,12 +14,12 @@ import { CSSTransition } from "react-transition-group";
 import "swiper/css";
 
 import "./DeleteAccountPage.style.scss";
-import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import ResignDeleteAccountButton from "@Components/ResignDeleteAccountButton";
 import FinalDeleteAccountButton from "@Components/FinalDeleteAccountButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
+import Sad from "@Assets/sad.png";
 import Pet from "@Components/Pet";
 
 interface IProps {
@@ -47,7 +47,7 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
     useState(true);
 
   useEffect(() => {
-    setImg(MainImg);
+    setImg(Sad);
   }, []);
 
   const onAlertButtonClick = (alertData: String) => {
@@ -108,7 +108,7 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
             <div className="deleteaccountpage__wrapper_image">
               <Pet
                 src={img}
-                alt="Uśmiechnięta ośmiorniczka jpg"
+                alt="Smutna ośmiorniczka jpg"
                 height="200px"
                 paddingTop="20px"
                 paddingBottom="20px"

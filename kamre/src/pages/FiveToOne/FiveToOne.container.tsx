@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
 
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
-import happy from "@Assets/happy.png";
+import Question from "@Assets/what.png";
+import Happy from "@Assets/happy.png";
+import Think from "@Assets/think.png";
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
 import FiveToOne from "./FiveToOne.component";
@@ -20,12 +21,6 @@ const FiveToOneContainer: React.FC = () => {
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     setCurrentSlide(swiper?.activeIndex);
-    setImg(MainImg);
-
-    if (swiper?.activeIndex === 1) setImg(quote);
-    if (swiper?.activeIndex === 7) {
-      setImg(happy);
-    }
   };
 
   const handleRepeatButtonClick = async () => {
@@ -71,13 +66,10 @@ const FiveToOneContainer: React.FC = () => {
   const onSlideChangeHandler = () => {
     setCurrentSlide(swiper?.activeIndex);
     setImg(MainImg);
-    if (swiper?.activeIndex === 1) {
-      setImg(quote);
-    }
 
-    if (swiper?.activeIndex === 7) {
-      setImg(happy);
-    }
+    if (swiper?.activeIndex === 1) setImg(Question);
+    if (swiper?.activeIndex === 4) setImg(Think);
+    if (swiper?.activeIndex === 7) setImg(Happy);
   };
 
   return (

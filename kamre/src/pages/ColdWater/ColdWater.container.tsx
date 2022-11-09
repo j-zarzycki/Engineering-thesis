@@ -8,7 +8,9 @@ import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import SWIPE_ELEMENTS from "@Constants/coldWater.constants";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Question from "@Assets/what.png";
+import Smile from "@Assets/smile.png";
+import Rest from "@Assets/rest.png";
 import ColdWater from "./ColdWater.component";
 
 const ColdWaterContainer: React.FC = () => {
@@ -66,17 +68,15 @@ const ColdWaterContainer: React.FC = () => {
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
     setImg(MainImg);
-    if (
-      slide?.activeIndex === 1 ||
-      slide?.activeIndex === 2 ||
-      slide?.activeIndex === 3
-    ) {
-      setImg(quote);
-    }
+    if (slide?.activeIndex === 3 || slide?.activeIndex === 4) {
+      setImg(Question);
+    } else if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
+      setImg(Rest);
+    } else if (slide?.activeIndex === 5) setImg(MainImg);
   };
 
   useEffect(() => {
-    setImg(MainImg);
+    setImg(Smile);
   }, []);
 
   return (
