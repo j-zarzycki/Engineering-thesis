@@ -19,3 +19,5 @@ export const SERVER_URL_CHAT_RESULT =
 export const SERVER_URL_ACCOUNT = "https://kamretest.azurewebsites.net/account";
 export const SERVER_URL_GET_RECOMMENDED =
   "https://kamretest.azurewebsites.net/getRecommended";
+export const SERVER_URL_GET_ALL =
+  "https://kamretest.azurewebsites.net/getAllActivities";

@@ -10,17 +10,24 @@ import {
   IonHeader,
   IonPage,
   IonToolbar,
+  IonButtons,
+  IonMenu,
+  IonMenuButton,
+  IonTitle,
   IonCard,
   IonCardContent,
   createGesture,
   Gesture,
+  IonMenuToggle,
 } from "@ionic/react";
+import { menuController } from "@ionic/core/components";
 import Pet from "@Assets/happy.png";
 import Avatar from "@Assets/image.png";
 import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
 import Chat from "@Components/Chat";
-import { FiSettings } from "react-icons/fi";
+import { FiMenu, FiSettings } from "react-icons/fi";
 import MessageQuestion from "../../components/Message/MessageQuestion.component";
+import AllActivitiesMenuComponent from "@Components/AllActivitiesMenu";
 
 const Home: React.FC = () => {
   const router = useIonRouter();
@@ -30,6 +37,13 @@ const Home: React.FC = () => {
   let maxDownTransformValue = 0;
 
   const onSettingsClick = () => router.push("/settings", "forward", "pop");
+
+  const menuRef = React.useRef<HTMLIonMenuElement>(null);
+
+  const onMenuClick = () => {
+    console.log("click");
+    menuRef.current?.toggle();
+  };
 
   useEffect(() => {
     let c = ref.current;
@@ -107,46 +121,52 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <div className="homepage-toolbar">
-            <div className="ion-title">Strona główna</div>
-            <FiSettings size={25} onClick={onSettingsClick} />
+    <>
+      <AllActivitiesMenuComponent ref={menuRef} />
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <div className="homepage-toolbar">
+              <div className="ion-title">Strona główna</div>
+              <IonButtons>
+                <FiSettings size={25} onClick={onSettingsClick} />
+                <FiMenu size={25} onClick={onMenuClick} />
+              </IonButtons>
+            </div>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent fullscreen class="ion-padding-horizontal" scroll-y="false">
+          <div className="homepage">
+            <div className="homepage-wrapper">
+              <IonGrid>
+                <IonRow>
+                  <IonCol className="homepage-header-wrapper">
+                    <IonRow>
+                      <IonCol className="homepage__image">
+                        <div>
+                          <img src={Pet} alt="pet" />
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol className="chat">
+                        <MessageQuestion
+                          value={
+                            "Cześć! \n Przesuń palec w dół aby rozpocząć ze mną czat!"
+                          }
+                        />
+                      </IonCol>
+                    </IonRow>
+                  </IonCol>
+                </IonRow>
+                <RecommendedActivitiesCards ref={ref} />
+                <Chat isActivitiesCardHidden={isActivitiesCardHidden} />
+              </IonGrid>
+            </div>
           </div>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen class="ion-padding-horizontal" scroll-y="false">
-        <div className="homepage">
-          <div className="homepage-wrapper">
-            <IonGrid>
-              <IonRow>
-                <IonCol className="homepage-header-wrapper">
-                  <IonRow>
-                    <IonCol className="homepage__image">
-                      <div>
-                        <img src={Pet} alt="pet" />
-                      </div>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol className="chat">
-                      <MessageQuestion
-                        value={
-                          "Cześć! \n Przesuń palec w dół aby rozpocząć ze mną czat!"
-                        }
-                      />
-                    </IonCol>
-                  </IonRow>
-                </IonCol>
-              </IonRow>
-              <RecommendedActivitiesCards ref={ref} />
-              <Chat isActivitiesCardHidden={isActivitiesCardHidden} />
-            </IonGrid>
-          </div>
-        </div>
-      </IonContent>
-    </IonPage>
+        </IonContent>
+      </IonPage>
+    </>
   );
 };
 

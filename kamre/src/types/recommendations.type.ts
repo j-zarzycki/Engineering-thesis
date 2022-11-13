@@ -3,8 +3,8 @@ type RecommendationsType = {
   url: string;
 };
 
-interface IRecommendationsResponse {
+type IRecommendationsResponse = {
   res: Array<RecommendationsType>;
-}
+};
 
-export type { RecommendationsType, IRecommendationsResponse };
+export type { IRecommendationsResponse, RecommendationsType };

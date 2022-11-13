@@ -10,11 +10,13 @@ import {
   SERVER_URL_ACCOUNT,
   SERVER_URL_CHAT_RESULT,
   SERVER_URL_GET_RECOMMENDED,
+  SERVER_URL_GET_ALL,
 } from "@Constants/server.constants";
 import IDefaultServerResponse from "@Types/defaultServerResponse.type";
 import { ICalendarResponse } from "@Types/calendar.type";
 import { ChatType } from "@Types/chat.type";
 import { IRecommendationsResponse } from "@Types/recommendations.type";
+import { IAllActivitiesResponse } from "@Types/allActivities.type";
 
 const cookies = new Cookies();
 
@@ -75,6 +77,10 @@ const GetRecommended = () => {
   });
 };
 
+const GetAllActivities = () => {
+  return axios.get<IAllActivitiesResponse>(`${SERVER_URL_GET_ALL}`);
+};
+
 const ChatClient = (isContinuation: boolean) => {
   const token = cookies.get("token");
   return axios.get<ChatType>(SERVER_URL_CHAT, {
@@ -105,5 +111,6 @@ export default {
   GetMonth,
   GetDay,
   GetRecommended,
+  GetAllActivities,
   DeleteUser,
 };
