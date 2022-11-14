@@ -218,7 +218,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
           </p>
           <div className="small-steps__final-buttons">
             <SaveActivityButton
-              title="Zapisz"
+              title="Gotowe"
               onClick={onSaveActivityWithContent}
             />
           </div>
