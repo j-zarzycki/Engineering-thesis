@@ -46,19 +46,14 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
 
   const renderDescription = () => {
     return (
-      <div className="breathing__description">
-        <ul>
-          <li>
-            Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
-            powinny być proste.
-          </li>
-          <li>Weź głęboki i spokojny oddech przez nos.</li>
-          <li>
-            Upewnij się, że obszar, który się podnosi, to przepona (brzuch), a
-            nie klatka piersiowa.
-          </li>
-          <li>Następnie głośno wydychaj powietrze przez usta.</li>
-        </ul>
+      <div className="breathing">
+        <h4>Oddychanie</h4>
+        <div className="breathing__description">
+          Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
+          powinny być proste.Weź głęboki i spokojny oddech przez nos. Upewnij
+          się, że obszar, który się podnosi, to przepona (brzuch), a nie klatka
+          piersiowa. Następnie głośno wydychaj powietrze przez usta.
+        </div>
       </div>
     );
   };

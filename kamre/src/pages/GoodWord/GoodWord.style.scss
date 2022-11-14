@@ -33,6 +33,12 @@
     gap: 15px;
   }
 
+  &__final-buttons {
+    svg {
+      display: none;
+    }
+  }
+
   &__header {
     height: 30px;
     margin-top: 20px;
