@@ -220,6 +220,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
             <SaveActivityButton
               title="Gotowe"
               onClick={onSaveActivityWithContent}
+              isIconVisible={false}
             />
           </div>
         </div>
