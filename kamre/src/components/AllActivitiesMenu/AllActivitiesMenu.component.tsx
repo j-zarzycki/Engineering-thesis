@@ -2,6 +2,8 @@ import React, { forwardRef, useEffect, useState } from "react";
 
 import "./AllActivitiesMenu.style.scss";
 import {
+  IonAccordion,
+  IonAccordionGroup,
   IonContent,
   IonHeader,
   IonItem,
@@ -23,16 +25,49 @@ const AllMenu = forwardRef((_props, ref: any) => {
   const router = useIonRouter();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
-  const [AllActivitiesData, setAllActivitiesData] = useState<any>();
+  const [AllActivitiesData, setAllActivitiesData] = useState<AllActivitiesType>(
+    {
+      Aktywne: [],
+      Bierne: [],
+      "Pozytywne emocje": [],
+      "Zmiana myślenia": [],
+    },
+  );
   const [toast, setToast] = useState({ isOpen: false, message: "" });
 
-  const onItemClick = (route: string) => router.push(`/${route}`, "forward");
+  const onItemClick = (route: string) => {
+    ref.current?.toggle();
+    router.push(`${route}`, "forward");
+  };
 
-  const renderRecommendedActivitiesCards = () => {
-    console.log(`Normal: ${AllActivitiesData.Aktywne.length}`);
-    return AllActivitiesData.Aktywne.map((card: RecommendationsType) => {
-      console.log(`${card.name}: ${card.url}`);
-      return <div />;
+  const renderAllActivitiesCards = (type: string) => {
+    let category: Array<RecommendationsType>;
+    switch (type) {
+      case "Aktywne":
+        category = AllActivitiesData.Aktywne;
+        break;
+      case "Bierne":
+        category = AllActivitiesData.Bierne;
+        break;
+      case "Pozytywne emocje":
+        category = AllActivitiesData["Pozytywne emocje"];
+        break;
+      case "Zmiana myślenia":
+        category = AllActivitiesData["Zmiana myślenia"];
+        break;
+      default:
+        category = [];
+    }
+    return category.map((activity: RecommendationsType) => {
+      console.log(`${activity.name}: ${activity.url}`);
+      return (
+        <IonItem
+          className="menu-nested-item"
+          onClick={() => onItemClick(activity.url)}
+        >
+          <IonLabel>{activity.name}</IonLabel>
+        </IonItem>
+      );
     });
   };
 
@@ -42,8 +77,6 @@ const AllMenu = forwardRef((_props, ref: any) => {
       .GetAllActivities()
       .then(({ data: { res } }) => {
         setAllActivitiesData(res);
-        console.log(res);
-        console.log(AllActivitiesData);
       })
       .finally(() => setIsLoading(false))
       .catch(() => {
@@ -54,7 +87,6 @@ const AllMenu = forwardRef((_props, ref: any) => {
 
         history.push("/all");
       });
-    renderRecommendedActivitiesCards();
   };
 
   const renderToast = () => {
@@ -88,54 +120,46 @@ const AllMenu = forwardRef((_props, ref: any) => {
     <IonMenu contentId="main-content" ref={ref} side="end">
       {renderToast()}
       {renderLoader()}
-
       <IonHeader>
         <IonToolbar>
           <IonTitle>All acitivities</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonList menu-id="all-menu">
-          <IonItem onClick={() => onItemClick("home")}>
-            <IonLabel>Pokémon Yellow</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonList>
-              <IonItem>
-                <IonLabel>Pokémon Yellow</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Pokémon Yellow</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Pokémon Yellow</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Pokémon Yellow</IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Pokémon Yellow</IonLabel>
-              </IonItem>
-            </IonList>
-          </IonItem>
-          <IonList menu-id="all-menu">
-            <IonItem>
-              <IonLabel>Name</IonLabel>
+        <IonAccordionGroup>
+          <IonAccordion value="first">
+            <IonItem slot="header" color="light">
+              <IonLabel>Aktywne</IonLabel>
             </IonItem>
-          </IonList>
-          <IonItem>
-            <IonLabel>Mega Man X</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>The Legend of Zelda</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Pac-Man</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Super Mario World</IonLabel>
-          </IonItem>
-        </IonList>
+            <IonList slot="content">
+              {renderAllActivitiesCards("Aktywne")}
+            </IonList>
+          </IonAccordion>
+          <IonAccordion value="second">
+            <IonItem slot="header" color="light">
+              <IonLabel>Bierne</IonLabel>
+            </IonItem>
+            <IonList slot="content">
+              {renderAllActivitiesCards("Bierne")}
+            </IonList>
+          </IonAccordion>
+          <IonAccordion value="third">
+            <IonItem slot="header" color="light">
+              <IonLabel>Pozytywne emocje</IonLabel>
+            </IonItem>
+            <IonList slot="content">
+              {renderAllActivitiesCards("Pozytywne emocje")}
+            </IonList>
+          </IonAccordion>
+          <IonAccordion value="fourth">
+            <IonItem slot="header" color="light">
+              <IonLabel>Zmiana myślenia</IonLabel>
+            </IonItem>
+            <IonList slot="content">
+              {renderAllActivitiesCards("Zmiana myślenia")}
+            </IonList>
+          </IonAccordion>
+        </IonAccordionGroup>
       </IonContent>
     </IonMenu>
   );
