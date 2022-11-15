@@ -1,38 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import MigrateAccountPage from "./MigrateAccountPage.component";
 
 const MigrateAccountPageContainer: React.FC = () => {
-  const currentDateWithTime: String = getFullDateWithTime();
+  const [recoveryCode, setRecoveryCode] = useState("");
 
-  const createMigrateAccountPageWithNoContent = async () => {
+  const getRecoveryCode = async () => {
     await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "MigrateAccountPage")
-      .then((data) => console.log("data = ", data))
-      .catch((err) => console.log("err = ", err));
+      .GetRecoveryCode()
+      .then(({ data: { recovery_code: userRecoveryCode } }) => {
+        setRecoveryCode(userRecoveryCode);
+      });
   };
 
-  const createMigrateAccountPageWithContent = async (
-    activityContent: String,
-  ) => {
-    await apiService
-      .CreateActivityWithContent(
-        currentDateWithTime,
-        activityContent,
-        "MigrateAccountPage",
-      )
-      .then((data) => console.log("data = ", data))
-      .catch((err) => console.log("err = ", err));
-  };
+  useEffect(() => {
+    getRecoveryCode();
+  }, []);
 
-  return (
-    <MigrateAccountPage
-      onCreateActivityWithNoContent={createMigrateAccountPageWithNoContent}
-      onCreateActivityWithContent={createMigrateAccountPageWithContent}
-    />
-  );
+  return <MigrateAccountPage recoveryCode={recoveryCode} />;
 };
 
 export default MigrateAccountPageContainer;

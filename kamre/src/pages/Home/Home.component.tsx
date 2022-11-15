@@ -1,6 +1,5 @@
 /* eslint-disable */
-import React, { useState, useRef, useEffect, useCallback } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 import {
   useIonRouter,
   IonGrid,
@@ -10,19 +9,25 @@ import {
   IonHeader,
   IonPage,
   IonToolbar,
-  IonCard,
-  IonCardContent,
   createGesture,
   Gesture,
+  useIonViewWillEnter,
 } from "@ionic/react";
+import { FiSettings } from "react-icons/fi";
+import Cookies from "universal-cookie";
+
+import { authLogin } from "@Actions/auth";
 import Pet from "@Assets/happy.png";
-import Avatar from "@Assets/image.png";
 import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
 import Chat from "@Components/Chat";
-import { FiSettings } from "react-icons/fi";
 import MessageQuestion from "../../components/Message/MessageQuestion.component";
+import moment from "moment";
+import useAppDispatch from "@Hooks/useAppDispatch";
 
 const Home: React.FC = () => {
+  const cookies = new Cookies();
+  const userTokenExp = cookies.get("token_exp");
+  const dispatch = useAppDispatch();
   const router = useIonRouter();
   const ref = useRef<any>(null);
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
@@ -30,6 +35,14 @@ const Home: React.FC = () => {
   let maxDownTransformValue = 0;
 
   const onSettingsClick = () => router.push("/settings", "forward", "pop");
+
+  useIonViewWillEnter(() => {
+    if (moment().isAfter(userTokenExp)) {
+      dispatch(authLogin("test_user")).catch(() => {
+        router.push("/403", "forward", "pop");
+      });
+    }
+  });
 
   useEffect(() => {
     let c = ref.current;
@@ -46,6 +59,12 @@ const Home: React.FC = () => {
         const blurb = document.querySelector(
           ".homepage-header-wrapper",
         ) as HTMLElement | null;
+        const activitiesCardWrapper = document.querySelector(
+          ".activities-card__wrapper",
+        ) as HTMLElement | null;
+        const contentHeight =
+          document.querySelector("ion-content")!.offsetHeight;
+        const activitiesCardWrapperHeight = activitiesCardWrapper!.offsetHeight;
         const blurbHeight = blurb!.offsetHeight;
         const transformData = c.style.transform;
         const numberStart = transformData.indexOf("(");
@@ -56,8 +75,14 @@ const Home: React.FC = () => {
         c.style.transition = ".2s ease-out";
 
         if (numberOfTransform > 120) {
-          c.style.transform = `translateY(${485}px)`;
           setIsActivitiesCardHidden(true);
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${contentHeight * 0.65}px)`;
+          } else {
+            c.style.transform = `translateY(${
+              activitiesCardWrapperHeight * 0.95
+            }px)`;
+          }
         }
 
         if (numberOfTransform < 120 && numberOfTransform > -100) {
@@ -70,11 +95,18 @@ const Home: React.FC = () => {
         }
 
         if (numberOfTransform < blurbHeight * -1) {
-          c.style.transform = `translateY(${numberOfTransform}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${numberOfTransform}px)`;
+          } else {
+            setIsActivitiesCardHidden(false);
+            c.style.transform = `translateY(${0}px)`;
+          }
         }
 
         if (numberOfTransform < maxDownTransformValue - 50) {
-          c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          }
         }
       },
 

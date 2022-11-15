@@ -165,7 +165,7 @@ const Weights: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="weights__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Dalej!" />
+          <CancelButton onClick={onEndButtonClick} title="Dalej" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -185,7 +185,7 @@ const Weights: React.FC<IProps> = (props: IProps) => {
         />
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return <ProceedButton title="Dalej" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {
@@ -222,6 +222,13 @@ const Weights: React.FC<IProps> = (props: IProps) => {
           }}
         >
           <div className="weights__list">
+            <Pet
+              src={img}
+              alt="Uśmiechnięta ośmiorniczka jpg"
+              height="200px"
+              paddingTop="20px"
+              paddingBottom="20px"
+            />
             <h4>Oto, twoje ciężary</h4>
             <ul>{renderWeightsDataList()}</ul>
             <ProceedButton

@@ -124,7 +124,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
-              <h4 className="swiper-slide__header">Co Cię złości?:</h4>
+              <h4 className="swiper-slide__header">Co Cię złości?</h4>
               <p className="swiper-slide__paragraph">
                 <Input
                   type="text"
@@ -155,7 +155,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="anger__continue-buttons">
-          <CancelButton onClick={onContinueButtonClick} title="Dalej!" />
+          <CancelButton onClick={onContinueButtonClick} title="Zakończ" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -212,6 +212,13 @@ const Anger: React.FC<IProps> = (props: IProps) => {
           }}
         >
           <div className="anger__list">
+            <Pet
+              src={img}
+              alt="Uśmiechnięta ośmiorniczka jpg"
+              height="200px"
+              paddingTop="20px"
+              paddingBottom="20px"
+            />
             <h4>Wkurza mnie:</h4>
             <ul>{renderAngerDataList()}</ul>
             <p>

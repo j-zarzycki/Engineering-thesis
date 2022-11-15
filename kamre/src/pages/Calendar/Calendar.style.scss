@@ -8,6 +8,11 @@
     gap: 24px;
   }
 
+  &__header {
+    height: 30px;
+    margin-top: 10px;
+  }
+
   &__no-content {
     font-family: var(--font-main);
     font-size: var(--font-size-large);

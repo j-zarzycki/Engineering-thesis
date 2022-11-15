@@ -164,7 +164,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 3)
       return (
         <div className="visualization__final-buttons">
-          <CancelButton onClick={onEndButtonClick} title="Dalej!" />
+          <CancelButton onClick={onEndButtonClick} title="Zakończ" />
           <ProceedButton
             title="Dodaj"
             onClick={onAddSlide}
@@ -221,6 +221,13 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
           }}
         >
           <div className="visualization__list">
+            <Pet
+              src={img}
+              alt="Uśmiechnięta ośmiorniczka jpg"
+              height="200px"
+              paddingTop="20px"
+              paddingBottom="20px"
+            />
             <h4>Super! Oto co wypisałeś_aś</h4>
             <ul>{renderVisualizationDataList()}</ul>
             <p>

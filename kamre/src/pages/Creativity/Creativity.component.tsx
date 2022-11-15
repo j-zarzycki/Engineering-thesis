@@ -2,6 +2,7 @@ import React from "react";
 import { IonContent, IonLoading, IonPage, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
+import { BiChevronRight } from "react-icons/bi";
 
 // Import Swiper styles
 import "swiper/css";
@@ -155,7 +156,11 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
       return (
         <div className="creativity__final-buttons">
           <CancelButton onClick={onGenerateSubject} title="Losuj" />
-          <SaveActivityButton title="Dalej!" onClick={onProceedButtonClick} />
+          <SaveActivityButton
+            title="Dalej"
+            icon={<BiChevronRight size={25} />}
+            onClick={onProceedButtonClick}
+          />
         </div>
       );
     }
@@ -173,7 +178,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return <ProceedButton title="Dalej" onClick={onProceedButtonClick} />;
   };
 
   const renderContext = () => {

@@ -33,7 +33,9 @@ def login():
     device_id = str(res['device_id'])
     svc.user_check(device_id)
     token = jwt_svc.create_token(device_id)
-    return jsonify({"auth_token": token})
+    _, tok = jwt_svc.check_token(token)
+    iat = jwt_svc.convert_date(tok['iat'])
+    return jsonify({"auth_token": token, "iat": iat})
 
 
 def check():
@@ -43,7 +45,6 @@ def check():
         return status, token['device_id']
     else:
         return status, (jsonify({'res': 'Token invalid'}), 401)
-
 
 @app.route("/noContent", methods=['POST'])
 def no_content():
