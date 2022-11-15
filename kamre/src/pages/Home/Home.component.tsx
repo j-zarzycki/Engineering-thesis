@@ -62,14 +62,8 @@ const Home: React.FC = () => {
         c.style.transition = ".2s ease-out";
 
         if (numberOfTransform > 120) {
-          console.log(
-            "activiteis warpper height = ",
-            activitiesCardWrapperHeight,
-          );
-          console.log("contentHeight = ", contentHeight);
           setIsActivitiesCardHidden(true);
           if (contentHeight < activitiesCardWrapperHeight) {
-            console.log("its smaller!");
             c.style.transform = `translateY(${contentHeight * 0.65}px)`;
           } else {
             c.style.transform = `translateY(${
