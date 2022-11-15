@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import {
   useIonRouter,
@@ -46,6 +46,12 @@ const Home: React.FC = () => {
         const blurb = document.querySelector(
           ".homepage-header-wrapper",
         ) as HTMLElement | null;
+        const activitiesCardWrapper = document.querySelector(
+          ".activities-card__wrapper",
+        ) as HTMLElement | null;
+        const contentHeight =
+          document.querySelector("ion-content")!.offsetHeight;
+        const activitiesCardWrapperHeight = activitiesCardWrapper!.offsetHeight;
         const blurbHeight = blurb!.offsetHeight;
         const transformData = c.style.transform;
         const numberStart = transformData.indexOf("(");
@@ -56,8 +62,20 @@ const Home: React.FC = () => {
         c.style.transition = ".2s ease-out";
 
         if (numberOfTransform > 120) {
-          c.style.transform = `translateY(${485}px)`;
+          console.log(
+            "activiteis warpper height = ",
+            activitiesCardWrapperHeight,
+          );
+          console.log("contentHeight = ", contentHeight);
           setIsActivitiesCardHidden(true);
+          if (contentHeight < activitiesCardWrapperHeight) {
+            console.log("its smaller!");
+            c.style.transform = `translateY(${contentHeight * 0.65}px)`;
+          } else {
+            c.style.transform = `translateY(${
+              activitiesCardWrapperHeight * 0.95
+            }px)`;
+          }
         }
 
         if (numberOfTransform < 120 && numberOfTransform > -100) {
@@ -70,11 +88,18 @@ const Home: React.FC = () => {
         }
 
         if (numberOfTransform < blurbHeight * -1) {
-          c.style.transform = `translateY(${numberOfTransform}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${numberOfTransform}px)`;
+          } else {
+            setIsActivitiesCardHidden(false);
+            c.style.transform = `translateY(${0}px)`;
+          }
         }
 
         if (numberOfTransform < maxDownTransformValue - 50) {
-          c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          }
         }
       },
 
