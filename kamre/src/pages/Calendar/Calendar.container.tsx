@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useIonViewWillEnter } from "@ionic/react";
 
 import { CalendarResponseType, CalendarDayType } from "@Types/calendar.type";
 import apiService from "@Services/api.service";
@@ -45,6 +46,10 @@ const CalendarContainer: React.FC = () => {
         history.push("/");
       });
   };
+
+  useIonViewWillEnter(() => {
+    setDayData([]);
+  });
 
   useEffect(() => {
     if (!firstLoad) {

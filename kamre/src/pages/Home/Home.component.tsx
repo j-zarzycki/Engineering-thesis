@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState, useRef, useEffect } from "react";
-
 import {
   useIonRouter,
   IonGrid,
@@ -10,19 +9,25 @@ import {
   IonHeader,
   IonPage,
   IonToolbar,
-  IonCard,
-  IonCardContent,
   createGesture,
   Gesture,
+  useIonViewWillEnter,
 } from "@ionic/react";
+import { FiSettings } from "react-icons/fi";
+import Cookies from "universal-cookie";
+
+import { authLogin } from "@Actions/auth";
 import Pet from "@Assets/happy.png";
-import Avatar from "@Assets/image.png";
 import RecommendedActivitiesCards from "@Components/RecommendedActivitiesCards";
 import Chat from "@Components/Chat";
-import { FiSettings } from "react-icons/fi";
 import MessageQuestion from "../../components/Message/MessageQuestion.component";
+import moment from "moment";
+import useAppDispatch from "@Hooks/useAppDispatch";
 
 const Home: React.FC = () => {
+  const cookies = new Cookies();
+  const userTokenExp = cookies.get("token_exp");
+  const dispatch = useAppDispatch();
   const router = useIonRouter();
   const ref = useRef<any>(null);
   const [isActivitiesCardHidden, setIsActivitiesCardHidden] = useState(false);
@@ -30,6 +35,14 @@ const Home: React.FC = () => {
   let maxDownTransformValue = 0;
 
   const onSettingsClick = () => router.push("/settings", "forward", "pop");
+
+  useIonViewWillEnter(() => {
+    if (moment().isAfter(userTokenExp)) {
+      dispatch(authLogin("test_user")).catch(() => {
+        router.push("/403", "forward", "pop");
+      });
+    }
+  });
 
   useEffect(() => {
     let c = ref.current;

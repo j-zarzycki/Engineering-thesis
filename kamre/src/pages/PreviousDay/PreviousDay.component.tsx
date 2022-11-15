@@ -60,7 +60,7 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
   };
 
   const renderProceedButton = () => {
-    return <SaveActivityButton title="Zapisz" onClick={onProceedButtonClick} />;
+    return <SaveActivityButton title="Dodaj" onClick={onProceedButtonClick} />;
   };
 
   const renderImage = () => {

@@ -6,7 +6,7 @@ import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Question from "@Assets/what.png";
 import GoodWord from "./GoodWord.component";
 
 const GoodWordContainer: React.FC = () => {
@@ -96,11 +96,11 @@ const GoodWordContainer: React.FC = () => {
 
     setImg(MainImg);
 
-    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex === 1) setImg(Question);
   };
 
   const onSwipeHandle = () => {
-    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex === 1) setImg(Question);
     if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex > 1) {
       setImg(MainImg);

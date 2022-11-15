@@ -4,6 +4,14 @@
 .breathing {
   font-family: $font-main;
 
+  h4 {
+    font-family: $font-main;
+    font-weight: $font-weight-xl;
+    font-size: $font-size-xxl;
+    color: $color-black;
+    text-align: center;
+  }
+
   &__header-top {
     height: 30px;
     margin-top: 20px;
@@ -68,9 +76,11 @@
       .ring:nth-child(1) {
         animation-delay: 0s;
       }
+
       .ring:nth-child(2) {
         animation-delay: 1s;
       }
+
       .ring:nth-child(3) {
         animation-delay: 1.5s;
       }
@@ -82,7 +92,12 @@
     font-weight: $font-weight-xs;
     color: $secondary-gray-90;
     line-height: 24px;
-    max-width: 309px;
+    max-width: 100%;//309px;
+    text-align: center;
+    list-style: none;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 24px;
 
     ul {
       text-decoration: none;
@@ -156,6 +171,11 @@
 
 @include mobile-xsmall {
   .breathing {
+
+    &__description {
+      font-size: 16px;
+    }
+
     &__timer {
       .cancel-button {
         margin-top: 20px;
@@ -166,6 +186,11 @@
 
 @include mobile-small {
   .breathing {
+
+    &__description {
+      font-size: 18px;
+    }
+
     &__timer {
       .cancel-button {
         margin-top: 60px;
@@ -176,6 +201,11 @@
 
 @include mobile-medium {
   .breathing {
+
+    &__description {
+      font-size: 20px;
+    }
+
     &__timer {
       .cancel-button {
         margin-top: 40px;
@@ -189,9 +219,11 @@
     opacity: 0;
     transform: scale(0.1, 0.1);
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: scale(1.2, 1.2);

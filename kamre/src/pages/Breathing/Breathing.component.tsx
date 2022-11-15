@@ -1,11 +1,18 @@
 import React from "react";
-import { IonContent, IonPage, IonImg } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonImg,
+  IonToast,
+  IonLoading,
+} from "@ionic/react";
 
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
 import CancelButton from "@Components/CancelButton";
 
-import Pet from "@Assets/main.png";
+import MainImg from "@Assets/main.png";
+import Smile from "@Assets/smile.png";
 import "./Breathing.style.scss";
 
 interface IProps {
@@ -13,6 +20,8 @@ interface IProps {
   isAnimationPaused: boolean;
   counter: number;
   renderType: string;
+  isLoading: boolean;
+  toast: any;
   handleButtonClick(): void;
   onCancelButtonClick(): void;
 }
@@ -29,25 +38,30 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     isPlaying,
     isAnimationPaused,
     renderType,
+    toast,
+    isLoading,
     handleButtonClick,
     onCancelButtonClick,
   } = props;
 
   const renderDescription = () => {
     return (
-      <div className="breathing__description">
-        <ul>
-          <li>
-            Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
-            powinny być proste.
-          </li>
-          <li>Weź głęboki i spokojny oddech przez nos.</li>
-          <li>
-            Upewnij się, że obszar, który się podnosi, to przepona (brzuch), a
-            nie klatka piersiowa.
-          </li>
-          <li>Następnie głośno wydychaj powietrze przez usta.</li>
-        </ul>
+      <div className="breathing">
+        <h4>Oddychanie</h4>
+        <div className="breathing__description">
+          <ul>
+            <li>
+              Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
+              powinny być proste.
+            </li>
+            <li>Weź głęboki i spokojny oddech przez nos.</li>
+            <li>
+              Upewnij się, że obszar, który się podnosi, to przepona (brzuch), a
+              nie klatka piersiowa.
+            </li>
+            <li>Następnie głośno wydychaj powietrze przez usta.</li>
+          </ul>
+        </div>
       </div>
     );
   };
@@ -76,7 +90,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       >
         <IonImg
           className={`${isPlaying && "breathing__image--active"}`}
-          src={Pet}
+          src={isPlaying ? MainImg : Smile}
           alt="pet"
         />
         <div className="ring" />
@@ -111,9 +125,33 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     return <div className="breathing__header-top" />;
   };
 
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
+
+  const renderLoader = () => {
+    return (
+      <IonLoading
+        cssClass="breathing__loader"
+        isOpen={isLoading}
+        message="Zapisywanie, proszę czekać"
+      />
+    );
+  };
+
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderLoader()}
+        {renderToast()}
         <div className="breathing__header">{renderHeader()}</div>
         <div className="breathing__context">{renderContext()}</div>
       </IonContent>

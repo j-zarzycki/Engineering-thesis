@@ -1,5 +1,11 @@
 @import '@Theme/variables';
 
+.save-activity-button-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .save-activity-button {
   box-sizing: border-box;
   font-family: $font-main;
@@ -17,6 +23,11 @@
   color: $color-white;
   filter: $default-drop-shadow;
   transition: $transition-default;
+
+  svg {
+    margin-bottom: -4px;
+    margin-left: 10px;
+  }
 
   &:hover {
     opacity: .8;

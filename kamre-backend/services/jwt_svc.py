@@ -6,7 +6,9 @@ import os
 
 
 def create_token(device_id):
+
     encoded = jwt.encode({'device_id': device_id,
+                          'iat': datetime.utcnow(),
                           'exp': datetime.utcnow() + timedelta(seconds=float(os.getenv('JWT_AUTHMAXAGE')))},
                          os.getenv('JWT_SECRET'), algorithm="HS256")
     return encoded
@@ -19,3 +21,6 @@ def check_token(token):
     except:
         return False, None
 
+
+def convert_date(iat):
+    return datetime.fromtimestamp(iat)
