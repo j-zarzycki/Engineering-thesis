@@ -36,6 +36,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
   });
 
   const getChatData = async () => {
+    if (chatData.answers.length === 0) setConversationData([]);
     setChatData({ answers: [], questions: [], is_activity: false });
     await apiService.ChatClient(isContinuation).then(({ data }) => {
       setIndex(0);
@@ -96,6 +97,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         ...prevState,
         <MessageQuestion value="Jesteśm bardzo szczęśliwa, że mogłam Tobie pomóc! 💜 " />,
       ]);
+      handleScroll();
     } else {
       setUserAnswers((prevState) => [...prevState, activityIndex]);
     }
