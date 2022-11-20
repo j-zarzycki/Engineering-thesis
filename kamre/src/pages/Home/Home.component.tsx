@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import "./home.scss";
 
 import {
   useIonRouter,
@@ -129,8 +130,16 @@ const Home: React.FC = () => {
             <div className="homepage-toolbar">
               <div className="ion-title">Strona główna</div>
               <IonButtons>
-                <FiSettings size={25} onClick={onSettingsClick} />
-                <FiMenu size={25} onClick={onMenuClick} />
+                <FiSettings
+                  className="setting-button"
+                  size={25}
+                  onClick={onSettingsClick}
+                />
+                <FiMenu
+                  className="menu-button"
+                  size={25}
+                  onClick={onMenuClick}
+                />
               </IonButtons>
             </div>
           </IonToolbar>

@@ -117,18 +117,23 @@ const AllMenu = forwardRef((_props, ref: any) => {
   }, []);
 
   return (
-    <IonMenu contentId="main-content" ref={ref} side="end">
+    <IonMenu
+      className="activities-menu"
+      contentId="main-content"
+      ref={ref}
+      side="end"
+    >
       {renderToast()}
       {renderLoader()}
       <IonHeader>
         <IonToolbar>
-          <IonTitle>All acitivities</IonTitle>
+          <IonTitle>Aktywności</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
         <IonAccordionGroup>
           <IonAccordion value="first">
-            <IonItem slot="header" color="light">
+            <IonItem slot="header" className="activities-menu__group-title">
               <IonLabel>Aktywne</IonLabel>
             </IonItem>
             <IonList slot="content">
@@ -136,7 +141,7 @@ const AllMenu = forwardRef((_props, ref: any) => {
             </IonList>
           </IonAccordion>
           <IonAccordion value="second">
-            <IonItem slot="header" color="light">
+            <IonItem slot="header" className="activities-menu__group-title">
               <IonLabel>Bierne</IonLabel>
             </IonItem>
             <IonList slot="content">
@@ -144,7 +149,7 @@ const AllMenu = forwardRef((_props, ref: any) => {
             </IonList>
           </IonAccordion>
           <IonAccordion value="third">
-            <IonItem slot="header" color="light">
+            <IonItem slot="header" className="activities-menu__group-title">
               <IonLabel>Pozytywne emocje</IonLabel>
             </IonItem>
             <IonList slot="content">
@@ -152,7 +157,7 @@ const AllMenu = forwardRef((_props, ref: any) => {
             </IonList>
           </IonAccordion>
           <IonAccordion value="fourth">
-            <IonItem slot="header" color="light">
+            <IonItem slot="header" className="activities-menu__group-title">
               <IonLabel>Zmiana myślenia</IonLabel>
             </IonItem>
             <IonList slot="content">

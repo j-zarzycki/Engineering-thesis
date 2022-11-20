@@ -1,6 +1,8 @@
 @import "@Theme/variables";
 @import "@Theme/media";
 
-menu-nested-item:last-child {
-  --border-width: 0 0 0 0 !important;
+.activities-menu {
+  &__group-title {
+    font-weight: bold;
+  }
 }
