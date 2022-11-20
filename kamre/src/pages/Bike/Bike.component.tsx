@@ -149,8 +149,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Jeżeli nie masz roweru</h4>
               <p className="swiper-slide__paragraph">
-                możesz spróbować innej aktywności sportowej, która sprawi Ci
-                przyjemność!
+                Spróbuj innej aktywności sportowej, która sprawi Ci przyjemność!
               </p>
             </div>
           </SwiperSlide>

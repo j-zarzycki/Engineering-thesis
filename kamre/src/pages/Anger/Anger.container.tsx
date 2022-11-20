@@ -5,8 +5,8 @@ import { SwiperSlide } from "swiper/react";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
-import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
+import Angry from "@Assets/angry.png";
+import Question from "@Assets/what.png";
 import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import Anger from "./Anger.component";
@@ -16,7 +16,7 @@ const AngerContainer: React.FC = () => {
   const [toast, setToast] = useState({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState(MainImg);
+  const [img, setImg] = useState(Angry);
   const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
@@ -89,9 +89,9 @@ const AngerContainer: React.FC = () => {
   const onProceedButtonClick = () => {
     swiper?.slideNext();
     setCurrentSlide(swiper?.activeIndex);
-    setImg(MainImg);
+    setImg(Angry);
 
-    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex === 1) setImg(Question);
   };
 
   const createAngerNoContent = async () => {
@@ -129,12 +129,9 @@ const AngerContainer: React.FC = () => {
   };
 
   const onSlideChangeHandler = () => {
-    if (swiper?.activeIndex === 1) setImg(quote);
+    if (swiper?.activeIndex === 1) setImg(Question);
     if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
     if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
-    if (swiper?.activeIndex === slideElements - 1) {
-      setImg(MainImg);
-    }
   };
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import apiService from "@Services/api.service";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import { SWIPE_ELEMENTS } from "@Constants/eduVid.constatns";
 import MainImg from "@Assets/main.png";
+import Question from "@Assets/what.png";
 import EduVideo from "./EduVideo.component";
 
 const EduVideoContainer: React.FC = () => {
@@ -62,10 +63,11 @@ const EduVideoContainer: React.FC = () => {
 
   const onSlideChangeHandler = (slide: Swiper) => {
     setCurrentSlide(slide?.activeIndex);
+    if (slide?.activeIndex === 2) setImg(MainImg);
   };
 
   useEffect(() => {
-    setImg(MainImg);
+    setImg(Question);
   }, []);
 
   return (

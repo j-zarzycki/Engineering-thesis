@@ -56,7 +56,9 @@ const ShowHideText: React.FC<IProps> = (props: IProps) => {
 
   const renderContent = () => {
     return (
-      hasContent && <div className="show-hide__content">{activityContent}</div>
+      hasContent && (
+        <div className="show-hide__content">{activityContent.join(", ")}</div>
+      )
     );
   };
 

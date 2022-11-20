@@ -2,7 +2,6 @@
 /* musi być, bo eslint z niewiadomych przyczyn wywala błąd z wywołąniem renderNegotiation
    przed jej zadeklarowaniem (pomimo tego że jest to function()) */
 
-
 import React, { useState, useRef, useEffect } from "react";
 
 import {
@@ -37,6 +36,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
   });
 
   const getChatData = async () => {
+    if (chatData.answers.length === 0) setConversationData([]);
     setChatData({ answers: [], questions: [], is_activity: false });
     await apiService.ChatClient(isContinuation).then(({ data }) => {
       setIndex(0);
@@ -95,8 +95,9 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
       sendEndOfNegotiation();
       setConversationData((prevState) => [
         ...prevState,
-        <MessageQuestion value="Jesteśmy bardzo szczęśliwy, że mogliśmy Tobie pomóc! <3" />,
+        <MessageQuestion value="Jesteśm bardzo szczęśliwa, że mogłam Tobie pomóc! 💜 " />,
       ]);
+      handleScroll();
     } else {
       setUserAnswers((prevState) => [...prevState, activityIndex]);
     }

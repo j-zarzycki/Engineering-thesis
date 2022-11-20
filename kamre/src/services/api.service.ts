@@ -11,6 +11,7 @@ import {
   SERVER_URL_CHAT_RESULT,
   SERVER_URL_GET_RECOMMENDED,
   SERVER_URL_GET_ALL,
+  SERVER_URL_RECOVERY,
 } from "@Constants/server.constants";
 import IDefaultServerResponse from "@Types/defaultServerResponse.type";
 import { ICalendarResponse } from "@Types/calendar.type";
@@ -103,6 +104,17 @@ const DeleteUser = () => {
   return axios.delete(SERVER_URL_ACCOUNT, { headers: authHeader() });
 };
 
+const GetRecoveryCode = () => {
+  return axios.get(SERVER_URL_RECOVERY, { headers: authHeader() });
+};
+
+const SendRecoveryCode = (deviceId: string, recoveryCode: string) => {
+  return axios.post(SERVER_URL_RECOVERY, {
+    device_id: deviceId,
+    recovery_code: recoveryCode,
+  });
+};
+
 export default {
   ChatClient,
   ChatResult,
@@ -113,4 +125,6 @@ export default {
   GetRecommended,
   GetAllActivities,
   DeleteUser,
+  GetRecoveryCode,
+  SendRecoveryCode,
 };

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
 
 import MainImg from "@Assets/main.png";
-import quote from "@Assets/what.png";
-import happy from "@Assets/happy.png";
+import Question from "@Assets/what.png";
+import Happy from "@Assets/happy.png";
+import Smile from "@Assets/smile.png";
+import Rest from "@Assets/rest.png";
 import apiService from "@Services/api.service";
 import { getFullDateWithTime } from "@Utils/date";
 import Feet from "./Feet.component";
@@ -22,10 +24,28 @@ const FeetContainer: React.FC = () => {
     setCurrentSlide(swiper?.activeIndex);
     setImg(MainImg);
 
-    if (swiper?.activeIndex === 1) setImg(quote);
-    if (swiper?.activeIndex === 7) {
-      setImg(happy);
-    }
+    if (swiper?.activeIndex === 1) setImg(Question);
+    if (
+      swiper?.activeIndex === 3 ||
+      swiper?.activeIndex === 5 ||
+      swiper?.activeIndex === 9 ||
+      swiper?.activeIndex === 10 ||
+      swiper?.activeIndex === 11 ||
+      swiper?.activeIndex === 12 ||
+      swiper?.activeIndex === 17
+    )
+      setImg(Smile);
+    if (
+      swiper?.activeIndex === 4 ||
+      swiper?.activeIndex === 6 ||
+      swiper?.activeIndex === 8 ||
+      swiper?.activeIndex === 12 ||
+      swiper?.activeIndex === 14 ||
+      swiper?.activeIndex === 16 ||
+      swiper?.activeIndex === 21
+    )
+      setImg(Rest);
+    if (swiper?.activeIndex === 7 || swiper?.activeIndex === 18) setImg(Happy);
   };
 
   const createFeetNoContent = async () => {
@@ -60,11 +80,11 @@ const FeetContainer: React.FC = () => {
     setCurrentSlide(swiper?.activeIndex);
     setImg(MainImg);
     if (swiper?.activeIndex === 1) {
-      setImg(quote);
+      setImg(Question);
     }
 
     if (swiper?.activeIndex === 7) {
-      setImg(happy);
+      setImg(Happy);
     }
   };
 
