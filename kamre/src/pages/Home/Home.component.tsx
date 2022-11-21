@@ -188,7 +188,7 @@ const Home: React.FC = () => {
             </div>
           </IonToolbar>
         </IonHeader>
-        <IonContent fullscreen class="ion-padding-horizontal" scroll-y="false">
+        <IonContent className="homepage-content" fullscreen class="ion-padding-horizontal" scroll-y="false">
           <div className="homepage">
             <div className="homepage-wrapper">
               <IonGrid>
