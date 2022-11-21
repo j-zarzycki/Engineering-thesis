@@ -63,7 +63,6 @@ const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
 
   const renderRecommendedActivitiesCards = useCallback(() => {
     return cardsData.map((card) => {
-      console.log(`${card.name}: ${card.url}`);
       return (
         <ActivityCard
           variant={cardVariant}
