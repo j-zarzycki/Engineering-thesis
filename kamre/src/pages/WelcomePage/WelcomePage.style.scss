@@ -2,7 +2,12 @@
 @import "@Theme/media";
 @import "@Theme/mixins";
 
+
+
+
 .welcome-page {
+
+  
   @include animation-properties;
   &__wrapper {
     display: flex;

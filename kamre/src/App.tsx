@@ -81,48 +81,7 @@ import YtPage from "./pages/YtPage";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
-  const token = localStorage.getItem("token");
-  const userTokenExp = localStorage.getItem("token_exp");
-  const isUserAuthenticated =
-    String(localStorage.getItem("token"))?.length > 28 || isLoggedIn;
-  const router = useIonRouter();
-  const dispatch = useAppDispatch();
-  let isFirstStart: boolean | null = null;
-
-  const setupKamreApp = () => {
-    if(!localStorage.getItem("isFirstStart")) {
-     isFirstStart = true; 
-    } else {
-      isFirstStart = false;
-    }
-  };
-
-  setupKamreApp();
-
-  useIonViewDidEnter(() => {
-    console.log('enter');
-    if (!token) {
-      router?.push("/welcompage", "forward", "pop");
-    }
-
-    if (!token) {
-      Device.getId().then((info) => {
-        dispatch(authLogin(String(info.uuid))).catch(() => {
-          router?.push("/403", "forward", "pop");
-        });
-      });
-    }
-
-    if (moment().isAfter(userTokenExp)) {
-      Device.getId().then((info) => {
-        dispatch(authLogin(String(info.uuid))).catch(() => {
-          router?.push("/403", "forward", "pop");
-        });
-      });
-    }
-  }, []);
-
+  let shouldHomeRender = localStorage.getItem("shouldHomeRender");
   return (
     <IonApp>
       <IonReactRouter>
@@ -168,14 +127,25 @@ const App: React.FC = () => {
             />
             <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
-              {isFirstStart ? <Redirect to="/welcompage" /> : <Redirect to="/home" />}
+              {shouldHomeRender === "false" ||
+              shouldHomeRender === null ||
+              shouldHomeRender === undefined ? (
+                <Redirect to="/welcompage" />
+              ) : (
+                <Redirect to="/home" />
+              )}
             </Route>
             <Route path="/home" component={Home} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="emergency" href="/emergency">
               <IonIcon icon={flash} />
-              <IonLabel>Szybka pomoc</IonLabel>
+              <IonLabel>
+                <>
+                  Szybka pomoc{" "}
+                  {console.log("shouldHomeRender = ", shouldHomeRender)}
+                </>
+              </IonLabel>
             </IonTabButton>
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />

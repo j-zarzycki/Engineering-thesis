@@ -21,7 +21,7 @@ import {
   Gesture,
   useIonViewWillEnter,
   useIonViewDidEnter,
-  IonMenuToggle
+  IonMenuToggle,
 } from "@ionic/react";
 import Cookies from "universal-cookie";
 
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   let maxDownTransformValue = 0;
 
   const onSettingsClick = () => router.push("/settings", "forward");
-  const  deviceId  = String(localStorage.getItem("deviceId"));
+  const deviceId = String(localStorage.getItem("deviceId"));
 
   const menuRef = React.useRef<HTMLIonMenuElement>(null);
 
@@ -66,6 +66,8 @@ const Home: React.FC = () => {
   });
 
   useEffect(() => {
+    const tabs = document.querySelector("ion-tab-bar");
+    tabs!.style.display = "flex";
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -188,7 +190,12 @@ const Home: React.FC = () => {
             </div>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="homepage-content" fullscreen class="ion-padding-horizontal" scroll-y="false">
+        <IonContent
+          className="homepage-content"
+          fullscreen
+          class="ion-padding-horizontal"
+          scroll-y="false"
+        >
           <div className="homepage">
             <div className="homepage-wrapper">
               <IonGrid>

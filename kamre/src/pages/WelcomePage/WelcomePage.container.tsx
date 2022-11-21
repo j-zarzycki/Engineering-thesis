@@ -27,20 +27,33 @@ const WelcomePageContainer: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const recoveryRef = useRef<any>(null);
   const dispatch = useAppDispatch();
+  let isMigrated = false;
 
   const authenticateUser = () => {
     Device.getId().then((info) => {
       localStorage.setItem("deviceId", info.uuid);
       dispatch(authLogin(info.uuid))
         .then(async () => {
-          localStorage.setItem("isFirstStart", "false");
-          router.push("/home", "forward");
+          localStorage.setItem("shouldHomeRender", "true");
           setIsLoading(false);
+          router.push("/home", "forward", "pop");
         })
         .catch(() => {
-          router.push("/403", "forward");
+          router.push("/403", "forward", "pop");
         });
     });
+
+    if (isMigrated) {
+      setToast({
+        isOpen: true,
+        message: "Migracja konta przebiegła pomyślnie!",
+      });
+    } else {
+      setToast({
+        isOpen: true,
+        message: "Witamy w aplikacji!",
+      });
+    }
   };
 
   const onStartButtonClick = () => {
@@ -79,18 +92,12 @@ const WelcomePageContainer: React.FC = () => {
 
   const onRestoreDataButtonClick = async () => {
     setIsLoading(true);
-    Device.getId().then(async (info) => {
-      await apiService
+    Device.getId().then((info) => {
+      apiService
         .SendRecoveryCode(info.uuid.replace(/\s/g, ""), inputValue)
         .then(() => {
+          isMigrated = true;
           setTimeout(authenticateUser, 3000);
-          setToast({
-            isOpen: true,
-            message: "Konto zostało pomyślnie zmigrowane!",
-          });
-        })
-        .finally(() => {
-          setIsLoading(false);
         })
         .catch(() => {
           setToast({
@@ -120,6 +127,7 @@ const WelcomePageContainer: React.FC = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("shouldHomeRender", "false");
     const tabs = document.querySelector("ion-tab-bar");
     tabs!.style.display = "none";
     setImg(MainImg);
