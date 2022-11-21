@@ -1,12 +1,9 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from "react";
+import React from "react";
 
 import "./VerticalProgressBar.style.scss";
 
 interface IProps {
-  renderNumberOfElements(): DetailedHTMLProps<
-    HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >;
+  renderNumberOfElements(): any;
 }
 
 const VerticalProgressBar: React.FC<IProps> = (props: IProps) => {

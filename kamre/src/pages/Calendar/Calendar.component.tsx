@@ -76,4 +76,4 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Calendar;
+export default React.memo(Calendar);

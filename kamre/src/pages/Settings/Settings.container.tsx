@@ -6,4 +6,4 @@ const SettingsContainer: React.FC = () => {
   return <Settings />;
 };
 
-export default SettingsContainer;
+export default React.memo(SettingsContainer);

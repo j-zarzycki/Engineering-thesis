@@ -136,4 +136,4 @@ const GoodWordContainer: React.FC = () => {
   );
 };
 
-export default GoodWordContainer;
+export default React.memo(GoodWordContainer);

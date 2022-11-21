@@ -89,4 +89,4 @@ const ConsciousShowerContainer: React.FC = () => {
   );
 };
 
-export default ConsciousShowerContainer;
+export default React.memo(ConsciousShowerContainer);

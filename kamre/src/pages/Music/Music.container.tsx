@@ -100,4 +100,4 @@ const MusicContainer: React.FC = () => {
   );
 };
 
-export default MusicContainer;
+export default React.memo(MusicContainer);

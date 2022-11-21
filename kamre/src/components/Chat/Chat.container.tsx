@@ -3,6 +3,7 @@
    przed jej zadeklarowaniem (pomimo tego że jest to function()) */
 
 import React, { useState, useRef, useEffect } from "react";
+import { useIonViewWillEnter } from "@ionic/react";
 
 import {
   MessageActivity,
@@ -146,6 +147,10 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
       renderConversationData();
     }
   }, [chatData, index]);
+
+  useIonViewWillEnter(() => {
+    setConversationData([]);
+  }, [])
 
   if (isActivitiesCardHidden) {
     return (

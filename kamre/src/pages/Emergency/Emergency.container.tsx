@@ -5,4 +5,4 @@ const EmergencyContainer: React.FC = () => {
   return <Emergency />;
 };
 
-export default EmergencyContainer;
+export default React.memo(EmergencyContainer);

@@ -15,17 +15,8 @@
   background-color: $primary-color-80;
   padding: 33px 23px;
   color: $color-white;
-  filter: $default-drop-shadow;
-  transition: $transition-default;
 
   &:disabled {
     background-color: $secondary-gray-90;
-    transition: $transition-default;
-    cursor: not-allowed;
-  }
-
-  &:hover {
-    opacity: 0.8;
-    transition: all 0.3s;
   }
 }

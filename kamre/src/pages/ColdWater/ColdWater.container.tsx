@@ -97,4 +97,4 @@ const ColdWaterContainer: React.FC = () => {
   );
 };
 
-export default ColdWaterContainer;
+export default React.memo(ColdWaterContainer);

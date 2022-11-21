@@ -6,7 +6,7 @@ interface IProps {
   variant: "big" | "medium" | "small";
   title: string;
   description?: string;
-  icon?: React.ReactElement | HTMLElement;
+  icon?: React.ReactElement;
   onClick?: (ev: any) => void;
 }
 

@@ -218,4 +218,4 @@ const Music: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Music;
+export default React.memo(Music);

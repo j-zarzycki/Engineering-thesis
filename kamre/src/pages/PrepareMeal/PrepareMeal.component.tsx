@@ -205,4 +205,4 @@ const PrepareMeal: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default PrepareMeal;
+export default React.memo(PrepareMeal);

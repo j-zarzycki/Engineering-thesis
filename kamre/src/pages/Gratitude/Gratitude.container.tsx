@@ -134,4 +134,4 @@ const GratitudeContainer: React.FC = () => {
   );
 };
 
-export default GratitudeContainer;
+export default React.memo(GratitudeContainer);

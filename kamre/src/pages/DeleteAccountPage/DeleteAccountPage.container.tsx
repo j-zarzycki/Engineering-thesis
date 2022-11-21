@@ -61,4 +61,4 @@ const DeleteAccountPageContainer: React.FC = () => {
   );
 };
 
-export default DeleteAccountPageContainer;
+export default React.memo(DeleteAccountPageContainer);

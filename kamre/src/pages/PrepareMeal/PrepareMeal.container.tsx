@@ -102,4 +102,4 @@ const PrepareMealContainer: React.FC = () => {
   );
 };
 
-export default PrepareMealContainer;
+export default React.memo(PrepareMealContainer);

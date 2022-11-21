@@ -83,4 +83,4 @@ const Emergency: React.FC = () => {
   );
 };
 
-export default Emergency;
+export default React.memo(Emergency);

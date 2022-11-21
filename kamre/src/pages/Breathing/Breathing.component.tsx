@@ -159,4 +159,4 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Breathing;
+export default React.memo(Breathing);

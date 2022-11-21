@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
+import { Device } from "@capacitor/device";
 
 import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
@@ -28,15 +29,18 @@ const WelcomePageContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const authenticateUser = () => {
-    dispatch(authLogin("test_user"))
-      .then(() => {
-        localStorage.setItem("isFirstStart", "false");
-        router.push("/home", "forward", "pop");
-        setIsLoading(false);
-      })
-      .catch(() => {
-        router.push("/403", "forward", "pop");
-      });
+    Device.getId().then((info) => {
+      localStorage.setItem("deviceId", info.uuid);
+      dispatch(authLogin(info.uuid))
+        .then(async () => {
+          localStorage.setItem("isFirstStart", "false");
+          router.push("/home", "forward");
+          setIsLoading(false);
+        })
+        .catch(() => {
+          router.push("/403", "forward");
+        });
+    });
   };
 
   const onStartButtonClick = () => {
@@ -75,24 +79,26 @@ const WelcomePageContainer: React.FC = () => {
 
   const onRestoreDataButtonClick = async () => {
     setIsLoading(true);
-    await apiService
-      .SendRecoveryCode("test_user2", inputValue)
-      .then(() => {
-        setToast({
-          isOpen: true,
-          message: "Konto zostało pomyślnie zmigrowane!",
+    Device.getId().then(async (info) => {
+      await apiService
+        .SendRecoveryCode(info.uuid.replace(/\s/g, ""), inputValue)
+        .then(() => {
+          setTimeout(authenticateUser, 3000);
+          setToast({
+            isOpen: true,
+            message: "Konto zostało pomyślnie zmigrowane!",
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setToast({
+            isOpen: true,
+            message: "Wystąpił błąd podczas migrowania konta.",
+          });
         });
-        router.push("/home", "forward", "pop");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setToast({
-          isOpen: true,
-          message: "Wystąpił błąd podczas migrowania konta.",
-        });
-      });
+    });
   };
 
   const onCancelRecoveryButtonHandle = () => {
@@ -144,4 +150,4 @@ const WelcomePageContainer: React.FC = () => {
   );
 };
 
-export default WelcomePageContainer;
+export default React.memo(WelcomePageContainer);

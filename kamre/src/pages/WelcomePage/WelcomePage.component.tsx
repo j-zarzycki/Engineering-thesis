@@ -235,4 +235,4 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default WelcomePage;
+export default React.memo(WelcomePage);

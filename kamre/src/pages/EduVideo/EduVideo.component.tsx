@@ -205,4 +205,4 @@ const EduVideo: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default EduVideo;
+export default React.memo(EduVideo);

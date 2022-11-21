@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Redirect, Route } from "react-router-dom";
+/* eslint-disable */
+import React, { useEffect, useState } from "react";
+import { Redirect, Route, Link } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -8,12 +9,15 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonButton,
   setupIonicReact,
   useIonRouter,
+  useIonViewWillEnter,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle, flash, today } from "ionicons/icons";
-import Cookies from "universal-cookie";
+import { Device } from "@capacitor/device";
 import moment from "moment";
 
 import SmallSteps from "@Pages/SmallSteps";
@@ -78,17 +82,43 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const { isLoggedIn } = useAppSelector((state) => state.auth);
-  const cookies = new Cookies();
-  const userTokenExp = cookies.get("token_exp");
-  const isUserAuthenticated = cookies.get("token")?.length > 28 || isLoggedIn;
-  const isFirstStart = !localStorage.getItem("isFirstStart");
+  const token = localStorage.getItem("token");
+  const userTokenExp = localStorage.getItem("token_exp");
+  const isUserAuthenticated =
+    String(localStorage.getItem("token"))?.length > 28 || isLoggedIn;
   const router = useIonRouter();
   const dispatch = useAppDispatch();
+  let isFirstStart: boolean | null = null;
 
-  useEffect(() => {
+  const setupKamreApp = () => {
+    if(!localStorage.getItem("isFirstStart")) {
+     isFirstStart = true; 
+    } else {
+      isFirstStart = false;
+    }
+  };
+
+  setupKamreApp();
+
+  useIonViewDidEnter(() => {
+    console.log('enter');
+    if (!token) {
+      router?.push("/welcompage", "forward", "pop");
+    }
+
+    if (!token) {
+      Device.getId().then((info) => {
+        dispatch(authLogin(String(info.uuid))).catch(() => {
+          router?.push("/403", "forward", "pop");
+        });
+      });
+    }
+
     if (moment().isAfter(userTokenExp)) {
-      dispatch(authLogin("test_user")).catch(() => {
-        router.push("/403", "forward", "pop");
+      Device.getId().then((info) => {
+        dispatch(authLogin(String(info.uuid))).catch(() => {
+          router?.push("/403", "forward", "pop");
+        });
       });
     }
   }, []);
@@ -138,13 +168,9 @@ const App: React.FC = () => {
             />
             <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
-              {isFirstStart ? (
-                <Redirect to="/welcompage" />
-              ) : (
-                <Redirect to="/home" />
-              )}
+              {isFirstStart ? <Redirect to="/welcompage" /> : <Redirect to="/home" />}
             </Route>
-            <Route path="/home">{isUserAuthenticated && <Home />}</Route>
+            <Route path="/home" component={Home} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="emergency" href="/emergency">

@@ -1,5 +1,12 @@
 import React from "react";
-import { IonContent, IonPage, IonCard, IonCardHeader } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonCard,
+  IonCardHeader,
+  IonToast,
+} from "@ionic/react";
+import { AiFillCopy } from "react-icons/ai";
 
 // Import Swiper styles
 import "swiper/css";
@@ -8,17 +15,35 @@ import "./MigrateAccountPage.style.scss";
 import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import Pet from "@Components/Pet";
+import ProceedButton from "@Components/ProceedButton";
 
 interface IProps {
   recoveryCode: string;
+  toast: { isOpen: boolean; message: string };
+  onCopyButtonClickHandler(): void;
+  setToast(value: {}): void;
 }
 
 const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
-  const { recoveryCode } = props;
+  const { recoveryCode, toast, onCopyButtonClickHandler, setToast } = props;
+
+  const renderToast = () => {
+    const { isOpen, message } = toast;
+    return (
+      <IonToast
+        isOpen={isOpen}
+        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+        message={message}
+        duration={2500}
+        position="top"
+      />
+    );
+  };
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
+        {renderToast()}
         <div className="migrateaccountpage">
           <BackButton defaultHref="/settings" />
           <div className="migrateaccountpage__wrapper">
@@ -46,6 +71,11 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
                     </div>
                   </IonCardHeader>
                 </div>
+                <ProceedButton
+                  title="Skopiuj"
+                  onClick={onCopyButtonClickHandler}
+                  icon={<AiFillCopy size={25} />}
+                />
               </IonCard>
             </div>
           </div>
@@ -55,4 +85,4 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default MigrateAccountPage;
+export default React.memo(MigrateAccountPage);

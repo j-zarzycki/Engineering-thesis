@@ -23,29 +23,6 @@ const Settings: React.FC = () => {
   useEffect(() => {
     setImg(MainImg);
   }, []);
-  // const onAlertButtonClick = (alertData: String) => {
-  //   onCreateActivityWithContent(alertData);
-  // };
-  //
-  // const onProceedButtonClickWithContent = () => {
-  //   presentAlert({
-  //     header: "Dodaj swoje przemyślenia",
-  //     buttons: [
-  //       {
-  //         text: "OK",
-  //         handler: (alertData) => {
-  //           onAlertButtonClick(alertData.content);
-  //         },
-  //       },
-  //     ],
-  //     inputs: [
-  //       {
-  //         name: "content",
-  //         placeholder: "Wpisz je tutaj...",
-  //       },
-  //     ],
-  //   });
-  // };
 
   return (
     <IonPage>
@@ -124,4 +101,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default React.memo(Settings);
