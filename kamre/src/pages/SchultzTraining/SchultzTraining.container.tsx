@@ -85,4 +85,4 @@ const SchultzTrainingContainer: React.FC = () => {
   );
 };
 
-export default SchultzTrainingContainer;
+export default React.memo(SchultzTrainingContainer);

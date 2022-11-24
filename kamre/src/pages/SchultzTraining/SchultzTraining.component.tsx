@@ -206,4 +206,4 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default SchultzTraining;
+export default React.memo(SchultzTraining);

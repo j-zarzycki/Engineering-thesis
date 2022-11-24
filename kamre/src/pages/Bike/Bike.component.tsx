@@ -210,4 +210,4 @@ const Bike: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Bike;
+export default React.memo(Bike);

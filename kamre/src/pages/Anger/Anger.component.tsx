@@ -333,4 +333,4 @@ const Anger: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Anger;
+export default React.memo(Anger);

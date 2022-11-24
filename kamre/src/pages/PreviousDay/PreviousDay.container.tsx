@@ -30,4 +30,4 @@ const PreviousDayContainer: React.FC = () => {
   );
 };
 
-export default PreviousDayContainer;
+export default React.memo(PreviousDayContainer);

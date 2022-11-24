@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 
 import "./HorizontalProgressBar.style.scss";
@@ -14,13 +16,21 @@ const HorizontalProgressBar: React.FC<IProps> = (props: IProps) => {
 
   const renderNumberOfElements = () => {
     const arrElements = [];
-
+    
     for (let i = 0; i < elements; i += 1) {
-      if (i === 0) {
+      if (i === currentElement) {
         arrElements.push(
           <div
             element-index={i}
             key={i}
+            className="horizontal-progress-bar__element horizontal-progress-bar__element--active"
+          />,
+        );
+      } else if (i === Number(elements) - 1 && currentElement >= elements) {
+        arrElements.push(
+          <div
+            element-index={Number(elements) - 1}
+            key={Number(elements) - 1}
             className="horizontal-progress-bar__element horizontal-progress-bar__element--active"
           />,
         );
@@ -38,46 +48,8 @@ const HorizontalProgressBar: React.FC<IProps> = (props: IProps) => {
     return <> {arrElements} </>;
   };
 
-  const onCurrentElementChange = () => {
-    const allActiveElements = document.querySelectorAll(
-      ".horizontal-progress-bar__element--active",
-    );
-    allActiveElements.forEach((element) =>
-      element?.classList.remove("horizontal-progress-bar__element--active"),
-    );
-
-    if (currentElement === 0) {
-      const element = document.querySelector(
-        `[element-index="${currentElement}"]`,
-      );
-
-      element?.classList.add("horizontal-progress-bar__element--active");
-    }
-
-    if (currentElement > prevCurrentElementValue) {
-      const element = document.querySelector(
-        `[element-index="${currentElement}"]`,
-      );
-      const prevElement = document.querySelector(
-        `[element-index="${Number(currentElement) - 1}"]`,
-      );
-      element?.classList.add("horizontal-progress-bar__element--active");
-      prevElement?.classList.remove("horizontal-progress-bar__element--active");
-    } else if (currentElement < prevCurrentElementValue) {
-      const element = document.querySelector(
-        `[element-index="${currentElement}"]`,
-      );
-      const prevElement = document.querySelector(
-        `[element-index="${Number(currentElement) + 1}"]`,
-      );
-      element?.classList.add("horizontal-progress-bar__element--active");
-      prevElement?.classList.remove("horizontal-progress-bar__element--active");
-    }
-    setPrevCurrentElementValue(currentElement);
-  };
-
   useEffect(() => {
-    onCurrentElementChange();
+    renderNumberOfElements();
   }, [currentElement]);
 
   return (

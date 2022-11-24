@@ -197,4 +197,4 @@ const Walking: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Walking;
+export default React.memo(Walking);

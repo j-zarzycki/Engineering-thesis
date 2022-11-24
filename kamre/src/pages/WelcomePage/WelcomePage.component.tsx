@@ -76,7 +76,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
         isOpen={isOpen}
         onDidDismiss={() => setToast({ isOpen: false, message: "" })}
         message={message}
-        duration={2500}
+        duration={4000}
         position="top"
       />
     );
@@ -235,4 +235,4 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default WelcomePage;
+export default React.memo(WelcomePage);

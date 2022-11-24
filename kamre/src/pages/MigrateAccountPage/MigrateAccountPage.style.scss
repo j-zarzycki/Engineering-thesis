@@ -6,6 +6,13 @@
 }
 
 .migrateaccountpage {
+  &__wrapper {
+    .proceed-button {
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: 50px;
+    }
+  }
 
   &__wrapper_image {
     display: flex;
@@ -43,7 +50,8 @@
         font-weight: 500;
       }
 
-      .migrate-code {
+      .migrate-code,
+      .device-id {
         color: #960202;
         font-size: $font-size-ll;
         font-weight: 700;
@@ -70,6 +78,18 @@
 }
 
 @include mobile-xsmall {
+  .migrateaccountpage {
+    &__wrapper {
+      .proceed-button {
+        font-size: 20px;
+        height: 60px;
+        transition: all 0.3s;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+    }
+  }
+
   .delete-account-button {
     width: 250px !important;
     margin-left: 0 !important;
@@ -80,5 +100,18 @@
     width: 250px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+}
+
+@include mobile-small {
+  .migrateaccountpage {
+    &__wrapper {
+      .proceed-button {
+        margin-top: 60px;
+        font-size: 22px;
+        height: 65px;
+        transition: all 0.3s;
+      }
+    }
   }
 }

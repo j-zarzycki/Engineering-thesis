@@ -110,4 +110,4 @@ const BreathingContainer: React.FC = () => {
   );
 };
 
-export default BreathingContainer;
+export default React.memo(BreathingContainer);

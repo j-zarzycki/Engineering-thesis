@@ -1,16 +1,15 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState, useCallback } from "react";
 
 import "./RecommendedActivitiesCards.scss";
 
 import ActivityCard from "@Components/ActivityCard";
-import { useHistory } from "react-router";
 import { RecommendationsType } from "@Types/recommendations.type";
 import apiService from "@Services/api.service";
-import { IonLoading, IonToast } from "@ionic/react";
+import { IonLoading, IonToast, useIonRouter } from "@ionic/react";
 
 const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
   const cardVariant = "small";
-  const history = useHistory();
+  const router = useIonRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [cardsData, setCardsData] = useState<RecommendationsType[]>([]);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
@@ -19,9 +18,9 @@ const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
     return <div className="activities-card__holder" />;
   };
 
-  const onCardClick = (route: string) => history.push(`${route}`);
+  const onCardClick = (route: string) => router.push(`${route}`, "forward");
 
-  const getCardsData = async () => {
+  const getCardsData = useCallback(async () => {
     setIsLoading(true);
     await apiService
       .GetRecommended()
@@ -35,9 +34,9 @@ const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
           message: "Wystąpił błąd podczas wczytywania danych.",
         });
 
-        history.push("/all");
+        router.push("/all", "forward", "pop");
       });
-  };
+  }, []);
 
   const renderLoader = () => {
     return (
@@ -62,9 +61,8 @@ const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
     );
   };
 
-  const renderRecommendedActivitiesCards = () => {
+  const renderRecommendedActivitiesCards = useCallback(() => {
     return cardsData.map((card) => {
-      console.log(`${card.name}: ${card.url}`);
       return (
         <ActivityCard
           variant={cardVariant}
@@ -73,7 +71,7 @@ const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
         />
       );
     });
-  };
+  }, [cardsData]);
 
   const renderContext = () => {
     return (

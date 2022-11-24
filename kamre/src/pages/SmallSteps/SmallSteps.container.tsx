@@ -135,4 +135,4 @@ const SmallStepsContainer: React.FC = () => {
   );
 };
 
-export default SmallStepsContainer;
+export default React.memo(SmallStepsContainer);

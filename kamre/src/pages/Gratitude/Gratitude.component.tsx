@@ -282,4 +282,4 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Gratitude;
+export default React.memo(Gratitude);

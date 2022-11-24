@@ -90,4 +90,4 @@ const BikeContainer: React.FC = () => {
   );
 };
 
-export default BikeContainer;
+export default React.memo(BikeContainer);

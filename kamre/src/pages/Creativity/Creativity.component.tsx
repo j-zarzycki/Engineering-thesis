@@ -206,4 +206,4 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Creativity;
+export default React.memo(Creativity);

@@ -106,4 +106,4 @@ const FeetContainer: React.FC = () => {
   );
 };
 
-export default FeetContainer;
+export default React.memo(FeetContainer);

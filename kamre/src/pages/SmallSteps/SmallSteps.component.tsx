@@ -282,4 +282,4 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default SmallSteps;
+export default React.memo(SmallSteps);

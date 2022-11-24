@@ -99,4 +99,4 @@ const WalkingContainer: React.FC = () => {
   );
 };
 
-export default WalkingContainer;
+export default React.memo(WalkingContainer);

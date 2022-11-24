@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useIonViewWillEnter } from "@ionic/react";
+import React, { useState } from "react";
+import { useIonViewWillEnter, useIonViewDidEnter } from "@ionic/react";
 import moment from "moment";
 
 import { CalendarResponseType } from "@Types/calendar.type";
@@ -94,7 +94,7 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
     });
   });
 
-  useEffect(() => {
+  useIonViewDidEnter(() => {
     const activeElements = document.querySelectorAll(
       ".kamre-calendar__day--active",
     );

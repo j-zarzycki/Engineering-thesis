@@ -340,4 +340,4 @@ const Weights: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Weights;
+export default React.memo(Weights);

@@ -281,4 +281,4 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default GoodWord;
+export default React.memo(GoodWord);

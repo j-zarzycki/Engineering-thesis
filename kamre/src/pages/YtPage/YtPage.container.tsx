@@ -86,4 +86,4 @@ const YtPageContainer: React.FC = () => {
   );
 };
 
-export default YtPageContainer;
+export default React.memo(YtPageContainer);

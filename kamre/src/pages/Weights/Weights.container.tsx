@@ -166,4 +166,4 @@ const WeightsContainer: React.FC = () => {
   );
 };
 
-export default WeightsContainer;
+export default React.memo(WeightsContainer);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useIonRouter } from "@ionic/react";
 import { Swiper } from "swiper/types";
+import { Device } from "@capacitor/device";
 
 import { authLogin } from "@Actions/auth";
 import useAppDispatch from "@Hooks/useAppDispatch";
@@ -26,17 +27,33 @@ const WelcomePageContainer: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const recoveryRef = useRef<any>(null);
   const dispatch = useAppDispatch();
+  let isMigrated = false;
 
   const authenticateUser = () => {
-    dispatch(authLogin("test_user"))
-      .then(() => {
-        localStorage.setItem("isFirstStart", "false");
-        router.push("/home", "forward", "pop");
-        setIsLoading(false);
-      })
-      .catch(() => {
-        router.push("/403", "forward", "pop");
+    Device.getId().then((info) => {
+      localStorage.setItem("deviceId", info.uuid);
+      dispatch(authLogin(info.uuid))
+        .then(async () => {
+          localStorage.setItem("shouldHomeRender", "true");
+          setIsLoading(false);
+          router.push("/home", "forward", "pop");
+        })
+        .catch(() => {
+          router.push("/403", "forward", "pop");
+        });
+    });
+
+    if (isMigrated) {
+      setToast({
+        isOpen: true,
+        message: "Migracja konta przebiegła pomyślnie!",
       });
+    } else {
+      setToast({
+        isOpen: true,
+        message: "Witamy w aplikacji!",
+      });
+    }
   };
 
   const onStartButtonClick = () => {
@@ -75,24 +92,20 @@ const WelcomePageContainer: React.FC = () => {
 
   const onRestoreDataButtonClick = async () => {
     setIsLoading(true);
-    await apiService
-      .SendRecoveryCode("test_user2", inputValue)
-      .then(() => {
-        setToast({
-          isOpen: true,
-          message: "Konto zostało pomyślnie zmigrowane!",
+    Device.getId().then((info) => {
+      apiService
+        .SendRecoveryCode(info.uuid.replace(/\s/g, ""), inputValue)
+        .then(() => {
+          isMigrated = true;
+          setTimeout(authenticateUser, 3000);
+        })
+        .catch(() => {
+          setToast({
+            isOpen: true,
+            message: "Wystąpił błąd podczas migrowania konta.",
+          });
         });
-        router.push("/home", "forward", "pop");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setToast({
-          isOpen: true,
-          message: "Wystąpił błąd podczas migrowania konta.",
-        });
-      });
+    });
   };
 
   const onCancelRecoveryButtonHandle = () => {
@@ -114,6 +127,7 @@ const WelcomePageContainer: React.FC = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("shouldHomeRender", "false");
     const tabs = document.querySelector("ion-tab-bar");
     tabs!.style.display = "none";
     setImg(MainImg);
@@ -144,4 +158,4 @@ const WelcomePageContainer: React.FC = () => {
   );
 };
 
-export default WelcomePageContainer;
+export default React.memo(WelcomePageContainer);

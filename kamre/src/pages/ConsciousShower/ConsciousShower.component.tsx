@@ -197,4 +197,4 @@ const ConsciousShower: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default ConsciousShower;
+export default React.memo(ConsciousShower);

@@ -5,4 +5,4 @@ const PrivacyPolicyContainer: React.FC = () => {
   return <PrivacyPolicy />;
 };
 
-export default PrivacyPolicyContainer;
+export default React.memo(PrivacyPolicyContainer);
