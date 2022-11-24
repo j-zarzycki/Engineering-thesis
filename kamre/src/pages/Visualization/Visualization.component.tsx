@@ -339,4 +339,4 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Visualization;
+export default React.memo(Visualization);

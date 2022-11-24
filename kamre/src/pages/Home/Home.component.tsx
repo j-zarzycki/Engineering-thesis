@@ -20,6 +20,7 @@ import {
   createGesture,
   Gesture,
   useIonViewWillEnter,
+  useIonViewDidEnter,
   IonMenuToggle,
 } from "@ionic/react";
 import Cookies from "universal-cookie";
@@ -34,6 +35,7 @@ import MessageQuestion from "../../components/Message/MessageQuestion.component"
 import AllActivitiesMenuComponent from "@Components/AllActivitiesMenu";
 import moment from "moment";
 import useAppDispatch from "@Hooks/useAppDispatch";
+import useAppSelector from "@Hooks/useAppSelector";
 
 const Home: React.FC = () => {
   const cookies = new Cookies();
@@ -45,7 +47,8 @@ const Home: React.FC = () => {
   let numberOfTransform = 0;
   let maxDownTransformValue = 0;
 
-  const onSettingsClick = () => router.push("/settings", "forward", "pop");
+  const onSettingsClick = () => router.push("/settings", "forward");
+  const deviceId = String(localStorage.getItem("deviceId"));
 
   const menuRef = React.useRef<HTMLIonMenuElement>(null);
 
@@ -56,13 +59,15 @@ const Home: React.FC = () => {
 
   useIonViewWillEnter(() => {
     if (moment().isAfter(userTokenExp)) {
-      dispatch(authLogin("test_user")).catch(() => {
+      dispatch(authLogin(deviceId)).catch(() => {
         router.push("/403", "forward", "pop");
       });
     }
   });
 
   useEffect(() => {
+    const tabs = document.querySelector("ion-tab-bar");
+    tabs!.style.display = "flex";
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -80,10 +85,13 @@ const Home: React.FC = () => {
         const activitiesCardWrapper = document.querySelector(
           ".activities-card__wrapper",
         ) as HTMLElement | null;
-        const contentHeight =
-          document.querySelector("ion-content")!.offsetHeight;
+        const contentWrapper = document.querySelector(
+          ".homepage-content",
+        ) as HTMLElement | null;
+        const contentHeight = contentWrapper!.offsetHeight;
         const activitiesCardWrapperHeight = activitiesCardWrapper!.offsetHeight;
         const blurbHeight = blurb!.offsetHeight;
+
         const transformData = c.style.transform;
         const numberStart = transformData.indexOf("(");
         const numberEnd = transformData.indexOf("p");
@@ -135,7 +143,10 @@ const Home: React.FC = () => {
         let contentHeight;
 
         activitiesCardHeight = ref.current.offsetHeight;
-        contentHeight = document.querySelector("ion-content")!.offsetHeight;
+        const contentWrapper = document.querySelector(
+          ".homepage-content",
+        ) as HTMLElement | null;
+        contentHeight = contentWrapper!.offsetHeight;
         const blurb = document.querySelector(
           ".homepage-header-wrapper",
         ) as HTMLElement | null;
@@ -179,7 +190,12 @@ const Home: React.FC = () => {
             </div>
           </IonToolbar>
         </IonHeader>
-        <IonContent fullscreen class="ion-padding-horizontal" scroll-y="false">
+        <IonContent
+          className="homepage-content"
+          fullscreen
+          class="ion-padding-horizontal"
+          scroll-y="false"
+        >
           <div className="homepage">
             <div className="homepage-wrapper">
               <IonGrid>
@@ -214,4 +230,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default React.memo(Home);

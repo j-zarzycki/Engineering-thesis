@@ -36,7 +36,7 @@ const DeleteAccountPageContainer: React.FC = () => {
     await apiService
       .DeleteUser()
       .finally(() => {
-        localStorage.setItem("isFirstStart", "true");
+        localStorage.setItem("shouldHomeRender", "false");
         router.push("/welcompage", "forward", "pop");
         setToast({ isOpen: true, message: "Pomyślnie usunięto!" });
         setIsLoading(false);
@@ -61,4 +61,4 @@ const DeleteAccountPageContainer: React.FC = () => {
   );
 };
 
-export default DeleteAccountPageContainer;
+export default React.memo(DeleteAccountPageContainer);

@@ -206,4 +206,4 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default YtPage;
+export default React.memo(YtPage);

@@ -99,4 +99,4 @@ const SoundMixContainer: React.FC = () => {
   );
 };
 
-export default SoundMixContainer;
+export default React.memo(SoundMixContainer);

@@ -96,4 +96,4 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default PreviousDay;
+export default React.memo(PreviousDay);

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Redirect, Route } from "react-router-dom";
+/* eslint-disable */
+import React, { useEffect, useState } from "react";
+import { Redirect, Route, Link } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -8,12 +9,15 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonButton,
   setupIonicReact,
   useIonRouter,
+  useIonViewWillEnter,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle, flash, today } from "ionicons/icons";
-import Cookies from "universal-cookie";
+import { Device } from "@capacitor/device";
 import moment from "moment";
 
 import SmallSteps from "@Pages/SmallSteps";
@@ -77,22 +81,7 @@ import YtPage from "./pages/YtPage";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
-  const cookies = new Cookies();
-  const userTokenExp = cookies.get("token_exp");
-  const isUserAuthenticated = cookies.get("token")?.length > 28 || isLoggedIn;
-  const isFirstStart = !localStorage.getItem("isFirstStart");
-  const router = useIonRouter();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (moment().isAfter(userTokenExp)) {
-      dispatch(authLogin("test_user")).catch(() => {
-        router.push("/403", "forward", "pop");
-      });
-    }
-  }, []);
-
+  let shouldHomeRender = localStorage.getItem("shouldHomeRender");
   return (
     <IonApp>
       <IonReactRouter>
@@ -138,18 +127,25 @@ const App: React.FC = () => {
             />
             <Route exact path="/privacypolicy" component={PrivacyPolicy} />
             <Route exact path="/">
-              {isFirstStart ? (
+              {shouldHomeRender === "false" ||
+              shouldHomeRender === null ||
+              shouldHomeRender === undefined ? (
                 <Redirect to="/welcompage" />
               ) : (
                 <Redirect to="/home" />
               )}
             </Route>
-            <Route path="/home">{isUserAuthenticated && <Home />}</Route>
+            <Route path="/home" component={Home} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="emergency" href="/emergency">
               <IonIcon icon={flash} />
-              <IonLabel>Szybka pomoc</IonLabel>
+              <IonLabel>
+                <>
+                  Szybka pomoc{" "}
+                  {console.log("shouldHomeRender = ", shouldHomeRender)}
+                </>
+              </IonLabel>
             </IonTabButton>
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />

@@ -90,4 +90,4 @@ const FiveToOneContainer: React.FC = () => {
   );
 };
 
-export default FiveToOneContainer;
+export default React.memo(FiveToOneContainer);

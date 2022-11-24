@@ -164,4 +164,4 @@ const AngerContainer: React.FC = () => {
   );
 };
 
-export default AngerContainer;
+export default React.memo(AngerContainer);

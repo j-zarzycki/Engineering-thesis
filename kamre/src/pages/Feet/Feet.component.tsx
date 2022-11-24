@@ -346,4 +346,4 @@ const Feet: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Feet;
+export default React.memo(Feet);

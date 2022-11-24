@@ -175,4 +175,4 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default DeleteAccountPage;
+export default React.memo(DeleteAccountPage);

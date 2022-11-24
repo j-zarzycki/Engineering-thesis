@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import "./MessageActivity.style.scss";
 
@@ -12,73 +12,73 @@ const MessageActivity: React.FC<IProps> = ({
   activityTitle,
   activityDescription,
 }) => {
-  const history = useHistory();
+  const router = useIonRouter();
 
   const onActivityClick = () => {
     console.log("activity =", activityTitle);
     switch (activityTitle[0]) {
       case "Małe kroki":
-        history.push("/smallsteps");
+        router.push("/smallsteps", "forward");
         break;
       case "Oddychanie":
-        history.push("/breathing");
+        router.push("/breathing", "forward");
         break;
       case "5-4-3-2-1":
-        history.push("/fivetoone");
+        router.push("/fivetoone", "forward");
         break;
       case "Wdzięczność":
-        history.push("/gratitude");
+        router.push("/gratitude", "forward");
         break;
       case "Złość":
-        history.push("/anger");
+        router.push("/anger", "forward");
         break;
       case "Świadomy prysznic":
-        history.push("/shower");
+        router.push("/shower", "forward");
         break;
       case "Stopy":
-        history.push("/feet");
+        router.push("/feet", "forward");
         break;
       case "Jazda na rowerze":
-        history.push("/bike");
+        router.push("/bike", "forward");
         break;
       case "Poprzedni dzień":
-        history.push("/previousday");
+        router.push("/previousday", "forward");
         break;
       case "Przygotuj coś pysznego":
-        history.push("/preparemeal");
+        router.push("/preparemeal", "forward");
         break;
       case "Dobre słowo":
-        history.push("/goodword");
+        router.push("/goodword", "forward");
         break;
       case "Ciężary":
-        history.push("/weights");
+        router.push("/weights", "forward");
         break;
-      case "Wizualizacja":
-        history.push("/visualization");
+      case "Wizualizacja swojego procesu zmiany":
+        router.push("/visualization", "forward");
         break;
       case "Spacer":
-        history.push("/walking");
+        router.push("/walking", "forward");
         break;
-      case "Film edukacyjny":
-        history.push("/eduvideo");
+      case "Filmik edukacyjny":
+        router.push("/eduvideo", "forward");
         break;
       case "Przyjaciel stres":
-        history.push("/ytpage");
+        router.push("/ytpage", "forward");
         break;
       case "Muzyka klasyczna":
-        history.push("/music");
+        router.push("/music", "forward");
         break;
-      case "Ostudzenie napięcia":
-        history.push("/coldwater");
+      case "Schłódź nadgarstki kark":
+        router.push("/coldwater", "forward");
         break;
-      case "Co w duszy gra?":
-        history.push("/sounds");
+      case "Piosenka":
+        router.push("/sounds", "forward");
         break;
-      case "Trening Schultza":
-        history.push("/schultztraining");
+      case "Podcast":
+        router.push("/schultztraining", "forward");
         break;
       case "Mięsień kreatywności":
-        history.push("/creativity");
+        router.push("/creativity", "forward");
         break;
       default:
         break;

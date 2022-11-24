@@ -3,6 +3,7 @@
    przed jej zadeklarowaniem (pomimo tego że jest to function()) */
 
 import React, { useState, useRef, useEffect } from "react";
+import { useIonViewWillEnter } from "@ionic/react";
 
 import {
   MessageActivity,
@@ -71,6 +72,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
     if (answers.length >= 1 && index < questions.length) {
       setIsIndicatorVisible(true);
       setTimeout(renderNegotiation, 1500);
+      handleScroll();
     }
 
     if (index >= questions.length && isContinuation === false) {
@@ -88,6 +90,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
       ...prevState,
       <MessageAnswer value={value} />,
     ]);
+
     if (value === "Nie") {
       renderActivity();
       setTimeout(renderConversationData, 500);
@@ -95,9 +98,10 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
       sendEndOfNegotiation();
       setConversationData((prevState) => [
         ...prevState,
-        <MessageQuestion value="Jesteśm bardzo szczęśliwa, że mogłam Tobie pomóc! 💜 " />,
+        <MessageQuestion value="Jestem bardzo szczęśliwa, że mogłam Tobie pomóc! 💜 " />,
       ]);
-      handleScroll();
+
+      setTimeout(handleScroll, 200);
     } else {
       setUserAnswers((prevState) => [...prevState, activityIndex]);
     }

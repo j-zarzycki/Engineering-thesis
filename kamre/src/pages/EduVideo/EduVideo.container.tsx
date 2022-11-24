@@ -88,4 +88,4 @@ const EduVideoContainer: React.FC = () => {
   );
 };
 
-export default EduVideoContainer;
+export default React.memo(EduVideoContainer);

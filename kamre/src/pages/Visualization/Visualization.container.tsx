@@ -169,4 +169,4 @@ const VisualizationContainer: React.FC = () => {
   );
 };
 
-export default VisualizationContainer;
+export default React.memo(VisualizationContainer);

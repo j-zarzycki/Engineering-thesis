@@ -32,4 +32,4 @@ const Page403: React.FC = () => {
   );
 };
 
-export default Page403;
+export default React.memo(Page403);

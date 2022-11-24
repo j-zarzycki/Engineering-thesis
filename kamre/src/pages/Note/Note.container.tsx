@@ -96,4 +96,4 @@ const NoteContainer: React.FC = () => {
   );
 };
 
-export default NoteContainer;
+export default React.memo(NoteContainer);

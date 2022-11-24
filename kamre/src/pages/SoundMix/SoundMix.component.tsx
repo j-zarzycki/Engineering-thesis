@@ -224,4 +224,4 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default SoundMix;
+export default React.memo(SoundMix);

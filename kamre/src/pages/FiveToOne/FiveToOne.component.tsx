@@ -229,4 +229,4 @@ const FiveToOne: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default FiveToOne;
+export default React.memo(FiveToOne);

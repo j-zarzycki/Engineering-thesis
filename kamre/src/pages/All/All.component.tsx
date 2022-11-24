@@ -20,6 +20,7 @@ import ActivitiesCard from "@Components/ActivitiesCard";
 import Chat from "@Components/Chat";
 import { useHistory, useLocation } from "react-router";
 import { FiSettings } from "react-icons/fi";
+import MessageQuestion from "@Components/Message/MessageQuestion.component";
 
 const All: React.FC = () => {
   const location = useLocation();
@@ -35,8 +36,6 @@ const All: React.FC = () => {
   const onSettingsClick = () => history.replace("/settings");
 
   useEffect(() => {
-    window.addEventListener("beforeunload", () => replaceHistory);
-
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
@@ -51,7 +50,16 @@ const All: React.FC = () => {
         const blurb = document.querySelector(
           ".homepage-header-wrapper",
         ) as HTMLElement | null;
+        const activitiesCardWrapper = document.querySelector(
+          ".activities-card__wrapper",
+        ) as HTMLElement | null;
+        const contentWrapper = document.querySelector(
+          ".all-content",
+        ) as HTMLElement | null;
+        const contentHeight = contentWrapper!.offsetHeight;
+        const activitiesCardWrapperHeight = activitiesCardWrapper!.offsetHeight;
         const blurbHeight = blurb!.offsetHeight;
+
         const transformData = c.style.transform;
         const numberStart = transformData.indexOf("(");
         const numberEnd = transformData.indexOf("p");
@@ -61,8 +69,14 @@ const All: React.FC = () => {
         c.style.transition = ".2s ease-out";
 
         if (numberOfTransform > 120) {
-          c.style.transform = `translateY(${485}px)`;
           setIsActivitiesCardHidden(true);
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${contentHeight * 0.65}px)`;
+          } else {
+            c.style.transform = `translateY(${
+              activitiesCardWrapperHeight * 0.95
+            }px)`;
+          }
         }
 
         if (numberOfTransform < 120 && numberOfTransform > -100) {
@@ -75,11 +89,18 @@ const All: React.FC = () => {
         }
 
         if (numberOfTransform < blurbHeight * -1) {
-          c.style.transform = `translateY(${numberOfTransform}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${numberOfTransform}px)`;
+          } else {
+            setIsActivitiesCardHidden(false);
+            c.style.transform = `translateY(${0}px)`;
+          }
         }
 
         if (numberOfTransform < maxDownTransformValue - 50) {
-          c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          if (contentHeight < activitiesCardWrapperHeight) {
+            c.style.transform = `translateY(${maxDownTransformValue}px)`;
+          }
         }
       },
 
@@ -90,7 +111,10 @@ const All: React.FC = () => {
         let contentHeight;
 
         activitiesCardHeight = ref.current.offsetHeight;
-        contentHeight = document.querySelector("ion-content")!.offsetHeight;
+        const contentWrapper = document.querySelector(
+          ".all-content",
+        ) as HTMLElement | null;
+        contentHeight = contentWrapper!.offsetHeight;
         const blurb = document.querySelector(
           ".homepage-header-wrapper",
         ) as HTMLElement | null;
@@ -109,10 +133,6 @@ const All: React.FC = () => {
     });
 
     gesture.enable(true);
-
-    return () => {
-      window.removeEventListener("beforeunload", replaceHistory);
-    };
   }, []);
 
   return (
@@ -125,7 +145,12 @@ const All: React.FC = () => {
           </div>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen class="ion-padding-horizontal" scroll-y="false">
+      <IonContent
+        className="all-content"
+        fullscreen
+        class="ion-padding-horizontal"
+        scroll-y="false"
+      >
         <div className="homepage">
           <div className="homepage-wrapper">
             <IonGrid>
@@ -140,17 +165,11 @@ const All: React.FC = () => {
                   </IonRow>
                   <IonRow>
                     <IonCol className="chat">
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Cześć!</span>
-                        </IonCardContent>
-                      </IonCard>
-
-                      <IonCard class="chat-styles">
-                        <IonCardContent class="chat-description">
-                          <span>Co chcesz dziś porobić?</span>
-                        </IonCardContent>
-                      </IonCard>
+                      <MessageQuestion
+                        value={
+                          "Cześć! \n Przesuń palec w dół aby rozpocząć ze mną czat!"
+                        }
+                      />
                     </IonCol>
                   </IonRow>
                 </IonCol>
@@ -165,4 +184,4 @@ const All: React.FC = () => {
   );
 };
 
-export default All;
+export default React.memo(All);

@@ -218,4 +218,4 @@ const ColdWater: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default ColdWater;
+export default React.memo(ColdWater);

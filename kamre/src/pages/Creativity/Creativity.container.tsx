@@ -117,4 +117,4 @@ const CreativityContainer: React.FC = () => {
     />
   );
 };
-export default CreativityContainer;
+export default React.memo(CreativityContainer);
