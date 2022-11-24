@@ -87,12 +87,24 @@
     &__wrapper {
       height: 100%;
 
+      h4 {
+        font-size: $header-description-mxs
+      }
+
+      .pet-octopus {
+        max-height: 160px;
+      }
+
       .proceed-button {
-        width: 90%;
+        width: 100%;
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
       }
+    }
+
+    &__final-buttons {
+      margin-top: 20px;
     }
 
     &__swiper {
@@ -101,7 +113,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 32px;
+            font-size: $header-description-mxs;
           }
 
           &__paragraph {

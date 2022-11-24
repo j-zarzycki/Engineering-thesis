@@ -2,10 +2,14 @@
 @import "@Theme/media";
 
 .final-buttons {
-  display: none; // DO WYŁĄCZENIA TE DWA PRZYCISKI
+  display: none;
 }
 
 .settings {
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
 
   &__wrapper_image {
     display: flex;
@@ -35,14 +39,17 @@
 
     &__buttons {
       .migrate-account-button {
+        font-size: 20px;
         margin: 16px 16px 16px 16px;
       }
 
       .delete-account-button {
+        font-size: 20px;
         margin: 16px 16px 16px 16px;
       }
       
       .privacy-policy-button {
+        font-size: 20px;
         margin: 16px 16px 16px 16px;
         text-align: left;
       }
@@ -51,6 +58,16 @@
 }
 
 @include mobile-xsmall {
+  .settings {
+    h2 {
+      font-size: $header-description-mxs
+    }
+
+    .pet-octopus {
+      max-height: 160px;
+    }
+  }
+
   .delete-account-button {
     width: 250px !important;
     margin-left: 0 !important;

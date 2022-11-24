@@ -89,7 +89,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
         }`}
       >
         <IonImg
-          className={`${isPlaying && "breathing__image--active"}`}
+          className={`pet-octopus ${isPlaying && "breathing__image--active"}`}
           src={isPlaying ? MainImg : Smile}
           alt="pet"
         />

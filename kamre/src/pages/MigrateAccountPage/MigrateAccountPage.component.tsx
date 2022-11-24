@@ -45,7 +45,9 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderToast()}
         <div className="migrateaccountpage">
-          <BackButton defaultHref="/settings" />
+          <div className="migrateaccountpage__header">
+            <BackButton defaultHref="/settings" />
+          </div>
           <div className="migrateaccountpage__wrapper">
             <div className="migrateaccountpage__wrapper_image">
               <Pet

@@ -28,7 +28,9 @@ const Settings: React.FC = () => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="settings">
-          <BackButton defaultHref="/home" />
+          <div className="settings__header">
+            <BackButton defaultHref="/home" />
+          </div>
           <div className="settings__wrapper">
             <div className="settings__wrapper_image">
               <Pet

@@ -15,6 +15,7 @@ const Pet: React.FC<IProps> = (props: IProps) => {
   return (
     <IonRow className="ion-align-items-start">
       <IonImg
+        className="pet-octopus"
         src={src}
         alt={alt}
         style={{

@@ -27,7 +27,9 @@ const PrivacyPolicy: React.FC = () => {
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="privacypolicy">
-          <BackButton defaultHref="/settings" />
+          <div className="privacypolicy__header">
+            <BackButton defaultHref="/settings" />
+          </div>
           <div className="privacypolicy__wrapper">
             <div className="privacypolicy__wrapper_image">
               <Pet
