@@ -205,11 +205,23 @@
 @include mobile-small {
   .breathing {
 
+    &__image {
+      .pet-octopus {
+        max-height: 130px;
+      }
+    }
+
     &__description {
       font-size: 18px;
     }
 
     &__timer {
+      h4 {
+        font-size: 38px;
+      }
+      h5 {
+        font-size: 30px;
+      }
       .cancel-button {
         margin-top: 60px;
       }

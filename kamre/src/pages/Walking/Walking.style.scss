@@ -133,8 +133,12 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 170px;
+      }
+
       .proceed-button {
-        margin-top: 60px;
+        margin-top: 10px;
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
@@ -145,7 +149,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {
@@ -156,7 +160,7 @@
     }
 
     &__final-buttons {
-      margin-top: 60px;
+      margin-top: 10px;
     }
   }
 }

@@ -227,15 +227,27 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 170px;
+      }
+
       .proceed-button {
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
-        width: 90%;
+        width: 100%;
       }
     }
 
     &__list {
+      .pet-octopus {
+        max-height: 170px;
+      }
+
+      h4 {
+        font-size: $font-size-xxl;
+      }
+
       p {
         margin-top: 12%;
         margin-bottom: 12%;
@@ -246,7 +258,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {
