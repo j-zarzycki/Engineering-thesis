@@ -147,6 +147,10 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 170px;
+      }
+
       .proceed-button {
         font-size: 22px;
         height: 65px;
@@ -159,7 +163,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {

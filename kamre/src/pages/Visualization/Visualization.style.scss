@@ -224,14 +224,22 @@
       margin-top: 85px;
     }
 
+    .pet-octopus {
+      max-height: 170px;
+    }
+
     &__wrapper {
       height: 100%;
+
+      h4 {
+        font-size: $font-size-xxl;
+      }
 
       .proceed-button {
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
-        width: 90%;
+        width: 100%;
       }
     }
 
@@ -246,7 +254,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {
