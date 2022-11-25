@@ -6,6 +6,11 @@
 }
 
 .migrateaccountpage {
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
+
   &__wrapper {
     .proceed-button {
       width: 100%;
@@ -79,7 +84,12 @@
 
 @include mobile-xsmall {
   .migrateaccountpage {
+
     &__wrapper {
+      .pet-octopus {
+        max-height: 160px;
+      }
+      
       .proceed-button {
         font-size: 20px;
         height: 60px;

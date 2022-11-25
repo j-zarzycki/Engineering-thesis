@@ -2,12 +2,7 @@
 @import "@Theme/media";
 @import "@Theme/mixins";
 
-
-
-
 .welcome-page {
-
-  
   @include animation-properties;
   &__wrapper {
     display: flex;
@@ -73,7 +68,7 @@
           font-weight: $font-weight-m;
           font-size: $font-size-m;
           line-height: 24px;
-          color: #000;
+          color: $secondary-gray-90;
           text-align: center;
           padding-left: 1.5rem;
           padding-right: 1.5rem;
@@ -147,17 +142,21 @@
     }
   }
 }
+
 @include mobile-xsmall {
   .welcome-page {
     &__wrapper {
       height: 100%;
+      
+      .pet-octopus {
+        max-height: 160px;
+      }
 
-      .proceed-button {
+      .welcome-page-proceed-button {
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
         margin-bottom: 0;
-        margin-top: 10px;
       }
     }
 
@@ -176,7 +175,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 32px;
+            font-size: $header-description-mxs;
           }
 
           &__paragraph {

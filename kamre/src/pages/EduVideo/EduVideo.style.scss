@@ -130,6 +130,10 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 160px;
+      }
+
       .video {
         max-height: 250px;
         width: 100%;
@@ -159,7 +163,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 32px;
+            font-size: $header-description-mxs;
           }
 
           &__paragraph {
