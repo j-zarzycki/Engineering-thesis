@@ -9,16 +9,13 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  IonButton,
   setupIonicReact,
-  useIonRouter,
-  useIonViewWillEnter,
-  useIonViewDidEnter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle, flash, today } from "ionicons/icons";
 import { Device } from "@capacitor/device";
 import moment from "moment";
+import { App as CapacitorApp } from "@capacitor/app";
 
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
@@ -79,6 +76,16 @@ import "./pages/App.scss";
 import YtPage from "./pages/YtPage";
 
 setupIonicReact();
+
+CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+  if (canGoBack && localStorage.getItem("shouldHomeRender") === "false") {
+    CapacitorApp.exitApp();
+  }
+
+  if (!canGoBack) {
+    CapacitorApp.exitApp();
+  }
+});
 
 const App: React.FC = () => {
   let shouldHomeRender = localStorage.getItem("shouldHomeRender");
