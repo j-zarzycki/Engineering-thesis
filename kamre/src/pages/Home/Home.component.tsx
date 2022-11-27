@@ -58,6 +58,9 @@ const Home: React.FC = () => {
   };
 
   useIonViewWillEnter(() => {
+    const tabs = document.querySelector("ion-tab-bar");
+    tabs!.style.display = "flex";
+
     if (moment().isAfter(userTokenExp)) {
       dispatch(authLogin(deviceId)).catch(() => {
         router.push("/403", "forward", "pop");
@@ -66,8 +69,6 @@ const Home: React.FC = () => {
   });
 
   useEffect(() => {
-    const tabs = document.querySelector("ion-tab-bar");
-    tabs!.style.display = "flex";
     let c = ref.current;
     c.style.transform = "translateY(0px)";
     const gesture: Gesture = createGesture({
