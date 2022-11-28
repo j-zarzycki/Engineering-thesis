@@ -125,6 +125,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
       <div className="schultz__swiper">
         <Swiper
           effect="fade"
+          autoHeight
           centeredSlides
           slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
@@ -166,19 +167,25 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 2)
       return (
-        <div className="schultz__final-buttons">
-          <CancelButton
-            onClick={onCreateActivityWithNoContent}
-            title="Zakończ"
-          />
-          <SaveActivityButton
-            title="Dodaj"
-            onClick={onCreateActivityWithContent}
-          />
+        <div className="schultz__buttons">
+          <div className="schultz__final-buttons">
+            <CancelButton
+              onClick={onCreateActivityWithNoContent}
+              title="Zakończ"
+            />
+            <SaveActivityButton
+              title="Dodaj"
+              onClick={onCreateActivityWithContent}
+            />
+          </div>
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return (
+      <div className="schultz__buttons">
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderContext = () => {
