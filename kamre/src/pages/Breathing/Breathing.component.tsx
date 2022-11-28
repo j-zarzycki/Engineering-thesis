@@ -6,6 +6,10 @@ import {
   IonToast,
   IonLoading,
 } from "@ionic/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
+
+import "swiper/css";
 
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
@@ -14,6 +18,7 @@ import CancelButton from "@Components/CancelButton";
 import MainImg from "@Assets/main.png";
 import Smile from "@Assets/smile.png";
 import "./Breathing.style.scss";
+import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 
 interface IProps {
   isPlaying: boolean;
@@ -22,8 +27,14 @@ interface IProps {
   renderType: string;
   isLoading: boolean;
   toast: any;
+  currentSlide: number;
+  swiper: any;
+  slideElements: number;
   handleButtonClick(): void;
   onCancelButtonClick(): void;
+  setSwiper(value: any): void;
+  onSlideChangeHandler(slide: SwiperType): void;
+  onProceedButtonClick(): void;
 }
 
 enum RenderTypeTranslation {
@@ -39,29 +50,61 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     isAnimationPaused,
     renderType,
     toast,
+    swiper,
+    currentSlide,
+    slideElements,
     isLoading,
+    setSwiper,
     handleButtonClick,
     onCancelButtonClick,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
+
+  const renderHorizontalProgressBar = () => {
+    return (
+      <div className="breathing__horizontal-progress-bar">
+        <HorizontalProgressBar
+          currentElement={currentSlide}
+          elements={slideElements}
+        />
+      </div>
+    );
+  };
 
   const renderDescription = () => {
     return (
-      <div className="breathing">
-        <h4>Oddychanie</h4>
-        <div className="breathing__description">
-          <ul>
-            <li>
-              Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
-              powinny być proste.
-            </li>
-            <li>Weź głęboki i spokojny oddech przez nos.</li>
-            <li>
-              Upewnij się, że obszar, który się podnosi, to przepona (brzuch), a
-              nie klatka piersiowa.
-            </li>
-            <li>Następnie głośno wydychaj powietrze przez usta.</li>
-          </ul>
-        </div>
+      <div className="breathing__swiper">
+        <Swiper
+          effect="fade"
+          autoHeight
+          centeredSlides
+          slidesPerView={1}
+          onSwiper={(swiperData) => setSwiper(swiperData)}
+          onSlideChange={(slide) => onSlideChangeHandler(slide)}
+        >
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Oddychanie</h4>
+              <p className="swiper-slide__paragraph">
+                Połóż jedną rękę na brzuchu, a drugą na klatce piersiowej. Plecy
+                powinny być proste.
+                <br />
+                Weź głęboki i spokojny oddech przez nos.
+              </p>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="swiper-slide__wrapper">
+              <p className="swiper-slide__paragraph">
+                Upewnij się, że obszar, który się podnosi, to przepona (brzuch),
+                a nie klatka piersiowa.
+                <br />
+                Następnie głośno wydychaj powietrze przez usta.
+              </p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
     );
   };
@@ -100,15 +143,28 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     );
   };
 
+  const renderButtons = () => {
+    if (swiper?.activeIndex >= 1)
+      return (
+        <div className="breathing__buttons">
+          <ProceedButton title="Prowadź mnie!" onClick={handleButtonClick} />
+        </div>
+      );
+
+    return (
+      <div className="breathing__buttons">
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
+  };
+
   const renderContext = () => {
     return (
       <>
         {renderImage()}
         {isPlaying ? renderTimer() : renderDescription()}
 
-        {!isPlaying && (
-          <ProceedButton title="Prowadź mnie!" onClick={handleButtonClick} />
-        )}
+        {!isPlaying && renderButtons()}
       </>
     );
   };
@@ -152,8 +208,9 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderLoader()}
         {renderToast()}
+        {renderHorizontalProgressBar()}
         <div className="breathing__header">{renderHeader()}</div>
-        <div className="breathing__context">{renderContext()}</div>
+        <div className="breathing__wrapper">{renderContext()}</div>
       </IonContent>
     </IonPage>
   );
