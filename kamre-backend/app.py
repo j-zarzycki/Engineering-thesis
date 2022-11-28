@@ -46,6 +46,7 @@ def check():
     else:
         return status, (jsonify({'res': 'Token invalid'}), 401)
 
+
 @app.route("/noContent", methods=['POST'])
 def no_content():
     status, user_id = check()
