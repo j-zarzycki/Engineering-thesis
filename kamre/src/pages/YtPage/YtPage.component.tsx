@@ -125,6 +125,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
       <div className="ytpage__swiper">
         <Swiper
           effect="fade"
+          autoHeight
           centeredSlides
           slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
@@ -134,10 +135,9 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">Netflix and chill? </h4>
               <p className="swiper-slide__paragraph">
-                Internet to ogromne źródło informacji - czas zrobić z niego
-                użytek! Usiądź wygodnie, weź popcorn lub lody i obejrzyj krótki
-                film dotyczący stresu. Im więcej się o nim dowiesz tym
-                skuteczniej będziesz z nim walczyć.
+                Usiądź wygodnie, weź popcorn lub lody i obejrzyj krótki film
+                dotyczący stresu. Im więcej się o nim dowiesz tym skuteczniej
+                będziesz z nim walczyć!
               </p>
             </div>
           </SwiperSlide>
@@ -166,19 +166,25 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 2)
       return (
-        <div className="ytpage__final-buttons">
-          <CancelButton
-            onClick={onCreateActivityWithNoContent}
-            title="Zakończ"
-          />
-          <SaveActivityButton
-            title="Dodaj"
-            onClick={onCreateActivityWithContent}
-          />
+        <div className="ytpage__buttons">
+          <div className="ytpage__final-buttons">
+            <CancelButton
+              onClick={onCreateActivityWithNoContent}
+              title="Zakończ"
+            />
+            <SaveActivityButton
+              title="Dodaj"
+              onClick={onCreateActivityWithContent}
+            />
+          </div>
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return (
+      <div className="ytpage__buttons">
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderContext = () => {

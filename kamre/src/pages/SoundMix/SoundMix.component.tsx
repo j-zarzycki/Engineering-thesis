@@ -125,6 +125,7 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
       <div className="soundmix__swiper">
         <Swiper
           effect="fade"
+          autoHeight
           centeredSlides
           slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
@@ -184,19 +185,25 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 4)
       return (
-        <div className="soundmix__final-buttons">
-          <CancelButton
-            onClick={onCreateActivityWithNoContent}
-            title="Zakończ"
-          />
-          <SaveActivityButton
-            title="Dodaj"
-            onClick={onCreateActivityWithContent}
-          />
+        <div className="soundmix__buttons">
+          <div className="soundmix__final-buttons">
+            <CancelButton
+              onClick={onCreateActivityWithNoContent}
+              title="Zakończ"
+            />
+            <SaveActivityButton
+              title="Dodaj"
+              onClick={onCreateActivityWithContent}
+            />
+          </div>
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return (
+      <div className="soundmix__buttons">
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderContext = () => {
