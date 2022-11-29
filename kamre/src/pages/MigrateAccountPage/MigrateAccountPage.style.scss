@@ -1,11 +1,17 @@
 @import "@Theme/variables";
 @import "@Theme/media";
+@import "@Theme/mixins";
 
 .final-buttons {
   display: none; // DO WYŁĄCZENIA TE DWA PRZYCISKI
 }
 
 .migrateaccountpage {
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
+
   &__wrapper {
     .proceed-button {
       width: 100%;
