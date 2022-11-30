@@ -46,7 +46,7 @@
   }
 
   &__horizontal-progress-bar {
-    margin-top: 4em;
+    margin-top: 1em;
   }
 
   &__header {
@@ -142,9 +142,6 @@
     &__wrapper {
       height: 100%;
 
-      .schultz__horizontal-progress-bar {
-        margin-top: 2em;
-      }
 
       .pet-octopus {
         max-height: 160px;
@@ -276,6 +273,9 @@
         font-size: 24px;
         height: 75px;
         transition: all 0.3s;
+      }
+      &__horizontal-progress-bar {
+        padding-top: 4em;
       }
     }
 

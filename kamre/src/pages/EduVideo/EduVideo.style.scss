@@ -39,7 +39,7 @@
       }
     }
     .eduvideo__horizontal-progress-bar {
-      display: none;
+      padding-top: 1em;
     }
 
     .proceed-button {
@@ -214,6 +214,10 @@
         height: 65px;
         transition: all 0.3s;
       }
+
+      .eduvideo__horizontal-progress-bar {
+        padding-top: 2em;
+      }
     }
 
     &__swiper {
@@ -266,6 +270,10 @@
         font-size: 24px;
         height: 75px;
         transition: all 0.3s;
+      }
+
+      .eduvideo__horizontal-progress-bar {
+        padding-top: 4em;
       }
     }
 

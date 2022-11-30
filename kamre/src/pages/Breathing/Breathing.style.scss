@@ -14,12 +14,14 @@
   }
 
   &__horizontal-progress-bar {
-  display: none;
+    margin: 24px 0 24px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center
   }
 
   &__swiper {
     width: 100%;
-    margin-top: 43px;
 
     .swiper {
       &__proceed-buttons {
