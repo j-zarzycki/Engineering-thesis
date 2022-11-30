@@ -41,7 +41,7 @@
       }
     }
     .ytpage__horizontal-progress-bar {
-      display: none;
+      padding-top: 1em;
     }
 
   }
@@ -215,6 +215,9 @@
         height: 65px;
         transition: all 0.3s;
       }
+      .ytpage__horizontal-progress-bar {
+        padding-top: 2rem;
+      }
     }
 
     &__swiper {
@@ -267,6 +270,9 @@
         font-size: 24px;
         height: 75px;
         transition: all 0.3s;
+      }
+      .ytpage__horizontal-progress-bar {
+        padding-top: 4em;
       }
     }
 

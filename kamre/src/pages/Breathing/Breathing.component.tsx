@@ -75,6 +75,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
   const renderDescription = () => {
     return (
       <div className="breathing__swiper">
+        {renderHorizontalProgressBar()}
         <Swiper
           effect="fade"
           autoHeight
@@ -96,6 +97,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
+              <h4 className="swiper-slide__header">Używaj przepony</h4>
               <p className="swiper-slide__paragraph">
                 Upewnij się, że obszar, który się podnosi, to przepona (brzuch),
                 a nie klatka piersiowa.
@@ -147,7 +149,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     if (swiper?.activeIndex >= 1)
       return (
         <div className="breathing__buttons">
-          <ProceedButton title="Prowadź mnie!" onClick={handleButtonClick} />
+          <ProceedButton title="Dalej!" onClick={handleButtonClick} />
         </div>
       );
 
@@ -208,7 +210,6 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       <IonContent fullscreen class="ion-padding-horizontal">
         {renderLoader()}
         {renderToast()}
-        {renderHorizontalProgressBar()}
         <div className="breathing__header">{renderHeader()}</div>
         <div className="breathing__wrapper">{renderContext()}</div>
       </IonContent>
