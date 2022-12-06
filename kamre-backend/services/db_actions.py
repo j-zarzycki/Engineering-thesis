@@ -661,16 +661,12 @@ def check_id(user_id):
 def delete_account(user_id):
     user = User.objects(user_id=user_id).first()
     archived = Archive.objects(user_id=str(user.id)).all()
+    emrg = EmergencyPersonal.objects(user_id=user.id).first()
 
     for el in archived:
-        delete_archive(str(user.id))
-
+        el.delete()
+    emrg.delete()
     user.delete()
-
-
-def delete_archive(user_id):
-    archived = Archive.objects(user_id=user_id).first()
-    archived.delete()
 
 
 def generate_recovery(user_id):

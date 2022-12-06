@@ -152,9 +152,17 @@
       margin-top: 35px;
     }
 
+    .pet-octopus {
+      max-height: 160px;
+    }
+
     &__list {
       ul {
         max-height: 230px;
+      }
+
+      h4 {
+        font-size: $header-description-mxs;
       }
     }
 
@@ -162,7 +170,7 @@
       height: 100%;
 
       .proceed-button {
-        width: 90%;
+        width: 100%;
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
@@ -175,7 +183,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 32px;
+            font-size: $header-description-mxs;
           }
 
           &__paragraph {
@@ -193,6 +201,16 @@
       margin-top: 85px;
     }
 
+    .pet-octopus {
+      max-height: 170px;
+    }
+
+    &__list {
+      h4 {
+        font-size: $font-size-xxl;
+      }
+    }
+
     &__wrapper {
       height: 100%;
 
@@ -200,7 +218,7 @@
         font-size: 22px;
         height: 65px;
         transition: all 0.3s;
-        width: 90%;
+        width: 100%;
       }
     }
 
@@ -208,7 +226,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {

@@ -131,6 +131,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
       <div className="music__swiper">
         <Swiper
           effect="fade"
+          autoHeight
           centeredSlides
           slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
@@ -148,9 +149,9 @@ const Music: React.FC<IProps> = (props: IProps) => {
             <div className="swiper-slide__wrapper">
               <h4 className="swiper-slide__header">O co chodzi w ćwiczeniu?</h4>
               <p className="swiper-slide__paragraph">
-                Włącz playlistę z utworami klasycznymi - może to być
-                przygotowana przez nas, bądź wybrana przez Ciebie. Muzyka
-                klasyczna pomaga się skupić oraz odpocząć od zbyt wielu bodźców.
+                Włącz playlistę z utworami klasycznymi - wybierz swoją lub
+                skorzystaj z przygotowanej przez nas. Muzyka klasyczna pomaga
+                się skupić oraz odpocząć od zbyt wielu bodźców.
               </p>
             </div>
           </SwiperSlide>
@@ -178,19 +179,25 @@ const Music: React.FC<IProps> = (props: IProps) => {
   const renderButtons = () => {
     if (swiper?.activeIndex >= 3)
       return (
-        <div className="music__final-buttons">
-          <CancelButton
-            onClick={onCreateActivityWithNoContent}
-            title="Zakończ"
-          />
-          <SaveActivityButton
-            title="Dodaj"
-            onClick={onCreateActivityWithContent}
-          />
+        <div className="music__buttons">
+          <div className="music__final-buttons">
+            <CancelButton
+              onClick={onCreateActivityWithNoContent}
+              title="Zakończ"
+            />
+            <SaveActivityButton
+              title="Dodaj"
+              onClick={onCreateActivityWithContent}
+            />
+          </div>
         </div>
       );
 
-    return <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />;
+    return (
+      <div className="music__buttons">
+        <ProceedButton title="Dalej!" onClick={onProceedButtonClick} />
+      </div>
+    );
   };
 
   const renderContext = () => {

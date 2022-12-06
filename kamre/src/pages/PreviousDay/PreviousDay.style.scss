@@ -97,12 +97,17 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 160px;
+      }
+
       .save-activity-button {
+        width: 100%;
         font-size: 20px;
         height: 60px;
         transition: all 0.3s;
         margin-bottom: 0;
-        margin-top: 10px;
+        margin-top: 20px;
       }
     }
 
@@ -112,7 +117,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 32px;
+            font-size: $header-description-mxs;
           }
 
           &__paragraph {
@@ -129,6 +134,10 @@
     &__wrapper {
       height: 100%;
 
+      .pet-octopus {
+        max-height: 170px;
+      }
+
       .save-activity-button {
         margin-top: 60px;
         font-size: 22px;
@@ -141,7 +150,7 @@
       .swiper {
         &-slide {
           &__header {
-            font-size: 34px;
+            font-size: $font-size-xxl;
           }
 
           &__paragraph {

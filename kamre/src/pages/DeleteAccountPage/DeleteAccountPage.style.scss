@@ -2,10 +2,16 @@
 @import "@Theme/media";
 
 .final-buttons {
-  display: none; // DO WYŁĄCZENIA TE DWA PRZYCISKI
+  display: none; 
 }
 
 .deleteaccountpage {
+  box-shadow: none;
+  
+  &__header {
+    height: 30px;
+    margin-top: 20px;
+  }
 
   &__wrapper_image {
     display: flex;
@@ -61,6 +67,12 @@
 }
 
 @include mobile-xsmall {
+  .deleteaccountpage {
+    .pet-octopus {
+      max-height: 160px;
+    }
+  }
+
   .final-delete-account-button {
     width: 250px !important;
     margin-left: 0 !important;
@@ -71,5 +83,13 @@
     width: 250px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+}
+
+@include mobile-small {
+  .deleteaccountpage {
+    .pet-octopus {
+      max-height: 170px;
+    }
   }
 }

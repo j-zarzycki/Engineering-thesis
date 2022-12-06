@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useIonRouter } from "@ionic/react";
+import { Swiper } from "swiper/types";
 
 import {
   MAX_EXHAUST,
   MAX_INHALATION,
   MAX_PAUSE,
+  SWIPE_ELEMENTS,
 } from "@Constants/breathing.constants";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
@@ -17,12 +19,15 @@ enum RenderType {
 }
 
 const BreathingContainer: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   const [counter, setCounter] = useState(0);
   const [renderType, setRenderType] = useState(RenderType.INHALE);
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const slideElements = SWIPE_ELEMENTS;
 
   const router = useIonRouter();
   let intervalId: any;
@@ -90,6 +95,14 @@ const BreathingContainer: React.FC = () => {
       );
   };
 
+  const onProceedButtonClick = () => {
+    swiper?.slideNext();
+    setCurrentSlide(swiper?.activeIndex);
+  };
+  const onSlideChangeHandler = (slide: Swiper) => {
+    setCurrentSlide(slide?.activeIndex);
+  };
+
   useEffect(() => {
     if (isPlaying) intervalId = setInterval(startCounting, 1000);
 
@@ -99,6 +112,12 @@ const BreathingContainer: React.FC = () => {
   return (
     <Breathing
       isLoading={isLoading}
+      setSwiper={setSwiper}
+      swiper={swiper}
+      slideElements={slideElements}
+      currentSlide={currentSlide}
+      onSlideChangeHandler={onSlideChangeHandler}
+      onProceedButtonClick={onProceedButtonClick}
       toast={toast}
       renderType={renderType}
       counter={counter}

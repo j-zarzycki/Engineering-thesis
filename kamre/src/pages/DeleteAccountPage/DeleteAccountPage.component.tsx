@@ -103,7 +103,9 @@ const DeleteAccountPage: React.FC<IProps> = (props: IProps) => {
         {renderLoader()}
         {renderToast()}
         <div className="deleteaccountpage">
-          <BackButton defaultHref="/settings" />
+          <div className="deleteaccountpage__header">
+            <BackButton defaultHref="/settings" />
+          </div>
           <div className="deleteaccountpage__wrapper">
             <div className="deleteaccountpage__wrapper_image">
               <Pet
