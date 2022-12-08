@@ -13,6 +13,7 @@ interface IProps {
 
 const MigrateAccountButton: React.FC<IProps> = (props: IProps) => {
   const { defaultHref, title, icon, disabled } = props;
+
   const history = useHistory();
   const onClickHandler = () => history.push(defaultHref);
 

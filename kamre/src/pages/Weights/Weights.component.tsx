@@ -7,12 +7,11 @@ import {
   CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 import { BsWind } from "react-icons/bs";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -22,34 +21,15 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./Weights.style.scss";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-
-  onCreateActivityWithContent(): void;
-
-  setSwiper(value: any): void;
-
-  onProceedButtonClick(): void;
-
-  onAddSlide(): void;
-
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
-  onEndButtonClick(): void;
-
-  onDestroyButtonClick(): void;
-
-  setToast(value: {}): void;
-
-  onSlideChangeHandler(): void;
-
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
@@ -59,29 +39,39 @@ interface IProps {
     isWeightsListVisible: boolean;
     isFinalVisible: boolean;
   };
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onAddSlide(): void;
+  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onEndButtonClick(): void;
+  onDestroyButtonClick(): void;
+  onSlideChangeHandler(): void;
 }
 
 const Weights: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    setSwiper,
     currentSlide,
     slideElements,
     pageController,
-    onProceedButtonClick,
-    onAddSlide,
     img,
     slides,
     isAddingDisabled,
-    onEndButtonClick,
-    onInputChange,
-    onDestroyButtonClick,
     swiper,
     slidesInputsValue,
     isLoading,
-    setToast,
     toast,
+    setSwiper,
+    setToast,
+    onEndButtonClick,
+    onInputChange,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onDestroyButtonClick,
+    onProceedButtonClick,
+    onAddSlide,
     onSlideChangeHandler,
   } = props;
 
@@ -92,7 +82,7 @@ const Weights: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="weights__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

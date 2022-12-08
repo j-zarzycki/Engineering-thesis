@@ -1,1 +1,1 @@
-export { default } from "./HorizontalProgressBar.component";
+export { default } from "./HorizontalProgressBar.container";

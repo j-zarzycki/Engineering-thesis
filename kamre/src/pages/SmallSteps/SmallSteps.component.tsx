@@ -7,11 +7,10 @@ import {
   CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -21,6 +20,7 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./SmallSteps.style.scss";
 
 interface IProps {
@@ -30,25 +30,17 @@ interface IProps {
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
-
-  setSwiper(value: any): void;
-
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
-  setToast(value: {}): void;
-
   onSwipeHandle(): void;
-
   onSaveActivityWithContent(): void;
-
   onContinueButtonClick(): void;
 }
 
@@ -80,7 +72,7 @@ const SmallSteps: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="small-steps__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

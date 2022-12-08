@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 import React from "react";
 import { IonLoading } from "@ionic/react";
-
-import moment from "moment";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import moment from "moment";
 
 import { CalendarResponseType } from "@Types/calendar.type";
+
 import "./Calendar.style.scss";
 
 enum AllMonths {
@@ -29,9 +29,9 @@ interface IProps {
   currentMonth: number;
   monthData: CalendarResponseType[];
   isLoading: boolean;
-  onNextMonthClick: () => void;
-  onPreviousMonthClick: () => void;
-  onDayClickHandler: (e: any) => void;
+  onNextMonthClick(): void;
+  onPreviousMonthClick(): void;
+  onDayClickHandler(e: any): void;
 }
 
 const Calendar: React.FC<IProps> = (props: IProps) => {
@@ -45,6 +45,7 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
     onPreviousMonthClick,
     onDayClickHandler,
   } = props;
+
   const days: React.ReactElement[] = [];
 
   const renderDots = (date: moment.Moment) => {

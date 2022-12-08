@@ -1,40 +1,44 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useIonRouter } from "@ionic/react";
-import { Swiper } from "swiper/types";
+import { Swiper as SwiperType } from "swiper/types";
 import { Device } from "@capacitor/device";
 
+import { ToastType } from "@Types/toast.type";
 import { authLogin } from "@Actions/auth";
+import useLayout from "@Hooks/useLayout";
+import useLocalStorage from "@Hooks/useLocalStorage";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import apiService from "@Services/api.service";
-import SWIPE_ELEMENTS from "@Constants/walking.constants";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
 import WelcomePage from "./WelcomePage.component";
 
 const WelcomePageContainer: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [inputValue, setInputValue] = useState("");
-  const [img, setImg] = useState("");
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
-  const slideElements = SWIPE_ELEMENTS;
-  const [pageController, setPageController] = useState({
-    isWelcomeViewVisible: true,
-    isRecoveryViewVisible: false,
-  });
+  let isMigrated = false;
+  const slideElements = 4;
+  const { disableTabBar } = useLayout();
+  const { setValue } = useLocalStorage("shouldHomeRender");
   const router = useIonRouter();
   const swiperRef = useRef<any>(null);
   const recoveryRef = useRef<any>(null);
   const dispatch = useAppDispatch();
-  let isMigrated = false;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperType>();
+  const [inputValue, setInputValue] = useState("");
+  const [img, setImg] = useState(MainImg);
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageController, setPageController] = useState({
+    isWelcomeViewVisible: true,
+    isRecoveryViewVisible: false,
+  });
 
   const authenticateUser = () => {
     Device.getId().then((info) => {
       localStorage.setItem("deviceId", info.uuid);
       dispatch(authLogin(info.uuid))
         .then(async () => {
-          localStorage.setItem("shouldHomeRender", "true");
+          setValue("true");
           setIsLoading(false);
           router.push("/home", "forward", "pop");
         })
@@ -64,7 +68,7 @@ const WelcomePageContainer: React.FC = () => {
   const onProceedButtonClick = () => {
     swiper?.slideNext();
 
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
     if (swiper?.activeIndex === slideElements - 4) {
       setImg(quote);
     }
@@ -73,7 +77,7 @@ const WelcomePageContainer: React.FC = () => {
     }
   };
 
-  const onSlideChangeHandler = (slide: Swiper) => {
+  const onSlideChangeHandler = (slide: SwiperType) => {
     setCurrentSlide(slide?.activeIndex);
     setImg(MainImg);
     if (slide?.activeIndex === 1 || slide?.activeIndex === 2) {
@@ -116,7 +120,7 @@ const WelcomePageContainer: React.FC = () => {
       isRecoveryViewVisible: false,
     });
 
-    swiper.slideNext();
+    swiper!.slideNext();
   };
 
   const onInputChange = (e: any) => {
@@ -127,10 +131,8 @@ const WelcomePageContainer: React.FC = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("shouldHomeRender", "false");
-    const tabs = document.querySelector("ion-tab-bar");
-    tabs!.style.display = "none";
-    setImg(MainImg);
+    setValue("false");
+    disableTabBar();
     if (recoveryRef !== undefined) recoveryRef.current!.style.display = "none";
   }, []);
 
@@ -138,20 +140,20 @@ const WelcomePageContainer: React.FC = () => {
     <WelcomePage
       swiperRef={swiperRef}
       recoveryRef={recoveryRef}
-      onCancelRecoveryButtonHandle={onCancelRecoveryButtonHandle}
-      pageController={pageController}
-      onRecoveryButtonClick={onRecoveryButtonClick}
-      onInputChange={onInputChange}
-      onStartButtonClick={onStartButtonClick}
-      onProceedButtonClick={onProceedButtonClick}
-      setToast={setToast}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       isLoading={isLoading}
       toast={toast}
       swiper={swiper}
       img={img}
       slideElements={slideElements}
+      pageController={pageController}
+      setToast={setToast}
+      setSwiper={setSwiper}
+      onCancelRecoveryButtonHandle={onCancelRecoveryButtonHandle}
+      onRecoveryButtonClick={onRecoveryButtonClick}
+      onInputChange={onInputChange}
+      onStartButtonClick={onStartButtonClick}
+      onProceedButtonClick={onProceedButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
       onRestoreDataButtonClick={onRestoreDataButtonClick}
     />

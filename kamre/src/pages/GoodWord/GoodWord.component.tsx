@@ -7,11 +7,11 @@ import {
   CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
+import { fadeIn } from "@Constants/animations.constants";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -21,34 +21,27 @@ import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./GoodWord.style.scss";
 
 interface IProps {
-  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   canSwipe: boolean;
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
-
-  setSwiper(value: any): void;
-
+  pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
-  setToast(value: {}): void;
-
   onSwipeHandle(): void;
-
   onSaveActivityWithContent(): void;
-
   onContinueButtonClick(): void;
 }
 
@@ -79,7 +72,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="good-word__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -193,16 +186,9 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
   const renderFinalStep = () => {
     const { isFinalVisible } = pageController;
+
     return (
-      <CreateAnimation
-        play={isFinalVisible}
-        duration={2000}
-        fromTo={{
-          property: "opacity",
-          fromValue: "0",
-          toValue: "1",
-        }}
-      >
+      <CreateAnimation play={isFinalVisible} {...fadeIn}>
         <div className="good-word__wrapper">
           <Pet
             src={PetHappy}
@@ -256,6 +242,7 @@ const GoodWord: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}

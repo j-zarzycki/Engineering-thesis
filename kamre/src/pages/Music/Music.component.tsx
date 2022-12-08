@@ -3,10 +3,7 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./Music.style.scss";
+import { ToastType } from "@Types/toast.type";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
@@ -15,41 +12,38 @@ import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 import { MUSIC_URL } from "@Constants/music.constants";
 
+import "swiper/css";
+import "./Music.style.scss";
+
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-
-  onCreateActivityWithContent(): void;
-
-  setToast(value: {}): void;
-
-  onProceedButtonClick(): void;
-
-  setSwiper(value: any): void;
-
-  onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
-  toast: any;
   currentSlide: number;
-  swiper: any;
   img: string;
   slideElements: number;
+  swiper: any;
+  toast: ToastType;
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
 }
 
 const Music: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
     img,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
   const videoUrl = MUSIC_URL;
 
@@ -65,6 +59,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -81,7 +76,7 @@ const Music: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="music__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

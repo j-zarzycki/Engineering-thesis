@@ -8,15 +8,15 @@ import {
 } from "@ionic/react";
 import { AiFillCopy } from "react-icons/ai";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./MigrateAccountPage.style.scss";
+import { ToastType } from "@Types/toast.type";
 import PetWhat from "@Assets/what.png";
 import PetMain from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
 import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
+
+import "swiper/css";
+import "./MigrateAccountPage.style.scss";
 
 interface IProps {
   recoveryCode: string;
@@ -25,9 +25,9 @@ interface IProps {
     isWarningPageVisible: boolean;
     isMigrationPageVisible: boolean;
   };
+  setToast(toast: ToastType): void;
   onCopyButtonClickHandler(): void;
   onAcceptWarningClickHandler(): void;
-  setToast(value: {}): void;
 }
 
 const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
@@ -42,6 +42,7 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -61,13 +62,14 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="migrateaccountpage__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
 
   const renderPetImage = () => {
     const { isWarningPageVisible } = pageController;
+
     return (
       <div className="migrateaccountpage__wrapper_image">
         <Pet
@@ -83,6 +85,7 @@ const MigrateAccountPage: React.FC<IProps> = (props: IProps) => {
 
   const renderContext = () => {
     const { isWarningPageVisible } = pageController;
+
     if (isWarningPageVisible) {
       return (
         <IonCard className="migrateaccountpage__warning">

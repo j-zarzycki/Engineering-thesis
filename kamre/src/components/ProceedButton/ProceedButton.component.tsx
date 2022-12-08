@@ -4,14 +4,14 @@ import { BiChevronRight } from "react-icons/bi";
 import "./ProceedButton.style.scss";
 
 interface IProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
   icon?: React.ReactElement;
   disabled?: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const ProceedButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title, icon, disabled } = props;
+  const { title, icon, disabled, onClick } = props;
 
   return (
     <button

@@ -23,7 +23,7 @@ const Input: React.FC<IProps> = (props: IProps) => {
 Input.defaultProps = {
   type: "text",
   placeholder: "Podaj wartość...",
-  onChange: () => console.log("clicked"),
+  onChange: () => {},
 };
 
 export default Input;

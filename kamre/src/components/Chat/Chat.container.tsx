@@ -3,7 +3,6 @@
    przed jej zadeklarowaniem (pomimo tego że jest to function()) */
 
 import React, { useState, useRef, useEffect } from "react";
-import { useIonViewWillEnter } from "@ionic/react";
 
 import {
   MessageActivity,
@@ -12,6 +11,7 @@ import {
   MessageChoicesBox,
   MessageChoice,
 } from "@Components/Message";
+import { delay } from "@Utils/delay";
 import { ChatType } from "@Types/chat.type";
 import apiService from "@Services/api.service";
 import Chat from "./Chat.component";
@@ -22,6 +22,7 @@ interface IProps {
 
 const ChatContainer: React.FC<IProps> = (props: IProps) => {
   const { isActivitiesCardHidden } = props;
+
   const chatRef = useRef<any>(null);
   const [index, setIndex] = useState(0);
   const [isContinuation, setIsContinuation] = useState(false);
@@ -67,11 +68,13 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
     setIsContinuation(true);
   };
 
-  const renderConversationData = () => {
+  const renderConversationData = async () => {
     const { answers, questions } = chatData;
+
     if (answers.length >= 1 && index < questions.length) {
       setIsIndicatorVisible(true);
-      setTimeout(renderNegotiation, 1500);
+      await delay(1500);
+      renderNegotiation();
       handleScroll();
     }
 
@@ -81,7 +84,10 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
     }
   };
 
-  const onChoiceClick = (obj: { value: string; activityIndex: number }) => {
+  const onChoiceClick = async (obj: {
+    value: string;
+    activityIndex: number;
+  }) => {
     const { value, activityIndex } = obj;
     const choiceBox = document.querySelector(".message-choices-box");
     choiceBox?.remove();
@@ -93,7 +99,8 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
 
     if (value === "Nie") {
       renderActivity();
-      setTimeout(renderConversationData, 500);
+      await delay(500);
+      renderConversationData();
     } else if (value === "Tak") {
       sendEndOfNegotiation();
       setConversationData((prevState) => [
@@ -101,7 +108,8 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
         <MessageQuestion value="Jestem bardzo szczęśliwa, że mogłam Tobie pomóc! 💜 " />,
       ]);
 
-      setTimeout(handleScroll, 200);
+      await delay(200);
+      handleScroll();
     } else {
       setUserAnswers((prevState) => [...prevState, activityIndex]);
     }
@@ -136,12 +144,6 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
   }
 
   useEffect(() => {
-    if (!isActivitiesCardHidden) {
-      setConversationData([]);
-      setUserAnswers([]);
-      setIsContinuation(false);
-    }
-
     if (isActivitiesCardHidden) getChatData();
   }, [isContinuation, isActivitiesCardHidden]);
 

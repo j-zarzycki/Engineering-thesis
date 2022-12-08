@@ -10,8 +10,6 @@ interface IProps {
 
 const WelcomePageRestoreDataButton: React.FC<IProps> = (props: IProps) => {
   const { title, disabled, onClick } = props;
-  // const history = useHistory();
-  // const onClickHandler = () => history.push(defaultHref);
 
   return (
     <button

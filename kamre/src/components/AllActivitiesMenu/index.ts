@@ -1,1 +1,1 @@
-export { default } from "./AllActivitiesMenu.component";
+export { default } from "./AllActivitiesMenu.container";

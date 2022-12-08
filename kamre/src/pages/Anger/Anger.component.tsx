@@ -7,11 +7,12 @@ import {
   CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
+import { swiperDefaultOptions } from "@Constants/swiper.constants";
+import { fadeIn } from "@Constants/animations.constants";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -21,24 +22,15 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./Anger.style.scss";
 
 interface IProps {
-  onCreateActivityWithContent(): void;
-  onCreateActivityWithNoContent(): Promise<void>;
-  setSwiper(value: any): void;
-  onProceedButtonClick(): void;
-  onAddSlide(): void;
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onContinueButtonClick(): void;
-  onDestroyButtonClick(): void;
-  setToast(value: {}): void;
-  onSlideChangeHandler(): void;
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
@@ -48,29 +40,39 @@ interface IProps {
     isAngerListVisible: boolean;
     isFinalVisible: boolean;
   };
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithContent(): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onProceedButtonClick(): void;
+  onAddSlide(): void;
+  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onContinueButtonClick(): void;
+  onDestroyButtonClick(): void;
+  onSlideChangeHandler(): void;
 }
 
 const Anger: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithContent,
-    onCreateActivityWithNoContent,
-    setSwiper,
     currentSlide,
     slideElements,
     pageController,
-    onProceedButtonClick,
-    onAddSlide,
     img,
     slides,
     isAddingDisabled,
-    onContinueButtonClick,
-    onInputChange,
-    onDestroyButtonClick,
     swiper,
     slidesInputsValue,
     isLoading,
-    setToast,
     toast,
+    onProceedButtonClick,
+    onAddSlide,
+    onContinueButtonClick,
+    onInputChange,
+    onDestroyButtonClick,
+    setToast,
+    onCreateActivityWithContent,
+    onCreateActivityWithNoContent,
+    setSwiper,
     onSlideChangeHandler,
   } = props;
 
@@ -81,7 +83,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="anger__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -96,11 +98,10 @@ const Anger: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="anger__swiper">
         <Swiper
-          effect="fade"
-          slidesPerView={1}
-          height={190}
           onSwiper={(swiperData) => setSwiper(swiperData)}
           onSlideChange={onSlideChangeHandler}
+          height={190}
+          {...swiperDefaultOptions}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -202,15 +203,7 @@ const Anger: React.FC<IProps> = (props: IProps) => {
 
     return (
       isAngerListVisible && (
-        <CreateAnimation
-          play={isAngerListVisible}
-          duration={2000}
-          fromTo={{
-            property: "opacity",
-            fromValue: "0",
-            toValue: "1",
-          }}
-        >
+        <CreateAnimation play={isAngerListVisible} {...fadeIn}>
           <div className="anger__list">
             <Pet
               src={img}

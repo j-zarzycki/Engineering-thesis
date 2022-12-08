@@ -1,47 +1,48 @@
 import React from "react";
 import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { BsArrowRepeat } from "react-icons/bs";
-// Import Swiper styles
-import "swiper/css";
 
+import { ToastType } from "@Types/toast.type";
 import Pet from "@Components/Pet";
 import CancelButton from "@Components/CancelButton";
 import VerticalProgressBar from "@Components/VerticalProgressBar";
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
 
+import "swiper/css";
 import "./Feet.style.scss";
 
 interface IProps {
-  setSwiper(value: any): void;
-  onProceedButtonClick(): void;
-  handleRepeatButtonClick(): void;
-  handleFinishButtonClick(): void;
-  onSlideChangeHandler(): void;
-  setToast(value: {}): void;
   currentSlide: number;
   slideElements: number;
   img: string;
   swiper: any;
   isLoading: boolean;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  handleRepeatButtonClick(): void;
+  handleFinishButtonClick(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(): void;
 }
 
 const Feet: React.FC<IProps> = (props: IProps) => {
   const {
-    setSwiper,
     currentSlide,
     slideElements,
-    onProceedButtonClick,
     img,
     swiper,
-    handleRepeatButtonClick,
-    handleFinishButtonClick,
-    setToast,
-    onSlideChangeHandler,
     toast,
     isLoading,
+    setSwiper,
+    setToast,
+    handleRepeatButtonClick,
+    handleFinishButtonClick,
+    onSlideChangeHandler,
+    onProceedButtonClick,
   } = props;
 
   const renderHeader = () => {
@@ -49,7 +50,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="walking__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -310,6 +311,7 @@ const Feet: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}

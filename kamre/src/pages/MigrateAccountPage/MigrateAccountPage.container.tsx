@@ -3,17 +3,22 @@ import { Clipboard } from "@capacitor/clipboard";
 import { App as CapacitorApp } from "@capacitor/app";
 import { useIonRouter } from "@ionic/react";
 
+import { ToastType } from "@Types/toast.type";
+import useLocalStorage from "@Hooks/useLocalStorage";
+import useLayout from "@Hooks/useLayout";
 import apiService from "@Services/api.service";
 import MigrateAccountPage from "./MigrateAccountPage.component";
 
 const MigrateAccountPageContainer: React.FC = () => {
+  const { setValue } = useLocalStorage("shouldHomeRender");
+  const { disableTabBar } = useLayout();
+  const router = useIonRouter();
   const [recoveryCode, setRecoveryCode] = useState("");
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [pageController, setPageController] = useState({
     isWarningPageVisible: true,
     isMigrationPageVisible: false,
   });
-  const router = useIonRouter();
 
   const getRecoveryCode = async () => {
     await apiService
@@ -34,9 +39,8 @@ const MigrateAccountPageContainer: React.FC = () => {
   };
 
   const onAcceptWarningClickHandler = () => {
-    localStorage.setItem("shouldHomeRender", "false");
-    const tabs = document.querySelector("ion-tab-bar");
-    tabs!.style.display = "none";
+    setValue("false");
+    disableTabBar();
 
     setPageController({
       isWarningPageVisible: false,
@@ -50,6 +54,7 @@ const MigrateAccountPageContainer: React.FC = () => {
 
   CapacitorApp.addListener("backButton", () => {
     const { isMigrationPageVisible } = pageController;
+
     if (isMigrationPageVisible) {
       router.push("/migrateaccountpage");
     }

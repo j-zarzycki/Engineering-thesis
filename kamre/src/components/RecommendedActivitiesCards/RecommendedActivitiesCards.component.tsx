@@ -1,98 +1,82 @@
-import React, { forwardRef, useEffect, useState, useCallback } from "react";
+import React, { forwardRef } from "react";
+import { IonLoading, IonToast } from "@ionic/react";
+
+import { ToastType } from "@Types/toast.type";
+import { RecommendationsType } from "@Types/recommendations.type";
+import ActivityCard from "@Components/ActivityCard";
 
 import "./RecommendedActivitiesCards.scss";
 
-import ActivityCard from "@Components/ActivityCard";
-import { RecommendationsType } from "@Types/recommendations.type";
-import apiService from "@Services/api.service";
-import { IonLoading, IonToast, useIonRouter } from "@ionic/react";
+interface IProps {
+  cardVariant: "big" | "medium" | "small";
+  isLoading: boolean;
+  toast: ToastType;
+  cardsData: RecommendationsType[];
+  setToast(toast: ToastType): void;
+  onCardClick(route: string): void;
+}
 
-const RecommendedActivitiesCardsContainer = forwardRef((_props, ref: any) => {
-  const cardVariant = "small";
-  const router = useIonRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [cardsData, setCardsData] = useState<RecommendationsType[]>([]);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+const RecommendedActivitiesCardsContainer = forwardRef(
+  (props: IProps, recommendedActivitiesCardsRef: any) => {
+    const { cardVariant, isLoading, toast, cardsData, setToast, onCardClick } =
+      props;
 
-  const renderHolder = () => {
-    return <div className="activities-card__holder" />;
-  };
+    const renderHolder = () => {
+      return <div className="activities-card__holder" />;
+    };
 
-  const onCardClick = (route: string) => router.push(`${route}`, "forward");
-
-  const getCardsData = useCallback(async () => {
-    setIsLoading(true);
-    await apiService
-      .GetRecommended()
-      .then(({ data: { res } }) => {
-        setCardsData(res);
-      })
-      .finally(() => setIsLoading(false))
-      .catch(() => {
-        setToast({
-          isOpen: true,
-          message: "Wystąpił błąd podczas wczytywania danych.",
-        });
-
-        router.push("/all", "forward", "pop");
-      });
-  }, []);
-
-  const renderLoader = () => {
-    return (
-      <IonLoading
-        cssClass="kamre-calendar__loader"
-        isOpen={isLoading}
-        message="Wczytywanie, proszę czekać"
-      />
-    );
-  };
-
-  const renderToast = () => {
-    const { isOpen, message } = toast;
-    return (
-      <IonToast
-        isOpen={isOpen}
-        onDidDismiss={() => setToast({ isOpen: false, message: "" })}
-        message={message}
-        duration={2500}
-        position="top"
-      />
-    );
-  };
-
-  const renderRecommendedActivitiesCards = useCallback(() => {
-    return cardsData.map((card) => {
+    const renderLoader = () => {
       return (
-        <ActivityCard
-          variant={cardVariant}
-          title={card.name}
-          onClick={() => onCardClick(card.url)}
+        <IonLoading
+          cssClass="kamre-calendar__loader"
+          isOpen={isLoading}
+          message="Wczytywanie, proszę czekać"
         />
       );
-    });
-  }, [cardsData]);
+    };
 
-  const renderContext = () => {
+    const renderToast = () => {
+      const { isOpen, message } = toast;
+      return (
+        <IonToast
+          isOpen={isOpen}
+          onDidDismiss={() => setToast({ isOpen: false, message: "" })}
+          message={message}
+          duration={2500}
+          position="top"
+        />
+      );
+    };
+
+    const renderRecommendedActivitiesCards = () => {
+      return cardsData.map((card) => {
+        return (
+          <ActivityCard
+            variant={cardVariant}
+            title={card.name}
+            onClick={() => onCardClick(card.url)}
+          />
+        );
+      });
+    };
+
+    const renderContext = () => {
+      return (
+        <div className="activities-card__wrapper">
+          {renderRecommendedActivitiesCards()}
+        </div>
+      );
+    };
+
     return (
-      <div className="activities-card__wrapper">
-        {renderRecommendedActivitiesCards()}
+      <div ref={recommendedActivitiesCardsRef} className="activities-card">
+        {renderToast()}
+        {renderLoader()}
+        {renderHolder()}
+        {renderContext()}
       </div>
     );
-  };
-
-  useEffect(() => {
-    getCardsData();
-  }, []);
-
-  return (
-    <div ref={ref} className="activities-card">
-      {renderToast()}
-      {renderLoader()}
-      {renderHolder()}
-      {renderContext()}
-    </div>
-  );
-});
+  },
+);
 
 export default RecommendedActivitiesCardsContainer;

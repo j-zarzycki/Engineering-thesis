@@ -1,53 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IonContent, IonPage, IonSpinner } from "@ionic/react";
-import { CSSTransition } from "react-transition-group";
-import "./Emergency.style.scss";
-import MainImg from "@Assets/main.png";
-import BackButton from "@Components/BackButton";
+
 import Pet from "@Components/Pet";
 import ProceedButton from "@Components/ProceedButton";
-import emergencyService from "@Services/emergency.service";
+import MainImg from "@Assets/main.png";
 
-const Emergency: React.FC = () => {
-  const [img, setImg] = useState("");
-  const [showProceedButton, setShowProceedButton] = useState(true);
-  const [isClicked, setIsClicked] = useState(false);
-  const [data, setData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(false);
+import "./Emergency.style.scss";
 
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
+interface IProps {
+  isLoading: boolean;
+  emergencyAdviceData: any;
+  onNewAdviceClickHandler(): void;
+}
 
-  useEffect(() => {
-    // setData([]);
-    setIsClicked(false);
-    emergencyService().then((res) => {
-      setData(res.data.res);
-    });
-  }, []);
-
-  const adviseContent = async () => {
-    setIsLoading(true);
-    await emergencyService().then((res) => {
-      setData(res.data.res);
-      setIsLoading(false);
-    });
-  };
-
-  const changeContent = () => {
-    setIsClicked(true);
-    adviseContent();
-  };
+const Emergency: React.FC<IProps> = (props: IProps) => {
+  const { isLoading, emergencyAdviceData, onNewAdviceClickHandler } = props;
 
   return (
     <IonPage>
       <IonContent fullscreen class="ion-padding-horizontal">
         <div className="emergency ion-padding-top">
-          <BackButton defaultHref="/home" />
           <div className="emergency__wrapper">
             <Pet
-              src={img}
+              src={MainImg}
               alt="Uśmiechnięta ośmiorniczka jpg"
               height="200px"
               paddingTop="20px"
@@ -59,24 +34,12 @@ const Emergency: React.FC = () => {
               </div>
               <div className="swiper-slide__wrapper">
                 <p className="swiper-slide__paragraph ion-text-center">
-                  {isLoading ? <IonSpinner name="dots" /> : data}
+                  {isLoading ? <IonSpinner name="dots" /> : emergencyAdviceData}
                 </p>
               </div>
             </div>
-            <ProceedButton title="Następny" onClick={changeContent} />
+            <ProceedButton title="Następny" onClick={onNewAdviceClickHandler} />
           </div>
-          <CSSTransition
-            in={!showProceedButton}
-            timeout={300}
-            classNames="swiper__proceed-buttons"
-            unmountOnExit
-            onEnter={() => {
-              setShowProceedButton(false);
-              setIsClicked(true);
-              console.log(isClicked);
-            }}
-            onExited={() => setShowProceedButton(true)}
-          />
         </div>
       </IonContent>
     </IonPage>

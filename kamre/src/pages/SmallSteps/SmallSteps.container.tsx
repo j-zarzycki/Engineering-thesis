@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
@@ -10,11 +12,13 @@ import quote from "@Assets/what.png";
 import GoodWord from "./SmallSteps.component";
 
 const SmallStepsContainer: React.FC = () => {
+  const router = useIonRouter();
+  const slideElements = 3;
   const [canSwipe, setCanSwipe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
+  const [swiper, setSwiper] = useState<SwiperType>();
   const [img, setImg] = useState(MainImg);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
@@ -24,8 +28,6 @@ const SmallStepsContainer: React.FC = () => {
     isMainContextVisible: true,
     isFinalVisible: false,
   });
-  const router = useIonRouter();
-  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -94,7 +96,8 @@ const SmallStepsContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    if (swiper?.activeIndex < 2) setCurrentSlide(swiper?.activeIndex);
+    if (Number(swiper?.activeIndex) < 2)
+      setCurrentSlide(Number(swiper?.activeIndex));
 
     setImg(MainImg);
 
@@ -103,8 +106,9 @@ const SmallStepsContainer: React.FC = () => {
 
   const onSwipeHandle = () => {
     if (swiper?.activeIndex === 1) setImg(quote);
-    if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
+    if (Number(swiper?.activeIndex) <= 2)
+      setCurrentSlide(Number(swiper?.activeIndex));
+    if (Number(swiper?.activeIndex) > 1) swiper!.allowTouchMove = false;
   };
 
   useEffect(() => {

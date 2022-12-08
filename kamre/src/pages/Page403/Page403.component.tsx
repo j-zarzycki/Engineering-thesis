@@ -1,14 +1,17 @@
-import { IonPage, IonContent } from "@ionic/react";
 import React, { useEffect } from "react";
+import { IonPage, IonContent } from "@ionic/react";
+
+import useLayout from "@Hooks/useLayout";
 import Pet from "@Components/Pet";
 import img from "@Assets/cry.png";
 
 import "./Page403.style.scss";
 
 const Page403: React.FC = () => {
+  const { disableTabBar } = useLayout();
+
   useEffect(() => {
-    const tabBar = document.querySelector("ion-tab-bar");
-    tabBar!.style.display = "none";
+    disableTabBar();
   }, []);
 
   return (

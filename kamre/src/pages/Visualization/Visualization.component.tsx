@@ -7,11 +7,10 @@ import {
   IonToast,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -21,34 +20,15 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./Visualization.style.scss";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-
-  onCreateActivityWithContent(): void;
-
-  setSwiper(value: any): void;
-
-  onProceedButtonClick(): void;
-
-  onAddSlide(): void;
-
-  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
-  onEndButtonClick(): void;
-
-  onDestroyButtonClick(): void;
-
-  setToast(value: {}): void;
-
-  onSlideChangeHandler(): void;
-
   isLoading: boolean;
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   slides: React.ReactElement[];
@@ -58,40 +38,51 @@ interface IProps {
     isVisualizationListVisible: boolean;
     isFinalVisible: boolean;
   };
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onAddSlide(): void;
+  onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onEndButtonClick(): void;
+  onDestroyButtonClick(): void;
+  onSlideChangeHandler(): void;
 }
 
 const Visualization: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    setSwiper,
-    currentSlide,
-    slideElements,
-    pageController,
-    onProceedButtonClick,
-    onAddSlide,
-    img,
-    slides,
-    isAddingDisabled,
-    onEndButtonClick,
-    onInputChange,
-    onDestroyButtonClick,
     swiper,
     slidesInputsValue,
     isLoading,
-    setToast,
     toast,
+    currentSlide,
+    slideElements,
+    pageController,
+    img,
+    slides,
+    isAddingDisabled,
+    setSwiper,
+    setToast,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onAddSlide,
+    onEndButtonClick,
+    onInputChange,
+    onDestroyButtonClick,
     onSlideChangeHandler,
   } = props;
 
   const renderHeader = () => {
     const { isFinalVisible } = pageController;
+
     if (swiper?.activeIndex >= 3 || isFinalVisible)
       return <div className="visualization__header" />;
 
     return (
       <div className="visualization__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -259,6 +250,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
 
   const renderFinalStep = () => {
     const { isFinalVisible } = pageController;
+
     return (
       isFinalVisible && (
         <CreateAnimation
@@ -312,6 +304,7 @@ const Visualization: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}

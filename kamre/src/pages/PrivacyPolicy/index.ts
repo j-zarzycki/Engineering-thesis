@@ -1,1 +1,1 @@
-export { default } from "./PrivacyPolicy.container";
+export { default } from "./PrivacyPolicy.component";

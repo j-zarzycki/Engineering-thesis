@@ -3,47 +3,46 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./YtPage.style.scss";
+import { ToastType } from "@Types/toast.type";
+import { YTPAGE_URL } from "@Constants/ytPage.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
-import { YTPAGE_URL } from "@Constants/ytPage.constants";
+import MainImg from "@Assets/main.png";
+
+import "swiper/css";
+import "./YtPage.style.scss";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(): void;
-  setToast(value: {}): void;
-  onProceedButtonClick(): void;
-  setSwiper(value: any): void;
-  onSlideChangeHandler(slide: SwiperType): void;
   isLoading: boolean;
-  toast: any;
+  toast: ToastType;
   currentSlide: number;
   swiper: any;
-  img: string;
   slideElements: number;
+  setToast(toast: ToastType): void;
+  setSwiper(swiper: SwiperType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
 }
 
 const YtPage: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
-    img,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
   const videoUrl = YTPAGE_URL;
 
@@ -59,6 +58,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -75,7 +75,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="ytpage__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -100,7 +100,7 @@ const YtPage: React.FC<IProps> = (props: IProps) => {
     }
     return (
       <Pet
-        src={img}
+        src={MainImg}
         alt="Uśmiechnięta ośmiorniczka jpg"
         height="250px"
         paddingTop="20px"

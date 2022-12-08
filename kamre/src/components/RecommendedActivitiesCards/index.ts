@@ -1,1 +1,1 @@
-export { default } from "./RecommendedActivitiesCards.component";
+export { default } from "./RecommendedActivitiesCards.container";

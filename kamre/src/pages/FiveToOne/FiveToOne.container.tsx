@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
+import { Swiper as SwiperType } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
+import { getFullDateWithTime } from "@Utils/date";
 import MainImg from "@Assets/main.png";
 import Question from "@Assets/what.png";
 import Happy from "@Assets/happy.png";
 import Think from "@Assets/think.png";
 import apiService from "@Services/api.service";
-import { getFullDateWithTime } from "@Utils/date";
 import FiveToOne from "./FiveToOne.component";
 
 const FiveToOneContainer: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState(MainImg);
   const slideElements = 8;
   const router = useIonRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperType>();
+  const [img, setImg] = useState(MainImg);
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
   };
 
   const handleRepeatButtonClick = async () => {
@@ -64,7 +66,7 @@ const FiveToOneContainer: React.FC = () => {
   };
 
   const onSlideChangeHandler = () => {
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
     setImg(MainImg);
 
     if (swiper?.activeIndex === 1) setImg(Question);
@@ -74,13 +76,13 @@ const FiveToOneContainer: React.FC = () => {
 
   return (
     <FiveToOne
-      setSwiper={setSwiper}
       swiper={swiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
       isLoading={isLoading}
       toast={toast}
+      setSwiper={setSwiper}
       setToast={setToast}
       onProceedButtonClick={onProceedButtonClick}
       handleRepeatButtonClick={handleRepeatButtonClick}

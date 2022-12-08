@@ -4,14 +4,14 @@ import { IoMdAdd } from "react-icons/io";
 import "./SaveActivityButton.style.scss";
 
 interface IProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
   icon?: React.ReactElement;
   isIconVisible?: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const SaveActivityButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title, icon, isIconVisible } = props;
+  const { title, icon, isIconVisible, onClick } = props;
 
   return (
     <button className="save-activity-button" type="button" onClick={onClick}>

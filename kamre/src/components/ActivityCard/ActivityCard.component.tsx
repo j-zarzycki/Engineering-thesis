@@ -7,7 +7,7 @@ interface IProps {
   title: string;
   description?: string;
   icon?: React.ReactElement;
-  onClick?: (ev: any) => void;
+  onClick?(ev: any): void;
 }
 
 const ActivityCard: React.FC<IProps> = (props: IProps) => {
@@ -70,9 +70,7 @@ const ActivityCard: React.FC<IProps> = (props: IProps) => {
 ActivityCard.defaultProps = {
   description: "",
   icon: <span />,
-  onClick: () => {
-    console.log("clicked");
-  },
+  onClick: () => {},
 };
 
 export default ActivityCard;

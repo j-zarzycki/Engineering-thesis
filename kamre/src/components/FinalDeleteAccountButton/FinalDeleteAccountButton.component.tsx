@@ -7,7 +7,7 @@ interface IProps {
   title: String;
   icon?: React.ReactElement;
   disabled?: boolean;
-  onClick: () => void;
+  onClick(): void;
 }
 
 const FinalDeleteAccountButton: React.FC<IProps> = (props: IProps) => {

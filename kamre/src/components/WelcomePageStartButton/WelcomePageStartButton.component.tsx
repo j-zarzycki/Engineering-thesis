@@ -5,7 +5,7 @@ import "./WelcomePageStartButton.style.scss";
 interface IProps {
   title: String;
   disabled?: boolean;
-  onClick: () => void;
+  onClick(): void;
 }
 
 const WelcomePageStartButton: React.FC<IProps> = (props: IProps) => {

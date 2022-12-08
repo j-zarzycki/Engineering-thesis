@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useIonRouter } from "@ionic/react";
-import { Swiper } from "swiper/types";
+import { Swiper as SwiperType } from "swiper/types";
 
 import {
   MAX_EXHAUST,
@@ -8,6 +8,7 @@ import {
   MAX_PAUSE,
   SWIPE_ELEMENTS,
 } from "@Constants/breathing.constants";
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Breathing from "./Breathing.component";
@@ -19,18 +20,17 @@ enum RenderType {
 }
 
 const BreathingContainer: React.FC = () => {
+  let intervalId: any;
+  const slideElements = SWIPE_ELEMENTS;
+  const router = useIonRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
+  const [swiper, setSwiper] = useState<SwiperType>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   const [counter, setCounter] = useState(0);
   const [renderType, setRenderType] = useState(RenderType.INHALE);
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const slideElements = SWIPE_ELEMENTS;
-
-  const router = useIonRouter();
-  let intervalId: any;
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
 
   const handleInterval = () => setIsPlaying(true);
 
@@ -97,10 +97,11 @@ const BreathingContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
   };
-  const onSlideChangeHandler = (slide: Swiper) => {
-    setCurrentSlide(slide?.activeIndex);
+
+  const onSlideChangeHandler = (swiperSlideChange: SwiperType) => {
+    setCurrentSlide(swiperSlideChange?.activeIndex);
   };
 
   useEffect(() => {

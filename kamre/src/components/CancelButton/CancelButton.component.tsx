@@ -3,12 +3,12 @@ import React from "react";
 import "./CancelButton.style.scss";
 
 interface IProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const CancelButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title } = props;
+  const { title, onClick } = props;
 
   return (
     <button className="cancel-button" type="button" onClick={onClick}>
