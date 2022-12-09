@@ -665,7 +665,8 @@ def delete_account(user_id):
 
     for el in archived:
         el.delete()
-    emrg.delete()
+    if emrg is not None:
+        emrg.delete()
     user.delete()
 
 
