@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIonViewWillEnter, useIonViewDidEnter } from "@ionic/react";
 import moment from "moment";
 
@@ -85,7 +85,7 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
     onChangeHandle(value);
   };
 
-  useIonViewWillEnter(() => {
+  const removeActiveDay = () => {
     const activeElements = document.querySelectorAll(
       ".kamre-calendar__day--active",
     );
@@ -93,18 +93,18 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
     activeElements.forEach((elem) => {
       elem?.classList.remove("kamre-calendar__day--active");
     });
+  };
+
+  useIonViewWillEnter(() => {
+    removeActiveDay();
   });
 
   useIonViewDidEnter(() => {
-    const activeElements = document.querySelectorAll(
-      ".kamre-calendar__day--active",
-    );
-
-    activeElements.forEach((elem) => {
-      elem?.classList.remove("kamre-calendar__day--active");
-    });
-
     getMonth();
+  }, []);
+
+  useEffect(() => {
+    removeActiveDay();
     onMonthChangeHandle();
   }, [currentMonth]);
 

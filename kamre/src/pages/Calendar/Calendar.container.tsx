@@ -24,8 +24,14 @@ const CalendarContainer: React.FC = () => {
   };
 
   const onMonthChangeHandler = (_month: number) => {
-    console.log(_month);
+    const activeElements = document.querySelectorAll(
+      ".kamre-calendar__day--active",
+    );
+    activeElements.forEach((elem) => {
+      elem?.classList.remove("kamre-calendar__day--active");
+    });
     setDayData([]);
+    console.log(_month);
   };
 
   const getDayData = async () => {

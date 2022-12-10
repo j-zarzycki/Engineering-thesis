@@ -17,7 +17,10 @@ export const setupApp = () => {
       window.location.replace("/403");
     }
 
-    if (status.connectionType !== "none") {
+    if (
+      status.connectionType !== "none" &&
+      window.location.pathname === "/403"
+    ) {
       window.location.replace("/home");
     }
   });
