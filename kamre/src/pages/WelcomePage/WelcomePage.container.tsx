@@ -108,6 +108,8 @@ const WelcomePageContainer: React.FC = () => {
             isOpen: true,
             message: "Wystąpił błąd podczas migrowania konta.",
           });
+
+          setIsLoading(false);
         });
     });
   };
