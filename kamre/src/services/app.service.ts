@@ -13,15 +13,27 @@ export const setupApp = () => {
   });
 
   Network.addListener("networkStatusChange", (status) => {
+    const shouldHomeRender = localStorage.getItem("shouldHomeRender");
     if (status.connectionType === "none") {
       window.location.replace("/403");
     }
 
     if (
       status.connectionType !== "none" &&
-      window.location.pathname === "/403"
+      window.location.pathname === "/403" &&
+      shouldHomeRender === "true"
     ) {
       window.location.replace("/home");
+    }
+
+    if (
+      status.connectionType !== "none" &&
+      window.location.pathname === "/403" &&
+      (shouldHomeRender === "false" ||
+        shouldHomeRender === undefined ||
+        shouldHomeRender === null)
+    ) {
+      window.location.replace("/welcompage");
     }
   });
 };
