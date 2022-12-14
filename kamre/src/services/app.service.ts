@@ -1,6 +1,8 @@
 import { App as CapacitorApp } from "@capacitor/app";
 import { Network } from "@capacitor/network";
 
+import authService from "@Services/auth.service";
+
 export const setupApp = () => {
   CapacitorApp.addListener("backButton", ({ canGoBack }) => {
     if (canGoBack && localStorage.getItem("shouldHomeRender") === "false") {
@@ -9,6 +11,14 @@ export const setupApp = () => {
 
     if (!canGoBack) {
       CapacitorApp.exitApp();
+    }
+  });
+
+  CapacitorApp.addListener("appStateChange", ({ isActive }) => {
+    const deviceId = localStorage.getItem("deviceId");
+
+    if (isActive) {
+      authService.login(String(deviceId));
     }
   });
 
