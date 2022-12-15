@@ -1,35 +1,18 @@
 import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
 
-import { getFullDateWithTime } from "@Utils/date";
+import { ToastType } from "@Types/toast.type";
 import apiService from "@Services/api.service";
+import Sad from "@Assets/sad.png";
 import DeleteAccountPage from "./DeleteAccountPage.component";
 
 const DeleteAccountPageContainer: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const currentDateWithTime: String = getFullDateWithTime();
   const router = useIonRouter();
-
-  const createDeleteAccountPageWithNoContent = async () => {
-    await apiService
-      .CreateActivityWithNoContent(currentDateWithTime, "DeleteAccountPage")
-      .then((data) => console.log("data = ", data))
-      .catch((err) => console.log("err = ", err));
-  };
-
-  const createDeleteAccountPageWithContent = async (
-    activityContent: String,
-  ) => {
-    await apiService
-      .CreateActivityWithContent(
-        currentDateWithTime,
-        activityContent,
-        "DeleteAccountPage",
-      )
-      .then((data) => console.log("data = ", data))
-      .catch((err) => console.log("err = ", err));
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [img] = useState(Sad);
+  const [showDeleteAccountButton] = useState(true);
+  const [showMigrateAccountButton] = useState(true);
 
   const onDeleteClick = async () => {
     setIsLoading(true);
@@ -51,12 +34,13 @@ const DeleteAccountPageContainer: React.FC = () => {
 
   return (
     <DeleteAccountPage
-      setToast={setToast}
+      img={img}
       isLoading={isLoading}
       toast={toast}
+      showMigrateAccountButton={showMigrateAccountButton}
+      showDeleteAccountButton={showDeleteAccountButton}
+      setToast={setToast}
       onDeleteClick={onDeleteClick}
-      onCreateActivityWithNoContent={createDeleteAccountPageWithNoContent}
-      onCreateActivityWithContent={createDeleteAccountPageWithContent}
     />
   );
 };

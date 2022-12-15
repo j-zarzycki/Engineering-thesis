@@ -2,6 +2,7 @@ import React from "react";
 import { IonPage, IonContent, IonLoading, IonToast } from "@ionic/react";
 import { BsChevronCompactUp, BsChevronCompactDown } from "react-icons/bs";
 
+import { ToastType } from "@Types/toast.type";
 import "./Note.style.scss";
 
 interface IProps {
@@ -11,12 +12,12 @@ interface IProps {
   isHidden: Boolean;
   isButtonDisabled: boolean;
   isLoading: boolean;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
+  setToast(toast: ToastType): void;
   handleChevronClick(): void;
   handleTextAreaChange(e: React.ChangeEvent<HTMLTextAreaElement>): void;
   handleSaveButtonClick(): void;
   handleCancelButtonClick(): void;
-  setToast(value: { isOpen: boolean; message: string }): void;
 }
 
 const Note: React.FC<IProps> = (props: IProps) => {
@@ -37,6 +38,7 @@ const Note: React.FC<IProps> = (props: IProps) => {
 
   const renderChevronIcon = () => {
     if (!hiddenDescription) return null;
+
     return isHidden ? (
       <div className="header-note__icon-wrapper">
         <BsChevronCompactDown
@@ -115,6 +117,7 @@ const Note: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}

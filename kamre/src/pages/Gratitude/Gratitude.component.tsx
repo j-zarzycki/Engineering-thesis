@@ -7,11 +7,10 @@ import {
   CreateAnimation,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 import { IoMdAdd } from "react-icons/io";
 
-// Import Swiper styles
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
 import Input from "@Components/Input";
 import CancelButton from "@Components/CancelButton";
 import BackButton from "@Components/BackButton";
@@ -21,6 +20,7 @@ import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import PetHappy from "@Assets/happy.png";
 
+import "swiper/css";
 import "./Gratitude.style.scss";
 
 interface IProps {
@@ -29,26 +29,18 @@ interface IProps {
   currentSlide: number;
   slideElements: number;
   img: string;
-  toast: { isOpen: boolean; message: string };
+  toast: ToastType;
   isAddingDisabled: boolean;
   swiper: any;
   pageController: { isMainContextVisible: boolean; isFinalVisible: boolean };
   slides: React.ReactElement[];
-
-  setSwiper(value: any): void;
-
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
   onProceedButtonClick(): void;
-
   onAddSlide(): void;
-
   onInputChange(e: React.ChangeEvent<HTMLInputElement>): void;
-
   onSaveActivityWithContent(): void;
-
-  setToast(value: {}): void;
-
   onSwipeHandle(): void;
-
   onContinueButtonClick(): void;
 }
 
@@ -79,7 +71,7 @@ const Gratitude: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="gratitude__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

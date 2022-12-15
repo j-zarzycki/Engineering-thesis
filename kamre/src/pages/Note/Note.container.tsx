@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import useAppSelector from "@Hooks/useAppSelector";
 import Note from "./Note.component";
 
 const NoteContainer: React.FC = () => {
+  const router = useIonRouter();
   const { prevContent, title, description, hiddenDescription } = useAppSelector(
     (state) => state.note,
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [isHidden, setIsHidden] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [textAreaInput, setTextAreaInput] = useState("");
-  const router = useIonRouter();
 
   const handleChevronClick = () => setIsHidden((prevState) => !prevState);
-
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
       target: { value },
@@ -86,8 +86,8 @@ const NoteContainer: React.FC = () => {
       isHidden={isHidden}
       isLoading={isLoading}
       toast={toast}
-      setToast={setToast}
       isButtonDisabled={isButtonDisabled}
+      setToast={setToast}
       handleChevronClick={handleChevronClick}
       handleTextAreaChange={handleTextAreaChange}
       handleSaveButtonClick={handleSaveButtonClick}

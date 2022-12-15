@@ -1,20 +1,20 @@
 import React from "react";
+import { useIonRouter } from "@ionic/react";
 import { BiChevronRight } from "react-icons/bi";
-import { useHistory } from "react-router-dom";
 
 import "./ResignDeleteAccountButton.style.scss";
 
 interface IProps {
-  defaultHref: string;
   title: String;
   icon?: React.ReactElement;
   disabled?: boolean;
 }
 
 const ResignDeleteAccountButton: React.FC<IProps> = (props: IProps) => {
-  const { defaultHref, title, icon, disabled } = props;
-  const history = useHistory();
-  const onClickHandler = () => history.push(defaultHref);
+  const { title, icon, disabled } = props;
+
+  const router = useIonRouter();
+  const onClickHandler = () => router.goBack();
 
   return (
     <button

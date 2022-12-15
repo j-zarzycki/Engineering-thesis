@@ -1,9 +1,6 @@
-import { IonContent, IonPage } from "@ionic/react";
 import React from "react";
+import { IonContent, IonPage } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
 
 import MainImg from "@Assets/main.png";
 import BackButton from "@Components/BackButton";
@@ -11,11 +8,12 @@ import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import Pet from "@Components/Pet";
 import SaveActivityButton from "@Components/SaveActivityButton";
 
+import "swiper/css";
 import "./PreviousDay.style.scss";
 
 interface IProps {
-  onProceedButtonClick(): void;
   slideElements: number;
+  onProceedButtonClick(): void;
 }
 
 const PreviousDay: React.FC<IProps> = (props: IProps) => {
@@ -24,7 +22,7 @@ const PreviousDay: React.FC<IProps> = (props: IProps) => {
   const renderHeader = () => {
     return (
       <div className="previous-day__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

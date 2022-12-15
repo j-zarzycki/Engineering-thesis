@@ -4,10 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import { BiChevronRight } from "react-icons/bi";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./Creativity.style.scss";
+import { ToastType } from "@Types/toast.type";
+import { swiperDefaultOptions } from "@Constants/swiper.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
@@ -15,33 +13,29 @@ import SaveActivityButton from "@Components/SaveActivityButton";
 import Pet from "@Components/Pet";
 import CancelButton from "@Components/CancelButton";
 
+import "swiper/css";
+import "./Creativity.style.scss";
+
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(): void;
-  setToast(value: {}): void;
-  onProceedButtonClick(): void;
-  setSwiper(value: any): void;
-  onSlideChangeHandler(slide: SwiperType): void;
-  onGenerateSubject(): void;
   isLoading: boolean;
-  toast: any;
+  toast: ToastType;
   currentSlide: number;
   swiper: any;
   img: string;
   subjectShort: string;
   subjectLong: string;
   slideElements: number;
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
+  onGenerateSubject(): void;
 }
 
 const Creativity: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    onGenerateSubject,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
@@ -50,6 +44,13 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
     subjectShort,
     subjectLong,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
+    onGenerateSubject,
   } = props;
 
   const renderLoader = () => {
@@ -64,6 +65,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -78,7 +80,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
   const renderHeader = () => {
     return (
       <div className="creativity__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -110,11 +112,10 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="creativity__swiper">
         <Swiper
-          effect="fade"
           centeredSlides
-          slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
           onSlideChange={(slide) => onSlideChangeHandler(slide)}
+          {...swiperDefaultOptions}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -164,6 +165,7 @@ const Creativity: React.FC<IProps> = (props: IProps) => {
         </div>
       );
     }
+
     if (swiper?.activeIndex >= 2)
       return (
         <div className="creativity__final-buttons">

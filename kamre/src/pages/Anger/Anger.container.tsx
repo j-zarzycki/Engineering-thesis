@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
+import { Swiper as SwiperTypes } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
+import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import Angry from "@Assets/angry.png";
 import Question from "@Assets/what.png";
-import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import Anger from "./Anger.component";
 
 const AngerContainer: React.FC = () => {
+  const slideElements = 3;
+  const dispatch = useAppDispatch();
+  const router = useIonRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
+  const [swiper, setSwiper] = useState<SwiperTypes>();
   const [img, setImg] = useState(Angry);
   const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
   const [slideInputValue, setSlideInputValue] = useState("");
   const [isAddingDisabled, setIsAddingDisabled] = useState(true);
-  const dispatch = useAppDispatch();
   const [pageController, setPageController] = useState({
     isMainContextVisible: true,
     isAngerListVisible: false,
     isFinalVisible: false,
   });
-  const router = useIonRouter();
-  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -88,7 +90,7 @@ const AngerContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
     setImg(Angry);
 
     if (swiper?.activeIndex === 1) setImg(Question);
@@ -129,9 +131,10 @@ const AngerContainer: React.FC = () => {
   };
 
   const onSlideChangeHandler = () => {
-    if (swiper?.activeIndex === 1) setImg(Question);
-    if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
+    const swiperActiveIndex = Number(swiper?.activeIndex);
+    if (swiperActiveIndex === 1) setImg(Question);
+    if (swiperActiveIndex <= 2) setCurrentSlide(swiperActiveIndex);
+    if (swiperActiveIndex > 1) swiper!.allowTouchMove = false;
   };
 
   useEffect(() => {
@@ -141,7 +144,6 @@ const AngerContainer: React.FC = () => {
   return (
     <Anger
       isLoading={isLoading}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
@@ -150,8 +152,9 @@ const AngerContainer: React.FC = () => {
       toast={toast}
       pageController={pageController}
       slidesInputsValue={slidesInputsValue}
-      setToast={setToast}
       isAddingDisabled={isAddingDisabled}
+      setToast={setToast}
+      setSwiper={setSwiper}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}

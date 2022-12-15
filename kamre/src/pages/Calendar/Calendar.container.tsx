@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useIonViewWillEnter } from "@ionic/react";
+import { useIonRouter, useIonViewWillEnter } from "@ionic/react";
 
+import { ToastType } from "@Types/toast.type";
 import { CalendarResponseType, CalendarDayType } from "@Types/calendar.type";
 import apiService from "@Services/api.service";
 import Calendar from "./Calendar.component";
 
 const CalendarContainer: React.FC = () => {
-  const history = useHistory();
-  const [dayData, setDayData] = useState<CalendarResponseType[]>([]);
+  const router = useIonRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [dayData, setDayData] = useState<CalendarResponseType[]>([]);
   const [clickedDay, setClickedDay] = useState<CalendarDayType>({
     day: "",
     month: "",
@@ -19,17 +19,24 @@ const CalendarContainer: React.FC = () => {
     fullDate: "",
   });
 
-  const onChangeHandler = (e: CalendarDayType) => {
-    setClickedDay(e);
+  const onChangeHandler = (date: CalendarDayType) => {
+    setClickedDay(date);
   };
 
   const onMonthChangeHandler = (_month: number) => {
-    console.log(_month);
+    const activeElements = document.querySelectorAll(
+      ".kamre-calendar__day--active",
+    );
+    activeElements.forEach((elem) => {
+      elem?.classList.remove("kamre-calendar__day--active");
+    });
     setDayData([]);
+    console.log(_month);
   };
 
   const getDayData = async () => {
     const { day, month, year } = clickedDay;
+
     setIsLoading(true);
     await apiService
       .GetDay(day, month, year)
@@ -43,7 +50,7 @@ const CalendarContainer: React.FC = () => {
           message: "Wystąpił błąd podczas wczytywania danych.",
         });
 
-        history.push("/");
+        router.push("/", "forward");
       });
   };
 

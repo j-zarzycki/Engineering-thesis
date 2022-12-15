@@ -9,6 +9,7 @@ const PreviousDayContainer: React.FC = () => {
   const slideElements = 1;
   const router = useIonRouter();
   const dispatch = useAppDispatch();
+
   const onProceedButtonClick = () => {
     dispatch(
       createNote({

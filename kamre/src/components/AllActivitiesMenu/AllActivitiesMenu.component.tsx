@@ -1,6 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
-
-import "./AllActivitiesMenu.style.scss";
+import React, { forwardRef } from "react";
 import {
   IonAccordion,
   IonAccordionGroup,
@@ -14,52 +12,44 @@ import {
   IonTitle,
   IonToast,
   IonToolbar,
-  useIonRouter,
 } from "@ionic/react";
-import apiService from "@Services/api.service";
-import { useHistory } from "react-router";
+
 import { AllActivitiesType } from "@Types/allActivities.type";
 import { RecommendationsType } from "@Types/recommendations.type";
 
-const AllMenu = forwardRef((_props, ref: any) => {
-  const router = useIonRouter();
-  const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
-  const [AllActivitiesData, setAllActivitiesData] = useState<AllActivitiesType>(
-    {
-      Aktywne: [],
-      Bierne: [],
-      "Pozytywne emocje": [],
-      "Zmiana myślenia": [],
-    },
-  );
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+import "./AllActivitiesMenu.style.scss";
 
-  const onItemClick = (route: string) => {
-    ref.current?.toggle();
-    router.push(`${route}`, "forward");
-  };
+interface IProps {
+  isLoading: boolean;
+  toast: { isOpen: boolean; message: string };
+  allActivitiesData: AllActivitiesType;
+  onItemClick(route: string): void;
+  setToast(toast: { isOpen: boolean; message: string }): void;
+}
+
+const AllActivitiesMenu = forwardRef((props: IProps, menuRef: any) => {
+  const { isLoading, toast, allActivitiesData, onItemClick, setToast } = props;
 
   const renderAllActivitiesCards = (type: string) => {
     let category: Array<RecommendationsType>;
     switch (type) {
       case "Aktywne":
-        category = AllActivitiesData.Aktywne;
+        category = allActivitiesData.Aktywne;
         break;
       case "Bierne":
-        category = AllActivitiesData.Bierne;
+        category = allActivitiesData.Bierne;
         break;
       case "Pozytywne emocje":
-        category = AllActivitiesData["Pozytywne emocje"];
+        category = allActivitiesData["Pozytywne emocje"];
         break;
       case "Zmiana myślenia":
-        category = AllActivitiesData["Zmiana myślenia"];
+        category = allActivitiesData["Zmiana myślenia"];
         break;
       default:
         category = [];
     }
+
     return category.map((activity: RecommendationsType) => {
-      console.log(`${activity.name}: ${activity.url}`);
       return (
         <IonItem
           className="menu-nested-item"
@@ -71,26 +61,9 @@ const AllMenu = forwardRef((_props, ref: any) => {
     });
   };
 
-  const getAllActivitiesData = async () => {
-    setIsLoading(true);
-    await apiService
-      .GetAllActivities()
-      .then(({ data: { res } }) => {
-        setAllActivitiesData(res);
-      })
-      .finally(() => setIsLoading(false))
-      .catch(() => {
-        setToast({
-          isOpen: true,
-          message: "Wystąpił błąd podczas wczytywania danych.",
-        });
-
-        history.push("/all");
-      });
-  };
-
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -112,15 +85,11 @@ const AllMenu = forwardRef((_props, ref: any) => {
     );
   };
 
-  useEffect(() => {
-    getAllActivitiesData();
-  }, []);
-
   return (
     <IonMenu
       className="activities-menu"
       contentId="main-content"
-      ref={ref}
+      ref={menuRef}
       side="end"
     >
       {renderToast()}
@@ -170,4 +139,4 @@ const AllMenu = forwardRef((_props, ref: any) => {
   );
 });
 
-export default AllMenu;
+export default AllActivitiesMenu;

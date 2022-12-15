@@ -5,10 +5,12 @@ import "./MessageChoice.style.scss";
 interface IProps {
   value: string;
   activityIndex: number;
-  onClick: (obj: { value: string; activityIndex: number }) => void;
+  onClick(answer: { value: string; activityIndex: number }): void;
 }
 
-const MessageChoice: React.FC<IProps> = ({ onClick, value, activityIndex }) => {
+const MessageChoice: React.FC<IProps> = (props: IProps) => {
+  const { value, activityIndex, onClick } = props;
+
   const generateKey = () => {
     return `message_${new Date().getTime()}`;
   };

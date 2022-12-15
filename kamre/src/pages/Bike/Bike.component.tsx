@@ -3,10 +3,8 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./Bike.style.scss";
+import { ToastType } from "@Types/toast.type";
+import { swiperDefaultOptions } from "@Constants/swiper.constants";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
@@ -14,41 +12,38 @@ import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 
+import "swiper/css";
+import "./Bike.style.scss";
+
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-
-  onCreateActivityWithContent(): void;
-
-  setToast(value: {}): void;
-
-  onProceedButtonClick(): void;
-
-  setSwiper(value: any): void;
-
-  onSlideChangeHandler(slide: SwiperType): void;
-
   isLoading: boolean;
-  toast: any;
   currentSlide: number;
-  swiper: any;
   img: string;
   slideElements: number;
+  swiper: any;
+  toast: ToastType;
+  setToast(toast: ToastType): void;
+  setSwiper(swiper: SwiperType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
 }
 
 const Bike: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
     img,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
 
   const renderLoader = () => {
@@ -79,7 +74,7 @@ const Bike: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="bike__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -111,11 +106,10 @@ const Bike: React.FC<IProps> = (props: IProps) => {
     return (
       <div className="bike__swiper">
         <Swiper
-          effect="fade"
-          centeredSlides
-          slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
           onSlideChange={(slide) => onSlideChangeHandler(slide)}
+          centeredSlides
+          {...swiperDefaultOptions}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">

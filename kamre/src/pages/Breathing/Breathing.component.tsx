@@ -9,16 +9,17 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-import "swiper/css";
-
+import { ToastType } from "@Types/toast.type";
+import { swiperDefaultOptions } from "@Constants/swiper.constants";
+import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import ProceedButton from "@Components/ProceedButton";
 import BackButton from "@Components/BackButton";
 import CancelButton from "@Components/CancelButton";
-
 import MainImg from "@Assets/main.png";
 import Smile from "@Assets/smile.png";
+
+import "swiper/css";
 import "./Breathing.style.scss";
-import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 
 interface IProps {
   isPlaying: boolean;
@@ -26,13 +27,13 @@ interface IProps {
   counter: number;
   renderType: string;
   isLoading: boolean;
-  toast: any;
   currentSlide: number;
-  swiper: any;
   slideElements: number;
+  swiper: any;
+  toast: ToastType;
   handleButtonClick(): void;
   onCancelButtonClick(): void;
-  setSwiper(value: any): void;
+  setSwiper(swiper: SwiperType): void;
   onSlideChangeHandler(slide: SwiperType): void;
   onProceedButtonClick(): void;
 }
@@ -77,12 +78,11 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       <div className="breathing__swiper">
         {renderHorizontalProgressBar()}
         <Swiper
-          effect="fade"
           autoHeight
           centeredSlides
-          slidesPerView={1}
           onSwiper={(swiperData) => setSwiper(swiperData)}
           onSlideChange={(slide) => onSlideChangeHandler(slide)}
+          {...swiperDefaultOptions}
         >
           <SwiperSlide>
             <div className="swiper-slide__wrapper">
@@ -165,7 +165,6 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
       <>
         {renderImage()}
         {isPlaying ? renderTimer() : renderDescription()}
-
         {!isPlaying && renderButtons()}
       </>
     );
@@ -175,7 +174,7 @@ const Breathing: React.FC<IProps> = (props: IProps) => {
     if (!isPlaying) {
       return (
         <div className="breathing__header-top">
-          <BackButton defaultHref="/home" />
+          <BackButton />
         </div>
       );
     }
