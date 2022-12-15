@@ -3,47 +3,47 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./SoundMix.style.scss";
+import { ToastType } from "@Types/toast.type";
+import { SOUND_MIX_URL } from "@Constants/soundMix.constatns";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
 import SaveActivityButton from "@Components/SaveActivityButton";
 import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
-import { SOUND_MIX_URL } from "@Constants/soundMix.constatns";
+
+import "swiper/css";
+import "./SoundMix.style.scss";
 
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(): void;
-  setToast(value: {}): void;
-  onProceedButtonClick(): void;
-  setSwiper(value: any): void;
-  onSlideChangeHandler(slide: SwiperType): void;
   isLoading: boolean;
-  toast: any;
+  toast: ToastType;
   currentSlide: number;
   swiper: any;
   img: string;
   slideElements: number;
+  setSwiper(swiper: SwiperType): void;
+  setToast(toast: ToastType): void;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
 }
 
 const SoundMix: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
     img,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
   const videoUrl = SOUND_MIX_URL;
 
@@ -59,6 +59,7 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -75,7 +76,7 @@ const SoundMix: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="soundmix__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };

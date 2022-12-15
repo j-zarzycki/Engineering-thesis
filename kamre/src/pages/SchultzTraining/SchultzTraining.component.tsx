@@ -3,10 +3,8 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-
-import "./SchultzTraining.style.scss";
+import { ToastType } from "@Types/toast.type";
+import MainImg from "@Assets/main.png";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import BackButton from "@Components/BackButton";
 import ProceedButton from "@Components/ProceedButton";
@@ -15,35 +13,36 @@ import CancelButton from "@Components/CancelButton";
 import Pet from "@Components/Pet";
 import { SCHULTZ_TRAINING_URL } from "@Constants/schultzTraining.constatns";
 
+import "swiper/css";
+import "./SchultzTraining.style.scss";
+
 interface IProps {
-  onCreateActivityWithNoContent(): Promise<void>;
-  onCreateActivityWithContent(): void;
-  setToast(value: {}): void;
-  onProceedButtonClick(): void;
-  setSwiper(value: any): void;
-  onSlideChangeHandler(slide: SwiperType): void;
   isLoading: boolean;
-  toast: any;
+  toast: ToastType;
   currentSlide: number;
   swiper: any;
-  img: string;
   slideElements: number;
+  onCreateActivityWithNoContent(): Promise<void>;
+  onCreateActivityWithContent(): void;
+  setToast(toast: ToastType): void;
+  onProceedButtonClick(): void;
+  setSwiper(swiper: SwiperType): void;
+  onSlideChangeHandler(slide: SwiperType): void;
 }
 
 const SchultzTraining: React.FC<IProps> = (props: IProps) => {
   const {
-    onCreateActivityWithNoContent,
-    onCreateActivityWithContent,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
-    img,
     slideElements,
+    setToast,
+    setSwiper,
+    onCreateActivityWithNoContent,
+    onCreateActivityWithContent,
+    onProceedButtonClick,
+    onSlideChangeHandler,
   } = props;
   const videoUrl = SCHULTZ_TRAINING_URL;
 
@@ -59,6 +58,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -75,7 +75,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
 
     return (
       <div className="schultz__header">
-        <BackButton defaultHref="/home" />
+        <BackButton />
       </div>
     );
   };
@@ -100,7 +100,7 @@ const SchultzTraining: React.FC<IProps> = (props: IProps) => {
     }
     return (
       <Pet
-        src={img}
+        src={MainImg}
         alt="Uśmiechnięta ośmiorniczka jpg"
         height="250px"
         paddingTop="20px"

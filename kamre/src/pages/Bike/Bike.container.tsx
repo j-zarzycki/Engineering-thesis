@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useIonRouter } from "@ionic/react";
-import { Swiper } from "swiper/types";
+import { Swiper as SwiperType } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
 import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
@@ -14,17 +15,17 @@ import Question from "@Assets/what.png";
 import Bike from "./Bike.component";
 
 const BikeContainer: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
   const slideElements = 5;
-  const currentDateWithTime: String = getFullDateWithTime();
   const router = useIonRouter();
   const dispatch = useAppDispatch();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperType>();
+  const [img, setImg] = useState(MainImg);
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const createBikeWithNoContent = async () => {
+    const currentDateWithTime: String = getFullDateWithTime();
     setIsLoading(true);
     await apiService
       .CreateActivityWithNoContent(currentDateWithTime, "Jazda na rowerze")
@@ -60,7 +61,7 @@ const BikeContainer: React.FC = () => {
     swiper?.slideNext();
   };
 
-  const onSlideChangeHandler = (slide: Swiper) => {
+  const onSlideChangeHandler = (slide: SwiperType) => {
     setCurrentSlide(slide?.activeIndex);
     setImg(Smile);
     if (slide?.activeIndex === 2 || slide?.activeIndex === 4) setImg(Question);
@@ -68,23 +69,19 @@ const BikeContainer: React.FC = () => {
     if (slide?.activeIndex === 3) setImg(Dumb);
   };
 
-  useEffect(() => {
-    setImg(MainImg);
-  }, []);
-
   return (
     <Bike
-      onCreateActivityWithNoContent={createBikeWithNoContent}
-      onCreateActivityWithContent={createBikeWithContent}
-      onProceedButtonClick={onProceedButtonClick}
-      setToast={setToast}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       isLoading={isLoading}
       toast={toast}
       swiper={swiper}
       img={img}
       slideElements={slideElements}
+      onCreateActivityWithNoContent={createBikeWithNoContent}
+      onCreateActivityWithContent={createBikeWithContent}
+      onProceedButtonClick={onProceedButtonClick}
+      setToast={setToast}
+      setSwiper={setSwiper}
       onSlideChangeHandler={onSlideChangeHandler}
     />
   );

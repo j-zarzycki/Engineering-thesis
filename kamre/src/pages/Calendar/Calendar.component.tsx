@@ -1,18 +1,20 @@
 import React from "react";
 import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
-import ReactCalendar from "@Components/Calendar";
 
+import { ToastType } from "@Types/toast.type";
 import { CalendarResponseType, CalendarDayType } from "@Types/calendar.type";
+import ReactCalendar from "@Components/Calendar";
 import ShowHideText from "@Components/ShowHideText";
+
 import "./Calendar.style.scss";
 
 interface IProps {
-  toast: { isOpen: boolean; message: string };
   isLoading: boolean;
   dayData: CalendarResponseType[];
-  onChangeHandler: (e: CalendarDayType) => void;
-  onMonthChangeHandler: (e: any) => void;
-  setToast(value: {}): void;
+  toast: ToastType;
+  onChangeHandler(date: CalendarDayType): void;
+  onMonthChangeHandler(month: number): void;
+  setToast(toast: ToastType): void;
 }
 
 const Calendar: React.FC<IProps> = (props: IProps) => {

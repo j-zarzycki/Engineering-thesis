@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
@@ -10,9 +11,11 @@ import Question from "@Assets/what.png";
 import GoodWord from "./GoodWord.component";
 
 const GoodWordContainer: React.FC = () => {
+  const router = useIonRouter();
+  const slideElements = 3;
   const [canSwipe, setCanSwipe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
@@ -24,8 +27,6 @@ const GoodWordContainer: React.FC = () => {
     isMainContextVisible: true,
     isFinalVisible: false,
   });
-  const router = useIonRouter();
-  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;

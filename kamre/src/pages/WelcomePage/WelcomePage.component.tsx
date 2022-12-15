@@ -3,9 +3,7 @@ import { IonContent, IonPage, IonLoading, IonToast } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
-// Import Swiper styles
-import "swiper/css";
-import "./WelcomePage.style.scss";
+import { ToastType } from "@Types/toast.type";
 import Input from "@Components/Input";
 import HorizontalProgressBar from "@Components/HorizontalProgressBar";
 import WelcomePageProceedButton from "@Components/WelcomePageProceedButton";
@@ -13,18 +11,12 @@ import WelcomePageStartButton from "@Components/WelcomePageStartButton";
 import WelcomePageRestoreDataButton from "@Components/WelcomePageRestoreDataButton";
 import Pet from "@Components/Pet";
 
+import "swiper/css";
+import "./WelcomePage.style.scss";
+
 interface IProps {
-  setToast(value: {}): void;
-  onProceedButtonClick(): void;
-  setSwiper(value: any): void;
-  onSlideChangeHandler(slide: SwiperType): void;
-  onStartButtonClick(): void;
-  onRecoveryButtonClick(): void;
-  onInputChange(e: any): void;
-  onCancelRecoveryButtonHandle(): void;
-  onRestoreDataButtonClick(): void;
   isLoading: boolean;
-  toast: any;
+  toast: ToastType;
   currentSlide: number;
   swiper: any;
   img: string;
@@ -35,27 +27,36 @@ interface IProps {
     isWelcomeViewVisible: boolean;
     isRecoveryViewVisible: boolean;
   };
+  setToast(toast: ToastType): void;
+  setSwiper(swiper: SwiperType): void;
+  onProceedButtonClick(): void;
+  onSlideChangeHandler(slide: SwiperType): void;
+  onStartButtonClick(): void;
+  onRecoveryButtonClick(): void;
+  onInputChange(e: any): void;
+  onCancelRecoveryButtonHandle(): void;
+  onRestoreDataButtonClick(): void;
 }
 
 const WelcomePage: React.FC<IProps> = (props: IProps) => {
   const {
-    onCancelRecoveryButtonHandle,
     pageController,
-    onStartButtonClick,
-    onRecoveryButtonClick,
-    onProceedButtonClick,
-    onSlideChangeHandler,
-    setToast,
-    setSwiper,
     isLoading,
     toast,
     swiper,
     currentSlide,
     img,
     slideElements,
-    onInputChange,
     recoveryRef,
     swiperRef,
+    setToast,
+    setSwiper,
+    onInputChange,
+    onCancelRecoveryButtonHandle,
+    onStartButtonClick,
+    onRecoveryButtonClick,
+    onProceedButtonClick,
+    onSlideChangeHandler,
     onRestoreDataButtonClick,
   } = props;
 
@@ -71,6 +72,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
 
   const renderToast = () => {
     const { isOpen, message } = toast;
+
     return (
       <IonToast
         isOpen={isOpen}
@@ -163,6 +165,7 @@ const WelcomePage: React.FC<IProps> = (props: IProps) => {
 
   const renderButtons = () => {
     const { isWelcomeViewVisible, isRecoveryViewVisible } = pageController;
+
     if (swiper?.activeIndex === 3 && isWelcomeViewVisible)
       return (
         <div className="welcome-page__final-buttons">

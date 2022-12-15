@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
+
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
+import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import MainImg from "@Assets/main.png";
 import quote from "@Assets/what.png";
-import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import Visualization from "./Visualization.component";
 
 const VisualizationContainer: React.FC = () => {
+  const currentDateWithTime: String = getFullDateWithTime();
+  const slideElements = 3;
   const router = useIonRouter();
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState<any>(null);
   const [img, setImg] = useState(MainImg);
@@ -26,9 +31,6 @@ const VisualizationContainer: React.FC = () => {
     isVisualizationListVisible: false,
     isFinalVisible: false,
   });
-  const currentDateWithTime: String = getFullDateWithTime();
-  const dispatch = useAppDispatch();
-  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -146,7 +148,6 @@ const VisualizationContainer: React.FC = () => {
   return (
     <Visualization
       isLoading={isLoading}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
@@ -155,8 +156,9 @@ const VisualizationContainer: React.FC = () => {
       toast={toast}
       pageController={pageController}
       slidesInputsValue={slidesInputsValue}
-      setToast={setToast}
       isAddingDisabled={isAddingDisabled}
+      setSwiper={setSwiper}
+      setToast={setToast}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}

@@ -6,7 +6,7 @@ interface IProps {
   alt: any;
   height: "200px" | string;
   paddingTop: "20px";
-  paddingBottom: "20px" | "10px"; // jeżeli ktoś chce dodać swój padding robi tak: | "15px"
+  paddingBottom: "20px" | "10px";
 }
 
 const Pet: React.FC<IProps> = (props: IProps) => {

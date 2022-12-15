@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIonViewWillEnter, useIonViewDidEnter } from "@ionic/react";
 import moment from "moment";
 
@@ -7,12 +7,14 @@ import apiService from "@Services/api.service";
 import Calendar from "./Calendar.component";
 
 interface IProps {
-  onChange: (e: any) => void;
-  onMonthChange: (e: any) => void;
+  onChange(e: any): void;
+  onMonthChange(month: number): void;
 }
 
 const CalendarContainer: React.FC<IProps> = (props: IProps) => {
   const { onChange, onMonthChange } = props;
+
+  const dayOfWeek = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
   const [isLoading, setIsLoading] = useState(false);
   const [monthData, setMonthData] = useState<CalendarResponseType[]>([]);
   const [currentYear, setCurrentYear] = useState(
@@ -21,7 +23,6 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
   const [currentMonth, setCurrentMonth] = useState(
     Number(moment().format("M")),
   );
-  const dayOfWeek = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
 
   const onNextMonthClick = () => {
     setCurrentMonth((prevState) => prevState + 1);
@@ -84,7 +85,7 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
     onChangeHandle(value);
   };
 
-  useIonViewWillEnter(() => {
+  const removeActiveDay = () => {
     const activeElements = document.querySelectorAll(
       ".kamre-calendar__day--active",
     );
@@ -92,18 +93,18 @@ const CalendarContainer: React.FC<IProps> = (props: IProps) => {
     activeElements.forEach((elem) => {
       elem?.classList.remove("kamre-calendar__day--active");
     });
+  };
+
+  useIonViewWillEnter(() => {
+    removeActiveDay();
   });
 
   useIonViewDidEnter(() => {
-    const activeElements = document.querySelectorAll(
-      ".kamre-calendar__day--active",
-    );
-
-    activeElements.forEach((elem) => {
-      elem?.classList.remove("kamre-calendar__day--active");
-    });
-
     getMonth();
+  }, []);
+
+  useEffect(() => {
+    removeActiveDay();
     onMonthChangeHandle();
   }, [currentMonth]);
 

@@ -6,11 +6,13 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const generateKey = () => {
-  return `message_${new Date().getTime()}`;
-};
+const MessageChoicesBox: React.FC<IProps> = (props: IProps) => {
+  const { children } = props;
 
-const MessageChoicesBox: React.FC<IProps> = ({ children }) => {
+  const generateKey = () => {
+    return `message_${new Date().getTime()}`;
+  };
+
   return (
     <div key={generateKey()} className="message-choices-box">
       {children}

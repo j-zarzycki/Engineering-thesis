@@ -1,6 +1,5 @@
-/* eslint-disable */
-import React, { useEffect, useState } from "react";
-import { Redirect, Route, Link } from "react-router-dom";
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -13,16 +12,12 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { triangle, flash, today } from "ionicons/icons";
-import { Device } from "@capacitor/device";
-import moment from "moment";
-import { App as CapacitorApp } from "@capacitor/app";
 
+import { setupApp } from "@Services/app.service";
+import useLocalStorage from "@Hooks/useLocalStorage";
 import SmallSteps from "@Pages/SmallSteps";
 import Note from "@Pages/Note";
 import PreviousDay from "@Pages/PreviousDay";
-import { authLogin } from "@Actions/auth";
-import useAppSelector from "@Hooks/useAppSelector";
-import useAppDispatch from "@Hooks/useAppDispatch";
 import GoodWord from "@Pages/GoodWord";
 import Feet from "@Pages/Feet";
 import Gratitude from "./pages/Gratitude";
@@ -76,19 +71,11 @@ import "./pages/App.scss";
 import YtPage from "./pages/YtPage";
 
 setupIonicReact();
-
-CapacitorApp.addListener("backButton", ({ canGoBack }) => {
-  if (canGoBack && localStorage.getItem("shouldHomeRender") === "false") {
-    CapacitorApp.exitApp();
-  }
-
-  if (!canGoBack) {
-    CapacitorApp.exitApp();
-  }
-});
+setupApp();
 
 const App: React.FC = () => {
-  let shouldHomeRender = localStorage.getItem("shouldHomeRender");
+  const { value: shouldHomeRender } = useLocalStorage("shouldHomeRender");
+
   return (
     <IonApp>
       <IonReactRouter>
@@ -147,12 +134,7 @@ const App: React.FC = () => {
           <IonTabBar slot="bottom">
             <IonTabButton tab="emergency" href="/emergency">
               <IonIcon icon={flash} />
-              <IonLabel>
-                <>
-                  Szybka pomoc{" "}
-                  {console.log("shouldHomeRender = ", shouldHomeRender)}
-                </>
-              </IonLabel>
+              <IonLabel>Szybka pomoc</IonLabel>
             </IonTabButton>
             <IonTabButton tab="home" href="/home">
               <IonIcon icon={triangle} />

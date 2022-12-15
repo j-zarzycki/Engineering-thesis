@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
-
-import "./ActivitiesCard.style.scss";
+import { useIonRouter } from "@ionic/react";
 
 import ActivityCard from "@Components/ActivityCard";
-import { useIonRouter } from "@ionic/react";
+
+import "./ActivitiesCard.style.scss";
 
 const ActivitiesCard = forwardRef((_props, ref: any) => {
   const cardVariant = "small";

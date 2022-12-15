@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
 import { SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
 import { getFullDateWithTime } from "@Utils/date";
+import { createNote } from "@Store/slices/noteSlice";
 import apiService from "@Services/api.service";
 import Input from "@Components/Input";
 import Rest from "@Assets/rest.png";
 import quote from "@Assets/what.png";
 import Sad from "@Assets/sad.png";
-import { createNote } from "@Store/slices/noteSlice";
 import useAppDispatch from "@Hooks/useAppDispatch";
 import Weights from "./Weights.component";
 
 const WeightsContainer: React.FC = () => {
+  const slideElements = 3;
+  const router = useIonRouter();
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
+  const [swiper, setSwiper] = useState<SwiperType>();
   const [img, setImg] = useState(Sad);
   const [slidesInputsValue, setSlidesInputsValue] = useState<string[]>([]);
   const [slides, setSlides] = useState<React.ReactElement[]>([]);
@@ -27,9 +32,6 @@ const WeightsContainer: React.FC = () => {
     isWeightsListVisible: false,
     isFinalVisible: false,
   });
-  const router = useIonRouter();
-  const dispatch = useAppDispatch();
-  const slideElements = 3;
 
   const generateKey = () => {
     return `slide_${new Date().getTime()}`;
@@ -89,7 +91,7 @@ const WeightsContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
   };
   const createWeightsWithNoContent = async () => {
     setIsLoading(true);
@@ -126,12 +128,13 @@ const WeightsContainer: React.FC = () => {
   };
 
   const onSlideChangeHandler = () => {
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
     setImg(Sad);
     if (swiper?.activeIndex === 1) setImg(quote);
-    if (swiper?.activeIndex <= 2) setCurrentSlide(swiper?.activeIndex);
-    if (swiper?.activeIndex > 1) swiper.allowTouchMove = false;
-    if (swiper?.activeIndex === slideElements - 1) {
+    if (Number(swiper?.activeIndex) <= 2)
+      setCurrentSlide(Number(swiper?.activeIndex));
+    if (Number(swiper?.activeIndex) > 1) swiper!.allowTouchMove = false;
+    if (Number(swiper?.activeIndex) === slideElements - 1) {
       setImg(Rest);
     }
   };
@@ -143,7 +146,6 @@ const WeightsContainer: React.FC = () => {
   return (
     <Weights
       isLoading={isLoading}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       slideElements={slideElements}
       img={img}
@@ -152,8 +154,9 @@ const WeightsContainer: React.FC = () => {
       toast={toast}
       pageController={pageController}
       slidesInputsValue={slidesInputsValue}
-      setToast={setToast}
       isAddingDisabled={isAddingDisabled}
+      setToast={setToast}
+      setSwiper={setSwiper}
       onProceedButtonClick={onProceedButtonClick}
       onAddSlide={onAddSlide}
       onInputChange={onInputChange}

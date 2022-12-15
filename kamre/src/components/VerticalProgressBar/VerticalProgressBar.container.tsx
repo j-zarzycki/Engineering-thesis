@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-
 import React, { useEffect } from "react";
 
 import VerticalProgressBar from "./VerticalProgressBar.component";

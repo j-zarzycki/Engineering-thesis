@@ -6,7 +6,9 @@ interface IProps {
   value: string;
 }
 
-const MessageAnswer: React.FC<IProps> = ({ value }) => {
+const MessageAnswer: React.FC<IProps> = (props: IProps) => {
+  const { value } = props;
+
   return (
     <div className="message-answer">
       <div className="message-answer__wrapper">

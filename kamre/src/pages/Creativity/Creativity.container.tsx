@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useIonRouter } from "@ionic/react";
-import { Swiper } from "swiper/types";
+import { Swiper as SwiperType } from "swiper/types";
 
+import { ToastType } from "@Types/toast.type";
 import { createNote } from "@Store/slices/noteSlice";
+import { getFullDateWithTime } from "@Utils/date";
 import useAppDispatch from "@Hooks/useAppDispatch";
-import SWIPE_ELEMENTS from "@Constants/creativity.constants";
 import MainImg from "@Assets/main.png";
 import Question from "@Assets/what.png";
 import Think from "@Assets/think.png";
 import apiService from "@Services/api.service";
-import { getFullDateWithTime } from "@Utils/date";
 import Creativity from "./Creativity.component";
 
 const CreativityContainer: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiper, setSwiper] = useState<any>(null);
-  const [img, setImg] = useState("");
-  const [subjectShort, setsubjectShort] = useState("");
-  const [subjectLong, setsubjectLong] = useState("");
-  const [toast, setToast] = useState({ isOpen: false, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
-  const slideElements = SWIPE_ELEMENTS;
-  const currentDateWithTime: String = getFullDateWithTime();
+  const slideElements = 3;
   const router = useIonRouter();
   const dispatch = useAppDispatch();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperType>();
+  const [img, setImg] = useState(Think);
+  const [subjectShort, setsubjectShort] = useState("");
+  const [subjectLong, setsubjectLong] = useState("");
+  const [toast, setToast] = useState<ToastType>({ isOpen: false, message: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const subjects = [
     { shortText: "kawę", longText: "zaparzenie kawy" },
     { shortText: "herbatę", longText: "zaparzenie herbaty" },
@@ -42,6 +41,7 @@ const CreativityContainer: React.FC = () => {
   ];
 
   const createCreativityWithNoContent = async () => {
+    const currentDateWithTime: String = getFullDateWithTime();
     setIsLoading(true);
     await apiService
       .CreateActivityWithNoContent(currentDateWithTime, "Mięsień kreatywności")
@@ -75,10 +75,10 @@ const CreativityContainer: React.FC = () => {
 
   const onProceedButtonClick = () => {
     swiper?.slideNext();
-    setCurrentSlide(swiper?.activeIndex);
+    setCurrentSlide(Number(swiper?.activeIndex));
   };
 
-  const onSlideChangeHandler = (slide: Swiper) => {
+  const onSlideChangeHandler = (slide: SwiperType) => {
     setCurrentSlide(slide?.activeIndex);
     setImg(Think);
     if (slide?.activeIndex === 1) setImg(Question);
@@ -93,18 +93,11 @@ const CreativityContainer: React.FC = () => {
   };
 
   useEffect(() => {
-    setImg(Think);
     generateSubject();
   }, []);
 
   return (
     <Creativity
-      onGenerateSubject={generateSubject}
-      onCreateActivityWithNoContent={createCreativityWithNoContent}
-      onCreateActivityWithContent={createCreativityWithContent}
-      onProceedButtonClick={onProceedButtonClick}
-      setToast={setToast}
-      setSwiper={setSwiper}
       currentSlide={currentSlide}
       isLoading={isLoading}
       toast={toast}
@@ -113,6 +106,12 @@ const CreativityContainer: React.FC = () => {
       subjectShort={subjectShort}
       subjectLong={subjectLong}
       slideElements={slideElements}
+      setToast={setToast}
+      setSwiper={setSwiper}
+      onGenerateSubject={generateSubject}
+      onCreateActivityWithNoContent={createCreativityWithNoContent}
+      onCreateActivityWithContent={createCreativityWithContent}
+      onProceedButtonClick={onProceedButtonClick}
       onSlideChangeHandler={onSlideChangeHandler}
     />
   );

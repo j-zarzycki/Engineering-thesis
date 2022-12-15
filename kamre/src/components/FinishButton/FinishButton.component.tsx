@@ -3,13 +3,13 @@ import React from "react";
 import "./FinishButton.style.scss";
 
 interface IProps {
-  onClick(): void;
   className?: string;
   title: string;
+  onClick(): void;
 }
 
 const FinishButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, className, title } = props;
+  const { className, title, onClick } = props;
   return (
     <button
       className={`finish-button ${className}`}

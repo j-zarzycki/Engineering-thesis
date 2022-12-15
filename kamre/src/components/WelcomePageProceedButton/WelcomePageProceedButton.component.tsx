@@ -3,13 +3,13 @@ import React from "react";
 import "./WelcomePageProceedButton.style.scss";
 
 interface IProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   title: String;
   disabled?: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const WelcomePageProceedButton: React.FC<IProps> = (props: IProps) => {
-  const { onClick, title, disabled } = props;
+  const { title, disabled, onClick } = props;
 
   return (
     <button

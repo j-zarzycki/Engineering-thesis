@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+
 import { MessageLoader, MessageQuestion } from "@Components/Message";
 
 import "./Chat.style.scss";
@@ -19,7 +20,9 @@ const Chat = forwardRef((props: IProps, ref: any) => {
   };
 
   const renderIndicator = () => {
-    return isIndicatorVisible && <MessageQuestion value={<MessageLoader />} />;
+    return isIndicatorVisible ? (
+      <MessageQuestion value={<MessageLoader />} />
+    ) : null;
   };
 
   return (

@@ -8,14 +8,12 @@ interface IProps {
   activityDescription: string;
 }
 
-const MessageActivity: React.FC<IProps> = ({
-  activityTitle,
-  activityDescription,
-}) => {
+const MessageActivity: React.FC<IProps> = (props: IProps) => {
+  const { activityTitle, activityDescription } = props;
+
   const router = useIonRouter();
 
   const onActivityClick = () => {
-    console.log("activity =", activityTitle);
     switch (activityTitle[0]) {
       case "Małe kroki":
         router.push("/smallsteps", "forward");
