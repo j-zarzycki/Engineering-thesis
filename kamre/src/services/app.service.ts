@@ -33,7 +33,7 @@ export const setupApp = () => {
       window.location.pathname === "/403" &&
       shouldHomeRender === "true"
     ) {
-      window.location.replace("/home");
+      window.location.replace("/verify");
     }
 
     if (
