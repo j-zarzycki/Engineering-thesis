@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const getFullDateWithTime = () => {
   const today = new Date();
   const date = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
@@ -28,4 +30,19 @@ export const splitDate = (date: String) => {
     year,
     day,
   };
+};
+
+export const checkIfTokenIsValid = (tokenExp: string) => {
+  const currentDate = moment();
+  const tokenExpMoment = moment(tokenExp).add(5, "minutes");
+
+  console.log("currDate = ", currentDate);
+  console.log("tokexExcp = ", tokenExpMoment);
+  console.log("valid = ", moment(currentDate).isAfter(tokenExpMoment));
+
+  if (moment(currentDate).isAfter(tokenExpMoment)) {
+    return false;
+  }
+
+  return true;
 };

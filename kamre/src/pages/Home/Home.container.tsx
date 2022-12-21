@@ -6,16 +6,11 @@ import {
   Gesture,
 } from "@ionic/react";
 
-import { authLogin } from "@Store/actions/auth";
-import useLocalStorage from "@Hooks/useLocalStorage";
-import useAppDispatch from "@Hooks/useAppDispatch";
 import useLayout from "@Hooks/useLayout";
 import Home from "./Home.component";
 
 const HomeContainer: React.FC = () => {
   const { enableTabBar } = useLayout();
-  const { value: deviceId } = useLocalStorage("deviceId");
-  const dispatch = useAppDispatch();
   const router = useIonRouter();
   const recommendedActivitiesCardsRef = useRef<any>(null);
   const allActivitiesMenuComponentRef = useRef<HTMLIonMenuElement>(null);
@@ -31,7 +26,6 @@ const HomeContainer: React.FC = () => {
     allActivitiesMenuComponentRef.current?.toggle();
 
   useIonViewWillEnter(() => {
-    dispatch(authLogin(deviceId || ""));
     enableTabBar();
   }, []);
 
