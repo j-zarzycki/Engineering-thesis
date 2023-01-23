@@ -68,6 +68,20 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
     setIsContinuation(true);
   };
 
+  const generateNewActivity = async () => {
+    await apiService.ChatResult([1]).then(({ data: { results } }) => {
+      setConversationData((prevState) => [
+        ...prevState,
+        <MessageActivity activityTitle={results} activityDescription="" />,
+      ]);
+      handleScroll();
+    });
+
+    setIsIndicatorVisible(false);
+    setIsContinuation(true);
+  };
+  
+
   const renderConversationData = async () => {
     const { answers, questions } = chatData;
 
@@ -98,7 +112,7 @@ const ChatContainer: React.FC<IProps> = (props: IProps) => {
     ]);
 
     if (value === "Nie") {
-      renderActivity();
+      generateNewActivity();
       await delay(500);
       renderConversationData();
     } else if (value === "Tak") {
